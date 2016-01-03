@@ -13,6 +13,7 @@
     "pretender": "~0.10.1",
     "lodash": "~3.7.0",
     "Faker": "~3.0.0"
+    "uikit": "~2.24.3"
   },
   "resolutions": {
     "ember": "2.2.0"
