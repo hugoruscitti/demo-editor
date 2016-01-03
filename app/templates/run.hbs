@@ -4,4 +4,12 @@
 
 <h3>Título {{model.title}}</h3>
 
+<div class="">
+  <button type="button" {{action "run" model}} class="uk-button uk-button-success">RUN</button>
+</div>
+
+<div class="">
+  <canvas id="canvas" width="300" height="300"></canvas>
+</div>
+
 {{outlet}}
