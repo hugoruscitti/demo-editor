@@ -1,0 +1,21 @@
+<h2>Proyectos</h2>
+
+{{x-back}}
+
+<table class="uk-table uk-table-condensed">
+    <thead>
+        <tr>
+            <th>Nombre del proyecto</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+      {{#each model as |project|}}
+        <tr>
+            <td>{{project.title}}</td>
+            <td>{{#link-to "run" project}}Ejecutar{{/link-to}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+</table>
