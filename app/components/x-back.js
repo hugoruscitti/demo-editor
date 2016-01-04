@@ -5,7 +5,7 @@ export default Ember.Component.extend({
 
   actions: {
     back() {
-      window.history.back();
+      this.container.lookup('controller:application').transitionToRoute(this.get('to'));
     }
   }
 });
