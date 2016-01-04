@@ -6,13 +6,7 @@ export default Ember.Controller.extend({
   }),
   actions: {
     save(project) {
-      project.save().then(() => {
-      });
+      project.save();
     },
-    saveAndRun(project) {
-      project.save().then(() => {
-        return this.transitionToRoute("run", project);
-      });
-    }
   }
 });
