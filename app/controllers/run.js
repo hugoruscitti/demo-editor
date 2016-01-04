@@ -5,6 +5,9 @@ export default Ember.Controller.extend({
     run(project) {
       var code = project.get("initialCode");
       eval(code);
+    },
+    onLoadCanvas() {
+      this.send("run", this.get("model"));
     }
   }
 });

@@ -5,3 +5,8 @@ body {
 canvas {
   border: 2px solid #ccc;
 }
+
+textarea {
+  font-family: monospace;
+  font-size: medium;
+}

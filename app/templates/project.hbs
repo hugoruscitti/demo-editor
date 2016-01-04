@@ -14,7 +14,11 @@
       {{#each model as |project|}}
         <tr>
             <td>{{project.title}}</td>
-            <td>{{#link-to "run" project}}Ejecutar{{/link-to}}</td>
+            <td>
+              {{#link-to "run" project}}Ejecutar{{/link-to}}
+              ||
+              {{#link-to "edit" project}}Editar{{/link-to}}
+          </td>
         </tr>
       {{/each}}
     </tbody>

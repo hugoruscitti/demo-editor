@@ -1,0 +1,17 @@
+<h2>Editar el proyecto: {{model.title}}</h2>
+
+
+
+{{x-back}}
+[{{itsSaved}}]
+
+<div class="">
+  <button disabled={{itsSaved}} type="button" {{action "save" model}} class="uk-button uk-button-primary">Guardar</button>
+  <button type="button" {{action "saveAndRun" model}} class="uk-button uk-button-success">Ejecutar</button>
+</div>
+
+{{textarea value=model.initialCode cols=80 rows=20}}
+
+
+
+{{outlet}}

@@ -1,15 +1,16 @@
-<h2>Ejecutando el proyecto {{model.id}}</h2>
+<h2>Ejecutando el proyecto: {{model.title}}  <small>{{#link-to "edit" model}}Abrir en el editor{{/link-to}}</small></h2>
 
 {{x-back}}
 
 <h3>Título {{model.title}}</h3>
 
 <div class="">
-  <button type="button" {{action "run" model}} class="uk-button uk-button-success">RUN</button>
+  <button type="button" {{action "run" model}} class="uk-button uk-button-success">Ejecutar</button>
 </div>
 
 <div class="">
-  <canvas id="canvas" width="300" height="300"></canvas>
+  {{x-canvas onLoad="onLoadCanvas"}}
+
 </div>
 
 {{outlet}}
