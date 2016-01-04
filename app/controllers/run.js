@@ -4,7 +4,11 @@ export default Ember.Controller.extend({
   actions: {
     run(project) {
       var code = project.get("initialCode");
-      eval(code);
+      try {
+        eval(code);
+      } catch(exception) {
+        alert(exception);
+      }
     },
     onLoadCanvas() {
       this.send("run", this.get("model"));
