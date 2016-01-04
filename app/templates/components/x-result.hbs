@@ -1,0 +1,18 @@
+{{#if project}}
+
+<h3>Título {{project.title}}</h3>
+
+  <div class="button-container">
+
+  <button type="button" {{action "run" project}} class="uk-button uk-button-success">Ejecutar</button>
+</div>
+
+<div class="canvas-container">
+  {{x-canvas}}
+</div>
+
+{{yield}}
+
+{{else}}
+Se necesita un proyecto.
+{{/if}}

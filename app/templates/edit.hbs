@@ -1,9 +1,10 @@
 <h2>Editar el proyecto: {{model.title}}</h2>
 
 <div class="button-container">
-  {{x-back}}
+  {{x-back to="project"}}
   <button disabled={{itsSaved}} type="button" {{action "save" model}} class="uk-button uk-button-primary">Guardar</button>
   <button type="button" {{action "saveAndRun" model}} class="uk-button uk-button-success">Guardar y ejecutar</button>
+  {{#link-to "edit.previewModal" model}}Previsualizar{{/link-to}}
 </div>
 
 {{textarea value=model.initialCode cols=80 rows=20}}

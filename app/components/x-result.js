@@ -1,6 +1,12 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
+export default Ember.Component.extend({
+  didInsertElement() {
+    if (this.get("project")) {
+      this.send("run", this.get("project"));
+    }
+  },
+
   actions: {
     run(project) {
       var code = project.get("initialCode");
@@ -10,8 +16,5 @@ export default Ember.Controller.extend({
         alert(exception);
       }
     },
-    onLoadCanvas() {
-      this.send("run", this.get("model"));
-    }
   }
 });

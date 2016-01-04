@@ -33,3 +33,15 @@ textarea {
 button {
   margin-right: 5px !important;
 }
+
+
+.uk-button-yellow {
+  background-color: #CECE59;
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.uk-button-yellow:hover {
+  background-color: #E2E261;
+  color: white;
+}
