@@ -1,4 +1,9 @@
+@import "ember-modal-dialog/ember-modal-structure";
+@import "ember-modal-dialog/ember-modal-appearance";
 @import "bower_components/font-awesome/scss/font-awesome";
+@import "modal";
+
+
 body {
   margin: 1em;
 }
@@ -12,10 +17,19 @@ textarea {
   font-size: medium;
 }
 
-@import "ember-modal-dialog/ember-modal-structure";
-@import "ember-modal-dialog/ember-modal-appearance";
-@import "modal";
-
 .right {
   text-align: right;
+}
+
+.x-back-container {
+  display: inline-block;
+}
+
+.button-container {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+button {
+  margin-right: 5px !important;
 }
