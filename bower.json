@@ -13,7 +13,8 @@
     "pretender": "~0.10.1",
     "lodash": "~3.7.0",
     "Faker": "~3.0.0",
-    "uikit": "~2.24.3"
+    "uikit": "~2.24.3",
+    "font-awesome": "~4.4.0"
   },
   "resolutions": {
     "ember": "2.2.0"
