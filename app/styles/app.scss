@@ -1,0 +1,20 @@
+body {
+  margin: 1em;
+}
+
+canvas {
+  border: 2px solid #ccc;
+}
+
+textarea {
+  font-family: monospace;
+  font-size: medium;
+}
+
+@import "ember-modal-dialog/ember-modal-structure";
+@import "ember-modal-dialog/ember-modal-appearance";
+@import "modal";
+
+.right {
+  text-align: right;
+}
