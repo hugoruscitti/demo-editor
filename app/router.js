@@ -16,7 +16,7 @@ Router.map(function() {
   });
 
   this.route('project', {path: "/project"}, function() {
-    this.route('runModal', {path: "project/runModal/:project_id"});
+    this.route('runModal', {path: "runModal/:project_id"});
   });
 
 });
