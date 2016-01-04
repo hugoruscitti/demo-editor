@@ -3,7 +3,7 @@
 <div class="button-container">
   {{x-back to="project"}}
   <button disabled={{itsSaved}} type="button" {{action "save" model}} class="uk-button uk-button-primary">Guardar</button>
-  {{#link-to "edit.previewModal" model}}Previsualizar{{/link-to}}
+  {{#link-to "edit.previewModal" model class="uk-button uk-button-success"}}Previsualizar{{/link-to}}
 </div>
 
 {{textarea value=model.initialCode cols=80 rows=20}}
