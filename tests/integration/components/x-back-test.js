@@ -11,14 +11,5 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{x-back}}`);
 
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:" + EOL +
-  this.render(hbs`
-    {{#x-back}}
-      template block text
-    {{/x-back}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$().text().trim(), 'Regresar');
 });
