@@ -12,6 +12,11 @@ module.exports = function(defaults) {
   app.import('bower_components/uikit/css/uikit.almost-flat.css');
   app.import('bower_components/uikit/js/uikit.js');
 
+  app.import('vendor/ace.js');
+  app.import('vendor/ext-language_tools.js');
+  app.import('vendor/mode-typescript.js');
+  app.import('vendor/theme-monokai.js');
+
   // Use `app.import` to add additional libraries to the generated
   // output files.
   //
