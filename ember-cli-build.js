@@ -16,6 +16,7 @@ module.exports = function(defaults) {
   app.import('vendor/ext-language_tools.js');
   app.import('vendor/mode-typescript.js');
   app.import('vendor/theme-monokai.js');
+  app.import('vendor/keybinding-vim.js');
 
   // Use `app.import` to add additional libraries to the generated
   // output files.

@@ -11,12 +11,18 @@ export default Ember.Component.extend({
     var editor = ace.edit("editor");
     editor.session.setMode("ace/mode/typescript");
     editor.setTheme("ace/theme/monokai");
+
     // enable autocompletion and snippets
     editor.setOptions({
       enableBasicAutocompletion: true,
       enableSnippets: false,
       enableLiveAutocompletion: true
     });
+
+    editor.setFontSize(20);
+
+    editor.setKeyboardHandler("ace/keyboard/vim");
+
     editor.$blockScrolling = Infinity;
     editor.getSession().setValue(this.get('value'));
 
