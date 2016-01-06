@@ -1,11 +1,11 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  activate: function() {
+  activate() {
     this.controllerFor('edit').enableShortcuts();
   },
 
-  deactivate: function() {
+  deactivate() {
     this.controllerFor('edit').disableShortcuts();
   },
 });

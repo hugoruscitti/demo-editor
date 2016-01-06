@@ -10,6 +10,19 @@ export default ModalDialog.extend({
     });
   }.on('didInsertElement'),
 
+  didInsertElement() {
+    this._super();
+    this.focusOnOpen();
+  },
+
+  focusOnOpen() {
+    let focusSelector = this.get('focusSelector');
+
+    if (this.get('focusSelector')) {
+      Ember.$(focusSelector).focus();
+    }
+  },
+
   teardown: function() {
     Ember.$('body').off('keyup.modal-dialog');
   }.on('willDestroyElement')

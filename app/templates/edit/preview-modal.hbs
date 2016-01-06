@@ -1,7 +1,9 @@
-{{#modal-dialog close="toggleModal"}}
+{{#modal-dialog close="toggleModal" focusSelector="a#close"}}
+
 {{x-result project=model}}
 
 <div class="modal-footer right">
-  {{#link-to "edit" model class="uk-button uk-button-success"}}Cerrar{{/link-to}}
+  <a href="" id="close" {{action "toggleModal"}} class="uk-button uk-button-success">Cerrar</a>
 </div>
+
 {{/modal-dialog}}

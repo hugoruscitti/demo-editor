@@ -14,9 +14,11 @@ export default Ember.Controller.extend({
   },
 
   onKeyDown(e) {
-    if (e.which === 83 && e.metaKey) {
-      e.preventDefault();
-      this.transitionToRoute("edit.previewModal", this.get('model'));
+    if (e.metaKey) {
+      if (e.which === 83 || e.which === 13) {
+        e.preventDefault();
+        this.transitionToRoute("edit.previewModal", this.get('model'));
+      }
     }
   },
 

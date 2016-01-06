@@ -1,14 +1,16 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+
+  editorFactory: Ember.inject.service(),
   // value  - se carga como propiedad.
 
   onInit: Ember.on("init", function() {
   }),
 
   didInsertElement() {
-    ace.require("ace/ext/language_tools");
-    var editor = ace.edit("editor");
+    var editor = this.get("editorFactory").createEditor("editor");
+
     editor.session.setMode("ace/mode/typescript");
     editor.setTheme("ace/theme/monokai");
 
@@ -19,9 +21,10 @@ export default Ember.Component.extend({
       enableLiveAutocompletion: true
     });
 
-    editor.setFontSize(20);
+    editor.setFontSize(18);
 
     editor.setKeyboardHandler("ace/keyboard/vim");
+    editor.setDisplayIndentGuides(false);
 
     editor.$blockScrolling = Infinity;
     editor.getSession().setValue(this.get('value'));
@@ -29,5 +32,7 @@ export default Ember.Component.extend({
     editor.on('change', () => {
       this.set('value', editor.getSession().getValue());
     });
+
+    editor.focus();
   }
 });
