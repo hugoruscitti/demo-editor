@@ -8,8 +8,20 @@
 </div>
 
 <div class="canvas-container">
-  {{x-canvas}}
+  {{x-canvas tagName=""}}
 </div>
+
+
+{{#if errors}}
+
+  {{#each errors as |error_message|}}
+    <div class="uk-alert uk-alert-danger">
+      {{error_message}}
+    </div>
+  {{/each}}
+
+{{/if}}
+
 
 {{yield}}
 

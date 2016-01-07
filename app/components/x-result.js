@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   gameEngine: Ember.inject.service(),
+  errors: [],
 
   didInsertElement() {
     if (this.get("project")) {
@@ -14,19 +15,38 @@ export default Ember.Component.extend({
       var initialCode = project.get("initialCode");
       var gameInstance = this.get('gameEngine').get('gameInstance');
 
-      function scopeEvalCode(code, game) {
+      function scopeEvalCode(code, errors, game) {
         "use strict";
         var pilas = 123123;
-        var window = null;
+        var windowObject = window;
+        var window = {console: {
+          error: function() {
+            //Array.prototype.unshift.call(arguments, '-----');
+            alert(arguments);
+            //old.apply(this, arguments)
+            windowObject.error.apply(this, arguments);
+          },
+
+          log: function() {
+            alert(arguments);
+            //old.apply(this, arguments)
+            windowObject.error.apply(this, arguments);
+          }
+
+        }}
 
         try {
           eval(code);
-        } catch(exception) {
-          alert(exception);
+        } catch(error) {
+          debugger;
+          errors.pushObject(error);
+          console.error(error);
         }
       }
 
-      scopeEvalCode(initialCode, gameInstance);
+
+      this.set("errors", []);
+      scopeEvalCode(initialCode, this.get("errors"), gameInstance);
     },
   }
 });

@@ -14,15 +14,15 @@ export default Ember.Component.extend({
     editor.session.setMode("ace/mode/typescript");
     editor.setTheme("ace/theme/monokai");
 
-    // enable autocompletion and snippets
     editor.setOptions({
       enableBasicAutocompletion: true,
       enableSnippets: false,
       enableLiveAutocompletion: true
     });
 
-    editor.setFontSize(18);
+    editor.setFontSize(16);
 
+    editor.setHighlightActiveLine(false);
     editor.setKeyboardHandler("ace/keyboard/vim");
     editor.setDisplayIndentGuides(false);
 
