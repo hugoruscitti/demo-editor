@@ -16,7 +16,7 @@ export default Ember.Service.extend({
         setTimeout(() => {
           this.set("gameInstance", {title: "status"});
 
-          console.log("gameEngine: LISTO, inició !!!")
+          console.log("gameEngine: LISTO, inició !!!");
           success();
         }, 3000);
       } else {

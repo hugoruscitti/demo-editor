@@ -22,7 +22,10 @@
     "andThen",
     "currentURL",
     "currentPath",
-    "currentRouteName"
+    "currentRouteName",
+    "ace",
+    "pilasengine",
+    "pilas"
   ],
   "node": false,
   "browser": false,
