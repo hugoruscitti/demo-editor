@@ -15,11 +15,11 @@ export default Ember.Component.extend({
       var initialCode = project.get("initialCode");
       var gameInstance = this.get('gameEngine').get('gameInstance');
 
-      function scopeEvalCode(code, errors, game) {
+      function scopeEvalCode(code, errors, game) {      //jshint ignore:line
         "use strict";
-        var pilas = 123123;
+        //var pilas = 123123;
         var windowObject = window;
-        var window = {console: {
+        var window = {console: {                        //jshint ignore:line
           error: function() {
             //Array.prototype.unshift.call(arguments, '-----');
             alert(arguments);
@@ -32,13 +32,11 @@ export default Ember.Component.extend({
             //old.apply(this, arguments)
             windowObject.error.apply(this, arguments);
           }
-
-        }}
+        }};
 
         try {
           eval(code);
         } catch(error) {
-          debugger;
           errors.pushObject(error);
           console.error(error);
         }
