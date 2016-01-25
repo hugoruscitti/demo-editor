@@ -1,17 +1,5 @@
 {{#if project}}
 
-<h3>Título {{project.title}}</h3>
-
-  <div class="button-container">
-
-  <button type="button" {{action "run" project}} class="uk-button uk-button-success">Ejecutar</button>
-</div>
-
-<div class="canvas-container">
-  {{x-canvas tagName=""}}
-</div>
-
-
 {{#if errors}}
 
   {{#each errors as |error_message|}}
@@ -19,9 +7,11 @@
       {{error_message}}
     </div>
   {{/each}}
-
+{{else}}
+  <div class="canvas-container">
+    {{x-canvas tagName=""}}
+  </div>
 {{/if}}
-
 
 {{yield}}
 

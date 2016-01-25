@@ -25,7 +25,6 @@ export default Ember.Controller.extend({
   actions: {
     save(project) {
       project.save();
-
     },
   }
 });

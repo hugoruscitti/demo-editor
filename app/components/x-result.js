@@ -35,7 +35,7 @@ export default Ember.Component.extend({
         }};
 
         try {
-          eval(code);
+          eval(ts.transpile(code));
         } catch(error) {
           errors.pushObject(error);
           console.error(error);
