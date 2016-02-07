@@ -10,7 +10,6 @@ Router.map(function() {
     this.route('about');
   });
 
-  this.route('run', {path: "run/:project_id"});
   this.route('edit', {path: "edit/:project_id"}, function() {
     this.route('previewModal');
   });
