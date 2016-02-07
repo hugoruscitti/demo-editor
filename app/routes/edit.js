@@ -8,4 +8,24 @@ export default Ember.Route.extend({
   deactivate() {
     this.controllerFor('edit').disableShortcuts();
   },
+
+  actions: {
+    willTransition(transition) {
+      var message = "¿Estás seguro de abandonar sin guardar?";
+      var hasUnsavedChanges = ! this.controller.get('itsSaved');
+
+      if (hasUnsavedChanges) {
+        var hasConfirm = confirm(message);
+
+        if (!hasConfirm) {
+          transition.abort();
+        } else {
+          this.controller.discartModelChanges();
+          return true;
+        }
+      } else {
+        return true;
+      }
+    }
+  }
 });

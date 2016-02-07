@@ -13,6 +13,14 @@ export default Ember.Controller.extend({
     window.removeEventListener('keydown', this.onKeyDown.bind(this), true);
   },
 
+  discartModelChanges() {
+    var model = this.get('model');
+
+    if (model.get('hasDirtyAttributes')) {
+      model.rollbackAttributes()
+    }
+  },
+
   onKeyDown(e) {
     if (e.metaKey) {
       if (e.which === 83 || e.which === 13) {
