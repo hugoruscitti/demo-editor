@@ -13,12 +13,9 @@ test('it renders', function(assert) {
 
   assert.equal(this.$().text().trim(), '');
 
-  // Template block usage:" + EOL +
-  this.render(hbs`
-    {{#x-title}}
-      template block text
-    {{/x-title}}
-  `);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+  this.set("title", "hola");
+  this.render(hbs`{{#x-title title=title}}{{/x-title}}`);
+
+  assert.equal(this.$().text().trim(), 'hola', "Muestra el título");
 });
