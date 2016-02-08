@@ -9,8 +9,11 @@ module.exports = function(defaults) {
     }
   });
 
-  app.import('bower_components/uikit/css/uikit.almost-flat.css');
-  app.import('bower_components/uikit/js/uikit.js');
+  app.import(app.bowerDirectory + '/bootstrap/dist/css/bootstrap.css');
+  app.import(app.bowerDirectory + '/bootstrap/dist/js/bootstrap.js');
+  app.import(app.bowerDirectory + '/bootstrap/dist/fonts/glyphicons-halflings-regular.woff', {
+    destDir: 'fonts'
+  });
 
   app.import('vendor/ace.js');
   app.import('vendor/ext-language_tools.js');

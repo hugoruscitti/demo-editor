@@ -2,8 +2,8 @@
 
 <div class="button-container">
   {{x-back to="project"}}
-  <button disabled={{itsSaved}} type="button" {{action "save" model}} class="uk-button uk-button-primary">Guardar</button>
-  {{#link-to "edit.previewModal" model class="uk-button uk-button-success"}}Previsualizar{{/link-to}}
+  <button disabled={{itsSaved}} type="button" {{action "save" model}} class="btn btn-primary">Guardar</button>
+  {{#link-to "edit.previewModal" model class="btn btn-success"}}Previsualizar{{/link-to}}
 </div>
 
 {{x-editor value=model.initialCode}}
