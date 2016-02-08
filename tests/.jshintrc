@@ -25,7 +25,8 @@
     "currentRouteName",
     "ace",
     "pilasengine",
-    "pilas"
+    "pilas",
+    "ts"
   ],
   "node": false,
   "browser": false,

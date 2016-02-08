@@ -6,7 +6,8 @@
     "-Promise",
     "ace",
     "pilasengine",
-    "pilas"
+    "pilas",
+    "ts"
   ],
   "browser": true,
   "boss": true,
