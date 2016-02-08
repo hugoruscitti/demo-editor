@@ -13,7 +13,9 @@
     <tbody>
       {{#each model as |project|}}
         <tr>
-            <td>{{project.title}}</td>
+            <td>
+              {{#link-to "edit" project}}{{project.title}}{{/link-to}}
+            </td>
             <td>
               {{#link-to "project.runModal" project class="uk-button uk-button-yellow uk-button-small"}}Ejecutar{{/link-to}}
               {{#link-to "edit" project class="uk-button uk-button-primary uk-button-small"}}Editar{{/link-to}}

@@ -14,7 +14,7 @@ export default Ember.Route.extend({
       var message = "¿Estás seguro de abandonar sin guardar?";
       var hasUnsavedChanges = ! this.controller.get('itsSaved');
 
-      if (hasUnsavedChanges) {
+      if (hasUnsavedChanges && transition.targetName === "project.index") {
         var hasConfirm = confirm(message);
 
         if (!hasConfirm) {

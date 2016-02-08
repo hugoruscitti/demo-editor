@@ -8,6 +8,7 @@ const Router = Ember.Router.extend({
 Router.map(function() {
   this.route('index', {path: "/"}, function() {
     this.route('about');
+    this.route('setup');
   });
 
   this.route('edit', {path: "edit/:project_id"}, function() {

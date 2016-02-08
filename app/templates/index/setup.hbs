@@ -1,0 +1,17 @@
+{{#modal-dialog close="toggleModal" focusSelector="a#close"}}
+
+<h1>Configuración</h1>
+
+  <label for="vim">Modo VIM
+    {{input id="vim" type="checkbox" checked=preferences.vimMode}}
+  </label>
+
+  <p>
+    <button {{action "changeTheme"}} class="uk-button uk-button-success">Tema: {{preferences.theme}}</button>
+  </p>
+
+<div class="modal-footer right">
+  {{#link-to "index" id="close" class="uk-button uk-button-success"}}Cerrar{{/link-to}}
+</div>
+
+{{/modal-dialog}}
