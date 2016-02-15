@@ -14,6 +14,7 @@ comandos:
 	@echo "  ${Y}Para desarrolladores${N}"
 	@echo ""
 	@echo "    ${G}iniciar${N}         Instala dependencias."
+	@echo "    ${G}electron${N}        Compila y ejecuta electron (modo live)."
 	@echo ""
 	@echo "  ${Y}Para distribuir${N}"
 	@echo ""
@@ -45,6 +46,11 @@ subir_version:
 	@git add CHANGELOG.txt
 	@git commit -m "actualizando changelog."
 	@git push
+
+electron:
+	ember build
+	electron dist
+	ember build --watch
 
 changelog:
 	@git log `git describe --tags --abbrev=0` --pretty=format:"  * %s" > CHANGELOG.txt
