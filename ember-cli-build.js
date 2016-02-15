@@ -15,6 +15,7 @@ module.exports = function(defaults) {
     destDir: 'fonts'
   });
 
+
   app.import('vendor/ace.js');
   app.import('vendor/ext-language_tools.js');
   app.import('vendor/mode-typescript.js');
@@ -26,6 +27,7 @@ module.exports = function(defaults) {
 
   app.import('vendor/typescriptServices.js');
   app.import('vendor/transpiler.js');
+
 
   return app.toTree();
 };
