@@ -84,3 +84,32 @@ button {
 .text-center {
   text-align: center;
 }
+
+
+.console-panel {
+  border-top: 1px solid #E6E6E6;
+  background-color: white;
+  padding: 2px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: scroll;
+  height: 120px;
+}
+
+.console-warning-line {
+  color: #BF902B;
+  background-color: #FFFFED;
+  border: 1px solid #FFEBD4;
+  margin-top: 2px;
+  padding: 3px;
+}
+
+.console-error-line {
+  color: red;
+  background-color: #FFEDED;
+  border: 1px solid #FFD4D4;
+  margin-top: 2px;
+  padding: 3px;
+}
