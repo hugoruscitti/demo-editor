@@ -2,7 +2,7 @@
 @import "ember-modal-dialog/ember-modal-appearance";
 @import "bower_components/font-awesome/scss/font-awesome";
 @import "modal";
-
+@import "x-spinner";
 
 body {
   margin: 1em;
@@ -78,4 +78,9 @@ button {
 .x-title:hover {
   cursor: pointer;
   color: blue;
+}
+
+
+.text-center {
+  text-align: center;
 }
