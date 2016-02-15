@@ -49,7 +49,7 @@ subir_version:
 
 electron:
 	ember build
-	electron dist
+	electron dist &
 	ember build --watch
 
 changelog:
