@@ -15,6 +15,8 @@ comandos:
 	@echo ""
 	@echo "    ${G}iniciar${N}         Instala dependencias."
 	@echo "    ${G}electron${N}        Compila y ejecuta electron (modo live)."
+	@echo "    ${G}pilas${N}           Genera la biblioteca pilasengine.js."
+	@echo "    ${G}pilas_live${N}      Genera la biblioteca pilasengine.js (modo live)."
 	@echo ""
 	@echo "  ${Y}Para distribuir${N}"
 	@echo ""
