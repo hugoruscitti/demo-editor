@@ -11,7 +11,10 @@ export default Ember.Service.extend({
         this.set("needStart", false);
 
         console.log("gameEngine: iniciando .... ");
+
         console.log("gameEngine: faltan 3 segundos ...");
+        setTimeout(() => {console.log("gameEngine: faltan 2 segundos ...");}, 1000);
+        setTimeout(() => {console.log("gameEngine: faltan 1 segundos ...");}, 2000);
 
         setTimeout(() => {
           this.set("gameInstance", {title: "status"});

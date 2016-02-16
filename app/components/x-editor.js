@@ -36,6 +36,22 @@ export default Ember.Component.extend({
     editor.getSession().setValue(this.get('value'));
 
     editor.on('change', () => {
+      editor.getSession().setAnnotations([
+        {row: 1, text: "pepepe", type: "warning"}
+      ]);
+
+      /*
+
+      errorArray.map(function(x) {
+            return {
+              row: x-1,
+              text: "Hier stimmt was nicht",
+              type: "error" // also warning and information
+          }
+      }));
+
+      */
+
       this.set('value', editor.getSession().getValue());
     });
 

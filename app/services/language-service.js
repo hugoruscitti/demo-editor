@@ -2,7 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Service.extend({
   compile(project) {
-
     return new Ember.RSVP.Promise((success) => {
       var host = this._create_host();
       var initialCode = project.get("initialCode");
