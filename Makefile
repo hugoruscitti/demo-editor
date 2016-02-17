@@ -58,4 +58,11 @@ changelog:
 	@git log `git describe --tags --abbrev=0` --pretty=format:"  * %s" > CHANGELOG.txt
 	@echo "Generando el archivo CHANGELOG.txt"
 
+pilas:
+	grunt --gruntfile pilasengine/Gruntfile.js only-build --base pilasengine
+
+pilas_live:
+	grunt --gruntfile pilasengine/Gruntfile.js defaultFast --base pilasengine
+
 .PHONY: tmp
+
