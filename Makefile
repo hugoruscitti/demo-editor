@@ -27,6 +27,8 @@ comandos:
 iniciar:
 	npm install
 	bower install
+	cd pilasengine
+	npm install
 	make _instalar_phaser
 
 _instalar_phaser:
