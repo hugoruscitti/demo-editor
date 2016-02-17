@@ -27,6 +27,11 @@ comandos:
 iniciar:
 	npm install
 	bower install
+	make _instalar_phaser
+
+_instalar_phaser:
+	wget https://raw.githubusercontent.com/photonstorm/phaser/v2.4.5/build/phaser.js
+	mv phaser.js vendor/
 
 version:
 	# patch || minor

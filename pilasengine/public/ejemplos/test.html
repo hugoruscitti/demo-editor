@@ -1,0 +1,25 @@
+<html>
+
+<head>
+  <script type="text/javascript" src='../js/phaser.js'></script>
+  <script type="text/javascript" src='../js/pilasengine.js'></script>
+</head>
+
+<body>
+
+  <div id="elementoCanvas"></div>
+
+  <script type="text/javascript">
+    var pilas = pilasengine.iniciar('elementoCanvas', {data_path: '../data'});
+
+    pilas.cuando('inicia', function() {
+
+      pilas.fondos.Plano();
+
+      actor = pilas.actores.Pelota();
+    });
+  </script>
+
+</body>
+
+</html>

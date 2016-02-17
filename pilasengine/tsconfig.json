@@ -1,0 +1,28 @@
+{
+    "buildOnSave": false,
+    "compilerOptions": {
+        "module": "CommonJS",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "out": "public/js/test.js",
+        "sourceMap": true
+    },
+    "filesGlob": [
+        "src/**/*.ts"
+    ],
+    "files": [
+        "src/actores.ts",
+        "src/actorProxy.ts",
+        "src/entidad.ts",
+        "src/fondos.ts",
+        "src/historial.ts",
+        "src/pilasengine.ts",
+        "src/tipos.ts",
+        "src/utils.ts",
+        "src/version.ts"
+    ],
+    "atom": {
+        "rewriteTsconfig": true
+    }
+}
