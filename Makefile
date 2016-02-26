@@ -20,7 +20,8 @@ comandos:
 	@echo ""
 	@echo "  ${Y}Para distribuir${N}"
 	@echo ""
-	@echo "    ${G}version${N}         Genera una nueva versión."
+	@echo "    ${G}version_patch${N}   Genera una nueva versión."
+	@echo "    ${G}version_minor${N}   Genera una nueva versión."
 	@echo "    ${G}subir_version${N}   Sube version generada al servidor."
 	@echo ""
 
@@ -43,10 +44,15 @@ _instalar_phaser:
 	mv p2.d.ts pilasengine/libs/
 	mv phaser.js vendor/
 
-version:
-	# patch || minor
+version_patch:
 	@bumpversion patch --current-version ${VERSION} Makefile --list
-	#make build
+	make _help_version
+
+version_minor:
+	@bumpversion minor --current-version ${VERSION} Makefile --list
+	make _help_version
+
+_help_version:
 	@echo "Es recomendable escribir el comando que genera los tags y sube todo a github:"
 	@echo ""
 	@echo "make subir_version"

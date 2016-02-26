@@ -10,7 +10,7 @@
 
 
 
-var timer = 0
+var timer = 0;
 
 
 
@@ -36,7 +36,7 @@ class Pilas {
   canvas: Phaser.Graphics;
   id_elemento_html: string;
 
-  constructor(id_elemento_html:string, opciones: OpcionesIniciar) {
+  constructor(id_elemento_html: string, opciones: OpcionesIniciar) {
 
     this.mouse = {x: 0, y: 0};
 
@@ -72,7 +72,7 @@ class Pilas {
   cuando(nombre_evento: string, callback: CallBackEvento) {
     if (nombre_evento === "inicia") {
       this._cuando_inicia_callback = callback;
-      window.addEventListener("evento_inicia", () => {callback();});
+      window.addEventListener("evento_inicia", () => {callback(); });
     } else {
       alert(`El evento ${nombre_evento} no está soportado.`);
     }
@@ -80,18 +80,18 @@ class Pilas {
 
   private load_scripts() {
     this.scripts = {
-      rotate: function(entity:Entity, data:any) {
+      rotate: function(entity: Entity, data: any) {
         entity.rotation += data.speed;
       },
 
-      move: function(entity:Entity, data:any) {
+      move: function(entity: Entity, data: any) {
         entity.x += data.dx;
         entity.y += data.dy;
       }
     };
   }
 
-  private cargar_imagen(identificador: string, archivo:string) {
+  private cargar_imagen(identificador: string, archivo: string) {
     var path = this.join(this.opciones.data_path, archivo);
     this.game.load.image(identificador, path);
   }
@@ -105,7 +105,7 @@ class Pilas {
   /**
    * Concatena dos rutas de manera similar a la función ``os.path.join`` de python.
    */
-  private join(a:string, b:string) {
+  private join(a: string, b: string) {
     var path = [a, b].map(function (i) {
       return i.replace(/(^\/|\/$)/, "");
     }).join("/");
@@ -175,7 +175,7 @@ class Pilas {
     this.mouse.y = this.game.input.y;
   }
 
-  private _actualizar_actores(pause_enabled:boolean) {
+  private _actualizar_actores(pause_enabled: boolean) {
     this.canvas.clear();
 
     this.game_state.entidades.forEach((entity: any) => {
@@ -196,7 +196,7 @@ class Pilas {
       } else {
 
         if (entity["tiled"]) {
-          sprite = this.game.add.tileSprite(entity.x, entity.y, this.ancho*2, this.alto*2, entity.imagen);
+          sprite = this.game.add.tileSprite(entity.x, entity.y, this.ancho * 2, this.alto * 2, entity.imagen);
         } else {
           console.log(entity);
           console.log(entity.imagen);
@@ -268,7 +268,7 @@ class Pilas {
   }
 
   render() {
-  	//this.game.debug.inputInfo(32, 32);
+  	// this.game.debug.inputInfo(32, 32);
   }
 
   obtener_entidad_por_id(id: number) {
@@ -287,12 +287,12 @@ class Pilas {
   }
 
   private _crear_id() {
-    return (0|Math.random()*9e6).toString(36);
+    return (0 | Math.random() * 9e6).toString(36);
   }
 
-  private _obtener_sprite_por_id(id:string) {
+  private _obtener_sprite_por_id(id: string) {
 
-    for (var i=0; i<this.sprites.length; i++) {
+    for (var i = 0; i < this.sprites.length; i++) {
       var element = this.sprites[i];
 
       if (element.id === id) {
@@ -307,7 +307,7 @@ class Pilas {
     this.obtener_script_por_nombre(script_name)(entity, script_data);
   }
 
-  private obtener_script_por_nombre(script_name:string) {
+  private obtener_script_por_nombre(script_name: string) {
     return this.scripts[script_name];
   }
 
@@ -322,7 +322,7 @@ class Pilas {
     });
   }
 
-  private getActorProxy(id:number) {
+  private getActorProxy(id: number) {
     return new ActorProxy(this, id);
   }
 
