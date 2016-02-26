@@ -17,7 +17,10 @@
         "src/entidad.ts",
         "src/fondos.ts",
         "src/historial.ts",
+        "src/p2.d.ts",
+        "src/phaser.d.ts",
         "src/pilasengine.ts",
+        "src/pixi.d.ts",
         "src/tipos.ts",
         "src/utils.ts",
         "src/version.ts"

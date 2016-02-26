@@ -1,4 +1,6 @@
-/// <reference path="../phaser/typescript/phaser.d.ts"/>
+/// <reference path="pixi.d.ts"/>
+/// <reference path="p2.d.ts"/>
+/// <reference path="phaser.d.ts"/>
 /// <reference path="entidad.ts" />
 /// <reference path="actores.ts" />
 /// <reference path="fondos.ts" />
@@ -176,9 +178,9 @@ class Pilas {
   private _actualizar_actores(pause_enabled:boolean) {
     this.canvas.clear();
 
-    this.game_state.entidades.forEach((entity:any) => {
-      var sprite: any = null;
-
+    this.game_state.entidades.forEach((entity: any) => {
+      let sprite: any = null;
+      
       if (entity.sprite_id) {
         sprite = this._obtener_sprite_por_id(entity.sprite_id);
 
@@ -301,7 +303,7 @@ class Pilas {
     throw new Error("No se encuentra el sprite con el ID " + id);
   }
 
-  private aplicar_script(entity:Entity, script_name:string, script_data:any) {
+  private aplicar_script(entity: Entity, script_name: string, script_data: any) {
     this.obtener_script_por_nombre(script_name)(entity, script_data);
   }
 

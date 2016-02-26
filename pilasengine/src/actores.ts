@@ -14,11 +14,11 @@ class Actores {
    * @param x - posición horizontal.
    * @param y - posición vertical.
    */
-  Actor(x:number=0, y:number=0) {
-    var entity = {
+  Actor(x: number= 0, y: number= 0) {
+    let entity = {
       id: 12,
       nombre: "sin_imagen",
-      imagen: 'sin_imagen',
+      imagen: "sin_imagen",
       x: x,
       y: y,
       scale_x: 1,
@@ -40,7 +40,7 @@ class Actores {
   }
 
   Patito() {
-    var entidad: any = this.crear({
+    let entidad: any = this.crear({
       nombre: "patito",
       imagen: "data:patito.png"
     });
@@ -48,11 +48,11 @@ class Actores {
     return new ActorProxy(this.game, entidad.id);
   }
 
-  crear(diccionario:any) {
-    var entidad:any = {
+  crear(diccionario: any) {
+    let entidad: any = {
       id: Math.ceil(Math.random() * 1000000000000),
       nombre: diccionario.nombre || "",
-      imagen: diccionario.imagen || 'sin_imagen',
+      imagen: diccionario.imagen || "sin_imagen",
       x: diccionario.x || 100,
       y: diccionario.y || 100,
       scale_x: 1,
@@ -68,9 +68,9 @@ class Actores {
 
     this.game.codigos[entidad.nombre] = {
       actualizar: diccionario.actualizar || function () {},
-    }
+    };
 
-    if (entidad.nombre == "") {
+    if (entidad.nombre === "") {
       console.error("Tienes que especificar le nombre de la entidad.", entidad);
       throw new Error("Tienes que especificar le nombre de la entidad.");
     }

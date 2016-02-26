@@ -32,7 +32,15 @@ iniciar:
 	make _instalar_phaser
 
 _instalar_phaser:
-	wget https://raw.githubusercontent.com/photonstorm/phaser/v2.4.5/build/phaser.js
+	@echo "Descargando phaser.js ..."
+	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/v2.4.5/build/phaser.js
+	@echo "Descargando definiciones de typescript ..."
+	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/master/typescript/phaser.d.ts
+	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/master/typescript/pixi.d.ts
+	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/master/typescript/p2.d.ts
+	mv phaser.d.ts pilasengine/src/
+	mv pixi.d.ts pilasengine/src/
+	mv p2.d.ts pilasengine/src/
 	mv phaser.js vendor/
 
 version:
@@ -65,11 +73,15 @@ changelog:
 	@git log `git describe --tags --abbrev=0` --pretty=format:"  * %s" > CHANGELOG.txt
 	@echo "Generando el archivo CHANGELOG.txt"
 
-pilas:
+pilasengine/node_modules:
+	@echo "Instalando dependencias..."
+	cd pilasengine; npm install
+
+
+pilas: pilasengine/node_modules
 	grunt --gruntfile pilasengine/Gruntfile.js only-build --base pilasengine
 
 pilas_live:
 	grunt --gruntfile pilasengine/Gruntfile.js defaultFast --base pilasengine
 
 .PHONY: tmp
-

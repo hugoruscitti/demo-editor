@@ -45,7 +45,7 @@ var Actores = (function () {
         var entity = {
             id: 12,
             nombre: "sin_imagen",
-            imagen: 'sin_imagen',
+            imagen: "sin_imagen",
             x: x,
             y: y,
             scale_x: 1,
@@ -74,7 +74,7 @@ var Actores = (function () {
         var entidad = {
             id: Math.ceil(Math.random() * 1000000000000),
             nombre: diccionario.nombre || "",
-            imagen: diccionario.imagen || 'sin_imagen',
+            imagen: diccionario.imagen || "sin_imagen",
             x: diccionario.x || 100,
             y: diccionario.y || 100,
             scale_x: 1,
@@ -88,7 +88,7 @@ var Actores = (function () {
         this.game.codigos[entidad.nombre] = {
             actualizar: diccionario.actualizar || function () { },
         };
-        if (entidad.nombre == "") {
+        if (entidad.nombre === "") {
             console.error("Tienes que especificar le nombre de la entidad.", entidad);
             throw new Error("Tienes que especificar le nombre de la entidad.");
         }
@@ -150,7 +150,9 @@ var Historial = (function () {
     };
     return Historial;
 })();
-/// <reference path="../phaser/typescript/phaser.d.ts"/>
+/// <reference path="pixi.d.ts"/>
+/// <reference path="p2.d.ts"/>
+/// <reference path="phaser.d.ts"/>
 /// <reference path="entidad.ts" />
 /// <reference path="actores.ts" />
 /// <reference path="fondos.ts" />
