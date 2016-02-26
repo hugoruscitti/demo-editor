@@ -1,6 +1,7 @@
 class Actores {
   game: Pilas;
 
+
   constructor(game: Pilas) {
     this.game = game;
   }

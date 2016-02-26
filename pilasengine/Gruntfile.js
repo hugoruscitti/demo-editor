@@ -2,6 +2,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-typescript');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-qunit');
+    grunt.loadNpmTasks('grunt-touch');
 
     grunt.initConfig({
         typedoc: {
@@ -17,6 +18,9 @@ module.exports = function (grunt) {
             }
         },
         pkg: grunt.file.readJSON('package.json'),
+	touch: {
+	    src: ['../app/index.html']
+	},
         typescript: {
             base: {
                 src: ['src/**/*.ts'],
@@ -45,7 +49,7 @@ module.exports = function (grunt) {
               spawn: false,
             },
             files: ['src/**/*.ts', 'test/**', 'public/ejemplos/**'],
-            tasks: ['typescript']
+            tasks: ['typescript', 'touch']
           }
         },
     });
@@ -57,5 +61,5 @@ module.exports = function (grunt) {
     //grunt.registerTask('default', ['typescript', 'typedoc', 'test', 'watch:withTests']);
     grunt.registerTask('defaultFast', ['typescript', 'watch:withNoTests']);
 
-    grunt.registerTask('only-build', ['typescript', /*'typedoc', 'test'*/]);
+    grunt.registerTask('only-build', ['typescript', 'touch' /*'typedoc', 'test'*/]);
 }

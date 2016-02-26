@@ -336,7 +336,7 @@ var Pilas = (function () {
         this._actualizar_actores(false);
     };
     Pilas.prototype.render = function () {
-        //this.game.debug.inputInfo(32, 32);
+        // this.game.debug.inputInfo(32, 32);
     };
     Pilas.prototype.obtener_entidad_por_id = function (id) {
         var entities = this.obtener_entidades();
