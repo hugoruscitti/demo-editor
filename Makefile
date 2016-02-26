@@ -38,9 +38,9 @@ _instalar_phaser:
 	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/master/typescript/phaser.d.ts
 	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/master/typescript/pixi.d.ts
 	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/master/typescript/p2.d.ts
-	mv phaser.d.ts pilasengine/src/
-	mv pixi.d.ts pilasengine/src/
-	mv p2.d.ts pilasengine/src/
+	mv phaser.d.ts pilasengine/libs/
+	mv pixi.d.ts pilasengine/libs/
+	mv p2.d.ts pilasengine/libs/
 	mv phaser.js vendor/
 
 version:

@@ -1,6 +1,6 @@
-/// <reference path="pixi.d.ts"/>
-/// <reference path="p2.d.ts"/>
-/// <reference path="phaser.d.ts"/>
+/// <reference path="../libs/pixi.d.ts"/>
+/// <reference path="../libs/p2.d.ts"/>
+/// <reference path="../libs/phaser.d.ts"/>
 /// <reference path="entidad.ts" />
 /// <reference path="actores.ts" />
 /// <reference path="fondos.ts" />
@@ -149,7 +149,7 @@ class Pilas {
     window.dispatchEvent(new CustomEvent("evento_inicia"));
 
     this.canvas = this.game.add.graphics(0, 0);
-    //this.game.world.bringToTop();
+    // this.game.world.bringToTop();
   }
 
   pausar() {
@@ -180,7 +180,7 @@ class Pilas {
 
     this.game_state.entidades.forEach((entity: any) => {
       let sprite: any = null;
-      
+
       if (entity.sprite_id) {
         sprite = this._obtener_sprite_por_id(entity.sprite_id);
 

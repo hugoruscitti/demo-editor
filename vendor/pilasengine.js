@@ -150,9 +150,9 @@ var Historial = (function () {
     };
     return Historial;
 })();
-/// <reference path="pixi.d.ts"/>
-/// <reference path="p2.d.ts"/>
-/// <reference path="phaser.d.ts"/>
+/// <reference path="../libs/pixi.d.ts"/>
+/// <reference path="../libs/p2.d.ts"/>
+/// <reference path="../libs/phaser.d.ts"/>
 /// <reference path="entidad.ts" />
 /// <reference path="actores.ts" />
 /// <reference path="fondos.ts" />
@@ -250,7 +250,7 @@ var Pilas = (function () {
     Pilas.prototype.create = function () {
         window.dispatchEvent(new CustomEvent("evento_inicia"));
         this.canvas = this.game.add.graphics(0, 0);
-        //this.game.world.bringToTop();
+        // this.game.world.bringToTop();
     };
     Pilas.prototype.pausar = function () {
         this.pause_enabled = true;
