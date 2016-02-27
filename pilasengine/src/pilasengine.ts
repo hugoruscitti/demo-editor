@@ -40,12 +40,24 @@ class Pilas {
 
     this.mouse = {x: 0, y: 0};
 
-    var options = {
+    let options = {
       preload: this.preload.bind(this),
       create: this.create.bind(this),
       update: this._actualizar.bind(this),
       render: this.render.bind(this)
     };
+
+    if (!id_elemento_html) {
+      throw Error(`Tienes que especificar el ID del tag a usar. Algo como pilasengine.iniciar('idElemento')`);
+    }
+
+    if (!document.getElementById(id_elemento_html)) {
+      throw Error(`No se encuentra el elemento con ID: ${id_elemento_html}`);
+    }
+
+    if (document.getElementById(id_elemento_html).tagName !== "DIV") {
+      throw Error(`El elemento ID: ${id_elemento_html} tiene que ser un tag DIV.`);
+    }
 
     this.id_elemento_html = id_elemento_html;
 
@@ -337,7 +349,7 @@ class Pilas {
  * Representa el espacio de nombres para acceder a todos los componentes
  * de pilasengine.
  */
-var pilasengine = {
+let pilasengine = {
 
   /**
    * Inicializa la biblioteca completa.
@@ -349,7 +361,11 @@ var pilasengine = {
    * @return {Game} el objeto instanciado que representa el contexto del juego.
    * @api public
    */
-  iniciar: function(element_id: string, opciones: OpcionesIniciar = {data_path: "data", en_test: false, redimensionar: true}) {
+  iniciar: function(element_id: string, opciones: OpcionesIniciar = {data_path: "data", en_test: false, redimensionar: false}) {
+    opciones.data_path = opciones["data_path"] || "data";
+    opciones.en_test = opciones["en_test"] || false;
+    opciones.redimensionar = opciones["redimensionar"] || false;
+
     return new Pilas(element_id, opciones);
   }
 };

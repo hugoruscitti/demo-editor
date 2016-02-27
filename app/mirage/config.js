@@ -4,6 +4,9 @@ export default function() {
   this.get('/projects/:id');
   this.put('/projects/:id');
 
+
+  this.passthrough("data/sprites.json");
+
   // These comments are here to help you get started. Feel free to delete them.
 
   /*

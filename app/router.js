@@ -19,6 +19,7 @@ Router.map(function() {
     this.route('runModal', {path: "runModal/:project_id"});
   });
 
+  this.route('test');
 });
 
 export default Router;
