@@ -1,5 +1,12 @@
 <h2>Demo editor</h2>
 
-{{#link-to "project" class="uk-button uk-button-primary"}}Listar proyectos{{/link-to}}
+{{#link-to "project" class="btn btn-primary"}}Listar proyectos{{/link-to}}
+{{#link-to "index.about" class="btn btn-success"}}Acerca de ...{{/link-to}}
+{{#link-to "index.setup" class="btn btn-danger"}}Preferencias{{/link-to}}
+
+
+{{#link-to "test"}}Página de prueba{{/link-to}}
 
 {{outlet}}
+
+<p>Version de electron: {{electron.electronVersion}}</p>

@@ -6,9 +6,20 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('project');
-  this.route('run', {path: "run/:project_id"});
-  this.route('edit', {path: "edit/:project_id"});
+  this.route('index', {path: "/"}, function() {
+    this.route('about');
+    this.route('setup');
+  });
+
+  this.route('edit', {path: "edit/:project_id"}, function() {
+    this.route('previewModal');
+  });
+
+  this.route('project', {path: "/project"}, function() {
+    this.route('runModal', {path: "runModal/:project_id"});
+  });
+
+  this.route('test');
 });
 
 export default Router;

@@ -1,0 +1,9 @@
+{{#modal-dialog close="toggleModal" focusSelector="a#close"}}
+
+{{x-result project=model}}
+
+<div class="close-container">
+  <a href="" id="close" {{action "toggleModal"}} class="btn btn-default btn-close">{{fa-icon "close"}}</a>
+</div>
+
+{{/modal-dialog}}

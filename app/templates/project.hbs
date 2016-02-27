@@ -1,8 +1,8 @@
 <h2>Proyectos</h2>
 
-{{x-back}}
+{{x-back to="index"}}
 
-<table class="uk-table uk-table-condensed">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Nombre del proyecto</th>
@@ -13,13 +13,16 @@
     <tbody>
       {{#each model as |project|}}
         <tr>
-            <td>{{project.title}}</td>
             <td>
-              {{#link-to "run" project}}Ejecutar{{/link-to}}
-              ||
-              {{#link-to "edit" project}}Editar{{/link-to}}
+              {{#link-to "edit" project}}{{project.title}}{{/link-to}}
+            </td>
+            <td>
+              {{#link-to "project.runModal" project class="btn btn-warning btn-xs"}}Ejecutar{{/link-to}}
+              {{#link-to "edit" project class="btn btn-primary btn-xs"}}Editar{{/link-to}}
           </td>
         </tr>
       {{/each}}
     </tbody>
 </table>
+
+{{outlet}}

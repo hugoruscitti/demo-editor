@@ -3,10 +3,11 @@
 # compiled output
 /dist
 /tmp
+/electron-builds
 
 # dependencies
-/node_modules
-/bower_components
+node_modules
+bower_components
 
 # misc
 /.sass-cache
@@ -15,3 +16,5 @@
 /libpeerconnection.log
 npm-debug.log
 testem.log
+pilasengine/docs/dist/
+pilasengine/libs/*.d.ts
