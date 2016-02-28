@@ -5,7 +5,7 @@ N=[0m
 G=[01;32m
 Y=[01;33m
 B=[01;34m
-
+PHASER_VERSION="v2.4.6"
 
 comandos:
 	@echo ""
@@ -39,7 +39,7 @@ iniciar:
 
 _instalar_phaser:
 	@echo "Descargando phaser.js ..."
-	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/v2.4.5/build/phaser.js
+	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/${PHASER_VERSION}/build/phaser.js
 	@echo "Descargando definiciones de typescript ..."
 	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/master/typescript/phaser.d.ts
 	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/master/typescript/pixi.d.ts
