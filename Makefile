@@ -13,23 +13,28 @@ comandos:
 	@echo ""
 	@echo "  ${Y}Para desarrolladores${N}"
 	@echo ""
-	@echo "    ${G}iniciar${N}         Instala dependencias."
-	@echo "    ${G}electron${N}        Compila y ejecuta electron (modo live)."
-	@echo "    ${G}pilas${N}           Genera la biblioteca pilasengine.js."
-	@echo "    ${G}pilas_live${N}      Genera la biblioteca pilasengine.js (modo live)."
+	@echo "    ${G}iniciar${N}                  Instala dependencias."
+	@echo "    ${G}electron${N}                 Compila y ejecuta electron (modo live)."
+	@echo "    ${G}pilas${N}                    Genera pilasengine.js."
+	@echo "    ${G}pilas_live${N}               Genera pilasengine.js (modo live)."
+	@echo "    ${G}pilas_ejemplos_live${N}      Genera pilasengine.js y los ejemplos (modo live)."
 	@echo ""
 	@echo "  ${Y}Para distribuir${N}"
 	@echo ""
-	@echo "    ${G}version_patch${N}   Genera una nueva versión."
-	@echo "    ${G}version_minor${N}   Genera una nueva versión."
-	@echo "    ${G}subir_version${N}   Sube version generada al servidor."
+	@echo "    ${G}version_patch${N}            Genera una nueva versión."
+	@echo "    ${G}version_minor${N}            Genera una nueva versión."
+	@echo "    ${G}subir_version${N}            Sube version generada al servidor."
 	@echo ""
+
+_crear_enlaces:
+	@echo "Creando enlaces a vendor y data."
+	cd pilasengine/ejemplos; rm -rf vendor data; ln -s ../../vendor; ln -s ../../public/data
 
 iniciar:
 	npm install
 	bower install
-	cd pilasengine
-	npm install
+	cd pilasengine; npm install
+	make _crear_enlaces
 	make _instalar_phaser
 
 _instalar_phaser:
@@ -85,9 +90,13 @@ pilasengine/node_modules:
 
 
 pilas: pilasengine/node_modules
-	grunt --gruntfile pilasengine/Gruntfile.js only-build --base pilasengine
+	grunt --gruntfile pilasengine/Gruntfile.js compilar --base pilasengine
 
 pilas_live:
-	grunt --gruntfile pilasengine/Gruntfile.js defaultFast --base pilasengine
+	grunt --gruntfile pilasengine/Gruntfile.js compilar-y-notificar-live --base pilasengine
+
+
+pilas_ejemplos_live:
+	grunt --gruntfile pilasengine/Gruntfile.js compilar-con-ejemplos-livereload --base pilasengine
 
 .PHONY: tmp
