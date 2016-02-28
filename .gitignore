@@ -18,3 +18,5 @@ npm-debug.log
 testem.log
 pilasengine/docs/dist/
 pilasengine/libs/*.d.ts
+pilasengine/ejemplos/data
+pilasengine/ejemplos/vendor
