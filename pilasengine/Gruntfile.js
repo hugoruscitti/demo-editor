@@ -72,8 +72,18 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('message', 'Muestra que url se tiene que abrir.', function(arg) {
-      var msg = '*** Los ejemplos se pueden abrir mediante la URL: http://localhost:8080';
-      grunt.log.ok('\n' + msg + '\n');
+      var line = "*****************************************************************************";
+      var msg =  "*** Los ejemplos se pueden abrir mediante la URL:";
+      var color = "\x1b[32m";
+      var color2 = "\x1b[33m";
+      var url = "http://localhost:8080";
+      var reset = "\x1b[0m";
+
+      console.log(reset, "");
+      console.log(color, line);
+      console.log(color, msg, color2, url, color, "***");
+      console.log(color, line);
+      console.log(reset, "");
     });
 
     grunt.loadNpmTasks('grunt-typedoc');
