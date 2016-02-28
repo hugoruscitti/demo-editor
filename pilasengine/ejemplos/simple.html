@@ -9,21 +9,14 @@
   <div id="contenedor"></div>
 
   <script type="text/javascript">
-    var pilas = pilasengine.iniciar('contenedor', {data_path: 'data'});
+    var pilas = pilasengine.iniciar('contenedor', {ancho: 320, alto: 240, data_path: 'data'});
 
     window.pilas = pilas;
-    window.actor = null;
 
     pilas.cuando('inicia', function() {
 
       pilas.fondos.Plano();
-
-      pilas.actores.Actor();
-
-      actor = pilas.actores.Patito();
-      actor.x = 100;
-      actor.y = 100;
-
+      
     });
 
   </script>

@@ -1,0 +1,49 @@
+<html>
+
+<head>
+  <script type="text/javascript" src='../../vendor/phaser.js'></script>
+  <script type="text/javascript" src='../../../vendor/pilasengine.js'></script>
+  <style>
+    .contenedor {
+      margin: 5px;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="contenedor" id="contenedor1"></div>
+  <div class="contenedor" id="contenedor2"></div>
+  <div class="contenedor" id="contenedor3"></div>
+
+  <div class="contenedor-expande" id="contenedor4"></div>
+
+  <script type="text/javascript">
+    var pilas1 = pilasengine.iniciar('contenedor1', {ancho: 320, alto: 240, data_path: 'data'});
+    var pilas2 = pilasengine.iniciar('contenedor2', {ancho: 120, alto: 240, data_path: 'data'});
+    var pilas3 = pilasengine.iniciar('contenedor3', {ancho: 50, alto: 50, data_path: 'data'});
+    var pilas4 = pilasengine.iniciar('contenedor4', {ancho: 600, alto: 200, data_path: 'data'});
+
+    window.pilas1 = pilas1;
+
+    pilas1.cuando('inicia', function() {
+      pilas1.actores.texto("pilas 1");
+      pilas1.fondos.Plano();
+    });
+
+    pilas2.cuando('inicia', function() {
+      pilas2.fondos.Plano();
+    });
+
+    pilas3.cuando('inicia', function() {
+      pilas3.fondos.Plano();
+    });
+
+    pilas4.cuando('inicia', function() {
+      pilas4.fondos.Plano();
+    });
+  </script>
+
+</body>
+
+</html>

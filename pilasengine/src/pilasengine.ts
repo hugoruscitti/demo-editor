@@ -65,9 +65,10 @@ class Pilas {
 
     this.codigos = {};
     this.opciones = opciones;
-    this.ancho = 800;
-    this.alto = 600;
+    this.ancho = opciones.ancho || 640;
+    this.alto = opciones.alto || 480;
     this.game = new Phaser.Game(this.ancho, this.alto, Phaser.CANVAS, id_elemento_html, options);
+
     this.game_history = new Historial(this);
 
     this.game_state = {entidades: []};
@@ -158,6 +159,8 @@ class Pilas {
   }
 
   create() {
+    this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+
     window.dispatchEvent(new CustomEvent("evento_inicia"));
 
     this.canvas = this.game.add.graphics(0, 0);
@@ -361,7 +364,7 @@ let pilasengine = {
    * @return {Game} el objeto instanciado que representa el contexto del juego.
    * @api public
    */
-  iniciar: function(element_id: string, opciones: OpcionesIniciar = {data_path: "data", en_test: false, redimensionar: false}) {
+  iniciar: function(element_id: string, opciones: OpcionesIniciar = {data_path: "data", ancho: null, alto: null, en_test: false, redimensionar: false}) {
     opciones.data_path = opciones["data_path"] || "data";
     opciones.en_test = opciones["en_test"] || false;
     opciones.redimensionar = opciones["redimensionar"] || false;

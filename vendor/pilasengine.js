@@ -70,6 +70,11 @@ var Actores = (function () {
         });
         return new ActorProxy(this.game, entidad.id);
     };
+    Actores.prototype.texto = function (mensaje) {
+        var style = { stroke: '#000000', strokeThickness: 4, font: "28px Arial", fill: "#fff" };
+        var text = this.game.game.add.text(32, 64, "Hola mundo", style);
+        window['text'] = text;
+    };
     Actores.prototype.crear = function (diccionario) {
         var entidad = {
             id: Math.ceil(Math.random() * 1000000000000),
@@ -184,8 +189,8 @@ var Pilas = (function () {
         console.log("%cpilasengine.js v" + VERSION + " | http://www.pilas-engine.com.ar", "color: blue");
         this.codigos = {};
         this.opciones = opciones;
-        this.ancho = 800;
-        this.alto = 600;
+        this.ancho = opciones.ancho || 640;
+        this.alto = opciones.alto || 480;
         this.game = new Phaser.Game(this.ancho, this.alto, Phaser.CANVAS, id_elemento_html, options);
         this.game_history = new Historial(this);
         this.game_state = { entidades: [] };
@@ -257,6 +262,7 @@ var Pilas = (function () {
         }
     };
     Pilas.prototype.create = function () {
+        this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         window.dispatchEvent(new CustomEvent("evento_inicia"));
         this.canvas = this.game.add.graphics(0, 0);
         // this.game.world.bringToTop();
@@ -409,7 +415,7 @@ var pilasengine = {
      * @api public
      */
     iniciar: function (element_id, opciones) {
-        if (opciones === void 0) { opciones = { data_path: "data", en_test: false, redimensionar: false }; }
+        if (opciones === void 0) { opciones = { data_path: "data", ancho: null, alto: null, en_test: false, redimensionar: false }; }
         opciones.data_path = opciones["data_path"] || "data";
         opciones.en_test = opciones["en_test"] || false;
         opciones.redimensionar = opciones["redimensionar"] || false;

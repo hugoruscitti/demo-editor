@@ -49,6 +49,13 @@ class Actores {
     return new ActorProxy(this.game, entidad.id);
   }
 
+
+  texto(mensaje: string) {
+    var style = {stroke: '#000000', strokeThickness: 4, font: "28px Arial", fill: "#fff"};
+    var text = this.game.game.add.text(32, 64, "Hola mundo", style);
+    window['text'] = text;
+  }
+
   crear(diccionario: any) {
     let entidad: any = {
       id: Math.ceil(Math.random() * 1000000000000),
