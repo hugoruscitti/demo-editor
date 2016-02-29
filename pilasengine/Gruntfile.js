@@ -30,7 +30,7 @@ module.exports = function (grunt) {
                     module: 'CommonJS',
                     removeComments: false,
                     target: 'es5',
-                    sourceMap: true
+                    sourceMap: false
                 }
             }
         },

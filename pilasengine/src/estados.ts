@@ -65,14 +65,16 @@ class Estados {
   }
 
 
-  obtener_entidad_por_id(id: string) {
+  obtener_entidad_por_id(id: string): any {
+    var entidad_buscada: any = null;
+
     this.data.entidades.forEach((e) => {
       if (e.id === id) {
-        return e;
+        entidad_buscada = e;
       }
     });
 
-    return null;
+    return entidad_buscada;
   }
 
 

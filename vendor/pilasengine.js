@@ -4,6 +4,9 @@ var ActorProxy = (function () {
         this.id = id;
     }
     Object.defineProperty(ActorProxy.prototype, "x", {
+        get: function () {
+            return this.data.x;
+        },
         set: function (value) {
             this.data.x = value;
         },
@@ -11,6 +14,9 @@ var ActorProxy = (function () {
         configurable: true
     });
     Object.defineProperty(ActorProxy.prototype, "y", {
+        get: function () {
+            return this.data.y;
+        },
         set: function (value) {
             this.data.y = value;
         },
@@ -68,7 +74,11 @@ var Actores = (function () {
         if (y === void 0) { y = 0; }
         return this.pilas.estados.crear_entidad("sprite", {
             imagen: "data:patito.png",
+            clase: 'patito'
         });
+    };
+    Actores.prototype.obtener_por_id = function (id) {
+        return new ActorProxy(this.pilas, id);
     };
     Actores.prototype.texto = function (mensaje) {
         var style = { stroke: '#000000', strokeThickness: 4, font: "28px Arial", fill: "#fff" };
@@ -157,12 +167,13 @@ var Estados = (function () {
         }
     };
     Estados.prototype.obtener_entidad_por_id = function (id) {
+        var entidad_buscada = null;
         this.data.entidades.forEach(function (e) {
             if (e.id === id) {
-                return e;
+                entidad_buscada = e;
             }
         });
-        return null;
+        return entidad_buscada;
     };
     /*
 
@@ -413,7 +424,6 @@ var Pilas = (function () {
     Pilas.prototype.preload = function () {
         this.game.stage.disableVisibilityChange = true;
         this.imagenes.precargar_imagenes_estandar();
-        this.game.stage.disableVisibilityChange = false;
     };
     Pilas.prototype.create = function () {
         this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -464,6 +474,18 @@ var Pilas = (function () {
     Pilas.prototype.obtener_script_por_nombre = function (script_name) {
         return this.scripts[script_name];
     };
+    Pilas.prototype.listar_actores = function () {
+        return this.estados.data.entidades.map(function (e) { return { tipo: "actor", id: e.id }; });
+    };
+    Pilas.prototype.obtener_actor = function (id) {
+        return new ActorProxy(this, this.estados.data.entidades[id]);
+    };
+    Pilas.prototype.obtener_actores = function () {
+        var _this = this;
+        return this.estados.data.entidades.map(function (e) {
+            return new ActorProxy(_this, e.id);
+        });
+    };
     return Pilas;
 })();
 /**
@@ -504,4 +526,3 @@ var Utils = (function () {
     return Utils;
 })();
 var VERSION = "0.0.2";
-//# sourceMappingURL=pilasengine.js.map

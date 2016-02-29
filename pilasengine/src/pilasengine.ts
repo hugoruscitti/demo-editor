@@ -119,12 +119,7 @@ class Pilas {
 
   preload() {
     this.game.stage.disableVisibilityChange = true;
-
     this.imagenes.precargar_imagenes_estandar();
-
-
-
-    this.game.stage.disableVisibilityChange = false;
   }
 
   create() {
@@ -192,6 +187,19 @@ class Pilas {
     return this.scripts[script_name];
   }
 
+  listar_actores() {
+    return this.estados.data.entidades.map((e) => {return {tipo: "actor", id: e.id}});
+  }
+
+  obtener_actor(id: string) {
+    return new ActorProxy(this, this.estados.data.entidades[id]);
+  }
+
+  obtener_actores() {
+    return this.estados.data.entidades.map((e) => {
+      return new ActorProxy(this, e.id);
+    });
+  }
 }
 
 /**

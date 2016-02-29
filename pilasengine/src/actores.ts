@@ -43,9 +43,13 @@ class Actores {
   patito(x:number=0, y:number=0) {
     return this.pilas.estados.crear_entidad("sprite", {
       imagen: "data:patito.png",
+      clase: 'patito'
     });
   }
 
+  obtener_por_id(id: string) {
+    return new ActorProxy(this.pilas, id);
+  }
 
   texto(mensaje: string) {
     var style = {stroke: '#000000', strokeThickness: 4, font: "28px Arial", fill: "#fff"};
