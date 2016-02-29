@@ -15,6 +15,7 @@
         "src/actores.ts",
         "src/actorProxy.ts",
         "src/entidad.ts",
+        "src/estados.ts",
         "src/fondos.ts",
         "src/historial.ts",
         "src/pilasengine.ts",

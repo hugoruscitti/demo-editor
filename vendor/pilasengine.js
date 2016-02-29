@@ -1,7 +1,7 @@
 var ActorProxy = (function () {
-    function ActorProxy(game, id) {
+    function ActorProxy(pilas, id) {
         this.id = id;
-        this.game = game;
+        this.pilas = pilas;
     }
     Object.defineProperty(ActorProxy.prototype, "x", {
         set: function (value) {
@@ -19,7 +19,7 @@ var ActorProxy = (function () {
     });
     Object.defineProperty(ActorProxy.prototype, "data", {
         get: function () {
-            return this.game.obtener_entidad_por_id(this.id);
+            return this.pilas.obtener_entidad_por_id(this.id);
         },
         enumerable: true,
         configurable: true
@@ -60,7 +60,7 @@ var Actores = (function () {
             }
         };
         entity.id = Math.ceil(Math.random() * 1000000000000);
-        this.game.game_state.entidades.push(entity);
+        this.game.estados.entidades.push(entity);
         return entity;
     };
     Actores.prototype.Patito = function () {
@@ -97,10 +97,15 @@ var Actores = (function () {
             console.error("Tienes que especificar le nombre de la entidad.", entidad);
             throw new Error("Tienes que especificar le nombre de la entidad.");
         }
-        this.game.game_state.entidades.push(entidad);
+        this.game.estados.entidades.push(entidad);
         return entidad;
     };
     return Actores;
+})();
+var Estados = (function () {
+    function Estados() {
+    }
+    return Estados;
 })();
 var Fondos = (function () {
     function Fondos(pilas) {
@@ -124,14 +129,14 @@ var Fondos = (function () {
             scripts: {}
         };
         entity.id = Math.ceil(Math.random() * 1000000000000);
-        this.pilas.game_state.entidades.push(entity);
+        this.pilas.estados.entidades.push(entity);
         return entity;
     };
     return Fondos;
 })();
 var Historial = (function () {
     function Historial(game) {
-        this.game = game;
+        this.pilas = game;
         this.game_state_history = [];
         this.current_step = 0;
     }
@@ -170,12 +175,29 @@ var Pilas = (function () {
         this.pause_enabled = false;
         this.sprites = [];
         this.mouse = { x: 0, y: 0 };
+        this.utils = new Utils(this);
         var options = {
             preload: this.preload.bind(this),
             create: this.create.bind(this),
             update: this._actualizar.bind(this),
             render: this.render.bind(this)
         };
+        this._verificar_correctitud_de_id_elemento_html(id_elemento_html);
+        this.id_elemento_html = id_elemento_html;
+        console.log("%cpilasengine.js v" + VERSION + " | http://www.pilas-engine.com.ar", "color: blue");
+        this.codigos = {};
+        this.opciones = opciones;
+        this.ancho = opciones.ancho || 640;
+        this.alto = opciones.alto || 480;
+        this.game = new Phaser.Game(this.ancho, this.alto, Phaser.CANVAS, id_elemento_html, options);
+        this.historial_estados = new Historial(this);
+        this.estados = { entidades: [] };
+        this.load_scripts();
+        this.actores = new Actores(this);
+        this.fondos = new Fondos(this);
+        this.evento_inicia = document.createEvent("Event");
+    }
+    Pilas.prototype._verificar_correctitud_de_id_elemento_html = function (id_elemento_html) {
         if (!id_elemento_html) {
             throw Error("Tienes que especificar el ID del tag a usar. Algo como pilasengine.iniciar('idElemento')");
         }
@@ -185,21 +207,7 @@ var Pilas = (function () {
         if (document.getElementById(id_elemento_html).tagName !== "DIV") {
             throw Error("El elemento ID: " + id_elemento_html + " tiene que ser un tag DIV.");
         }
-        this.id_elemento_html = id_elemento_html;
-        console.log("%cpilasengine.js v" + VERSION + " | http://www.pilas-engine.com.ar", "color: blue");
-        this.codigos = {};
-        this.opciones = opciones;
-        this.ancho = opciones.ancho || 640;
-        this.alto = opciones.alto || 480;
-        this.game = new Phaser.Game(this.ancho, this.alto, Phaser.CANVAS, id_elemento_html, options);
-        this.game_history = new Historial(this);
-        this.game_state = { entidades: [] };
-        this.load_scripts();
-        this.actores = new Actores(this);
-        this.fondos = new Fondos(this);
-        this.utils = new Utils(this);
-        this.evento_inicia = document.createEvent("Event");
-    }
+    };
     Pilas.prototype.cuando = function (nombre_evento, callback) {
         if (nombre_evento === "inicia") {
             this._cuando_inicia_callback = callback;
@@ -221,22 +229,13 @@ var Pilas = (function () {
         };
     };
     Pilas.prototype.cargar_imagen = function (identificador, archivo) {
-        var path = this.join(this.opciones.data_path, archivo);
+        var path = this.utils.join(this.opciones.data_path, archivo);
         this.game.load.image(identificador, path);
     };
     Pilas.prototype.cargar_imagen_atlas = function (id, archivo_png, archivo_json) {
-        var path_png = this.join(this.opciones.data_path, archivo_png);
-        var path_json = this.join(this.opciones.data_path, archivo_json);
+        var path_png = this.utils.join(this.opciones.data_path, archivo_png);
+        var path_json = this.utils.join(this.opciones.data_path, archivo_json);
         this.game.load.atlasJSONHash(id, path_png, path_json);
-    };
-    /**
-     * Concatena dos rutas de manera similar a la función ``os.path.join`` de python.
-     */
-    Pilas.prototype.join = function (a, b) {
-        var path = [a, b].map(function (i) {
-            return i.replace(/(^\/|\/$)/, "");
-        }).join("/");
-        return path;
     };
     /**
      * Concatena dos rutas de manera similar a la función os.path.join
@@ -257,22 +256,17 @@ var Pilas = (function () {
         this.cargar_imagen("yamcha", "yamcha.png");
         this.cargar_imagen_atlas("data", "sprites.png", "sprites.json");
         this.game.stage.disableVisibilityChange = false;
-        if (this.opciones.redimensionar) {
-            this.utils.activar_redimensionado(this.id_elemento_html);
-        }
     };
     Pilas.prototype.create = function () {
         this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         window.dispatchEvent(new CustomEvent("evento_inicia"));
-        this.canvas = this.game.add.graphics(0, 0);
-        // this.game.world.bringToTop();
     };
     Pilas.prototype.pausar = function () {
         this.pause_enabled = true;
     };
     Pilas.prototype.continuar = function () {
         this.pause_enabled = false;
-        this.game_history.reset();
+        this.historial_estados.reset();
     };
     Pilas.prototype.alternar_pausa = function () {
         if (this.pause_enabled) {
@@ -289,8 +283,7 @@ var Pilas = (function () {
     };
     Pilas.prototype._actualizar_actores = function (pause_enabled) {
         var _this = this;
-        this.canvas.clear();
-        this.game_state.entidades.forEach(function (entity) {
+        this.estados.entidades.forEach(function (entity) {
             var sprite = null;
             if (entity.sprite_id) {
                 sprite = _this._obtener_sprite_por_id(entity.sprite_id);
@@ -298,9 +291,6 @@ var Pilas = (function () {
                 sprite.scale.set(entity.scale_x, entity.scale_y);
                 sprite.anchor.setTo(entity.anchor_x, entity.anchor_y);
                 sprite.angle = -entity.rotation;
-                _this.canvas.beginFill(0xFF00FF, 1);
-                _this.canvas.drawCircle(entity.x, entity.y, 200);
-                _this.canvas.endFill();
             }
             else {
                 if (entity["tiled"]) {
@@ -344,19 +334,18 @@ var Pilas = (function () {
             }
         });
         if (!pause_enabled) {
-            this.game_history.save(this.game_state);
+            this.historial_estados.save(this.estados);
         }
     };
     Pilas.prototype.step = function () {
         this._actualizar_actores(false);
     };
     Pilas.prototype.render = function () {
-        // this.game.debug.inputInfo(32, 32);
     };
     Pilas.prototype.obtener_entidad_por_id = function (id) {
         var entities = this.obtener_entidades();
         var index = entities.indexOf(id);
-        return this.game_state.entidades[index];
+        return this.estados.entidades[index];
     };
     Pilas.prototype.add_sprite = function (sprite) {
         var id = this._crear_id();
@@ -382,11 +371,11 @@ var Pilas = (function () {
         return this.scripts[script_name];
     };
     Pilas.prototype.restaurar = function (step) {
-        var state = this.game_history.get_state_by_step(step);
+        var state = this.historial_estados.get_state_by_step(step);
         this.transition_to_step(state);
     };
     Pilas.prototype.obtener_entidades = function () {
-        return this.game_state.entidades.map(function (e) {
+        return this.estados.entidades.map(function (e) {
             return (e.id);
         });
     };
@@ -394,8 +383,8 @@ var Pilas = (function () {
         return new ActorProxy(this, id);
     };
     Pilas.prototype.transition_to_step = function (state) {
-        var current_state = this.game_state;
-        this.game_state = state;
+        var current_state = this.estados;
+        this.estados = state;
     };
     return Pilas;
 })();
@@ -415,10 +404,9 @@ var pilasengine = {
      * @api public
      */
     iniciar: function (element_id, opciones) {
-        if (opciones === void 0) { opciones = { data_path: "data", ancho: null, alto: null, en_test: false, redimensionar: false }; }
+        if (opciones === void 0) { opciones = { data_path: "data", ancho: null, alto: null, en_test: false }; }
         opciones.data_path = opciones["data_path"] || "data";
         opciones.en_test = opciones["en_test"] || false;
-        opciones.redimensionar = opciones["redimensionar"] || false;
         return new Pilas(element_id, opciones);
     }
 };
@@ -426,54 +414,14 @@ var Utils = (function () {
     function Utils(pilas) {
         this.pilas = pilas;
     }
-    Utils.prototype.activar_redimensionado = function (id_elemento_html) {
-        var gameArea = document.getElementById(id_elemento_html);
-        gameArea.style.position = "absolute";
-        gameArea.style.left = "50%";
-        gameArea.style.top = "50%";
-        gameArea.style.width = "100%";
-        gameArea.style.height = "100%";
-        function resizeGame() {
-            var gameArea = document.getElementById(id_elemento_html);
-            var canvas = gameArea.children[0];
-            var widthToHeight = 4 / 3;
-            var newWidth = window.innerWidth;
-            var newHeight = window.innerHeight;
-            var newWidthToHeight = newWidth / newHeight;
-            if (newWidthToHeight > widthToHeight) {
-                newWidth = newHeight * widthToHeight;
-                gameArea.style.height = newHeight + "px";
-                gameArea.style.width = newWidth + "px";
-            }
-            else {
-                newHeight = newWidth / widthToHeight;
-                gameArea.style.width = newWidth + "px";
-                gameArea.style.height = newHeight + "px";
-            }
-            gameArea.style.marginTop = (-newHeight / 2) + "px";
-            gameArea.style.marginLeft = (-newWidth / 2) + "px";
-            canvas.style.width = "100%";
-            canvas.style.height = "100%";
-        }
-        window.addEventListener("resize", resizeGame, false);
-        this._crear_estilo_de_canvas_redimensionado();
-        resizeGame();
-    };
-    Utils.prototype._crear_estilo_de_canvas_redimensionado = function () {
-        var style = document.createElement("style");
-        style.appendChild(document.createTextNode(""));
-        document.head.appendChild(style);
-        var sheet = style.sheet;
-        var selector = "canvas"; // TODO: AGREGAR ID DEL ELEMENTO
-        var rules = "width: 100% !important; height: 100% !important;";
-        if ("insertRule" in sheet) {
-            sheet.insertRule(selector + "{" + rules + "}", 0);
-        }
-        else {
-            if ("addRule" in sheet) {
-                sheet.addRule(selector, rules, 0);
-            }
-        }
+    /**
+     * Concatena dos rutas de manera similar a la función ``os.path.join`` de python.
+     */
+    Utils.prototype.join = function (a, b) {
+        var path = [a, b].map(function (i) {
+            return i.replace(/(^\/|\/$)/, "");
+        }).join("/");
+        return path;
     };
     return Utils;
 })();

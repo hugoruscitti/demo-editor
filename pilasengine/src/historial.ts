@@ -1,10 +1,10 @@
 class Historial {
-  game: Pilas;
+  pilas: Pilas;
   game_state_history: Estado[];
   current_step: number;
 
   constructor(game:Pilas) {
-    this.game = game;
+    this.pilas = game;
     this.game_state_history = [];
     this.current_step = 0;
   }

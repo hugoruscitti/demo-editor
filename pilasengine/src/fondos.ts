@@ -24,7 +24,7 @@ class Fondos {
 
     entity.id = Math.ceil(Math.random() * 1000000000000);
 
-    this.pilas.game_state.entidades.push(entity);
+    this.pilas.estados.entidades.push(entity);
     return entity;
   }
 }

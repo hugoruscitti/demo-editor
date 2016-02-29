@@ -8,16 +8,12 @@
 /// <reference path="actorProxy.ts" />
 /// <reference path="tipos.ts" />
 
-
-
 var timer = 0;
-
-
 
 class Pilas {
   game: Phaser.Game;
-  game_state: Estado;
-  game_history: Historial;
+  estados: Estado;
+  historial_estados: Historial;
   pause_enabled: boolean = false;
   sprites: SpriteCache[] = [];
   scripts: any;
@@ -33,12 +29,12 @@ class Pilas {
   mouse: {x: number, y: number};
 
   codigos: any;
-  canvas: Phaser.Graphics;
   id_elemento_html: string;
 
   constructor(id_elemento_html: string, opciones: OpcionesIniciar) {
 
     this.mouse = {x: 0, y: 0};
+    this.utils = new Utils(this);
 
     let options = {
       preload: this.preload.bind(this),
@@ -47,17 +43,7 @@ class Pilas {
       render: this.render.bind(this)
     };
 
-    if (!id_elemento_html) {
-      throw Error(`Tienes que especificar el ID del tag a usar. Algo como pilasengine.iniciar('idElemento')`);
-    }
-
-    if (!document.getElementById(id_elemento_html)) {
-      throw Error(`No se encuentra el elemento con ID: ${id_elemento_html}`);
-    }
-
-    if (document.getElementById(id_elemento_html).tagName !== "DIV") {
-      throw Error(`El elemento ID: ${id_elemento_html} tiene que ser un tag DIV.`);
-    }
+    this._verificar_correctitud_de_id_elemento_html(id_elemento_html);
 
     this.id_elemento_html = id_elemento_html;
 
@@ -69,18 +55,30 @@ class Pilas {
     this.alto = opciones.alto || 480;
     this.game = new Phaser.Game(this.ancho, this.alto, Phaser.CANVAS, id_elemento_html, options);
 
-    this.game_history = new Historial(this);
+    this.historial_estados = new Historial(this);
 
-    this.game_state = {entidades: []};
+    this.estados = {entidades: []};
 
     this.load_scripts();
     this.actores = new Actores(this);
     this.fondos = new Fondos(this);
-    this.utils = new Utils(this);
 
     this.evento_inicia = document.createEvent("Event");
   }
 
+  private _verificar_correctitud_de_id_elemento_html(id_elemento_html: string) {
+    if (!id_elemento_html) {
+      throw Error(`Tienes que especificar el ID del tag a usar. Algo como pilasengine.iniciar('idElemento')`);
+    }
+
+    if (!document.getElementById(id_elemento_html)) {
+      throw Error(`No se encuentra el elemento con ID: ${id_elemento_html}`);
+    }
+
+    if (document.getElementById(id_elemento_html).tagName !== "DIV") {
+      throw Error(`El elemento ID: ${id_elemento_html} tiene que ser un tag DIV.`);
+    }
+  }
 
   cuando(nombre_evento: string, callback: CallBackEvento) {
     if (nombre_evento === "inicia") {
@@ -105,27 +103,15 @@ class Pilas {
   }
 
   private cargar_imagen(identificador: string, archivo: string) {
-    var path = this.join(this.opciones.data_path, archivo);
+    var path = this.utils.join(this.opciones.data_path, archivo);
     this.game.load.image(identificador, path);
   }
 
   private cargar_imagen_atlas(id: string, archivo_png: string, archivo_json: string) {
-    var path_png = this.join(this.opciones.data_path, archivo_png);
-    var path_json = this.join(this.opciones.data_path, archivo_json);
+    var path_png = this.utils.join(this.opciones.data_path, archivo_png);
+    var path_json = this.utils.join(this.opciones.data_path, archivo_json);
     this.game.load.atlasJSONHash(id, path_png, path_json);
   }
-
-  /**
-   * Concatena dos rutas de manera similar a la función ``os.path.join`` de python.
-   */
-  private join(a: string, b: string) {
-    var path = [a, b].map(function (i) {
-      return i.replace(/(^\/|\/$)/, "");
-    }).join("/");
-
-    return path;
-  }
-
 
   /**
    * Concatena dos rutas de manera similar a la función os.path.join
@@ -152,19 +138,11 @@ class Pilas {
     this.cargar_imagen_atlas("data", "sprites.png", "sprites.json");
 
     this.game.stage.disableVisibilityChange = false;
-
-    if (this.opciones.redimensionar) {
-      this.utils.activar_redimensionado(this.id_elemento_html);
-    }
   }
 
   create() {
     this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-
     window.dispatchEvent(new CustomEvent("evento_inicia"));
-
-    this.canvas = this.game.add.graphics(0, 0);
-    // this.game.world.bringToTop();
   }
 
   pausar() {
@@ -173,7 +151,7 @@ class Pilas {
 
   continuar() {
     this.pause_enabled = false;
-    this.game_history.reset();
+    this.historial_estados.reset();
   }
 
   alternar_pausa() {
@@ -191,9 +169,8 @@ class Pilas {
   }
 
   private _actualizar_actores(pause_enabled: boolean) {
-    this.canvas.clear();
 
-    this.game_state.entidades.forEach((entity: any) => {
+    this.estados.entidades.forEach((entity: any) => {
       let sprite: any = null;
 
       if (entity.sprite_id) {
@@ -203,11 +180,6 @@ class Pilas {
         sprite.scale.set(entity.scale_x, entity.scale_y);
         sprite.anchor.setTo(entity.anchor_x, entity.anchor_y);
         sprite.angle = -entity.rotation;
-
-        this.canvas.beginFill(0xFF00FF, 1);
-        this.canvas.drawCircle(entity.x, entity.y, 200);
-        this.canvas.endFill();
-
       } else {
 
         if (entity["tiled"]) {
@@ -258,7 +230,7 @@ class Pilas {
     });
 
     if (!pause_enabled) {
-      this.game_history.save(this.game_state);
+      this.historial_estados.save(this.estados);
 
       /*
       if (timer === 0) {
@@ -273,7 +245,6 @@ class Pilas {
       }
       */
 
-
     }
 
   }
@@ -283,14 +254,13 @@ class Pilas {
   }
 
   render() {
-  	// this.game.debug.inputInfo(32, 32);
   }
 
   obtener_entidad_por_id(id: number) {
     var entities = this.obtener_entidades();
     var index = entities.indexOf(id);
 
-    return this.game_state.entidades[index];
+    return this.estados.entidades[index];
   }
 
   private add_sprite(sprite: Phaser.Sprite) {
@@ -327,12 +297,12 @@ class Pilas {
   }
 
   restaurar(step: number) {
-    var state = this.game_history.get_state_by_step(step);
+    var state = this.historial_estados.get_state_by_step(step);
     this.transition_to_step(state);
   }
 
   obtener_entidades() {
-    return this.game_state.entidades.map((e) => {
+    return this.estados.entidades.map((e) => {
       return(e.id);
     });
   }
@@ -342,8 +312,8 @@ class Pilas {
   }
 
   private transition_to_step(state: Estado) {
-    var current_state = this.game_state;
-    this.game_state = state;
+    var current_state = this.estados;
+    this.estados = state;
   }
 
 }
@@ -364,10 +334,9 @@ let pilasengine = {
    * @return {Game} el objeto instanciado que representa el contexto del juego.
    * @api public
    */
-  iniciar: function(element_id: string, opciones: OpcionesIniciar = {data_path: "data", ancho: null, alto: null, en_test: false, redimensionar: false}) {
+  iniciar: function(element_id: string, opciones: OpcionesIniciar = {data_path: "data", ancho: null, alto: null, en_test: false}) {
     opciones.data_path = opciones["data_path"] || "data";
     opciones.en_test = opciones["en_test"] || false;
-    opciones.redimensionar = opciones["redimensionar"] || false;
 
     return new Pilas(element_id, opciones);
   }

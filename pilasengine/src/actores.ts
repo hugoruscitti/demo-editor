@@ -36,7 +36,7 @@ class Actores {
 
     entity.id = Math.ceil(Math.random() * 1000000000000);
 
-    this.game.game_state.entidades.push(entity);
+    this.game.estados.entidades.push(entity);
     return entity;
   }
 
@@ -83,7 +83,7 @@ class Actores {
       throw new Error("Tienes que especificar le nombre de la entidad.");
     }
 
-    this.game.game_state.entidades.push(entidad);
+    this.game.estados.entidades.push(entidad);
     return entidad;
   }
 
