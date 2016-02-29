@@ -1,11 +1,11 @@
 
 class ActorProxy {
-  id: number;
+  id: string;
   pilas: Pilas;
 
-  constructor(pilas: Pilas, id:number) {
-    this.id = id;
+  constructor(pilas: Pilas, id: string) {
     this.pilas = pilas;
+    this.id = id;
   }
 
   public set x(value: number) {
@@ -17,7 +17,7 @@ class ActorProxy {
   }
 
   public get data() {
-    return this.pilas.obtener_entidad_por_id(this.id);
+    return this.pilas.estados.obtener_entidad_por_id(this.id);
   }
 
 }

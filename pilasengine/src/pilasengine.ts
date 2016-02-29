@@ -9,10 +9,11 @@
 /// <reference path="tipos.ts" />
 
 var timer = 0;
+var __ha_mostrado_version = false;
 
 class Pilas {
   game: Phaser.Game;
-  estados: Estado;
+  estados: Estados;
   historial_estados: Historial;
   pause_enabled: boolean = false;
   sprites: SpriteCache[] = [];
@@ -21,6 +22,7 @@ class Pilas {
   opciones: OpcionesIniciar;
   fondos: Fondos;
   utils: Utils;
+  imagenes: Imagenes;
 
   evento_inicia: any;
   _cuando_inicia_callback: any;
@@ -39,7 +41,7 @@ class Pilas {
     let options = {
       preload: this.preload.bind(this),
       create: this.create.bind(this),
-      update: this._actualizar.bind(this),
+      update: this.actualizar.bind(this),
       render: this.render.bind(this)
     };
 
@@ -47,7 +49,10 @@ class Pilas {
 
     this.id_elemento_html = id_elemento_html;
 
-    console.log(`%cpilasengine.js v${VERSION} | http://www.pilas-engine.com.ar`, "color: blue");
+    if (!__ha_mostrado_version) {
+      console.log(`%cpilasengine.js v${VERSION} | http://www.pilas-engine.com.ar`, "color: blue");
+      __ha_mostrado_version = true;
+    }
 
     this.codigos = {};
     this.opciones = opciones;
@@ -57,11 +62,12 @@ class Pilas {
 
     this.historial_estados = new Historial(this);
 
-    this.estados = {entidades: []};
+    this.estados = new Estados(this);
 
     this.load_scripts();
     this.actores = new Actores(this);
     this.fondos = new Fondos(this);
+    this.imagenes = new Imagenes(this);
 
     this.evento_inicia = document.createEvent("Event");
   }
@@ -102,17 +108,6 @@ class Pilas {
     };
   }
 
-  private cargar_imagen(identificador: string, archivo: string) {
-    var path = this.utils.join(this.opciones.data_path, archivo);
-    this.game.load.image(identificador, path);
-  }
-
-  private cargar_imagen_atlas(id: string, archivo_png: string, archivo_json: string) {
-    var path_png = this.utils.join(this.opciones.data_path, archivo_png);
-    var path_json = this.utils.join(this.opciones.data_path, archivo_json);
-    this.game.load.atlasJSONHash(id, path_png, path_json);
-  }
-
   /**
    * Concatena dos rutas de manera similar a la función os.path.join
    */
@@ -122,20 +117,12 @@ class Pilas {
     }
   }
 
-  obtener_actores() {
-    console.log("TODO");
-  }
-
   preload() {
     this.game.stage.disableVisibilityChange = true;
 
-    this.cargar_imagen("humo", "humo.png");
-    this.cargar_imagen("sin_imagen", "sin_imagen.png");
-    this.cargar_imagen("fondos/plano", "fondos/plano.png");
+    this.imagenes.precargar_imagenes_estandar();
 
-    this.cargar_imagen("yamcha", "yamcha.png");
 
-    this.cargar_imagen_atlas("data", "sprites.png", "sprites.json");
 
     this.game.stage.disableVisibilityChange = false;
   }
@@ -162,105 +149,14 @@ class Pilas {
     }
   }
 
-  private _actualizar() {
-    this._actualizar_actores(this.pause_enabled);
+  private actualizar() {
+    this.estados.actualizar(this.pause_enabled);
     this.mouse.x = this.game.input.x;
     this.mouse.y = this.game.input.y;
   }
 
-  private _actualizar_actores(pause_enabled: boolean) {
-
-    this.estados.entidades.forEach((entity: any) => {
-      let sprite: any = null;
-
-      if (entity.sprite_id) {
-        sprite = this._obtener_sprite_por_id(entity.sprite_id);
-
-        sprite.position.set(entity.x, entity.y);
-        sprite.scale.set(entity.scale_x, entity.scale_y);
-        sprite.anchor.setTo(entity.anchor_x, entity.anchor_y);
-        sprite.angle = -entity.rotation;
-      } else {
-
-        if (entity["tiled"]) {
-          sprite = this.game.add.tileSprite(entity.x, entity.y, this.ancho * 2, this.alto * 2, entity.imagen);
-        } else {
-          console.log(entity);
-          console.log(entity.imagen);
-
-          if (entity.imagen.indexOf(":") > 0) {
-            var items = entity.imagen.split(":");
-            var galeria = items[0];
-            var imagen = items[1];
-            sprite = this.game.add.sprite(entity.x, entity.y, galeria, imagen);
-          } else {
-            sprite = this.game.add.sprite(entity.x, entity.y, entity.imagen);
-          }
-        }
-
-        var sprite_id = this.add_sprite(sprite);
-
-        entity.sprite_id = sprite_id;
-
-        sprite.position.set(entity.x, entity.y);
-        sprite.scale.set(entity.scale_x, entity.scale_y);
-        sprite.anchor.setTo(entity.anchor_x, entity.anchor_y);
-        sprite.angle = -entity.rotation;
-      }
-
-      if (!pause_enabled) {
-
-        if (this.codigos[entity.nombre]) {
-          try {
-            this.codigos[entity.nombre].actualizar.call(entity);
-          } catch (e) {
-            console.warn("Hay un error en pilas, así que se activó la pausa. Usá la sentencia 'pilas.unpause()' luego de reparar el error.");
-            console.error(e);
-            this.pausar();
-          }
-        }
-
-        // Actualiza las entidades.
-        for (var name in entity.scripts) {
-          this.aplicar_script(entity, name, entity.scripts[name]);
-        }
-      }
-
-
-    });
-
-    if (!pause_enabled) {
-      this.historial_estados.save(this.estados);
-
-      /*
-      if (timer === 0) {
-        var data:any = JSON.stringify(this.game_state, null, "  ");
-        document.getElementById("result").innerHTML = data;
-      }
-
-      timer += 1;
-
-      if (timer > 20) {
-        timer = 0;
-      }
-      */
-
-    }
-
-  }
-
-  step() {
-    this._actualizar_actores(false);
-  }
 
   render() {
-  }
-
-  obtener_entidad_por_id(id: number) {
-    var entities = this.obtener_entidades();
-    var index = entities.indexOf(id);
-
-    return this.estados.entidades[index];
   }
 
   private add_sprite(sprite: Phaser.Sprite) {
@@ -294,26 +190,6 @@ class Pilas {
 
   private obtener_script_por_nombre(script_name: string) {
     return this.scripts[script_name];
-  }
-
-  restaurar(step: number) {
-    var state = this.historial_estados.get_state_by_step(step);
-    this.transition_to_step(state);
-  }
-
-  obtener_entidades() {
-    return this.estados.entidades.map((e) => {
-      return(e.id);
-    });
-  }
-
-  private getActorProxy(id: number) {
-    return new ActorProxy(this, id);
-  }
-
-  private transition_to_step(state: Estado) {
-    var current_state = this.estados;
-    this.estados = state;
   }
 
 }

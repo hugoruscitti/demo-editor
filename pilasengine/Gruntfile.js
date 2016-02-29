@@ -29,7 +29,8 @@ module.exports = function (grunt) {
                 options: {
                     module: 'CommonJS',
                     removeComments: false,
-                    target: 'es5'
+                    target: 'es5',
+                    sourceMap: true
                 }
             }
         },

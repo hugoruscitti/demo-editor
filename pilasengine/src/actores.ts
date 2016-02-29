@@ -1,9 +1,9 @@
 class Actores {
-  game: Pilas;
+  pilas: Pilas;
 
 
-  constructor(game: Pilas) {
-    this.game = game;
+  constructor(pilas: Pilas) {
+    this.pilas = pilas;
   }
 
   /**
@@ -36,23 +36,20 @@ class Actores {
 
     entity.id = Math.ceil(Math.random() * 1000000000000);
 
-    this.game.estados.entidades.push(entity);
+    //this.game.estados.entidades.push(entity);
     return entity;
   }
 
-  Patito() {
-    let entidad: any = this.crear({
-      nombre: "patito",
-      imagen: "data:patito.png"
+  patito(x:number=0, y:number=0) {
+    return this.pilas.estados.crear_entidad("sprite", {
+      imagen: "data:patito.png",
     });
-
-    return new ActorProxy(this.game, entidad.id);
   }
 
 
   texto(mensaje: string) {
     var style = {stroke: '#000000', strokeThickness: 4, font: "28px Arial", fill: "#fff"};
-    var text = this.game.game.add.text(32, 64, "Hola mundo", style);
+    var text = this.pilas.game.add.text(32, 64, "Hola mundo", style);
     window['text'] = text;
   }
 
@@ -74,7 +71,7 @@ class Actores {
 
     entidad.contador = diccionario.contador;
 
-    this.game.codigos[entidad.nombre] = {
+    this.pilas.codigos[entidad.nombre] = {
       actualizar: diccionario.actualizar || function () {},
     };
 
@@ -83,7 +80,7 @@ class Actores {
       throw new Error("Tienes que especificar le nombre de la entidad.");
     }
 
-    this.game.estados.entidades.push(entidad);
+    //this.game.estados.entidades.push(entidad);
     return entidad;
   }
 

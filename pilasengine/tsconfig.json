@@ -18,6 +18,7 @@
         "src/estados.ts",
         "src/fondos.ts",
         "src/historial.ts",
+        "src/imagenes.ts",
         "src/pilasengine.ts",
         "src/tipos.ts",
         "src/utils.ts",
