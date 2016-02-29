@@ -4,7 +4,12 @@ export default Mirage.Factory.extend({
   title: function(i) {
      return 'project ' + i + ' ' + faker.name.firstName();
   },
-  initialCode: `class Game {
+  initialCode: `// comienzo del juego
+
+pilas.actores.patito();
+
+/*
+class Game {
 
     iniciar() {
         var canvas = document.getElementById('canvas');
@@ -22,4 +27,5 @@ export default Mirage.Factory.extend({
 
 var game = new Game()
 game.iniciar();
+*/
 `});

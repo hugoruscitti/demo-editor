@@ -184,6 +184,6 @@ class Estados {
     }
 
     this.data.entidades.push(entidad);
-    return entidad;
+    return new ActorProxy(this.pilas, entidad.id);
   }
 }

@@ -6,6 +6,7 @@ export default Ember.Component.extend({
   error: [],
   semanticDiagnostics: [],
   syntaxDiagnostics: [],
+  project: null,
 
   areConsoleMessages: Ember.computed('semanticDiagnostics', 'syntaxDiagnostics', function() {
     var syntaxDiagnosticsLength = this.get('syntaxDiagnostics').length;
@@ -62,7 +63,11 @@ export default Ember.Component.extend({
     }
 
     this.set('error', null);
-    scopeEvalCode(javascriptCode, this, gameInstance);
+    scopeEvalCode(`// hook
+      var pilas = pilasengine.iniciar('canvas');
+      ${javascriptCode}
+// hook end
+      `, this, gameInstance);
   },
 
   actions: {
