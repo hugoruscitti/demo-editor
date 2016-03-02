@@ -142,6 +142,32 @@ var Actores = (function () {
     };
     return Actores;
 })();
+var Depurador = (function () {
+    function Depurador(pilas) {
+        this.pilas = pilas;
+        this.modos = [];
+    }
+    Depurador.prototype.cuando_dibuja_actor = function (actor) {
+        this.modos.forEach(function (e) {
+            e.cuando_dibuja_actor(actor);
+        });
+    };
+    Depurador.prototype.realizar_dibujado = function () {
+        this.modos.forEach(function (e) {
+            e.realizar_dibujado();
+        });
+    };
+    return Depurador;
+})();
+var Modo = (function () {
+    function Modo() {
+    }
+    Modo.prototype.realizar_dibujado = function () {
+    };
+    Modo.prototype.cuando_dibuja_actor = function (actor) {
+    };
+    return Modo;
+})();
 var Estados = (function () {
     function Estados(pilas) {
         this.pilas = pilas;
@@ -412,6 +438,7 @@ var Pilas = (function () {
         this.actores = new Actores(this);
         this.fondos = new Fondos(this);
         this.imagenes = new Imagenes(this);
+        this.depurador = new Depurador(this);
         this.evento_inicia = document.createEvent("Event");
     }
     Pilas.prototype.mostrar_cuadros_por_segundo = function (estado) {
@@ -497,8 +524,7 @@ var Pilas = (function () {
         if (this.mostrar_fps) {
             this.game.debug.text('' + this.game.time.fps, 2, 14, "#00ff00");
         }
-        this.game.debug.geom(new Phaser.Line(50, 50, 55, 55), "white", false);
-        this.game.debug.geom(new Phaser.Line(50, 55, 55, 50), "white", false);
+        this.depurador.realizar_dibujado();
     };
     Pilas.prototype.add_sprite = function (sprite) {
         var id = this._crear_id();

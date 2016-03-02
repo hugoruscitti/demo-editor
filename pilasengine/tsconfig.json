@@ -14,6 +14,9 @@
     "files": [
         "src/actores.ts",
         "src/actorProxy.ts",
+        "src/depurador/depurador.ts",
+        "src/depurador/modo_fps.ts",
+        "src/depurador/modo.ts",
         "src/entidad.ts",
         "src/estados.ts",
         "src/fondos.ts",

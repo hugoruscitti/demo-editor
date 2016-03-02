@@ -23,6 +23,7 @@ class Pilas {
   fondos: Fondos;
   utils: Utils;
   imagenes: Imagenes;
+  depurador: Depurador;
 
   mostrar_fps: boolean;
 
@@ -73,11 +74,19 @@ class Pilas {
     this.actores = new Actores(this);
     this.fondos = new Fondos(this);
     this.imagenes = new Imagenes(this);
+    this.depurador = new Depurador(this);
 
     this.evento_inicia = document.createEvent("Event");
   }
 
   public mostrar_cuadros_por_segundo(estado: boolean) {
+
+    if (estado) {
+      this.depurador.activar_modo('fps');
+    } else {
+      this.depurador.desactivar_modo('fps');
+    }
+
     this.mostrar_fps = estado;
     this.game.time.advancedTiming = estado;
   }
@@ -173,11 +182,9 @@ class Pilas {
 
   render() {
     if (this.mostrar_fps) {
-      this.game.debug.text('' + this.game.time.fps, 2, 14, "#00ff00");
     }
 
-    this.game.debug.geom(new Phaser.Line(50, 50, 55, 55), "white", false);
-    this.game.debug.geom(new Phaser.Line(50, 55, 55, 50), "white", false);
+    this.depurador.realizar_dibujado();
   }
 
   private add_sprite(sprite: Phaser.Sprite) {
