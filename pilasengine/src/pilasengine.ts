@@ -24,6 +24,8 @@ class Pilas {
   utils: Utils;
   imagenes: Imagenes;
 
+  mostrar_fps: boolean;
+
   evento_inicia: any;
   _cuando_inicia_callback: any;
   ancho: number;
@@ -48,17 +50,20 @@ class Pilas {
     this._verificar_correctitud_de_id_elemento_html(id_elemento_html);
 
     this.id_elemento_html = id_elemento_html;
+    this.ocultar_canvas();
 
     if (!__ha_mostrado_version) {
       console.log(`%cpilasengine.js v${VERSION} | http://www.pilas-engine.com.ar`, "color: blue");
       __ha_mostrado_version = true;
     }
 
+
     this.codigos = {};
     this.opciones = opciones;
     this.ancho = opciones.ancho || 640;
     this.alto = opciones.alto || 480;
     this.game = new Phaser.Game(this.ancho, this.alto, Phaser.CANVAS, id_elemento_html, options);
+    this.game.antialias = false;
 
     this.historial_estados = new Historial(this);
 
@@ -70,6 +75,11 @@ class Pilas {
     this.imagenes = new Imagenes(this);
 
     this.evento_inicia = document.createEvent("Event");
+  }
+
+  public mostrar_cuadros_por_segundo(estado: boolean) {
+    this.mostrar_fps = estado;
+    this.game.time.advancedTiming = estado;
   }
 
   private _verificar_correctitud_de_id_elemento_html(id_elemento_html: string) {
@@ -117,13 +127,23 @@ class Pilas {
     }
   }
 
+  private mostrar_canvas() {
+    document.getElementById(this.id_elemento_html).style.opacity = "1";
+  }
+
+  private ocultar_canvas() {
+    document.getElementById(this.id_elemento_html).style.opacity = "0";
+  }
+
   preload() {
     this.game.stage.disableVisibilityChange = true;
     this.imagenes.precargar_imagenes_estandar();
+    this.mostrar_cuadros_por_segundo(true);
   }
 
   create() {
-    this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    this.mostrar_canvas();
+    //this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     window.dispatchEvent(new CustomEvent("evento_inicia"));
   }
 
@@ -152,6 +172,12 @@ class Pilas {
 
 
   render() {
+    if (this.mostrar_fps) {
+      this.game.debug.text('' + this.game.time.fps, 2, 14, "#00ff00");
+    }
+
+    this.game.debug.geom(new Phaser.Line(50, 50, 55, 55), "white", false);
+    this.game.debug.geom(new Phaser.Line(50, 55, 55, 50), "white", false);
   }
 
   private add_sprite(sprite: Phaser.Sprite) {

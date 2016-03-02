@@ -32,9 +32,10 @@ class Estados {
     var sprite = this.obtener_sprite(entidad.id, entidad.imagen);
 
     sprite.position.set(entidad.x, entidad.y);
-    sprite.scale.set(entidad.scale_x, entidad.scale_y);
+    sprite.scale.set(entidad.escala_x, entidad.escala_y);
     sprite.anchor.setTo(entidad.anchor_x, entidad.anchor_y);
-    sprite.angle = - entidad.rotation;
+    sprite.angle = -entidad.rotacion;
+
   }
 
   private obtener_sprite_tiled(id: string, imagen: string) {

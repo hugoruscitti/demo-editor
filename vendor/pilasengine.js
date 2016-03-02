@@ -23,6 +23,36 @@ var ActorProxy = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(ActorProxy.prototype, "escala_x", {
+        get: function () {
+            return this.data.escala_x;
+        },
+        set: function (value) {
+            this.data.escala_x = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ActorProxy.prototype, "escala_y", {
+        get: function () {
+            return this.data.escala_y;
+        },
+        set: function (value) {
+            this.data.escala_y = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ActorProxy.prototype, "rotacion", {
+        get: function () {
+            return this.data.rotacion;
+        },
+        set: function (value) {
+            this.data.rotacion = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(ActorProxy.prototype, "data", {
         get: function () {
             return this.pilas.estados.obtener_entidad_por_id(this.id);
@@ -136,9 +166,9 @@ var Estados = (function () {
     Estados.prototype.actualizar_entidad_tipo_sprite = function (entidad) {
         var sprite = this.obtener_sprite(entidad.id, entidad.imagen);
         sprite.position.set(entidad.x, entidad.y);
-        sprite.scale.set(entidad.scale_x, entidad.scale_y);
+        sprite.scale.set(entidad.escala_x, entidad.escala_y);
         sprite.anchor.setTo(entidad.anchor_x, entidad.anchor_y);
-        sprite.angle = -entidad.rotation;
+        sprite.angle = -entidad.rotacion;
     };
     Estados.prototype.obtener_sprite_tiled = function (id, imagen) {
         if (this.cache[id]) {
@@ -365,6 +395,7 @@ var Pilas = (function () {
         };
         this._verificar_correctitud_de_id_elemento_html(id_elemento_html);
         this.id_elemento_html = id_elemento_html;
+        this.ocultar_canvas();
         if (!__ha_mostrado_version) {
             console.log("%cpilasengine.js v" + VERSION + " | http://www.pilas-engine.com.ar", "color: blue");
             __ha_mostrado_version = true;
@@ -374,6 +405,7 @@ var Pilas = (function () {
         this.ancho = opciones.ancho || 640;
         this.alto = opciones.alto || 480;
         this.game = new Phaser.Game(this.ancho, this.alto, Phaser.CANVAS, id_elemento_html, options);
+        this.game.antialias = false;
         this.historial_estados = new Historial(this);
         this.estados = new Estados(this);
         this.load_scripts();
@@ -382,6 +414,10 @@ var Pilas = (function () {
         this.imagenes = new Imagenes(this);
         this.evento_inicia = document.createEvent("Event");
     }
+    Pilas.prototype.mostrar_cuadros_por_segundo = function (estado) {
+        this.mostrar_fps = estado;
+        this.game.time.advancedTiming = estado;
+    };
     Pilas.prototype._verificar_correctitud_de_id_elemento_html = function (id_elemento_html) {
         if (!id_elemento_html) {
             throw Error("Tienes que especificar el ID del tag a usar. Algo como pilasengine.iniciar('idElemento')");
@@ -421,12 +457,20 @@ var Pilas = (function () {
             this._cuando_inicia_callback.call(this);
         }
     };
+    Pilas.prototype.mostrar_canvas = function () {
+        document.getElementById(this.id_elemento_html).style.opacity = "1";
+    };
+    Pilas.prototype.ocultar_canvas = function () {
+        document.getElementById(this.id_elemento_html).style.opacity = "0";
+    };
     Pilas.prototype.preload = function () {
         this.game.stage.disableVisibilityChange = true;
         this.imagenes.precargar_imagenes_estandar();
+        this.mostrar_cuadros_por_segundo(true);
     };
     Pilas.prototype.create = function () {
-        this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        this.mostrar_canvas();
+        //this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         window.dispatchEvent(new CustomEvent("evento_inicia"));
     };
     Pilas.prototype.pausar = function () {
@@ -450,6 +494,11 @@ var Pilas = (function () {
         this.mouse.y = this.game.input.y;
     };
     Pilas.prototype.render = function () {
+        if (this.mostrar_fps) {
+            this.game.debug.text('' + this.game.time.fps, 2, 14, "#00ff00");
+        }
+        this.game.debug.geom(new Phaser.Line(50, 50, 55, 55), "white", false);
+        this.game.debug.geom(new Phaser.Line(50, 55, 55, 50), "white", false);
     };
     Pilas.prototype.add_sprite = function (sprite) {
         var id = this._crear_id();
