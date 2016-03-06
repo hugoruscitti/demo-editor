@@ -130,3 +130,24 @@ div#jsconsole-container {
     left: 0;
     right: 0;
 }
+
+.jsconsole .CodeMirror {
+    line-height: 1em;
+    font-family: "Monaco";
+    font-size: 18px;
+}
+
+.CodeMirror-sizer {
+  margin-left: 20px !important;
+}
+
+.CodeMirror-gutter-wrapper {
+   left: -16px !important;
+   width: 27px !important;
+   top: 5px !important;
+}
+
+.CodeMirror-hints {
+   font-size: 18px;
+   font-family: monaco;
+}
