@@ -40,22 +40,33 @@ export default Ember.Component.extend({
       "use strict";
       //var pilas = 123123;
       var windowObject = window;
-      var window = {console: {                        //jshint ignore:line
-        error: function() {
-          //Array.prototype.unshift.call(arguments, '-----');
-          alert(arguments);
-          //old.apply(this, arguments)
-          windowObject.error.apply(this, arguments);
-        },
-        log: function() {
-          alert(arguments);
-          //old.apply(this, arguments)
-          windowObject.error.apply(this, arguments);
-        }
+      var window222 = {
+        eval: window.eval,
+        console: {                        //jshint ignore:line
+          error: function() {
+            //Array.prototype.unshift.call(arguments, '-----');
+            alert(arguments);
+            //old.apply(this, arguments)
+            windowObject.error.apply(this, arguments);
+          },
+          log: function() {
+            alert(arguments);
+            //old.apply(this, arguments)
+            windowObject.error.apply(this, arguments);
+          }
       }};
 
       try {
-        eval(code);
+        window.eval(code);
+      } catch(error) {
+        scope.set('error', error);
+        console.error(error);
+      }
+    }
+
+    function evalCode(code, scope) {
+      try {
+        window.eval(code);
       } catch(error) {
         scope.set('error', error);
         console.error(error);
@@ -63,11 +74,27 @@ export default Ember.Component.extend({
     }
 
     this.set('error', null);
+
+    /*
     scopeEvalCode(`// hook
       var pilas = pilasengine.iniciar('canvas');
       ${javascriptCode}
-// hook end
+      console.log(window);
+      // hook end
       `, this, gameInstance);
+      */
+
+    var code_to_run = `// hook
+      var pilas = pilasengine.iniciar('canvas');
+      ${javascriptCode}
+      console.log(window);
+      // hook end
+    `;
+
+    evalCode(code_to_run, this);
+
+
+
   },
 
   actions: {

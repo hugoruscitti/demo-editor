@@ -32,6 +32,7 @@ module.exports = function(defaults) {
 
 
   /* Necesarios para ember-cli-jsconsole */
+/*
   app.import("./bower_components/codemirror/lib/codemirror.css");
   app.import("./bower_components/codemirror/theme/eclipse.css");
   app.import("./bower_components/codemirror/lib/codemirror.js");
@@ -45,6 +46,7 @@ module.exports = function(defaults) {
   app.import("./bower_components/jsconsole/dist/console.js");
   app.import("./bower_components/jsconsole/styles/gutter-icons.png", {destDir: 'assets/'});
   app.import("./bower_components/jsconsole/styles/meslo/MesloLGSDZ-Regular.woff", {destDir: 'assets/meslo'});
+*/
   /* FIN: Necesarios para ember-cli-jsconsole */
 
   return app.toTree();

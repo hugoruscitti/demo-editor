@@ -6,7 +6,7 @@ export default Mirage.Factory.extend({
   },
   initialCode: `// comienzo del juego
 
-pilas.actores.patito();
+pilas.fondos.Plano();
 
 /*
 class Game {

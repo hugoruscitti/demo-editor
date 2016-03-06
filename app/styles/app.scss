@@ -118,3 +118,15 @@ button {
 .CodeMirror-hints {
   z-index: 600000;
 }
+
+
+.ember-modal-dialog {
+  overflow: hidden;
+}
+
+div#jsconsole-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
