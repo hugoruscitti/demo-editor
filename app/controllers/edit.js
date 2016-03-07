@@ -1,6 +1,13 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+  leftPanelVisible: true,
+  rightPanelVisible: true,
+  queryParams: ['leftPanelVisible', 'rightPanelVisible'],
+
+
+
+
   itsSaved: Ember.computed("model.hasDirtyAttributes", function() {
     return (!this.get("model.hasDirtyAttributes"));
   }),

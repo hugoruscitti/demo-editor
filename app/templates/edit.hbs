@@ -9,35 +9,54 @@
       {{x-back to="project"}}
       <button disabled={{itsSaved}} type="button" {{action "save" model}} class="btn btn-primary">Guardar</button>
       {{#link-to "edit.previewModal" model class="btn btn-success"}}Previsualizar{{/link-to}}
+
+
+      <div class="float-right">
+        {{#x-pushbutton state=leftPanelVisible}}{{fa-icon "fa-caret-square-o-left"}}{{/x-pushbutton}}
+        {{#x-pushbutton state=rightPanelVisible}}{{fa-icon "fa-caret-square-o-right"}}{{/x-pushbutton}}
+      </div>
+
     </div>
   </div>
 
   <div class="edit-fila-triple">
-    <div class="edit-panel-izquierdo">
-      uno
-    </div>
+
+    {{#if leftPanelVisible}}
+      <div class="edit-panel-izquierdo">
+        uno
+      </div>
+    {{/if}}
 
     <div class="edit-panel-principal">
       panel
     </div>
 
-    <div class="edit-panel-derecho">
-      panel
-    </div>
+    {{#if rightPanelVisible}}
+      <div class="edit-panel-derecho">
+        panel
+      </div>
+    {{/if}}
+
   </div>
 
   <div class="edit-principal">
-    <div class="edit-panel-izquierdo">
-      IZQ (200px)
-    </div>
+
+    {{#if leftPanelVisible}}
+      <div class="edit-panel-izquierdo">
+        IZQ (200px)
+      </div>
+    {{/if}}
+
 
     <div class="edit-panel-principal">
       {{x-editor value=model.initialCode}}
     </div>
 
-    <div class="edit-panel-derecho">
-      {{x-result project=model}}
-    </div>
+    {{#if rightPanelVisible}}
+      <div class="edit-panel-derecho">
+        {{x-result project=model}}
+      </div>
+    {{/if}}
   </div>
 
   <div class="edit-fila">
@@ -46,25 +65,3 @@
 </div>
 
 {{outlet}}
-
-<!--
-
-
-
-
-<div class="wrapper">
-  <article class="main">
-      {{x-editor value=model.initialCode}}
-  </article>
-
-  <aside class="aside aside-1">Izquierda</aside>
-
-  <aside class="aside aside-2">
-    {{x-result project=model}}
-  </aside>
-</div>
-
-<div>Pie</div>
-
-
--->
