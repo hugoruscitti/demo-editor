@@ -15,6 +15,7 @@ export default Ember.Component.extend({
 
     editor.session.setMode("ace/mode/typescript");
     editor.setTheme(`ace/theme/${tema}`);
+    editor.setShowPrintMargin(false);
 
     editor.setOptions({
       enableBasicAutocompletion: true,
