@@ -1,11 +1,70 @@
-{{x-title title=model.title}}
+<div class="edit-contenedor">
 
-<div class="button-container">
-  {{x-back to="project"}}
-  <button disabled={{itsSaved}} type="button" {{action "save" model}} class="btn btn-primary">Guardar</button>
-  {{#link-to "edit.previewModal" model class="btn btn-success"}}Previsualizar{{/link-to}}
+  <div class="edit-fila">
+    <div>
+      {{x-title title=model.title}}
+    </div>
+
+    <div class="button-container">
+      {{x-back to="project"}}
+      <button disabled={{itsSaved}} type="button" {{action "save" model}} class="btn btn-primary">Guardar</button>
+      {{#link-to "edit.previewModal" model class="btn btn-success"}}Previsualizar{{/link-to}}
+    </div>
+  </div>
+
+  <div class="edit-fila-triple">
+    <div class="edit-panel-izquierdo">
+      uno
+    </div>
+
+    <div class="edit-panel-principal">
+      panel
+    </div>
+
+    <div class="edit-panel-derecho">
+      panel
+    </div>
+  </div>
+
+  <div class="edit-principal">
+    <div class="edit-panel-izquierdo">
+      IZQ (200px)
+    </div>
+
+    <div class="edit-panel-principal">
+      {{x-editor value=model.initialCode}}
+    </div>
+
+    <div class="edit-panel-derecho">
+      {{x-result project=model}}
+    </div>
+  </div>
+
+  <div class="edit-fila">
+    pie
+  </div>
 </div>
 
-{{x-editor value=model.initialCode}}
-
 {{outlet}}
+
+<!--
+
+
+
+
+<div class="wrapper">
+  <article class="main">
+      {{x-editor value=model.initialCode}}
+  </article>
+
+  <aside class="aside aside-1">Izquierda</aside>
+
+  <aside class="aside aside-2">
+    {{x-result project=model}}
+  </aside>
+</div>
+
+<div>Pie</div>
+
+
+-->

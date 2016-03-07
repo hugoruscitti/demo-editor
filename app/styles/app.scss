@@ -5,7 +5,8 @@
 @import "x-spinner";
 
 body {
-  margin: 1em;
+  margin: 0;
+  padding: 0;
 }
 
 .canvas-container {
@@ -51,10 +52,16 @@ button {
 #editor {
     margin: 0;
     position: absolute;
-    top: 100px;
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
+    top: 0;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+.contenedor-editor {
+  height: 300px;
+  border: 2px solid red;
+  position:relative;
 }
 
 
@@ -133,7 +140,7 @@ div#jsconsole-container {
 
 .jsconsole .CodeMirror {
     line-height: 1em;
-    font-family: "Monaco";
+    font-family: "Source code pro";
     font-size: 18px;
 }
 
@@ -149,5 +156,99 @@ div#jsconsole-container {
 
 .CodeMirror-hints {
    font-size: 18px;
-   font-family: monaco;
+   font-family: "Source code pro"
+}
+
+
+.wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  min-height: 100vh;
+}
+
+.wrapper > * {
+  flex: 1 100%;
+}
+
+.header {
+  background: tomato;
+  flex: 0 0 100%;
+  min-height: 100px;
+  max-height: 100px;
+}
+
+.footer {
+  background: lightgreen;
+}
+
+.main {
+  background: deepskyblue;
+  position: relative;
+  text-align: left;
+}
+
+.aside-1 {
+  background: gold;
+  text-align: left;
+  flex: 0 0 100px;
+}
+
+.aside-2 {
+  background: hotpink;
+  position: relative;
+  text-align: left;
+  overflow: scroll;
+}
+
+  .aside { flex: 1 auto; }
+
+  .main    { flex: 3 auto; }
+  .aside-1 { order: 1; }
+  .main    { order: 2; }
+  .aside-2 { order: 3; }
+  .footer  { order: 4; }
+
+
+div {
+  /*outline: 1px solid #ccc;*/
+}
+
+.edit-contenedor {
+  display: flex;
+  flex-flow: column wrap;
+  min-height: 100vh;
+}
+
+.edit-fila {
+}
+
+.edit-fila-triple {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.edit-principal {
+  display: flex;
+  flex-flow: row wrap;
+  flex: 1 100%;
+}
+
+  .edit-panel-izquierdo {
+    flex: 0 auto;
+    width: 200px;
+  }
+
+  .edit-panel-principal {
+    flex: 1 auto;
+    position: relative;
+  }
+
+  .edit-panel-derecho {
+    flex: 0 auto;
+    width: 300px;
+    position: relative;
+    overflow: scroll;
+  }
+
+.edit-fila {
 }
