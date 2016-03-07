@@ -60,6 +60,9 @@ var ActorProxy = (function () {
         enumerable: true,
         configurable: true
     });
+    ActorProxy.prototype.imprimir = function () {
+        return "<Actor " + this.data.clase + " en (" + this.x + ", " + this.y + ")>";
+    };
     return ActorProxy;
 })();
 var Actores = (function () {
@@ -146,6 +149,9 @@ var Depurador = (function () {
     function Depurador(pilas) {
         this.pilas = pilas;
         this.modos = [];
+        this.modos_disponibles = {
+            'fps': ModoFPS
+        };
     }
     Depurador.prototype.cuando_dibuja_actor = function (actor) {
         this.modos.forEach(function (e) {
@@ -157,10 +163,18 @@ var Depurador = (function () {
             e.realizar_dibujado();
         });
     };
+    Depurador.prototype.activar_modo = function (modo) {
+        var clase = this.modos_disponibles[modo];
+        this.modos.push(new clase(this.pilas));
+    };
+    Depurador.prototype.desactivar_modo = function (modo) {
+        console.error(modo);
+    };
     return Depurador;
 })();
 var Modo = (function () {
-    function Modo() {
+    function Modo(pilas) {
+        this.pilas = pilas;
     }
     Modo.prototype.realizar_dibujado = function () {
     };
@@ -168,6 +182,22 @@ var Modo = (function () {
     };
     return Modo;
 })();
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
+var ModoFPS = (function (_super) {
+    __extends(ModoFPS, _super);
+    function ModoFPS() {
+        _super.apply(this, arguments);
+    }
+    ModoFPS.prototype.realizar_dibujado = function () {
+        this.pilas.game.debug.text('' + this.pilas.game.time.fps, 2, 14, "#00ff00");
+    };
+    return ModoFPS;
+})(Modo);
 var Estados = (function () {
     function Estados(pilas) {
         this.pilas = pilas;
@@ -317,9 +347,9 @@ var Estados = (function () {
             x: 0,
             y: 0,
             tiled: true,
-            scale_x: 1,
-            scale_y: 1,
-            rotation: 0,
+            escala_x: 1,
+            escala_y: 1,
+            rotacion: 0,
             anchor_x: 0.5,
             anchor_y: 0.5,
             scripts: {}
@@ -442,6 +472,12 @@ var Pilas = (function () {
         this.evento_inicia = document.createEvent("Event");
     }
     Pilas.prototype.mostrar_cuadros_por_segundo = function (estado) {
+        if (estado) {
+            this.depurador.activar_modo('fps');
+        }
+        else {
+            this.depurador.desactivar_modo('fps');
+        }
         this.mostrar_fps = estado;
         this.game.time.advancedTiming = estado;
     };
@@ -522,7 +558,6 @@ var Pilas = (function () {
     };
     Pilas.prototype.render = function () {
         if (this.mostrar_fps) {
-            this.game.debug.text('' + this.game.time.fps, 2, 14, "#00ff00");
         }
         this.depurador.realizar_dibujado();
     };

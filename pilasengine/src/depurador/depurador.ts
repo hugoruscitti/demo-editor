@@ -30,4 +30,8 @@ class Depurador {
     this.modos.push(new clase(this.pilas));
 
   }
+
+  desactivar_modo(modo: string) {
+    console.error(modo);
+  }
 }

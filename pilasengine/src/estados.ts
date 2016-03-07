@@ -169,9 +169,9 @@ class Estados {
       x: 0,
       y: 0,
       tiled: true,
-      scale_x: 1,
-      scale_y: 1,
-      rotation: 0,
+      escala_x: 1,
+      escala_y: 1,
+      rotacion: 0,
       anchor_x: 0.5,
       anchor_y: 0.5,
       scripts: {

@@ -52,4 +52,8 @@ class ActorProxy {
     return this.pilas.estados.obtener_entidad_por_id(this.id);
   }
 
+  imprimir() {
+    return `<Actor ${this.data.clase} en (${this.x}, ${this.y})>`;
+  }
+
 }
