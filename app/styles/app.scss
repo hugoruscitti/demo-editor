@@ -94,23 +94,15 @@ button {
 
 
 .console-panel {
-  border-top: 1px solid #E6E6E6;
   background-color: white;
-  padding: 2px;
-  position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  overflow-y: scroll;
-  height: 120px;
 }
 
-.console-warning-line {
-  color: #BF902B;
-  background-color: #FFFFED;
-  border: 1px solid #FFEBD4;
-  margin-top: 2px;
-  padding: 3px;
+.overlay-messages .alert {
+  margin-bottom: 5px;
+  padding: 10px;
 }
 
 .console-error-line {
@@ -132,10 +124,13 @@ button {
 }
 
 div#jsconsole-container {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
+    max-height: 160px;
+
+    overflow: hidden;
 }
 
 .jsconsole .CodeMirror {
@@ -156,7 +151,7 @@ div#jsconsole-container {
 
 .CodeMirror-hints {
    font-size: 18px;
-   font-family: "Source code pro"
+   font-family: "Source code pro";
 }
 
 
@@ -260,4 +255,35 @@ div {
 
 .float-right {
   float: right;
+}
+
+
+#gameContainer {
+  padding: 4px;
+  outline: 2px solid red;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.overlay-messages {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  z-index: 1;
+}
+
+
+.x-result {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }

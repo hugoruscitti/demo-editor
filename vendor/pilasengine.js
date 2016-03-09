@@ -530,10 +530,11 @@ var Pilas = (function () {
         this.game.stage.disableVisibilityChange = true;
         this.imagenes.precargar_imagenes_estandar();
         this.mostrar_cuadros_por_segundo(true);
+        this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        this.game.scale.refresh();
     };
     Pilas.prototype.create = function () {
         this.mostrar_canvas();
-        //this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         window.dispatchEvent(new CustomEvent("evento_inicia"));
     };
     Pilas.prototype.pausar = function () {

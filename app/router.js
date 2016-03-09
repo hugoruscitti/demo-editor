@@ -20,6 +20,7 @@ Router.map(function() {
   });
 
   this.route('test');
+  this.route('game');
 });
 
 export default Router;

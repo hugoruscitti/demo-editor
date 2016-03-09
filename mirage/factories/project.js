@@ -5,6 +5,7 @@ export default Mirage.Factory.extend({
      return 'project ' + i + ' ' + faker.name.firstName();
   },
   initialCode: `// comienzo del juego
+let pilas;
 
 pilas.fondos.Plano();
 

@@ -1,33 +1,26 @@
 {{#if project}}
 
-  {{#if error}}
-    <div class="alert alert-danger">
-      {{error}}
-    </div>
-  {{else}}
-    <div class="canvas-container">
-      {{x-canvas tagName=""}}
-    </div>
-  {{/if}}
+  <div class="overlay-messages">
+    {{#if error}}
+      <div class="alert alert-danger">
+        {{error}}
+      </div>
+    {{/if}}
 
-  {{#if areConsoleMessages}}
+    {{#if areConsoleMessages}}
+      <div class="console-panel">
+        {{#each semanticDiagnostics as |message|}}
+          <div class="alert alert-warning">{{message}}</div>
+        {{/each}}
 
-    <div class="console-panel">
-      {{#each semanticDiagnostics as |message|}}
-        <div class="console-warning-line">{{message}}</div>
-      {{/each}}
+        {{#each syntaxDiagnostics as |message|}}
+          <div class="console-error-line">{{message}}</div>
+        {{/each}}
+      </div>
+    {{/if}}
+  </div>
 
-      {{#each syntaxDiagnostics as |message|}}
-        <div class="console-error-line">{{message}}</div>
-      {{/each}}
-    </div>
-
-  {{/if}}
-
-  {{yield}}
-
-
-  {{js-console onEnter="onEnter"}}
+  <iframe src="/#/game" id="gameContainer"></iframe>
 
 {{else}}
   Se necesita un proyecto.

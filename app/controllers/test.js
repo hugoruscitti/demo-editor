@@ -3,10 +3,15 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   actions: {
     clear() {
-      alert("clear");
+      var window = document.getElementById("gameContainer").contentWindow;
+      window.location.reload(true);
     },
     run() {
-      alert("run");
+      var window = document.getElementById("gameContainer").contentWindow;
+      window.eval(`
+        var pilas = pilasengine.iniciar("canvas");
+        pilas.fondos.Plano();
+      `);
     }
   }
 });

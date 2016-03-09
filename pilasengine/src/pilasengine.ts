@@ -66,6 +66,10 @@ class Pilas {
     this.game = new Phaser.Game(this.ancho, this.alto, Phaser.CANVAS, id_elemento_html, options);
     this.game.antialias = false;
 
+
+
+
+
     this.historial_estados = new Historial(this);
 
     this.estados = new Estados(this);
@@ -148,11 +152,13 @@ class Pilas {
     this.game.stage.disableVisibilityChange = true;
     this.imagenes.precargar_imagenes_estandar();
     this.mostrar_cuadros_por_segundo(true);
+
+    this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    this.game.scale.refresh();
   }
 
   create() {
     this.mostrar_canvas();
-    //this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     window.dispatchEvent(new CustomEvent("evento_inicia"));
   }
 

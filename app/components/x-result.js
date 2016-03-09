@@ -2,6 +2,7 @@ import Ember from 'ember';
 import InboundActions from 'ember-component-inbound-actions/inbound-actions';
 
 export default Ember.Component.extend(InboundActions, {
+  classNames: ['x-result'],
   gameEngine: Ember.inject.service(),
   languageService: Ember.inject.service(),
   error: [],
@@ -17,14 +18,26 @@ export default Ember.Component.extend(InboundActions, {
   }),
 
   didInsertElement() {
-    Ember.run.scheduleOnce('afterRender', this, this.runProject);
+    Ember.run.scheduleOnce('afterRender', this, this.onAfterRender);
   },
 
+  onAfterRender() {
+    this.$("#gameContainer").on("load", () => {
+      if (this.get("project")) {
+        this.send("run", this.get("project"));
+      }
+    });
+
+  },
+
+
+  /*
   runProject() {
     if (this.get("project")) {
       this.send("run", this.get("project"));
     }
   },
+  */
 
   _convert_diagnostics_to_string_list(diagnostics) {
     return diagnostics.map((diagnostic) => {
@@ -39,7 +52,12 @@ export default Ember.Component.extend(InboundActions, {
 
     function evalCode(code, scope) {
       try {
-        window.eval(code);
+        console.log("ESPERANDO 3 segundos ...");
+        setTimeout(() => {
+          console.log("listo!");
+          var window = document.getElementById("gameContainer").contentWindow;
+          window.eval(code);
+        }, 3000);
       } catch(error) {
         scope.set('error', error);
         console.error(error);
@@ -59,6 +77,15 @@ export default Ember.Component.extend(InboundActions, {
   },
 
   actions: {
+    reload(project) {
+      this.$("#gameContainer")[0].contentWindow.location.reload(true);
+
+      this.$("#gameContainer").on("load", () => {
+        if (this.get("project")) {
+          this.send("run", this.get("project"));
+        }
+      });
+    },
     run(project) {
       this.get('languageService').
         compile(project).
