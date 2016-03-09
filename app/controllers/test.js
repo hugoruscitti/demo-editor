@@ -1,8 +1,12 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  gameEngine: Ember.inject.service(),
-
-  init() {
+  actions: {
+    clear() {
+      alert("clear");
+    },
+    run() {
+      alert("run");
+    }
   }
 });

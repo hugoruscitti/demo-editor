@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import InboundActions from 'ember-component-inbound-actions/inbound-actions';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(InboundActions, {
   gameEngine: Ember.inject.service(),
   languageService: Ember.inject.service(),
   error: [],
@@ -34,7 +35,7 @@ export default Ember.Component.extend({
   },
 
   _executeJavascriptCode(javascriptCode) {
-    var gameInstance = this.get('gameEngine').get('gameInstance');
+    //var gameInstance = this.get('gameEngine').get('gameInstance');
 
     function evalCode(code, scope) {
       try {

@@ -5,8 +5,12 @@
 </p>
 
 
+<div>
+  <button class="btn btn-default" {{action "clear"}}>Limpiar</button>
+  <button class="btn btn-default" {{action "run"}}>Ejecutar</button>
+</div>
+
+
+<iframe id="gameContainer" width="200" height="200"></iframe>
+
 {{outlet}}
-
-<div id="canvas"></div>
-
-  {{js-console}}

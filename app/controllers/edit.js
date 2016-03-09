@@ -5,9 +5,6 @@ export default Ember.Controller.extend({
   rightPanelVisible: true,
   queryParams: ['leftPanelVisible', 'rightPanelVisible'],
 
-
-
-
   itsSaved: Ember.computed("model.hasDirtyAttributes", function() {
     return (!this.get("model.hasDirtyAttributes"));
   }),
@@ -41,5 +38,8 @@ export default Ember.Controller.extend({
     save(project) {
       project.save();
     },
+    reload(project) {
+      this.get("xResultHandler").send('run', project);
+    }
   }
 });
