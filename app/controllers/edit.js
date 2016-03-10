@@ -37,6 +37,7 @@ export default Ember.Controller.extend({
   actions: {
     save(project) {
       project.save();
+
     },
     reload(project) {
       this.get("xResultHandler").send('reload', project);

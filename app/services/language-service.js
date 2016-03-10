@@ -4,10 +4,10 @@ export default Ember.Service.extend({
   compile(project) {
     return new Ember.RSVP.Promise((success) => {
       var host = this._create_host();
-      var initialCode = project.get("initialCode");
+      var code = project.get("code");
       var languageService = ts.createLanguageService(host, ts.createDocumentRegistry());
 
-      host.addFile("script.ts", initialCode);
+      host.addFile("script.ts", code);
 
       var semanticDiagnostics = languageService.getSemanticDiagnostics("script.ts");
       var syntaxDiagnostics = languageService.getSyntacticDiagnostics("script.ts");
@@ -20,10 +20,10 @@ export default Ember.Service.extend({
 
     return new Ember.RSVP.Promise((success) => {
       var host = this._create_host();
-      var initialCode = project.get("initialCode");
+      var code = project.get("code");
       var languageService = ts.createLanguageService(host, ts.createDocumentRegistry());
 
-      host.addFile("script.ts", initialCode);
+      host.addFile("script.ts", code);
 
       var output = languageService.getEmitOutput("script.ts").outputFiles[0].text;
 
