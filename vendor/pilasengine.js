@@ -209,7 +209,7 @@ var Estados = (function () {
         this.data.entidades.forEach(function (entidad) {
             switch (entidad.tipo) {
                 case "spriteTiled":
-                    var sprite = _this.obtener_sprite_tiled(entidad.id, entidad.imagen);
+                    _this.actualizar_entidad_tipo_sprite_tiled(entidad);
                     break;
                 case "sprite":
                     _this.actualizar_entidad_tipo_sprite(entidad);
@@ -219,8 +219,15 @@ var Estados = (function () {
             }
         });
     };
+    Estados.prototype.actualizar_entidad_tipo_sprite_tiled = function (entidad) {
+        var sprite = this.obtener_sprite_tiled(entidad.id, entidad.imagen);
+        this.actualizar_sprite_desde_entidad(sprite, entidad);
+    };
     Estados.prototype.actualizar_entidad_tipo_sprite = function (entidad) {
         var sprite = this.obtener_sprite(entidad.id, entidad.imagen);
+        this.actualizar_sprite_desde_entidad(sprite, entidad);
+    };
+    Estados.prototype.actualizar_sprite_desde_entidad = function (sprite, entidad) {
         sprite.position.set(entidad.x, entidad.y);
         sprite.scale.set(entidad.escala_x, entidad.escala_y);
         sprite.anchor.setTo(entidad.anchor_x, entidad.anchor_y);
@@ -473,10 +480,10 @@ var Pilas = (function () {
     }
     Pilas.prototype.mostrar_cuadros_por_segundo = function (estado) {
         if (estado) {
-            this.depurador.activar_modo('fps');
+            this.depurador.activar_modo("fps");
         }
         else {
-            this.depurador.desactivar_modo('fps');
+            this.depurador.desactivar_modo("fps");
         }
         this.mostrar_fps = estado;
         this.game.time.advancedTiming = estado;
@@ -586,10 +593,16 @@ var Pilas = (function () {
         return this.scripts[script_name];
     };
     Pilas.prototype.listar_actores = function () {
-        return this.estados.data.entidades.map(function (e) { return { tipo: "actor", id: e.id }; });
+        return this.estados.data.entidades.map(function (e) {
+            return { tipo: "actor", id: e.id };
+        });
     };
     Pilas.prototype.obtener_actor = function (id) {
-        return new ActorProxy(this, this.estados.data.entidades[id]);
+        var entidad = this.estados.data.entidades[id];
+        if (!entidad) {
+            throw new Error("Lo siento, no existe actor con el ID=" + id);
+        }
+        return new ActorProxy(this, entidad);
     };
     Pilas.prototype.obtener_actores = function () {
         var _this = this;

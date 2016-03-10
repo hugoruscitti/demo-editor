@@ -16,13 +16,13 @@ class Imagenes {
 
 
   private cargar(identificador: string, archivo: string) {
-    var path = this.pilas.utils.join(this.pilas.opciones.data_path, archivo);
+    let path = this.pilas.utils.join(this.pilas.opciones.data_path, archivo);
     this.pilas.game.load.image(identificador, path);
   }
 
   private cargar_atlas(id: string, archivo_png: string, archivo_json: string) {
-    var path_png = this.pilas.utils.join(this.pilas.opciones.data_path, archivo_png);
-    var path_json = this.pilas.utils.join(this.pilas.opciones.data_path, archivo_json);
+    let path_png = this.pilas.utils.join(this.pilas.opciones.data_path, archivo_png);
+    let path_json = this.pilas.utils.join(this.pilas.opciones.data_path, archivo_json);
     this.pilas.game.load.atlasJSONHash(id, path_png, path_json);
   }
 

@@ -14,7 +14,7 @@ class Estados {
 
       switch (entidad.tipo) {
         case "spriteTiled":
-          var sprite = this.obtener_sprite_tiled(entidad.id, entidad.imagen);
+          this.actualizar_entidad_tipo_sprite_tiled(entidad);
         break;
 
         case "sprite":
@@ -28,14 +28,21 @@ class Estados {
     });
   }
 
-  private actualizar_entidad_tipo_sprite(entidad: any) {
-    var sprite = this.obtener_sprite(entidad.id, entidad.imagen);
+  private actualizar_entidad_tipo_sprite_tiled(entidad: any) {
+    let sprite = this.obtener_sprite_tiled(entidad.id, entidad.imagen);
+    this.actualizar_sprite_desde_entidad(sprite, entidad);
+  }
 
+  private actualizar_entidad_tipo_sprite(entidad: any) {
+    let sprite = this.obtener_sprite(entidad.id, entidad.imagen);
+    this.actualizar_sprite_desde_entidad(sprite, entidad);
+  }
+
+  private actualizar_sprite_desde_entidad(sprite: any, entidad: any) {
     sprite.position.set(entidad.x, entidad.y);
     sprite.scale.set(entidad.escala_x, entidad.escala_y);
     sprite.anchor.setTo(entidad.anchor_x, entidad.anchor_y);
     sprite.angle = -entidad.rotacion;
-
   }
 
   private obtener_sprite_tiled(id: string, imagen: string) {

@@ -8,8 +8,8 @@
 /// <reference path="actorProxy.ts" />
 /// <reference path="tipos.ts" />
 
-var timer = 0;
-var __ha_mostrado_version = false;
+let timer = 0;
+let __ha_mostrado_version = false;
 
 class Pilas {
   game: Phaser.Game;
@@ -58,7 +58,6 @@ class Pilas {
       __ha_mostrado_version = true;
     }
 
-
     this.codigos = {};
     this.opciones = opciones;
     this.ancho = opciones.ancho || 640;
@@ -66,12 +65,7 @@ class Pilas {
     this.game = new Phaser.Game(this.ancho, this.alto, Phaser.CANVAS, id_elemento_html, options);
     this.game.antialias = false;
 
-
-
-
-
     this.historial_estados = new Historial(this);
-
     this.estados = new Estados(this);
 
     this.load_scripts();
@@ -86,9 +80,9 @@ class Pilas {
   public mostrar_cuadros_por_segundo(estado: boolean) {
 
     if (estado) {
-      this.depurador.activar_modo('fps');
+      this.depurador.activar_modo("fps");
     } else {
-      this.depurador.desactivar_modo('fps');
+      this.depurador.desactivar_modo("fps");
     }
 
     this.mostrar_fps = estado;
@@ -194,7 +188,7 @@ class Pilas {
   }
 
   private add_sprite(sprite: Phaser.Sprite) {
-    var id = this._crear_id();
+    let id = this._crear_id();
 
     this.sprites.push({id: id, sprite: sprite});
 
@@ -207,8 +201,8 @@ class Pilas {
 
   private _obtener_sprite_por_id(id: string) {
 
-    for (var i = 0; i < this.sprites.length; i++) {
-      var element = this.sprites[i];
+    for (let i = 0; i < this.sprites.length; i++) {
+      let element = this.sprites[i];
 
       if (element.id === id) {
         return element.sprite;
@@ -227,11 +221,19 @@ class Pilas {
   }
 
   listar_actores() {
-    return this.estados.data.entidades.map((e) => {return {tipo: "actor", id: e.id}});
+    return this.estados.data.entidades.map((e) => {
+      return {tipo: "actor", id: e.id};
+    });
   }
 
   obtener_actor(id: string) {
-    return new ActorProxy(this, this.estados.data.entidades[id]);
+    let entidad = this.estados.data.entidades[id];
+
+    if (!entidad) {
+      throw new Error(`Lo siento, no existe actor con el ID=${id}`);
+    }
+
+    return new ActorProxy(this, entidad);
   }
 
   obtener_actores() {

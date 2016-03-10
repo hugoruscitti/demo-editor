@@ -9,7 +9,7 @@ class Utils {
    * Concatena dos rutas de manera similar a la función ``os.path.join`` de python.
    */
   join(a: string, b: string) {
-    var path = [a, b].map(function (i) {
+    let path = [a, b].map(function (i) {
       return i.replace(/(^\/|\/$)/, "");
     }).join("/");
 

@@ -78,11 +78,12 @@ export default Ember.Component.extend(InboundActions, {
 
   actions: {
     reload(project) {
-      this.$("#gameContainer")[0].contentWindow.location.reload(true);
+      let iframeWindow = this.$("#gameContainer")[0].contentWindow;
+      iframeWindow.location.reload(true);
 
       this.$("#gameContainer").on("load", () => {
-        if (this.get("project")) {
-          this.send("run", this.get("project"));
+        if (project) {
+          this.send("run", project);
         }
       });
     },
