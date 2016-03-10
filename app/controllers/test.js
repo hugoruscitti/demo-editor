@@ -7,11 +7,8 @@ export default Ember.Controller.extend({
       window.location.reload(true);
     },
     run() {
-      var window = document.getElementById("gameContainer").contentWindow;
-      window.eval(`
-        var pilas = pilasengine.iniciar("canvas");
-        pilas.fondos.Plano();
-      `);
+      console.log(this.get('xCanvasHandler'));
+      //.send("execute", "alert('alert desde el iframe canvas')");
     }
   }
 });
