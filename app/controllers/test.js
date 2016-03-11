@@ -3,12 +3,11 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   actions: {
     clear() {
-      var window = document.getElementById("gameContainer").contentWindow;
-      window.location.reload(true);
+      this.get('xCanvasHandler').send("clear");
     },
     run() {
-      console.log(this.get('xCanvasHandler'));
-      //.send("execute", "alert('alert desde el iframe canvas')");
+      let code = `var pilas = pilasengine.iniciar('canvas');`;
+      this.get('xCanvasHandler').send("execute", code);
     }
   }
 });

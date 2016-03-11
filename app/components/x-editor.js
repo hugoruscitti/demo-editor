@@ -6,9 +6,6 @@ export default Ember.Component.extend({
   editorFactory: Ember.inject.service(),
   // value  - se carga como propiedad.
 
-  onInit: Ember.on("init", function() {
-  }),
-
   didInsertElement() {
     var editor = this.get("editorFactory").createEditor("editor");
     var tema = this.get("preferences.theme");
