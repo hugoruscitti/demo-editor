@@ -37,7 +37,7 @@ comandos:
 
 _crear_enlaces:
 	$(call log, "Creando enlaces a vendor y data.")
-	@cd pilasengine/ejemplos; rm -rf vendor data; ln -s ../../vendor; ln -s ../../public/data
+	@cd pilasengine/ejemplos; rm -rf libs data; ln -s ../../public/libs; ln -s ../../public/data
 
 iniciar:
 	$(call task, "Iniciando el proyecto.")
@@ -46,12 +46,13 @@ iniciar:
 	@bower install
 	$(call log, "Instalando dependencias de pilas-engine")
 	@cd pilasengine; npm install
-	@make _crear_enlaces
 	@make _instalar_phaser
+	@make _crear_enlaces
 
 _instalar_phaser:
 	$(call log, "Descargando phaser.js ...")
 	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/${PHASER_VERSION}/build/phaser.js
+	@mv phaser.js public/libs/
 	$(call log, "Descargando definiciones de typescript ...")
 	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/master/typescript/phaser.d.ts
 	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/master/typescript/pixi.d.ts
@@ -59,7 +60,6 @@ _instalar_phaser:
 	@mv phaser.d.ts pilasengine/libs/
 	@mv pixi.d.ts pilasengine/libs/
 	@mv p2.d.ts pilasengine/libs/
-	@mv phaser.js public/libs/
 
 version_patch:
 	@bumpversion patch --current-version ${VERSION} Makefile --list
