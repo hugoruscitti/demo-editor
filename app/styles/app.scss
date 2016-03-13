@@ -125,7 +125,7 @@ button {
 }
 
 div#jsconsole-container {
-    position: fixed;
+    position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
@@ -194,7 +194,6 @@ div {
     flex: 0 auto;
     width: 650px;
     position: relative;
-    overflow: scroll;
   }
 
 .edit-fila {
@@ -238,4 +237,24 @@ div {
   right: 0;
   top: 0;
   bottom: 0;
+}
+
+
+.gameIframe {
+  border: 1px solid red;
+}
+
+.split-derecho {
+  width: 8px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 2px;
+  background-color: gray;
+  z-index: 10;
+}
+
+
+.split-derecho:hover {
+  cursor: ew-resize;
 }

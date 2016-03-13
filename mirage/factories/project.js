@@ -5,9 +5,8 @@ export default Factory.extend({
     return `demo ${i}`;
   },
   code(i) {
-      return `
-    let pilas;
-    // code id: ${i}
-  `;
+      return `let pilas;
+
+pilas.fondos.Plano();`;
     }
 });

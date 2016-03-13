@@ -10,8 +10,7 @@
       <button disabled={{itsSaved}} type="button" {{action "save" model}} class="btn btn-primary">Guardar</button>
       {{#link-to "edit.previewModal" model class="btn btn-success"}}Previsualizar{{/link-to}}
 
-      <button {{action "reload" model}} class="btn btn-info"> Reload </button>
-
+      <button {{action "reload" model}} class="btn btn-info"> Ejecutar </button>
 
       <div class="float-right">
         {{#x-pushbutton state=leftPanelVisible}}{{fa-icon "fa-caret-square-o-left"}}{{/x-pushbutton}}
@@ -58,6 +57,7 @@
     {{#if rightPanelVisible}}
       <div class="edit-panel-derecho">
         {{x-result project=model actionReceiver=xResultHandler}}
+        {{js-console}}
       </div>
     {{/if}}
   </div>

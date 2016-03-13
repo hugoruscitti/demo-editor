@@ -22,22 +22,11 @@ export default Ember.Component.extend(InboundActions, {
   },
 
   onAfterRender() {
-    this.$("#gameContainer").on("load", () => {
-      if (this.get("project")) {
-        this.send("run", this.get("project"));
-      }
-    });
+    let iframeElement = this.$().find('#innerIframe')[0];
 
+    this.set("iframeElement", iframeElement);
+    window.iframeElement = iframeElement;
   },
-
-
-  /*
-  runProject() {
-    if (this.get("project")) {
-      this.send("run", this.get("project"));
-    }
-  },
-  */
 
   _convert_diagnostics_to_string_list(diagnostics) {
     return diagnostics.map((diagnostic) => {
@@ -48,16 +37,11 @@ export default Ember.Component.extend(InboundActions, {
   },
 
   _executeJavascriptCode(javascriptCode) {
-    //var gameInstance = this.get('gameEngine').get('gameInstance');
+    let iframeElement = this.get("iframeElement");
 
     function evalCode(code, scope) {
       try {
-        console.log("ESPERANDO 3 segundos ...");
-        setTimeout(() => {
-          console.log("listo!");
-          var window = document.getElementById("gameContainer").contentWindow;
-          window.eval(code);
-        }, 3000);
+        iframeElement.contentWindow.eval(code);
       } catch(error) {
         scope.set('error', error);
         console.error(error);
@@ -76,12 +60,14 @@ export default Ember.Component.extend(InboundActions, {
     evalCode(code_to_run, this);
   },
 
+  reloadIframe(onLoadFunction) {
+    this.get("iframeElement").onload = onLoadFunction;
+    this.get("iframeElement").contentWindow.location.reload(true);
+  },
+
   actions: {
     reload(project) {
-      let iframeWindow = this.$("#gameContainer")[0].contentWindow;
-      iframeWindow.location.reload(true);
-
-      this.$("#gameContainer").on("load", () => {
+      this.reloadIframe(() => {
         if (project) {
           this.send("run", project);
         }
