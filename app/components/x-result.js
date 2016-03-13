@@ -63,6 +63,8 @@ export default Ember.Component.extend(InboundActions, {
   reloadIframe(onLoadFunction) {
     this.get("iframeElement").onload = onLoadFunction;
     this.get("iframeElement").contentWindow.location.reload(true);
+        this.get("iframeElement").src = this.get("iframeElement").src.split("html")[0] + "html#" + Math.random();
+
   },
 
   actions: {
