@@ -7,6 +7,7 @@
 
     <div class="button-container">
       {{x-back to="project"}}
+
       <button disabled={{itsSaved}} type="button" {{action "save" model}} class="btn btn-primary">Guardar</button>
       {{#link-to "edit.previewModal" model class="btn btn-success"}}Previsualizar{{/link-to}}
 
@@ -34,8 +35,10 @@
     </div>
 
     {{#if rightPanelVisible}}
-      <div class="edit-panel-derecho">
-        panel
+      <div class="edit-panel-derecho {{if largePreview 'edit-panel-derecho-large' 'edit-panel-derecho-normal'}}">
+        <div class="float-right">
+          {{#x-pushbutton state=largePreview extraClass="btn-xs"}}{{fa-icon "fa-caret-square-o-left"}}{{/x-pushbutton}}
+        </div>
       </div>
     {{/if}}
 
@@ -55,11 +58,15 @@
     </div>
 
     {{#if rightPanelVisible}}
-      <div class="edit-panel-derecho">
+      <div class="edit-panel-derecho {{if largePreview 'edit-panel-derecho-large' 'edit-panel-derecho-normal'}}">
+        <p class="loading-p">
+            {{x-spinner}}
+        </p>
         {{x-result project=model actionReceiver=xResultHandler}}
         {{js-console}}
       </div>
     {{/if}}
+
   </div>
 
   <div class="edit-fila">

@@ -23,9 +23,12 @@ export default Ember.Component.extend(InboundActions, {
 
   onAfterRender() {
     let iframeElement = this.$().find('#innerIframe')[0];
-
     this.set("iframeElement", iframeElement);
-    window.iframeElement = iframeElement;
+
+    setTimeout(() => {
+      this.send('reload', this.get('project'));
+    }, 10);
+
   },
 
   _convert_diagnostics_to_string_list(diagnostics) {
@@ -61,10 +64,16 @@ export default Ember.Component.extend(InboundActions, {
   },
 
   reloadIframe(onLoadFunction) {
-    this.get("iframeElement").onload = onLoadFunction;
-    this.get("iframeElement").contentWindow.location.reload(true);
+    if (this.get("iframeElement").contentWindow) {
+      this.get("iframeElement").onload = onLoadFunction;
+      this.get("iframeElement").contentWindow.location.reload(false);
+
+
         this.get("iframeElement").src = this.get("iframeElement").src.split("html")[0] + "html#" + Math.random();
 
+    } else {
+      alert("No hay un canvas para visualizar...");
+    }
   },
 
   actions: {

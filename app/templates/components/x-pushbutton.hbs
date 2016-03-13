@@ -1,5 +1,5 @@
 {{#if state}}
-  <button class="btn btn-default active active-blue" {{action "toggle"}}>{{yield}} </button>
+  <button class="btn btn-default active active-blue {{extraClass}} " {{action "toggle"}}>{{yield}} </button>
 {{else}}
-  <button class="btn btn-default" {{action "toggle"}}>{{yield}}</button>
+  <button class="btn btn-default {{extraClass}}" {{action "toggle"}}>{{yield}}</button>
 {{/if}}

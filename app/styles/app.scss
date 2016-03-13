@@ -61,7 +61,6 @@ button {
 
 .contenedor-editor {
   height: 300px;
-  border: 2px solid red;
   position:relative;
 }
 
@@ -172,6 +171,7 @@ div {
 .edit-fila-triple {
   display: flex;
   flex-flow: row nowrap;
+  height: 25px;
 }
 
 .edit-principal {
@@ -183,6 +183,7 @@ div {
   .edit-panel-izquierdo {
     flex: 0 auto;
     width: 250px;
+    padding: 5px;
   }
 
   .edit-panel-principal {
@@ -192,7 +193,6 @@ div {
 
   .edit-panel-derecho {
     flex: 0 auto;
-    width: 650px;
     position: relative;
   }
 
@@ -211,7 +211,6 @@ div {
 
 #gameContainer {
   padding: 4px;
-  outline: 2px solid red;
   position: absolute;
   top: 0;
   right: 0;
@@ -233,15 +232,15 @@ div {
 
 .x-result {
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 5px;
+  right: 5px;
   top: 0;
   bottom: 0;
 }
 
 
 .gameIframe {
-  border: 1px solid red;
+  border: 0;
 }
 
 .split-derecho {
@@ -257,4 +256,17 @@ div {
 
 .split-derecho:hover {
   cursor: ew-resize;
+}
+
+
+.edit-panel-derecho-large {
+  width: 500px;
+}
+
+.edit-panel-derecho-normal {
+  width: 200px;
+}
+
+p.loading-p {
+    text-align: center;
 }
