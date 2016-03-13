@@ -20,3 +20,4 @@ pilasengine/docs/dist/
 pilasengine/libs/*.d.ts
 pilasengine/ejemplos/data
 pilasengine/ejemplos/vendor
+public/libs/phaser.js
