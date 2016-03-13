@@ -6,33 +6,26 @@ export default Ember.Component.extend(InboundActions, {
   innerWindow: null,
 
   didInsertElement() {
-    let iframeElement = this.$().find('#innerIframe').first();
-    console.log(iframeElement);
-    window.ipp = iframeElement;
-
-    //this.reloadIframe();
-    //this.set('innerWindow', iframeElement.contentWindow);
+    Ember.run.scheduleOnce('afterRender', this, this.initElement);
   },
 
-  reloadIframe() {
+  initElement() {
+    let iframeElement = this.$().find('#innerIframe')[0];
 
-    $('#innerIframe')[0].contentWindow.onload = function() {
-      alert("ASDASD");
-    };
-    $('#innerIframe')[0].contentWindow.location.reload(true);
+    this.set("iframeElement", iframeElement);
+    window.iframeElement = iframeElement;
+  },
 
-    /*
-    $('#innerIframe').contents().find('html').html(`
-      <h1>inner</h1>
-
-      <p>iframe</p>
-    `);
-    */
+  reloadIframe(onLoadFunction) {
+    this.get("iframeElement").onload = onLoadFunction;
+    this.get("iframeElement").contentWindow.location.reload(true);
   },
 
   actions: {
     execute(code) {
-      this.get("innerWindow").eval(code);
+      this.reloadIframe(() => {
+        this.get("iframeElement").contentWindow.eval(code);
+      });
     },
     clear() {
       this.reloadIframe();

@@ -25,7 +25,7 @@ module.exports = function (grunt) {
         typescript: {
             base: {
                 src: ['src/**/*.ts'],
-                dest: '../vendor/pilasengine.js',
+                dest: '../public/libs/pilasengine.js',
                 options: {
                     module: 'CommonJS',
                     removeComments: false,

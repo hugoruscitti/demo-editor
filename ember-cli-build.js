@@ -17,10 +17,12 @@ module.exports = function(defaults) {
 
 
   app.import('vendor/ace.js');
+
   app.import('vendor/ext-language_tools.js');
   app.import('vendor/mode-typescript.js');
-  app.import('vendor/phaser.js');
-  app.import('vendor/pilasengine.js');
+
+  //app.import('vendor/phaser.js');
+  //app.import('vendor/pilasengine.js');
 
   app.import('vendor/theme-monokai.js');
   app.import('vendor/theme-xcode.js');

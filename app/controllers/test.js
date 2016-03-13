@@ -6,7 +6,9 @@ export default Ember.Controller.extend({
       this.get('xCanvasHandler').send("clear");
     },
     run() {
-      let code = `var pilas = pilasengine.iniciar('canvas');`;
+      let code = `var pilas = pilasengine.iniciar('canvas');
+      pilas.fondos.Plano();
+      `;
       this.get('xCanvasHandler').send("execute", code);
     }
   }

@@ -59,7 +59,7 @@ _instalar_phaser:
 	@mv phaser.d.ts pilasengine/libs/
 	@mv pixi.d.ts pilasengine/libs/
 	@mv p2.d.ts pilasengine/libs/
-	@mv phaser.js vendor/
+	@mv phaser.js public/libs/
 
 version_patch:
 	@bumpversion patch --current-version ${VERSION} Makefile --list
