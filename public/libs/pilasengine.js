@@ -28,17 +28,41 @@ var ActorProxy = (function () {
             return this.data.escala_x;
         },
         set: function (value) {
-            this.data.escala_x = value;
+            this.setData('escala_x', value);
         },
         enumerable: true,
         configurable: true
     });
+    ActorProxy.prototype.setData = function (property, value) {
+        console.log(value);
+        if (value instanceof Array) {
+            console.log("Es array", value[0]);
+            this.pilas.game.add.tween(this).to({ property: value[0] }, 500, Phaser.Easing.Elastic.Out, true);
+        }
+        else {
+            this.data[property] = value;
+        }
+    };
     Object.defineProperty(ActorProxy.prototype, "escala_y", {
         get: function () {
             return this.data.escala_y;
         },
         set: function (value) {
             this.data.escala_y = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ActorProxy.prototype, "escala", {
+        get: function () {
+            if (this.escala_x != this.escala_y) {
+                console.warn("Los valores de escala_x y escala_y son diferentes, se asume que la escala conjunta es la mayor.");
+            }
+            return Math.max(this.escala_x, this.escala_y);
+        },
+        set: function (value) {
+            this.escala_x = value;
+            this.escala_y = value;
         },
         enumerable: true,
         configurable: true
@@ -228,7 +252,9 @@ var Estados = (function () {
         this.actualizar_sprite_desde_entidad(sprite, entidad);
     };
     Estados.prototype.actualizar_sprite_desde_entidad = function (sprite, entidad) {
-        sprite.position.set(entidad.x, entidad.y);
+        var dx = this.pilas.ancho / 2;
+        var dy = this.pilas.alto / 2;
+        sprite.position.set(dx + entidad.x, dy - entidad.y);
         sprite.scale.set(entidad.escala_x, entidad.escala_y);
         sprite.anchor.setTo(entidad.anchor_x, entidad.anchor_y);
         sprite.angle = -entidad.rotacion;

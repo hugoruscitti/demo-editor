@@ -39,7 +39,10 @@ class Estados {
   }
 
   private actualizar_sprite_desde_entidad(sprite: any, entidad: any) {
-    sprite.position.set(entidad.x, entidad.y);
+    let dx = this.pilas.ancho / 2;
+    let dy = this.pilas.alto / 2;
+
+    sprite.position.set(dx + entidad.x, dy - entidad.y);
     sprite.scale.set(entidad.escala_x, entidad.escala_y);
     sprite.anchor.setTo(entidad.anchor_x, entidad.anchor_y);
     sprite.angle = -entidad.rotacion;
