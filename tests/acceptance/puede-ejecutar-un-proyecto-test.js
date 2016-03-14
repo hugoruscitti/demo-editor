@@ -18,6 +18,6 @@ test('visiting /', function(assert) {
   });
 
   andThen(function() {
-    assert.equal($("canvas").length, 1, "Hay un canvas para el resultado.");
+    assert.equal($("iframe").length, 2, "Hay un iframe para el resultado.");
   });
 });
