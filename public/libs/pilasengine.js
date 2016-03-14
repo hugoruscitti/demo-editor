@@ -3,12 +3,23 @@ var ActorProxy = (function () {
         this.pilas = pilas;
         this.id = id;
     }
+    ActorProxy.prototype.interpolar = function (propiedad, valor, duracion, tipo) {
+        if (duracion === void 0) { duracion = 500.0; }
+        if (tipo === void 0) { tipo = "desaceleracion_gradual"; }
+        if (!duracion) {
+            duracion = 500.0;
+        }
+        if (!tipo) {
+            tipo = "desaceleracion_gradual";
+        }
+        this.pilas.interpolaciones.crear_interpolacion(this, propiedad, valor, duracion, tipo);
+    };
     Object.defineProperty(ActorProxy.prototype, "x", {
         get: function () {
             return this.data.x;
         },
         set: function (value) {
-            this.data.x = value;
+            this.setData('x', value);
         },
         enumerable: true,
         configurable: true
@@ -18,7 +29,7 @@ var ActorProxy = (function () {
             return this.data.y;
         },
         set: function (value) {
-            this.data.y = value;
+            this.setData('y', value);
         },
         enumerable: true,
         configurable: true
@@ -33,22 +44,12 @@ var ActorProxy = (function () {
         enumerable: true,
         configurable: true
     });
-    ActorProxy.prototype.setData = function (property, value) {
-        console.log(value);
-        if (value instanceof Array) {
-            console.log("Es array", value[0]);
-            this.pilas.game.add.tween(this).to({ property: value[0] }, 500, Phaser.Easing.Elastic.Out, true);
-        }
-        else {
-            this.data[property] = value;
-        }
-    };
     Object.defineProperty(ActorProxy.prototype, "escala_y", {
         get: function () {
             return this.data.escala_y;
         },
         set: function (value) {
-            this.data.escala_y = value;
+            this.setData('escala_y', value);
         },
         enumerable: true,
         configurable: true
@@ -72,11 +73,19 @@ var ActorProxy = (function () {
             return this.data.rotacion;
         },
         set: function (value) {
-            this.data.rotacion = value;
+            this.setData('rotacion', value);
         },
         enumerable: true,
         configurable: true
     });
+    ActorProxy.prototype.setData = function (property, value) {
+        if (value instanceof Array) {
+            this.interpolar(property, value);
+        }
+        else {
+            this.data[property] = value;
+        }
+    };
     Object.defineProperty(ActorProxy.prototype, "data", {
         get: function () {
             return this.pilas.estados.obtener_entidad_por_id(this.id);
@@ -459,6 +468,59 @@ var Imagenes = (function () {
     };
     return Imagenes;
 })();
+var Interpolaciones = (function () {
+    function Interpolaciones(pilas) {
+        this.pilas = pilas;
+    }
+    Interpolaciones.prototype.actualizar = function () {
+        var time = window.performance.now();
+        TWEEN.update(time);
+    };
+    Interpolaciones.prototype.reiniciar = function () {
+        TWEEN.removeAll();
+    };
+    Interpolaciones.prototype.crear_interpolacion = function (actor, propiedad, valor, duracion, tipo) {
+        if (duracion === void 0) { duracion = 500.0; }
+        if (tipo === void 0) { tipo = "desaceleracion_gradual"; }
+        if (!duracion) {
+            duracion = 500.0;
+        }
+        if (!tipo) {
+            tipo = "desaceleracion_gradual";
+        }
+        var attrs = {};
+        attrs[propiedad] = valor;
+        // Se asegura que la demora sea de cada paso de la interpolación.
+        if (valor instanceof Array) {
+            duracion *= valor.length;
+        }
+        var tween = new TWEEN.Tween(actor).to(attrs, duracion);
+        var algoritmos = {
+            "lineal": TWEEN.Easing.Linear.None,
+            "aceleracion_gradual": TWEEN.Easing.Quadratic.In,
+            "desaceleracion_gradual": TWEEN.Easing.Quadratic.InOut,
+            "elastico": TWEEN.Easing.Elastic.Out,
+        };
+        var interporlacion_como_constante = algoritmos[tipo];
+        if (!interporlacion_como_constante) {
+            throw new Error("No existe el tipo de interpolaci\u00F3n " + tipo);
+        }
+        tween.easing(interporlacion_como_constante);
+        /*
+        tween.onStart(function(){
+        });
+    
+        tween.onUpdate(function(){
+          console.log("tewwn");
+        });
+    
+        tween.onComplete(function(){
+        });
+        */
+        tween.start();
+    };
+    return Interpolaciones;
+})();
 /// <reference path="../libs/pixi.d.ts"/>
 /// <reference path="../libs/p2.d.ts"/>
 /// <reference path="../libs/phaser.d.ts"/>
@@ -495,6 +557,7 @@ var Pilas = (function () {
         this.alto = opciones.alto || 480;
         this.game = new Phaser.Game(this.ancho, this.alto, Phaser.CANVAS, id_elemento_html, options);
         this.game.antialias = false;
+        this.interpolaciones = new Interpolaciones(this);
         this.historial_estados = new Historial(this);
         this.estados = new Estados(this);
         this.load_scripts();
@@ -589,6 +652,7 @@ var Pilas = (function () {
         this.estados.actualizar(this.pause_enabled);
         this.mouse.x = this.game.input.x;
         this.mouse.y = this.game.input.y;
+        this.interpolaciones.actualizar();
     };
     Pilas.prototype.render = function () {
         if (this.mostrar_fps) {

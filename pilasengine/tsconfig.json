@@ -22,6 +22,7 @@
         "src/fondos.ts",
         "src/historial.ts",
         "src/imagenes.ts",
+        "src/interpolaciones.ts",
         "src/pilasengine.ts",
         "src/tipos.ts",
         "src/utils.ts",

@@ -1,4 +1,3 @@
-
 class ActorProxy {
   id: string;
   pilas: Pilas;
@@ -8,12 +7,25 @@ class ActorProxy {
     this.id = id;
   }
 
+  interpolar(propiedad: string, valor: any, duracion: number = 500.0, tipo: string = "desaceleracion_gradual") {
+
+    if (!duracion) {
+      duracion = 500.0;
+    }
+
+    if (!tipo) {
+      tipo = "desaceleracion_gradual";
+    }
+
+    this.pilas.interpolaciones.crear_interpolacion(this, propiedad, valor, duracion, tipo);
+  }
+
   get x() {
     return this.data.x;
   }
 
   set x(value: number) {
-    this.data.x = value;
+    this.setData('x', value);
   }
 
   get y() {
@@ -21,7 +33,7 @@ class ActorProxy {
   }
 
   set y(value: number) {
-    this.data.y = value;
+    this.setData('y', value);
   }
 
   get escala_x() {
@@ -32,24 +44,12 @@ class ActorProxy {
     this.setData('escala_x', value);
   }
 
-  setData(property: string, value: any) {
-
-    console.log(value);
-    if (value instanceof Array) {
-      console.log("Es array", value[0]);
-      this.pilas.game.add.tween(this).to({ property: value[0] }, 500, Phaser.Easing.Elastic.Out, true);
-    } else {
-      this.data[property] = value;
-    }
-
-  }
-
   get escala_y() {
     return this.data.escala_y;
   }
 
   set escala_y(value: number) {
-    this.data.escala_y = value;
+    this.setData('escala_y', value);
   }
 
   set escala(value: number) {
@@ -70,7 +70,15 @@ class ActorProxy {
   }
 
   set rotacion(value: number) {
-    this.data.rotacion = value;
+    this.setData('rotacion', value);
+  }
+
+  setData(property: string, value: any) {
+    if (value instanceof Array) {
+      this.interpolar(property, value)
+    } else {
+      this.data[property] = value;
+    }
   }
 
   private get data() {

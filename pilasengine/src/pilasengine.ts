@@ -24,6 +24,7 @@ class Pilas {
   utils: Utils;
   imagenes: Imagenes;
   depurador: Depurador;
+  interpolaciones: Interpolaciones;
 
   mostrar_fps: boolean;
 
@@ -64,6 +65,7 @@ class Pilas {
     this.alto = opciones.alto || 480;
     this.game = new Phaser.Game(this.ancho, this.alto, Phaser.CANVAS, id_elemento_html, options);
     this.game.antialias = false;
+    this.interpolaciones = new Interpolaciones(this);
 
     this.historial_estados = new Historial(this);
     this.estados = new Estados(this);
@@ -177,6 +179,7 @@ class Pilas {
     this.estados.actualizar(this.pause_enabled);
     this.mouse.x = this.game.input.x;
     this.mouse.y = this.game.input.y;
+    this.interpolaciones.actualizar();
   }
 
 

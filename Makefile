@@ -60,9 +60,11 @@ _instalar_phaser:
 	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/master/typescript/phaser.d.ts
 	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/master/typescript/pixi.d.ts
 	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/master/typescript/p2.d.ts
+	@wget -q https://raw.githubusercontent.com/edsilv/tween.ts/master/src/Tween.d.ts
 	@mv phaser.d.ts pilasengine/libs/
 	@mv pixi.d.ts pilasengine/libs/
 	@mv p2.d.ts pilasengine/libs/
+	@mv Tween.d.ts pilasengine/libs/
 
 version_patch:
 	@bumpversion patch --current-version ${VERSION} Makefile --list

@@ -16,11 +16,13 @@
     var pilas = pilasengine.iniciar('contenedor', opciones);
 
     window.pilas = pilas;
+    var fondo;
+    var patito;
 
     pilas.cuando('inicia', function() {
 
-      pilas.fondos.Plano();
-      pilas.actores.patito();
+      fondo = pilas.fondos.Plano();
+      patito = pilas.actores.patito();
 
     });
 
