@@ -21,3 +21,4 @@ pilasengine/libs/*.d.ts
 pilasengine/ejemplos/data
 pilasengine/ejemplos/libs
 public/libs/phaser.js
+pilasengine/libs/Tween.js

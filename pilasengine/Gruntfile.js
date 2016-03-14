@@ -6,6 +6,12 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
 
     grunt.initConfig({
+        concat: {
+          dist: {
+            src: ['tmp/pilasengine.js', 'libs/Tween.js'],
+            dest: '../public/libs/pilasengine.js',
+          }
+        },
         typedoc: {
             build: {
                 options: {
@@ -25,7 +31,7 @@ module.exports = function (grunt) {
         typescript: {
             base: {
                 src: ['src/**/*.ts'],
-                dest: '../public/libs/pilasengine.js',
+                dest: 'tmp/pilasengine.js',
                 options: {
                     module: 'CommonJS',
                     removeComments: false,
@@ -59,7 +65,7 @@ module.exports = function (grunt) {
               spawn: false,
             },
             files: ['src/**/*.ts', 'test/**'],
-            tasks: ['typescript', 'touch']
+            tasks: ['typescript', 'concat', 'touch']
           },
           withNoTestsLiveReload: {
             options: {
@@ -67,7 +73,7 @@ module.exports = function (grunt) {
               spawn: false,
             },
             files: ['src/**/*.ts', 'test/**', 'ejemplos/**'],
-            tasks: ['typescript', 'touch']
+            tasks: ['typescript', 'concat', 'touch']
           }
         },
     });
@@ -88,6 +94,7 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks('grunt-typedoc');
+    grunt.loadNpmTasks('grunt-contrib-concat');
 
     //grunt.registerTask('test', ['qunit']);
     //grunt.registerTask('default', ['typescript', 'typedoc', 'test', 'watch:withTests']);
@@ -95,5 +102,5 @@ module.exports = function (grunt) {
 
     grunt.registerTask('compilar-con-ejemplos-livereload', ['connect', 'typescript', 'message', 'watch:withNoTestsLiveReload']);
     grunt.registerTask('compilar-y-notificar-live', ['typescript', 'watch:withNoTests']);
-    grunt.registerTask('compilar', ['typescript', 'touch' /*'typedoc', 'test'*/]);
+    grunt.registerTask('compilar', ['typescript', 'concat', 'touch' /*'typedoc', 'test'*/]);
 }
