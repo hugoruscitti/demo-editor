@@ -33,6 +33,7 @@ module.exports = function(defaults) {
   app.import('vendor/transpiler.js');
 
 
+
   /* Necesarios para ember-cli-jsconsole */
 /*
   app.import("./bower_components/codemirror/lib/codemirror.css");

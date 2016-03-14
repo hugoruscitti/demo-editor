@@ -14,8 +14,9 @@
       <button {{action "reload" model}} class="btn btn-info"> Ejecutar </button>
 
       <div class="float-right">
-        {{#x-pushbutton state=leftPanelVisible}}{{fa-icon "fa-caret-square-o-left"}}{{/x-pushbutton}}
-        {{#x-pushbutton state=rightPanelVisible}}{{fa-icon "fa-caret-square-o-right"}}{{/x-pushbutton}}
+        {{#x-pushbutton state=leftPanelVisible}}1{{/x-pushbutton}}
+        {{#x-pushbutton state=rightPanelVisible}}2{{/x-pushbutton}}
+        {{#x-pushbutton state=editorPanelVisible}}3{{/x-pushbutton}}
       </div>
 
     </div>
@@ -31,16 +32,16 @@
     {{/if}}
 
     {{#if rightPanelVisible}}
-      <div class="edit-panel-derecho {{if largePreview 'edit-panel-derecho-large' 'edit-panel-derecho-normal'}}">
-        <div class="float-right">
-          {{#x-pushbutton state=largePreview extraClass="btn-xs"}}{{fa-icon "fa-caret-square-o-left"}}{{/x-pushbutton}}
-        </div>
+      <div class="edit-panel-derecho">
+        panel2
       </div>
     {{/if}}
 
-    <div class="edit-panel-principal">
-      panel
-    </div>
+    {{#if editorPanelVisible}}
+      <div class="edit-panel-principal">
+        panel
+      </div>
+    {{/if}}
 
   </div>
 
@@ -55,7 +56,7 @@
 
 
     {{#if rightPanelVisible}}
-      <div class="edit-panel-derecho {{if largePreview 'edit-panel-derecho-large' 'edit-panel-derecho-normal'}}">
+      <div class="edit-panel-derecho">
         <p class="loading-p">
             {{x-spinner}}
         </p>
@@ -64,13 +65,15 @@
       </div>
     {{/if}}
 
-    <div class="edit-panel-principal">
-      {{x-editor value=model.code}}
-    </div>
+    {{#if editorPanelVisible}}
+      <div class="edit-panel-principal">
+        {{x-editor value=model.code}}
+      </div>
+    {{/if}}
 
   </div>
 
-  <div class="edit-fila">
+  <div class="edit-fila center">
     pie
   </div>
 </div>

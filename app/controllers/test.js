@@ -1,6 +1,10 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+  layout: Ember.on("init", function() {
+    $("#MySplitter").splitter();
+  }),
+
   actions: {
     clear() {
       this.get('xCanvasHandler').send("clear");

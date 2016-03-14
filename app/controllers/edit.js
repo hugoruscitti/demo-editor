@@ -3,8 +3,8 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   leftPanelVisible: true,
   rightPanelVisible: true,
-  largePreview: false,
-  queryParams: ['leftPanelVisible', 'rightPanelVisible', 'largePreview'],
+  editorPanelVisible: true,
+  queryParams: ['leftPanelVisible', 'rightPanelVisible', 'editorPanelVisible'],
   editorFactory: Ember.inject.service(),
 
   itsSaved: Ember.computed("model.hasDirtyAttributes", function() {

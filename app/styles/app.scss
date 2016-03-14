@@ -192,7 +192,7 @@ div {
   }
 
   .edit-panel-derecho {
-    flex: 0 auto;
+    flex: 1 auto;
     position: relative;
   }
 
@@ -243,30 +243,11 @@ div {
   border: 0;
 }
 
-.split-derecho {
-  width: 8px;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 2px;
-  background-color: gray;
-  z-index: 10;
-}
-
-
-.split-derecho:hover {
-  cursor: ew-resize;
-}
-
-
-.edit-panel-derecho-large {
-  width: 500px;
-}
-
-.edit-panel-derecho-normal {
-  width: 200px;
-}
-
 p.loading-p {
     text-align: center;
+}
+
+
+.center {
+  text-align: center;
 }
