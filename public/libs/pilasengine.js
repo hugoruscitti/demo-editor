@@ -475,10 +475,11 @@ var Imagenes = (function () {
 var Interpolaciones = (function () {
     function Interpolaciones(pilas) {
         this.pilas = pilas;
+        this.time = window.performance.now();
     }
     Interpolaciones.prototype.actualizar = function () {
-        var time = window.performance.now();
-        TWEEN.update(time);
+        this.time += 1000.0 / 60;
+        TWEEN.update(this.time);
     };
     Interpolaciones.prototype.reiniciar = function () {
         TWEEN.removeAll();
@@ -550,7 +551,7 @@ var timer = 0;
 var __ha_mostrado_version = false;
 var Pilas = (function () {
     function Pilas(id_elemento_html, opciones) {
-        this.pause_enabled = false;
+        this.pausa_habilitada = false;
         this.sprites = [];
         this.mouse = { x: 0, y: 0 };
         this.utils = new Utils(this);
@@ -650,14 +651,20 @@ var Pilas = (function () {
         window.dispatchEvent(new CustomEvent("evento_inicia"));
     };
     Pilas.prototype.pausar = function () {
-        this.pause_enabled = true;
+        if (this.pausa_habilitada) {
+            console.warn("El modo pausa ya estába habilitado.");
+        }
+        this.pausa_habilitada = true;
     };
     Pilas.prototype.continuar = function () {
-        this.pause_enabled = false;
+        if (!this.pausa_habilitada) {
+            console.warn("El modo pausa no estába habilitado.");
+        }
+        this.pausa_habilitada = false;
         this.historial_estados.reset();
     };
     Pilas.prototype.alternar_pausa = function () {
-        if (this.pause_enabled) {
+        if (this.pausa_habilitada) {
             this.continuar();
         }
         else {
@@ -665,10 +672,12 @@ var Pilas = (function () {
         }
     };
     Pilas.prototype.actualizar = function () {
-        this.estados.actualizar(this.pause_enabled);
-        this.mouse.x = this.game.input.x;
-        this.mouse.y = this.game.input.y;
-        this.interpolaciones.actualizar();
+        if (!this.pausa_habilitada) {
+            this.estados.actualizar(this.pausa_habilitada);
+            this.mouse.x = this.game.input.x;
+            this.mouse.y = this.game.input.y;
+            this.interpolaciones.actualizar();
+        }
     };
     Pilas.prototype.render = function () {
         if (this.mostrar_fps) {
@@ -724,10 +733,10 @@ var Pilas = (function () {
  */
 var pilasengine = {
     /**
-     * Inicializa la biblioteca completa.
+     * Inicializa la biblioteca completa dentro de un contenedor DIV.
      *
      * @example
-     *     var pilas = pilasengine.iniciar("canvas_id");
+     *     var pilas = pilasengine.iniciar("id_del_contenedor");
      *
      * @param {OpcionesIniciar} las opciones de inicialización.
      * @return {Game} el objeto instanciado que representa el contexto del juego.

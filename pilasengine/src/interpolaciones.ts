@@ -2,14 +2,16 @@ declare var TWEEN: any
 
 class Interpolaciones {
   pilas: Pilas;
+  time: number;
 
   constructor(pilas: Pilas) {
     this.pilas = pilas;
+    this.time = window.performance.now();
   }
 
   actualizar() {
-    let time = window.performance.now();
-    TWEEN.update(time);
+    this.time += 1000.0/60;
+    TWEEN.update(this.time);
   }
 
   reiniciar() {

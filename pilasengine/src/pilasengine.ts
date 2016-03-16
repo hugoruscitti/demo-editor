@@ -15,7 +15,7 @@ class Pilas {
   game: Phaser.Game;
   estados: Estados;
   historial_estados: Historial;
-  pause_enabled: boolean = false;
+  pausa_habilitada: boolean = false;
   sprites: SpriteCache[] = [];
   scripts: any;
   actores: Actores;
@@ -159,16 +159,24 @@ class Pilas {
   }
 
   pausar() {
-    this.pause_enabled = true;
+    if (this.pausa_habilitada) {
+      console.warn("El modo pausa ya estába habilitado.");
+    }
+
+    this.pausa_habilitada = true;
   }
 
   continuar() {
-    this.pause_enabled = false;
+    if (!this.pausa_habilitada) {
+      console.warn("El modo pausa no estába habilitado.");
+    }
+
+    this.pausa_habilitada = false;
     this.historial_estados.reset();
   }
 
   alternar_pausa() {
-    if (this.pause_enabled) {
+    if (this.pausa_habilitada) {
       this.continuar();
     } else {
       this.pausar();
@@ -176,10 +184,14 @@ class Pilas {
   }
 
   private actualizar() {
-    this.estados.actualizar(this.pause_enabled);
-    this.mouse.x = this.game.input.x;
-    this.mouse.y = this.game.input.y;
-    this.interpolaciones.actualizar();
+
+    if (!this.pausa_habilitada) {
+      this.estados.actualizar(this.pausa_habilitada);
+      this.mouse.x = this.game.input.x;
+      this.mouse.y = this.game.input.y;
+      this.interpolaciones.actualizar();
+    }
+
   }
 
 
@@ -253,10 +265,10 @@ class Pilas {
 let pilasengine = {
 
   /**
-   * Inicializa la biblioteca completa.
+   * Inicializa la biblioteca completa dentro de un contenedor DIV.
    *
    * @example
-   *     var pilas = pilasengine.iniciar("canvas_id");
+   *     var pilas = pilasengine.iniciar("id_del_contenedor");
    *
    * @param {OpcionesIniciar} las opciones de inicialización.
    * @return {Game} el objeto instanciado que representa el contexto del juego.
