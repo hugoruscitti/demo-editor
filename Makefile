@@ -27,6 +27,7 @@ comandos:
 	@echo "    ${G}pilas${N}                  Genera pilasengine.js."
 	@echo "    ${G}pilas_live${N}             Genera pilasengine.js (modo live)."
 	@echo "    ${G}pilas_ejemplos_live${N}    Genera pilasengine.js y ejemplos (live)."
+	@echo "    ${G}generar_ejemplo${N}        Permite crear un ejemplo nuevo."
 	@echo ""
 	@echo "  ${Y}Para distribuir${N}"
 	@echo ""
@@ -116,5 +117,8 @@ pilas_live:
 pilas_ejemplos_live:
 	$(call log, "Compilando ejemplos de pilas-engine en modo live")
 	@grunt --gruntfile pilasengine/Gruntfile.js compilar-con-ejemplos-livereload --base pilasengine
+
+generar_ejemplo:
+	@node pilasengine/utils/generar_ejemplo.js
 
 .PHONY: tmp
