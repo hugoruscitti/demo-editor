@@ -18,6 +18,8 @@
         "src/depurador/modo_fps.ts",
         "src/depurador/modo.ts",
         "src/entidad.ts",
+        "src/escenas.ts",
+        "src/escenas/escena.ts",
         "src/estados.ts",
         "src/fondos.ts",
         "src/historial.ts",

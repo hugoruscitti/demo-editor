@@ -235,6 +235,20 @@ var ModoFPS = (function (_super) {
     };
     return ModoFPS;
 })(Modo);
+var Escenas = (function () {
+    function Escenas(pilas) {
+        this.pilas = pilas;
+    }
+    return Escenas;
+})();
+var Escena = (function () {
+    function Escena(pilas) {
+        this.pilas = pilas;
+    }
+    Escena.prototype.actualizar = function () {
+    };
+    return Escena;
+})();
 var Estados = (function () {
     function Estados(pilas) {
         this.pilas = pilas;
@@ -574,6 +588,7 @@ var Pilas = (function () {
         this.alto = opciones.alto || 480;
         this.game = new Phaser.Game(this.ancho, this.alto, Phaser.CANVAS, id_elemento_html, options);
         this.game.antialias = false;
+        this.escenas = new Escenas(this);
         this.interpolaciones = new Interpolaciones(this);
         this.historial_estados = new Historial(this);
         this.estados = new Estados(this);
@@ -591,7 +606,6 @@ var Pilas = (function () {
         else {
             this.depurador.desactivar_modo("fps");
         }
-        this.mostrar_fps = estado;
         this.game.time.advancedTiming = estado;
     };
     Pilas.prototype._verificar_correctitud_de_id_elemento_html = function (id_elemento_html) {
@@ -633,9 +647,15 @@ var Pilas = (function () {
             this._cuando_inicia_callback.call(this);
         }
     };
+    /**
+     * Muestra el contenedor que contiene al juego.
+     */
     Pilas.prototype.mostrar_canvas = function () {
         document.getElementById(this.id_elemento_html).style.opacity = "1";
     };
+    /**
+     * Oculta el contenedor que contiene al juego.
+     */
     Pilas.prototype.ocultar_canvas = function () {
         document.getElementById(this.id_elemento_html).style.opacity = "0";
     };
@@ -671,6 +691,9 @@ var Pilas = (function () {
             this.pausar();
         }
     };
+    /**
+     * Realiza una actualización de la lógica del videojuego.
+     */
     Pilas.prototype.actualizar = function () {
         if (!this.pausa_habilitada) {
             this.estados.actualizar(this.pausa_habilitada);
@@ -680,8 +703,6 @@ var Pilas = (function () {
         }
     };
     Pilas.prototype.render = function () {
-        if (this.mostrar_fps) {
-        }
         this.depurador.realizar_dibujado();
     };
     Pilas.prototype.add_sprite = function (sprite) {

@@ -25,8 +25,7 @@ class Pilas {
   imagenes: Imagenes;
   depurador: Depurador;
   interpolaciones: Interpolaciones;
-
-  mostrar_fps: boolean;
+  escenas: Escenas;
 
   evento_inicia: any;
   _cuando_inicia_callback: any;
@@ -65,6 +64,10 @@ class Pilas {
     this.alto = opciones.alto || 480;
     this.game = new Phaser.Game(this.ancho, this.alto, Phaser.CANVAS, id_elemento_html, options);
     this.game.antialias = false;
+
+    this.escenas = new Escenas(this);
+    this.escenas.Normal();
+
     this.interpolaciones = new Interpolaciones(this);
 
     this.historial_estados = new Historial(this);
@@ -87,7 +90,6 @@ class Pilas {
       this.depurador.desactivar_modo("fps");
     }
 
-    this.mostrar_fps = estado;
     this.game.time.advancedTiming = estado;
   }
 
@@ -136,10 +138,16 @@ class Pilas {
     }
   }
 
+  /**
+   * Muestra el contenedor que contiene al juego.
+   */
   private mostrar_canvas() {
     document.getElementById(this.id_elemento_html).style.opacity = "1";
   }
 
+  /**
+   * Oculta el contenedor que contiene al juego.
+   */
   private ocultar_canvas() {
     document.getElementById(this.id_elemento_html).style.opacity = "0";
   }
@@ -183,6 +191,9 @@ class Pilas {
     }
   }
 
+  /**
+   * Realiza una actualización de la lógica del videojuego.
+   */
   private actualizar() {
 
     if (!this.pausa_habilitada) {
@@ -194,11 +205,7 @@ class Pilas {
 
   }
 
-
   render() {
-    if (this.mostrar_fps) {
-    }
-
     this.depurador.realizar_dibujado();
   }
 
