@@ -3,16 +3,20 @@ var ActorProxy = (function () {
         this.pilas = pilas;
         this.id = id;
     }
-    ActorProxy.prototype.interpolar = function (propiedad, valor, duracion, tipo) {
+    ActorProxy.prototype.interpolar = function (propiedad, valor, duracion, tipo, infinito) {
         if (duracion === void 0) { duracion = 500.0; }
         if (tipo === void 0) { tipo = "desaceleracion_gradual"; }
+        if (infinito === void 0) { infinito = false; }
         if (!duracion) {
             duracion = 500.0;
         }
         if (!tipo) {
             tipo = "desaceleracion_gradual";
         }
-        this.pilas.interpolaciones.crear_interpolacion(this, propiedad, valor, duracion, tipo);
+        if (infinito == undefined) {
+            infinito = false;
+        }
+        this.pilas.interpolaciones.crear_interpolacion(this, propiedad, valor, duracion, tipo, infinito);
     };
     Object.defineProperty(ActorProxy.prototype, "x", {
         get: function () {
@@ -479,20 +483,29 @@ var Interpolaciones = (function () {
     Interpolaciones.prototype.reiniciar = function () {
         TWEEN.removeAll();
     };
-    Interpolaciones.prototype.crear_interpolacion = function (actor, propiedad, valor, duracion, tipo) {
+    Interpolaciones.prototype.crear_interpolacion = function (actor, propiedad, valor, duracion, tipo, infinito) {
         if (duracion === void 0) { duracion = 500.0; }
         if (tipo === void 0) { tipo = "desaceleracion_gradual"; }
+        if (infinito === void 0) { infinito = false; }
         if (!duracion) {
             duracion = 500.0;
         }
         if (!tipo) {
             tipo = "desaceleracion_gradual";
         }
+        if (infinito == undefined) {
+            infinito = false;
+        }
         var attrs = {};
         attrs[propiedad] = valor;
         // Se asegura que la demora sea de cada paso de la interpolación.
         if (valor instanceof Array) {
             duracion *= valor.length;
+        }
+        if (infinito) {
+            if (valor instanceof Array) {
+                valor.push(actor[propiedad]);
+            }
         }
         var tween = new TWEEN.Tween(actor).to(attrs, duracion);
         var algoritmos = {
@@ -504,6 +517,9 @@ var Interpolaciones = (function () {
         var interporlacion_como_constante = algoritmos[tipo];
         if (!interporlacion_como_constante) {
             throw new Error("No existe el tipo de interpolaci\u00F3n " + tipo);
+        }
+        if (infinito) {
+            tween.repeat(Infinity);
         }
         tween.easing(interporlacion_como_constante);
         /*

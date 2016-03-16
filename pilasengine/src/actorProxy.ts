@@ -7,7 +7,7 @@ class ActorProxy {
     this.id = id;
   }
 
-  interpolar(propiedad: string, valor: any, duracion: number = 500.0, tipo: string = "desaceleracion_gradual") {
+  interpolar(propiedad: string, valor: any, duracion: number = 500.0, tipo: string = "desaceleracion_gradual", infinito: boolean = false) {
 
     if (!duracion) {
       duracion = 500.0;
@@ -17,7 +17,11 @@ class ActorProxy {
       tipo = "desaceleracion_gradual";
     }
 
-    this.pilas.interpolaciones.crear_interpolacion(this, propiedad, valor, duracion, tipo);
+    if (infinito == undefined) {
+      infinito = false;
+    }
+
+    this.pilas.interpolaciones.crear_interpolacion(this, propiedad, valor, duracion, tipo, infinito);
   }
 
   get x() {
