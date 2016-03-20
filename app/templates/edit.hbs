@@ -1,87 +1,87 @@
-<div class="edit-contenedor">
+<header class="toolbar toolbar-header">
 
-  <div class="edit-fila padding">
-    <div>
-      {{x-title title=model.title}}
+  <div class="toolbar-actions">
+
+    <div class="btn-group">
+      {{#link-to "index" tagName="button" class="btn btn-default"}} {{p-icon icon="home"}} {{/link-to}}
+      {{#link-to "project" tagName="button" class="btn btn-default"}} {{p-icon icon="bag"}} {{/link-to}}
     </div>
 
-    <div class="button-container">
-      {{x-back to="project"}}
+    {{x-title title=model.title}}
 
-      <button disabled={{itsSaved}} type="button" {{action "save" model}} class="btn btn-primary">Guardar</button>
-      {{#link-to "edit.previewModal" model tagName="button" class="btn btn-default"}}Previsualizar{{/link-to}}
-
-      <button {{action "reload" model}} class="btn btn-default"> Ejecutar </button>
-
-      <div class="float-right">
-        <div class="btn-group">
-          {{#x-pushbutton state=leftPanelVisible tooltip_activate="mostar información" tooltip_deactivate="ocultar información"}} {{p-icon icon="info"}} {{/x-pushbutton}}
-          {{#x-pushbutton state=rightPanelVisible tooltip_activate="mostrar juego" tooltip_deactivate="ocultar juego"}} {{p-icon icon="window"}} {{/x-pushbutton}}
-          {{#x-pushbutton state=editorPanelVisible tooltip_activate="mostar editor" tooltip_deactivate="ocultar editor"}} {{p-icon icon="doc-text"}} {{/x-pushbutton}}
-        </div>
-      </div>
-
+    <div class="btn-group pull-right">
+      {{#x-pushbutton state=leftPanelVisible tooltip_activate="mostar información" tooltip_deactivate="ocultar información"}} {{p-icon icon="info"}} {{/x-pushbutton}}
+      {{#x-pushbutton state=rightPanelVisible tooltip_activate="mostrar juego" tooltip_deactivate="ocultar juego"}} {{p-icon icon="window"}} {{/x-pushbutton}}
+      {{#x-pushbutton state=editorPanelVisible tooltip_activate="mostar editor" tooltip_deactivate="ocultar editor"}} {{p-icon icon="doc-text"}} {{/x-pushbutton}}
     </div>
-  </div>
-
-
-  <div class="edit-fila-triple">
-
-    {{#if leftPanelVisible}}
-      <div class="edit-panel-izquierdo">
-        uno
-      </div>
-    {{/if}}
-
-    {{#if rightPanelVisible}}
-      <div class="edit-panel-derecho">
-        panel2
-      </div>
-    {{/if}}
-
-    {{#if editorPanelVisible}}
-      <div class="edit-panel-principal">
-        panel
-      </div>
-    {{/if}}
 
   </div>
 
-  <div class="edit-principal">
+</header>
 
-    {{#if leftPanelVisible}}
-      <div class="edit-panel-izquierdo">
-        IZQ (200px)
+
+
+<div class="window-content">
+  <div class="pane">
+
+    <div class="edit-contenedor">
+
+      <div class="edit-principal">
+
+        {{#if leftPanelVisible}}
+          <div class="edit-panel-izquierdo">
+            IZQ (200px)
+          </div>
+        {{/if}}
+
+        {{#if rightPanelVisible}}
+          <div class="edit-panel-derecho">
+
+            <div class="toolbar-actions">
+              <button {{action "reload" model}} class="btn btn-default pull-right"> {{p-icon icon="arrows-ccw"}} </button>
+              {{#link-to "edit.previewModal" model tagName="button" class="btn btn-default pull-right"}} {{p-icon icon="resize-full"}} {{/link-to}}
+            </div>
+
+            <p class="loading-p">
+                {{x-spinner}}
+            </p>
+
+            {{x-result project=model actionReceiver=xResultHandler}}
+            {{js-console}}
+          </div>
+        {{/if}}
+
+        {{#if editorPanelVisible}}
+
+          <div class="edit-panel-principal">
+
+            <div class="toolbar-actions toolbar-fix">
+              {{#if itsSaved}}
+                <button class="btn btn-default">Guardar</button>
+              {{else}}
+                <button {{action "save" model}} class="btn btn-primary">Guardar</button>
+              {{/if}}
+            </div>
+
+            {{x-editor value=model.code}}
+          </div>
+
+        {{/if}}
+
+        {{#if allPanelsInvisible}}
+          <div class="allPanelsInvisiblePanel">
+            <p>Hey, ningún panel está visible....</p>
+          </div>
+        {{/if}}
+
       </div>
-    {{/if}}
 
-    {{#if rightPanelVisible}}
-      <div class="edit-panel-derecho">
-        <p class="loading-p">
-            {{x-spinner}}
-        </p>
-        {{x-result project=model actionReceiver=xResultHandler}}
-        {{js-console}}
+      <div class="edit-fila center">
+        pie
       </div>
-    {{/if}}
+    </div>
 
-    {{#if editorPanelVisible}}
-      <div class="edit-panel-principal">
-        {{x-editor value=model.code}}
-      </div>
-    {{/if}}
+    {{outlet}}
 
-    {{#if allPanelsInvisible}}
-      <div class="allPanelsInvisiblePanel">
-        <p>Hey, ningún panel está visible....</p>
-      </div>
-    {{/if}}
-
-  </div>
-
-  <div class="edit-fila center">
-    pie
   </div>
 </div>
-
-{{outlet}}

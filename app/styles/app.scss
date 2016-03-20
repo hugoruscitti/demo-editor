@@ -5,6 +5,8 @@
 @import "x-spinner";
 @import "layout";
 
+$marginTop: 32px;
+
 body {
   margin: 0;
   padding: 0;
@@ -47,7 +49,7 @@ textarea {
 #editor {
     margin: 0;
     position: absolute;
-    top: 0;
+    top: $marginTop;
     bottom: 0px;
     left: 0px;
     right: 0px;
@@ -74,11 +76,18 @@ textarea {
 
 
 .x-title {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  text-align: center;
 }
 
 .x-title:hover {
   cursor: pointer;
-  color: blue;
 }
 
 
@@ -228,7 +237,7 @@ div {
   position: absolute;
   left: 5px;
   right: 5px;
-  top: 0;
+  top: $marginTop;
   bottom: 0;
 }
 
@@ -281,4 +290,20 @@ td a:active {
   flex-flow: row nowrap;
   flex: 1 auto;
   width: 100%;
+}
+
+.tooled-left:after, .tooled-left:before {
+  right: 20px;
+  top: 8px;
+}
+
+
+a:active {
+  outline: 0;
+  color: white;
+}
+
+
+.toolbar-fix {
+  margin-left: -7px;
 }

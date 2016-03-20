@@ -1,15 +1,34 @@
-<div class="padding">
+<header class="toolbar toolbar-header">
 
-<p>¡Hola, te damos a bienvenida a demo-editor!</p>
+  <div class="toolbar-actions">
+    <div class="btn-group">
+      {{#link-to "index" tagName="button" class="btn btn-default"}} {{p-icon icon="home"}} {{/link-to}}
+      {{#link-to "project" tagName="button" class="btn btn-default"}} {{p-icon icon="bag"}} {{/link-to}}
+    </div>
+  </div>
 
-{{#link-to "project" tagName="button" class="btn btn-default"}}{{p-icon icon="bag"}} &nbsp; Proyectos{{/link-to}}
-{{#link-to "index.about" tagName="button" class="btn btn-default"}}{{p-icon icon="star-empty"}} &nbsp; Acerca de ...{{/link-to}}
-{{#link-to "index.setup" tagName="button" class="btn btn-default"}}{{p-icon icon="cog"}} &nbsp; Preferencias{{/link-to}}
+</header>
 
-{{outlet}}
 
-{{#if electron.electronVersion}}
-  <p>Version de electron: {{electron.electronVersion}}</p>
-{{/if}}
 
+<div class="window-content">
+  <div class="pane">
+
+    <div class="padding">
+
+    <p>¡Hola, te damos a bienvenida a demo-editor!</p>
+
+    {{#link-to "project" tagName="button" class="btn btn-default"}}{{p-icon icon="bag"}} &nbsp; Proyectos{{/link-to}}
+    {{#link-to "index.about" tagName="button" class="btn btn-default"}}{{p-icon icon="star-empty"}} &nbsp; Acerca de ...{{/link-to}}
+    {{#link-to "index.setup" tagName="button" class="btn btn-default"}}{{p-icon icon="cog"}} &nbsp; Preferencias{{/link-to}}
+
+    {{outlet}}
+
+    {{#if electron.electronVersion}}
+      <p>Version de electron: {{electron.electronVersion}}</p>
+    {{/if}}
+
+    </div>
+
+  </div>
 </div>
