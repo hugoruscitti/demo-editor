@@ -5,6 +5,7 @@ export default function() {
   this.get('/projects/:id', 'project');
   this.put('/projects/:id', 'project');
   this.patch('/projects/:id', 'project');
+  this.delete('/projects/:id', 'project');
 
 
   this.passthrough("data/sprites.json");

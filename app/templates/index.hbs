@@ -1,12 +1,15 @@
-<h2>Demo editor</h2>
+<div class="padding">
 
-{{#link-to "project" class="btn btn-primary"}}Listar proyectos{{/link-to}}
-{{#link-to "index.about" class="btn btn-success"}}Acerca de ...{{/link-to}}
-{{#link-to "index.setup" class="btn btn-danger"}}Preferencias{{/link-to}}
+<p>¡Hola, te damos a bienvenida a demo-editor!</p>
 
-
-{{#link-to "test"}}Página de prueba{{/link-to}}
+{{#link-to "project" tagName="button" class="btn btn-default"}}{{p-icon icon="bag"}} &nbsp; Proyectos{{/link-to}}
+{{#link-to "index.about" tagName="button" class="btn btn-default"}}{{p-icon icon="star-empty"}} &nbsp; Acerca de ...{{/link-to}}
+{{#link-to "index.setup" tagName="button" class="btn btn-default"}}{{p-icon icon="cog"}} &nbsp; Preferencias{{/link-to}}
 
 {{outlet}}
 
-<p>Version de electron: {{electron.electronVersion}}</p>
+{{#if electron.electronVersion}}
+  <p>Version de electron: {{electron.electronVersion}}</p>
+{{/if}}
+
+</div>

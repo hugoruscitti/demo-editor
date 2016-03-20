@@ -1,8 +1,12 @@
-<h2>Proyectos</h2>
+<div class="padding">
 
-{{x-back to="index"}}
+<p>Proyectos</p>
 
-<table class="table table-striped">
+<div class="bar">
+  {{x-back to="index"}}
+</div>
+
+<table class="border table-striped">
     <thead>
         <tr>
             <th>Nombre del proyecto</th>
@@ -17,12 +21,19 @@
               {{#link-to "edit" project}}{{project.title}}{{/link-to}}
             </td>
             <td>
-              {{#link-to "project.runModal" project class="btn btn-warning btn-xs"}}Ejecutar{{/link-to}}
-              {{#link-to "edit" project class="btn btn-primary btn-xs"}}Editar{{/link-to}}
+              {{#link-to "project.runModal" project tagName="button" class="btn btn-warning btn-mini"}}Ejecutar{{/link-to}}
+              {{#link-to "edit" project tagName="button" class="btn btn-primary btn-mini"}}Editar{{/link-to}}
+              <button {{action "remove" project}} class="btn btn-mini btn-negative">Eliminar</button>
           </td>
+        </tr>
+      {{else}}
+        <tr>
+          <td colspan=2>No hay proyectos para mostrar aún.</td>
         </tr>
       {{/each}}
     </tbody>
 </table>
 
 {{outlet}}
+
+</div>

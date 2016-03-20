@@ -9,11 +9,11 @@ module.exports = function(defaults) {
     }
   });
 
-  app.import(app.bowerDirectory + '/bootstrap/dist/css/bootstrap.css');
-  app.import(app.bowerDirectory + '/bootstrap/dist/js/bootstrap.js');
-  app.import(app.bowerDirectory + '/bootstrap/dist/fonts/glyphicons-halflings-regular.woff', {
-    destDir: 'fonts'
-  });
+  //app.import(app.bowerDirectory + '/bootstrap/dist/css/bootstrap.css');
+  //app.import(app.bowerDirectory + '/bootstrap/dist/js/bootstrap.js');
+  //app.import(app.bowerDirectory + '/bootstrap/dist/fonts/glyphicons-halflings-regular.woff', {
+  //  destDir: 'fonts'
+  //});
 
 
   app.import('vendor/ace.js');
@@ -42,9 +42,9 @@ module.exports = function(defaults) {
   app.import("./bower_components/codemirror/addon/hint/javascript-hint.js");
   app.import("./bower_components/codemirror/addon/hint/show-hint.css");
   app.import("./bower_components/codemirror/addon/hint/show-hint.js");
- 
+
   app.import("./bower_components/codemirror/mode/javascript/javascript.js");
- 
+
   app.import("./bower_components/jsconsole/styles/console.css");
   app.import("./bower_components/jsconsole/dist/console.js");
   app.import("./bower_components/jsconsole/styles/gutter-icons.png", {destDir: 'assets/'});

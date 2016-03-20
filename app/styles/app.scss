@@ -44,12 +44,6 @@ textarea {
   margin-top: 10px;
 }
 
-button {
-  margin-right: 5px !important;
-}
-
-
-
 #editor {
     margin: 0;
     position: absolute;
@@ -250,4 +244,25 @@ p.loading-p {
 
 .center {
   text-align: center;
+}
+
+.padding {
+  padding: 10px;
+}
+
+.border {
+  border: 1px solid #ddd;
+}
+
+td a {
+  text-decoration: none;
+}
+
+
+td a:active {
+  color: white !important;
+}
+
+.bar {
+  margin-bottom: 15px;
 }
