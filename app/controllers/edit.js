@@ -11,6 +11,14 @@ export default Ember.Controller.extend({
     return (!this.get("model.hasDirtyAttributes"));
   }),
 
+  allPanelsInvisible: Ember.computed("leftPanelVisible", "rightPanelVisible", "editorPanelVisible", function() {
+    return (
+      !this.get("leftPanelVisible") &&
+      !this.get("rightPanelVisible") &&
+      !this.get("editorPanelVisible")
+    );
+  }),
+
   enableShortcuts() {
     window.addEventListener('keydown', this.onKeyDown.bind(this), true);
   },

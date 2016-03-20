@@ -9,14 +9,16 @@
       {{x-back to="project"}}
 
       <button disabled={{itsSaved}} type="button" {{action "save" model}} class="btn btn-primary">Guardar</button>
-      {{#link-to "edit.previewModal" model class="btn btn-success"}}Previsualizar{{/link-to}}
+      {{#link-to "edit.previewModal" model tagName="button" class="btn btn-default"}}Previsualizar{{/link-to}}
 
-      <button {{action "reload" model}} class="btn btn-info"> Ejecutar </button>
+      <button {{action "reload" model}} class="btn btn-default"> Ejecutar </button>
 
       <div class="float-right">
-        {{#x-pushbutton state=leftPanelVisible}}1{{/x-pushbutton}}
-        {{#x-pushbutton state=rightPanelVisible}}2{{/x-pushbutton}}
-        {{#x-pushbutton state=editorPanelVisible}}3{{/x-pushbutton}}
+        <div class="btn-group">
+          {{#x-pushbutton state=leftPanelVisible tooltip_activate="mostar información" tooltip_deactivate="ocultar información"}} {{p-icon icon="info"}} {{/x-pushbutton}}
+          {{#x-pushbutton state=rightPanelVisible tooltip_activate="mostrar juego" tooltip_deactivate="ocultar juego"}} {{p-icon icon="window"}} {{/x-pushbutton}}
+          {{#x-pushbutton state=editorPanelVisible tooltip_activate="mostar editor" tooltip_deactivate="ocultar editor"}} {{p-icon icon="doc-text"}} {{/x-pushbutton}}
+        </div>
       </div>
 
     </div>
@@ -53,8 +55,6 @@
       </div>
     {{/if}}
 
-
-
     {{#if rightPanelVisible}}
       <div class="edit-panel-derecho">
         <p class="loading-p">
@@ -68,6 +68,12 @@
     {{#if editorPanelVisible}}
       <div class="edit-panel-principal">
         {{x-editor value=model.code}}
+      </div>
+    {{/if}}
+
+    {{#if allPanelsInvisible}}
+      <div class="allPanelsInvisiblePanel">
+        <p>Hey, ningún panel está visible....</p>
       </div>
     {{/if}}
 
