@@ -1,5 +1,17 @@
 {{#if state}}
-  <button class="btn btn-default active active-blue {{extraClass}} " {{action "toggle"}}>{{yield}} </button>
+  <button class="btn btn-default active {{extraClass}} " {{action "toggle"}}>
+
+    {{#tooltip-message message=tooltip_deactivate}}
+      {{yield}}
+    {{/tooltip-message}}
+
+  </button>
 {{else}}
-  <button class="btn btn-default {{extraClass}}" {{action "toggle"}}>{{yield}}</button>
+  <button class="btn btn-default {{extraClass}}" {{action "toggle"}}>
+
+    {{#tooltip-message message=tooltip_activate}}
+      {{yield}}
+    {{/tooltip-message}}
+
+  </button>
 {{/if}}

@@ -266,3 +266,19 @@ td a:active {
 .bar {
   margin-bottom: 15px;
 }
+
+
+.tooled {
+  display: inline;
+}
+
+.tooled:after {
+  font-weight: lighter !important;
+}
+
+.allPanelsInvisiblePanel {
+  text-align: center;
+  flex-flow: row nowrap;
+  flex: 1 auto;
+  width: 100%;
+}
