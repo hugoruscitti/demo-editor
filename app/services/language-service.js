@@ -17,6 +17,19 @@ export default Ember.Service.extend({
     });
   },
 
+
+  getCompletions(position, code) {
+    return new Ember.RSVP.Promise((success) => {
+      var host = this._create_host();
+      var languageService = ts.createLanguageService(host, ts.createDocumentRegistry());
+      host.addFile("script.ts", code);
+
+      let result = languageService.getCompletionsAtPosition("script.ts", position, true);
+
+      success(result);
+    });
+  },
+
   getDiagnosticsFromString(code) {
     return new Ember.RSVP.Promise((success) => {
       var host = this._create_host();
