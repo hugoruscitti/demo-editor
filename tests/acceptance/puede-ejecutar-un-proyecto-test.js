@@ -9,12 +9,12 @@ test('visiting /', function(assert) {
 
   andThen(function() {
     assert.equal(currentURL(), '/');
-    click($("a:contains('Listar proyectos')"));
+    click($("button:contains('Proyectos')"));
   });
 
   andThen(function() {
-    assert.equal($("a:contains('Ejecutar')").length, 1, "Existe el botón ejecutar en la lista de proyectos.");
-    click($("a:contains('Ejecutar')"));
+    assert.equal($("button:contains('Ejecutar')").length, 1, "Existe el botón ejecutar en la lista de proyectos.");
+    click($("button:contains('Ejecutar')"));
   });
 
   andThen(function() {

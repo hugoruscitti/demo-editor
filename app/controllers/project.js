@@ -14,7 +14,7 @@ export default Ember.Controller.extend({
           code: "let pilas;\npilas.fondos.Plano();"
         });
 
-        record.save().then((data) => {
+        record.save().then(() => {
           this.transitionToRoute("edit", record);
         });
       }
