@@ -1,10 +1,25 @@
 import Ember from 'ember';
 
 export default Ember.Service.extend({
+
   compile(project) {
     return new Ember.RSVP.Promise((success) => {
       var host = this._create_host();
       var code = project.get("code");
+      var languageService = ts.createLanguageService(host, ts.createDocumentRegistry());
+
+      host.addFile("script.ts", code);
+
+      var semanticDiagnostics = languageService.getSemanticDiagnostics("script.ts");
+      var syntaxDiagnostics = languageService.getSyntacticDiagnostics("script.ts");
+
+      success({semanticDiagnostics, syntaxDiagnostics});
+    });
+  },
+
+  getDiagnosticsFromString(code) {
+    return new Ember.RSVP.Promise((success) => {
+      var host = this._create_host();
       var languageService = ts.createLanguageService(host, ts.createDocumentRegistry());
 
       host.addFile("script.ts", code);
