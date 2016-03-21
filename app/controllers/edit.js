@@ -36,18 +36,22 @@ export default Ember.Controller.extend({
   },
 
   onKeyDown(e) {
+    var editorFactory = this.get("editorFactory");
+    var that = this;
+
     if (e.metaKey) {
       if (e.which === 83 || e.which === 13) {
         e.preventDefault();
+        that.send('reload', that.get('model'));
 
         this.get('model').save().then(() => {
-          this.send('reload', this.get('model'));
 
-          setTimeout(() => {
-            this.get("editorFactory").tryToFocus();
-            console.log("focus!;");
-          }, 3000);
+          setTimeout(function () {
+            editorFactory.tryToFocus();
+          }, 100);
+
         });
+
 
         //this.transitionToRoute("edit.previewModal", this.get('model'));
       }

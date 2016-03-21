@@ -165,7 +165,7 @@ div {
 .edit-contenedor {
   display: flex;
   flex-flow: column wrap;
-  min-height: 100vh;
+  min-height: calc(100vh - 38px);
 }
 
 .edit-fila {
