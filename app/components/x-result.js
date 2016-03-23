@@ -5,6 +5,7 @@ export default Ember.Component.extend(InboundActions, {
   classNames: ['x-result'],
   gameEngine: Ember.inject.service(),
   languageService: Ember.inject.service(),
+  electron: Ember.inject.service(),
   error: [],
   semanticDiagnostics: [],
   syntaxDiagnostics: [],
@@ -68,8 +69,11 @@ export default Ember.Component.extend(InboundActions, {
       this.get("iframeElement").onload = onLoadFunction;
       this.get("iframeElement").contentWindow.location.reload(false);
 
-
+      if (this.get("electron.inElectron")) {
+        this.get('iframeElement').src = `file://${__dirname}/game.html`;
+      } else {
         this.get("iframeElement").src = this.get("iframeElement").src.split("html")[0] + "html#" + Math.random();
+      }
 
     } else {
       alert("No hay un canvas para visualizar...");
