@@ -9,7 +9,8 @@
     "pilas",
     "ts",
     "process",
-    "$"
+    "$",
+    "__dirname"
   ],
   "browser": true,
   "boss": true,

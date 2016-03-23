@@ -30,7 +30,7 @@
 
         {{#if leftPanelVisible}}
           <div class="edit-panel-izquierdo">
-            IZQ (200px)
+            Panel lateral auxiliar.
           </div>
         {{/if}}
 
@@ -43,11 +43,11 @@
             </div>
 
             <p class="loading-p">
-                {{x-spinner}}
+              {{x-spinner}}
             </p>
 
             {{x-result project=model actionReceiver=xResultHandler}}
-            {{js-console}}
+            {{js-console eval_function=custom_eval_function autocomplete=custom_autocomplete_function}}
           </div>
         {{/if}}
 

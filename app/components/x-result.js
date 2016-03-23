@@ -72,7 +72,7 @@ export default Ember.Component.extend(InboundActions, {
       if (this.get("electron.inElectron")) {
         this.get('iframeElement').src = `file://${__dirname}/game.html`;
       } else {
-        this.get("iframeElement").src = this.get("iframeElement").src.split("html")[0] + "html#" + Math.random();
+        this.get("iframeElement").src = "game.html#" + Math.random();
       }
 
     } else {

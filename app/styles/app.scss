@@ -184,18 +184,17 @@ div {
 }
 
   .edit-panel-izquierdo {
-    flex: 0 auto;
-    width: 250px;
+    flex: 1 auto;
     padding: 5px;
   }
 
   .edit-panel-principal {
-    flex: 1 auto;
+    flex: 2 auto;
     position: relative;
   }
 
   .edit-panel-derecho {
-    flex: 1 auto;
+    flex: 2 auto;
     position: relative;
   }
 
