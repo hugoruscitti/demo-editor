@@ -114,6 +114,8 @@ pilas: pilasengine/node_modules
 docs:
 	$(call log, "Generando documentacion de pilas-engine")
 	@grunt --gruntfile pilasengine/Gruntfile.js typedoc --base pilasengine
+	$(call log, "Copiando imagenes ...")
+	@cp -rf pilasengine/docs/imagenes pilasengine/docs/dist/
 
 pilas_live:
 	$(call log, "Compilando pilas-engine en modo live")
