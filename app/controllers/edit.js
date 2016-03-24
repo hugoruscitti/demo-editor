@@ -2,19 +2,19 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   leftPanelVisible: true,
-  rightPanelVisible: true,
+  centerPanelVisible: true,
   editorPanelVisible: true,
-  queryParams: ['leftPanelVisible', 'rightPanelVisible', 'editorPanelVisible'],
+  queryParams: ['leftPanelVisible', 'centerPanelVisible', 'editorPanelVisible'],
   editorFactory: Ember.inject.service(),
 
   itsSaved: Ember.computed("model.hasDirtyAttributes", function() {
     return (!this.get("model.hasDirtyAttributes"));
   }),
 
-  allPanelsInvisible: Ember.computed("leftPanelVisible", "rightPanelVisible", "editorPanelVisible", function() {
+  allPanelsInvisible: Ember.computed("leftPanelVisible", "centerPanelVisible", "editorPanelVisible", function() {
     return (
       !this.get("leftPanelVisible") &&
-      !this.get("rightPanelVisible") &&
+      !this.get("centerPanelVisible") &&
       !this.get("editorPanelVisible")
     );
   }),
@@ -35,7 +35,7 @@ export default Ember.Controller.extend({
     return out;
   },
 
-  custom_autocomplete_function(cm) {
+  custom_autocomplete_function(/*cm*/) {
     //let currentWord = cm.getTokenAt(cm.getCursor()).string);
     return {list: ['home', 'help']};
   },

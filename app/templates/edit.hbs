@@ -11,7 +11,7 @@
 
     <div class="btn-group pull-right">
       {{#x-pushbutton state=leftPanelVisible tooltip_activate="mostar información" tooltip_deactivate="ocultar información"}} {{p-icon icon="info"}} {{/x-pushbutton}}
-      {{#x-pushbutton state=rightPanelVisible tooltip_activate="mostrar juego" tooltip_deactivate="ocultar juego"}} {{p-icon icon="window"}} {{/x-pushbutton}}
+      {{#x-pushbutton state=centerPanelVisible tooltip_activate="mostrar juego" tooltip_deactivate="ocultar juego"}} {{p-icon icon="window"}} {{/x-pushbutton}}
       {{#x-pushbutton state=editorPanelVisible tooltip_activate="mostar editor" tooltip_deactivate="ocultar editor"}} {{p-icon icon="doc-text"}} {{/x-pushbutton}}
     </div>
 
@@ -34,7 +34,7 @@
           </div>
         {{/if}}
 
-        {{#if rightPanelVisible}}
+        {{#if centerPanelVisible}}
           <div class="edit-panel-derecho">
 
             <div class="toolbar-actions">
@@ -76,8 +76,8 @@
 
       </div>
 
-      <div class="edit-fila center">
-        pie
+      <div class="edit-fila right min-padding">
+        pilas-engine versión 2.0 beta
       </div>
     </div>
 
