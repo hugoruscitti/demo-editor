@@ -29,6 +29,6 @@
     "grunt-touch": "^0.1.0",
     "grunt-typedoc": "^0.2.3",
     "qunitjs": "^1.19.0",
-    "typedoc": "^0.3.11"
+    "typedoc": "0.3.12"
   }
 }

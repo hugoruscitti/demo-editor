@@ -27,6 +27,7 @@ comandos:
 	@echo "    ${G}pilas${N}                  Genera pilasengine.js."
 	@echo "    ${G}pilas_live${N}             Genera pilasengine.js (modo live)."
 	@echo "    ${G}pilas_ejemplos_live${N}    Genera pilasengine.js y ejemplos (live)."
+	@echo "    ${G}docs${N}                   Genera la documentación de pilas."
 	@echo "    ${G}generar_ejemplo${N}        Permite crear un ejemplo nuevo."
 	@echo ""
 	@echo "  ${Y}Para distribuir${N}"
@@ -109,6 +110,10 @@ pilasengine/node_modules:
 pilas: pilasengine/node_modules
 	$(call log, "Compilando pilas-engine")
 	@grunt --gruntfile pilasengine/Gruntfile.js compilar --base pilasengine
+
+docs:
+	$(call log, "Generando documentacion de pilas-engine")
+	@grunt --gruntfile pilasengine/Gruntfile.js typedoc --base pilasengine
 
 pilas_live:
 	$(call log, "Compilando pilas-engine en modo live")
