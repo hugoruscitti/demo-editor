@@ -31,4 +31,5 @@ export default Ember.Component.extend(InboundActions, {
       this.reloadIframe();
     }
   }
+
 });
