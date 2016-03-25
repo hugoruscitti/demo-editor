@@ -239,6 +239,8 @@ var Escenas = (function () {
     function Escenas(pilas) {
         this.pilas = pilas;
     }
+    Escenas.prototype.Normal = function () {
+    };
     return Escenas;
 })();
 var Escena = (function () {
@@ -489,7 +491,12 @@ var Imagenes = (function () {
 var Interpolaciones = (function () {
     function Interpolaciones(pilas) {
         this.pilas = pilas;
-        this.time = window.performance.now();
+        if (this.pilas.opciones.en_test) {
+            this.time = 0;
+        }
+        else {
+            this.time = window.performance.now();
+        }
     }
     Interpolaciones.prototype.actualizar = function () {
         this.time += 1000.0 / 60;
@@ -589,6 +596,7 @@ var Pilas = (function () {
         this.game = new Phaser.Game(this.ancho, this.alto, Phaser.CANVAS, id_elemento_html, options);
         this.game.antialias = false;
         this.escenas = new Escenas(this);
+        this.escenas.Normal();
         this.interpolaciones = new Interpolaciones(this);
         this.historial_estados = new Historial(this);
         this.estados = new Estados(this);

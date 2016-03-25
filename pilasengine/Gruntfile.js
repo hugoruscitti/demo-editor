@@ -1,7 +1,7 @@
 module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-typescript');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-qunit');
+    //grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-touch');
     grunt.loadNpmTasks('grunt-contrib-connect');
 
@@ -40,9 +40,11 @@ module.exports = function (grunt) {
                 }
             }
         },
+/*
         qunit: {
           files: ['./tests/index.html']
         },
+*/
         connect: {
             server: {
                 options: {
@@ -64,7 +66,7 @@ module.exports = function (grunt) {
               spawn: false,
             },
             files: ['src/**/*.ts', 'tests/**'],
-            tasks: ['typescript', 'concat', 'touch', 'qunit']
+            tasks: ['typescript', 'concat', 'touch', /*'qunit'*/]
           },
           withNoTests: {
             options: {
@@ -107,7 +109,7 @@ module.exports = function (grunt) {
     //grunt.registerTask('default', ['typescript', 'typedoc', 'test', 'watch:withTests']);
 
 
-    grunt.registerTask('compilar-con-ejemplos-livereload', ['connect', 'typescript', 'message', 'watch:withNoTests']);
+    grunt.registerTask('compilar-con-ejemplos-livereload', ['connect:server', 'typescript', 'message', 'watch:withNoTests']);
     grunt.registerTask('compilar-y-notificar-live', ['typescript', 'watch:withNoTests']);
     grunt.registerTask('compilar-y-notificar-live-con-tests', ['connect:tests', 'messageTests', 'watch:withTests' /*'typedoc', 'test'*/]);
     grunt.registerTask('compilar', ['typescript', 'concat', 'touch']);
