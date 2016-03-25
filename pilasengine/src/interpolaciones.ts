@@ -6,7 +6,12 @@ class Interpolaciones {
 
   constructor(pilas: Pilas) {
     this.pilas = pilas;
-    this.time = window.performance.now();
+
+    if (this.pilas.opciones.en_test) {
+      this.time = 0;
+    } else {
+      this.time = window.performance.now();
+    }
   }
 
   actualizar() {

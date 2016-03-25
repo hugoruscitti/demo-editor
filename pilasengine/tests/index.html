@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Basic Test Suite</title>
+    <!-- Load local QUnit. -->
+    <link rel="stylesheet" href="../node_modules/qunitjs/qunit/qunit.css" media="screen">
+    <script src="../node_modules/qunitjs/qunit/qunit.js"></script>
+
+    <!-- Load local lib and tests. -->
+    <script type="text/javascript" src='../ejemplos/libs/phaser.js'></script>
+    <script type="text/javascript" src='../ejemplos/libs/pilasengine.js'></script>
+
+    <style>
+      #elementoCanvas {
+        border: 1px solid gray;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+      }
+    </style>
+
+  </head>
+  <body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture">...</div>
+
+    <div id='elementoCanvas'></div>
+
+    <script src="test-iniciar.js"></script>
+    <script src="test-propiedades.js"></script>
+
+  </body>
+</html>

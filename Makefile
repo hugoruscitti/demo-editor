@@ -26,6 +26,7 @@ comandos:
 	@echo "    ${G}electron${N}             Compila y ejecuta electron (modo live)."
 	@echo "    ${G}pilas${N}                Genera pilasengine.js."
 	@echo "    ${G}pilas_live${N}           Genera pilasengine.js (modo live)."
+	@echo "    ${G}pilas_live_tests${N}     Genera pilasengine.js (modo live con tests)."
 	@echo "    ${G}pilas_ejemplos_live${N}  Genera pilasengine.js y ejemplos (live)."
 	@echo "    ${G}docs${N}                 Genera la documentación de pilas."
 	@echo "    ${G}generar_ejemplo${N}      Permite crear un ejemplo nuevo."
@@ -121,6 +122,10 @@ docs:
 pilas_live:
 	$(call log, "Compilando pilas-engine en modo live")
 	@grunt --gruntfile pilasengine/Gruntfile.js compilar-y-notificar-live --base pilasengine
+
+pilas_live_tests:
+	$(call log, "Compilando pilas-engine en modo live - con tests")
+	@grunt --gruntfile pilasengine/Gruntfile.js compilar-y-notificar-live-con-tests --base pilasengine
 
 pilas_ejemplos_live:
 	$(call log, "Compilando ejemplos de pilas-engine en modo live")
