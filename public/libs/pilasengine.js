@@ -671,8 +671,10 @@ var Pilas = (function () {
         this.game.stage.disableVisibilityChange = true;
         this.imagenes.precargar_imagenes_estandar();
         this.mostrar_cuadros_por_segundo(true);
-        this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        this.game.scale.refresh();
+        if (this.opciones.escalar) {
+            this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+            this.game.scale.refresh();
+        }
     };
     Pilas.prototype.create = function () {
         this.mostrar_canvas();
@@ -772,9 +774,12 @@ var pilasengine = {
      * @api public
      */
     iniciar: function (element_id, opciones) {
-        if (opciones === void 0) { opciones = { data_path: "data", ancho: null, alto: null, en_test: false }; }
+        if (opciones === void 0) { opciones = { data_path: "data", ancho: null, alto: null, escalar: true, en_test: false }; }
         opciones.data_path = opciones["data_path"] || "data";
         opciones.en_test = opciones["en_test"] || false;
+        if (opciones["escalar"] === undefined) {
+            opciones.escalar = true;
+        }
         return new Pilas(element_id, opciones);
     }
 };
@@ -790,6 +795,40 @@ var Utils = (function () {
             return i.replace(/(^\/|\/$)/, "");
         }).join("/");
         return path;
+    };
+    /**
+     * Intentan autocompletar el nombre de una función, método o varible.
+     *
+     * Esta función se utiliza dentro del editor de pilas-engine y sirve
+     * para que el intérprete interactivo retorne información de la API
+     * mientras se escribe.
+     */
+    Utils.prototype.autocompletar = function (prefijo) {
+        function comienza_con(cadena, stringBuscada) {
+            return cadena.indexOf(stringBuscada) === 0;
+        }
+        function obtener_atributos(objeto) {
+            var atributos = [];
+            for (var i in objeto) {
+                atributos.push(i);
+            }
+            return atributos;
+        }
+        window["obtener_atributos"] = obtener_atributos;
+        window["comienza_con"] = comienza_con;
+        if (!prefijo) {
+            return [];
+        }
+        else {
+            var values = [];
+            var partes = prefijo.split(".");
+            if (partes.length === 1) {
+                return obtener_atributos(window).filter(function (e) {
+                    return comienza_con(e, prefijo.toLowerCase());
+                });
+            }
+            return values;
+        }
     };
     return Utils;
 })();

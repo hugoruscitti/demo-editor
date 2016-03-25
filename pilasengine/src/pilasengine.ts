@@ -157,8 +157,10 @@ class Pilas {
     this.imagenes.precargar_imagenes_estandar();
     this.mostrar_cuadros_por_segundo(true);
 
-    this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    this.game.scale.refresh();
+    if (this.opciones.escalar) {
+      this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+      this.game.scale.refresh();
+    }
   }
 
   create() {
@@ -281,9 +283,13 @@ let pilasengine = {
    * @return {Game} el objeto instanciado que representa el contexto del juego.
    * @api public
    */
-  iniciar: function(element_id: string, opciones: OpcionesIniciar = {data_path: "data", ancho: null, alto: null, en_test: false}) {
+  iniciar: function(element_id: string, opciones: OpcionesIniciar = {data_path: "data", ancho: null, alto: null, escalar: true, en_test: false}) {
     opciones.data_path = opciones["data_path"] || "data";
     opciones.en_test = opciones["en_test"] || false;
+
+    if (opciones["escalar"] === undefined) {
+      opciones.escalar = true;
+    }
 
     return new Pilas(element_id, opciones);
   }

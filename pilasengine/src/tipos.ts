@@ -14,6 +14,7 @@ interface OpcionesIniciar {
   en_test: boolean;
   ancho: number;
   alto: number;
+  escalar: boolean;
 }
 
 

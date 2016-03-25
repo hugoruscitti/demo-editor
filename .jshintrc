@@ -10,7 +10,8 @@
     "ts",
     "process",
     "$",
-    "__dirname"
+    "__dirname",
+    "CodeMirror"
   ],
   "browser": true,
   "boss": true,

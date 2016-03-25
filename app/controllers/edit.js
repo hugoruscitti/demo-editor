@@ -22,22 +22,29 @@ export default Ember.Controller.extend({
   custom_eval_function(code) {
     var out = {};
 
-    alert("Your code: " + code);
+    let iframeElement = $("iframe#innerIframe")[0];
 
     try {
-      out.completionValue = eval.call(null, code);
+      out.completionValue = iframeElement.contentWindow.eval.call(null, code);
     } catch(e) {
       out.error = true;
-      out.completionValue = e;
+      out.completionValue = e.message;
       out.recoverable = (e instanceof SyntaxError && e.message.match('^Unexpected (token|end)'));
     }
 
     return out;
   },
 
-  custom_autocomplete_function(/*cm*/) {
-    //let currentWord = cm.getTokenAt(cm.getCursor()).string);
-    return {list: ['home', 'help']};
+  custom_autocomplete_function(cm) {
+    let iframeElement = $("iframe#innerIframe")[0];
+    let currentWord = cm.getTokenAt(cm.getCursor()).string;
+
+    let code = `pilas.utils.autocompletar('${currentWord}')`;
+
+    let result = iframeElement.contentWindow.eval.call(null, code);
+    let endCursor = CodeMirror.Pos(cm.getCursor().line, cm.getCursor().ch - currentWord.length);
+
+    return {from: cm.getCursor(), to: endCursor, list: result};
   },
 
   enableShortcuts() {
