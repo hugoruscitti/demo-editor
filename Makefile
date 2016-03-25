@@ -22,19 +22,20 @@ comandos:
 	@echo ""
 	@echo "  ${Y}Para desarrolladores${N}"
 	@echo ""
-	@echo "    ${G}iniciar${N}                Instala dependencias."
-	@echo "    ${G}electron${N}               Compila y ejecuta electron (modo live)."
-	@echo "    ${G}pilas${N}                  Genera pilasengine.js."
-	@echo "    ${G}pilas_live${N}             Genera pilasengine.js (modo live)."
-	@echo "    ${G}pilas_ejemplos_live${N}    Genera pilasengine.js y ejemplos (live)."
-	@echo "    ${G}docs${N}                   Genera la documentación de pilas."
-	@echo "    ${G}generar_ejemplo${N}        Permite crear un ejemplo nuevo."
+	@echo "    ${G}iniciar${N}              Instala dependencias."
+	@echo "    ${G}electron${N}             Compila y ejecuta electron (modo live)."
+	@echo "    ${G}pilas${N}                Genera pilasengine.js."
+	@echo "    ${G}pilas_live${N}           Genera pilasengine.js (modo live)."
+	@echo "    ${G}pilas_ejemplos_live${N}  Genera pilasengine.js y ejemplos (live)."
+	@echo "    ${G}docs${N}                 Genera la documentación de pilas."
+	@echo "    ${G}generar_ejemplo${N}      Permite crear un ejemplo nuevo."
 	@echo ""
 	@echo "  ${Y}Para distribuir${N}"
 	@echo ""
-	@echo "    ${G}version_patch${N}          Genera una nueva versión."
-	@echo "    ${G}version_minor${N}          Genera una nueva versión."
-	@echo "    ${G}subir_version${N}          Sube version generada al servidor."
+	@echo "    ${G}version_patch${N}        Genera una nueva versión."
+	@echo "    ${G}version_minor${N}        Genera una nueva versión."
+	@echo "    ${G}subir_version${N}        Sube version generada al servidor."
+	@echo "    ${G}deploy${N}               Sube el editor a la web editor.pilas-engine.com.ar"
 	@echo ""
 
 _crear_enlaces:
@@ -127,5 +128,14 @@ pilas_ejemplos_live:
 
 generar_ejemplo:
 	@node pilasengine/utils/generar_ejemplo.js
+
+deploy:
+	$(call log, "Subiendo a la web...")
+	@ember deploy production --activate=true
+	@echo ""
+	@echo "${G}Listo, la nueva versión tiene que estar activa en:"
+	@echo ""
+	@echo "    http://editor.pilas-engine.com.ar${N}"
+	@echo ""
 
 .PHONY: tmp
