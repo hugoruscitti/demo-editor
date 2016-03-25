@@ -131,7 +131,7 @@ generar_ejemplo:
 
 deploy:
 	$(call log, "Subiendo a la web...")
-	@ember deploy production --activate=true
+	@ember deploy development --activate=true
 	@echo ""
 	@echo "${G}Listo, la nueva versión tiene que estar activa en:"
 	@echo ""
