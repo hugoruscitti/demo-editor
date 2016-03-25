@@ -1,24 +1,28 @@
 {{#if project}}
 
-  <div class="overlay-messages">
-    {{#if error}}
-      <div class="alert alert-danger">
-        {{error}}
-      </div>
-    {{/if}}
+  {{#if areAnyConsoleMessage}}
 
-    {{#if areConsoleMessages}}
-      <div class="console-panel">
-        {{#each semanticDiagnostics as |message|}}
-          <div class="alert alert-warning">{{message}}</div>
-        {{/each}}
+    <div class="overlay-messages">
+      {{#if error}}
+        <div class="alert alert-danger">
+          {{error}}
+        </div>
+      {{/if}}
 
-        {{#each syntaxDiagnostics as |message|}}
-          <div class="console-error-line">{{message}}</div>
-        {{/each}}
-      </div>
-    {{/if}}
-  </div>
+      {{#if areConsoleMessages}}
+        <div class="console-panel">
+          {{#each semanticDiagnostics as |message|}}
+            <div class="alert alert-warning">{{message}}</div>
+          {{/each}}
+
+          {{#each syntaxDiagnostics as |message|}}
+            <div class="console-error-line">{{message}}</div>
+          {{/each}}
+        </div>
+      {{/if}}
+    </div>
+
+  {{/if}}
 
   <iframe class="gameIframe" id='innerIframe' src="" width="100%" height="100%" scrolling="no"></iframe>
 

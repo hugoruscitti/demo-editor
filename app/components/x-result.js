@@ -11,6 +11,10 @@ export default Ember.Component.extend(InboundActions, {
   syntaxDiagnostics: [],
   project: null,
 
+  areAnyConsoleMessage: Ember.computed('areSomeMessages', 'error', function() {
+    return (this.get("areSomeMessages") || this.get('error'));
+  }),
+
   areConsoleMessages: Ember.computed('semanticDiagnostics', 'syntaxDiagnostics', function() {
     var syntaxDiagnosticsLength = this.get('syntaxDiagnostics').length;
     var semanticDiagnosticsLength = this.get('semanticDiagnostics').length;

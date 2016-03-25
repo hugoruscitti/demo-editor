@@ -10,6 +10,9 @@ module.exports = function(deployTarget) {
       privateKeyFile: "/Users/hugo/.ssh/id_rsa",
       allowOverwrite: true
     },
+    'revision-data': {
+      type: 'git-commit'
+    },
     rsync: {
       dest: "/home/hugoruscitti/editor.pilas-engine.com.ar",
       username: "hugoruscitti",
