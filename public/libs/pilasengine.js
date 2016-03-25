@@ -814,8 +814,6 @@ var Utils = (function () {
             }
             return atributos;
         }
-        window["obtener_atributos"] = obtener_atributos;
-        window["comienza_con"] = comienza_con;
         if (!prefijo) {
             return [];
         }
@@ -827,7 +825,23 @@ var Utils = (function () {
                     return comienza_con(e, prefijo.toLowerCase());
                 });
             }
-            return values;
+            else {
+                console.log(partes);
+                var inicio = partes.slice(0, partes.length - 1).join(".");
+                var prefijo_1 = partes[partes.length - 1];
+                if (partes[0] == "pilas") {
+                    partes[0] = "this.pilas";
+                }
+                try {
+                    return obtener_atributos(eval.call(window, inicio)).filter(function (e) {
+                        return comienza_con(e, prefijo_1.toLowerCase());
+                    });
+                }
+                catch (e) {
+                    console.info(e);
+                    return [];
+                }
+            }
         }
     };
     return Utils;

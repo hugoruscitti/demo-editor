@@ -16,7 +16,6 @@ class Utils {
     return path;
   }
 
-
   /**
    * Intentan autocompletar el nombre de una función, método o varible.
    *
@@ -40,10 +39,6 @@ class Utils {
       return atributos;
     }
 
-    window["obtener_atributos"] = obtener_atributos;
-    window["comienza_con"] = comienza_con;
-
-
     if (!prefijo) {
       return [];
     } else {
@@ -51,14 +46,29 @@ class Utils {
       let partes = prefijo.split(".");
 
       if (partes.length === 1) {
+
         return obtener_atributos(window).filter(function (e:string) {
           return comienza_con(e, prefijo.toLowerCase());
         });
+
+      } else {
+        console.log(partes);
+        let inicio = partes.slice(0, partes.length-1).join(".")
+        let prefijo = partes[partes.length-1];
+
+        if (partes[0] == "pilas") {
+          partes[0] = "this.pilas";
+        }
+
+        try {
+          return obtener_atributos(eval.call(window, inicio)).filter(function (e:string) {
+            return comienza_con(e, prefijo.toLowerCase());
+          });
+        } catch (e) {
+          console.info(e);
+          return [];
+        }
       }
-
-      return values;
     }
-
   }
-
 }
