@@ -366,3 +366,7 @@ canvas {
 .ember-modal-dialog {
   padding: 0px;
 }
+
+.jsconsole.eclipse .CodeMirror .completion-value-end {
+  border-bottom: 0;
+}
