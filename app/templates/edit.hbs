@@ -10,9 +10,9 @@
     {{x-title title=model.title}}
 
     <div class="btn-group pull-right">
-      {{#x-pushbutton state=leftPanelVisible tooltip_activate="mostar información" tooltip_deactivate="ocultar información"}} {{p-icon icon="info"}} {{/x-pushbutton}}
+      {{#x-pushbutton state=leftPanelVisible tooltip_activate="mostrar información" tooltip_deactivate="ocultar información"}} {{p-icon icon="info"}} {{/x-pushbutton}}
       {{#x-pushbutton state=centerPanelVisible tooltip_activate="mostrar juego" tooltip_deactivate="ocultar juego"}} {{p-icon icon="window"}} {{/x-pushbutton}}
-      {{#x-pushbutton state=editorPanelVisible tooltip_activate="mostar editor" tooltip_deactivate="ocultar editor"}} {{p-icon icon="doc-text"}} {{/x-pushbutton}}
+      {{#x-pushbutton state=editorPanelVisible tooltip_activate="mostrar editor" tooltip_deactivate="ocultar editor"}} {{p-icon icon="doc-text"}} {{/x-pushbutton}}
     </div>
 
   </div>
@@ -47,7 +47,23 @@
             </p>
 
             {{x-result project=model actionReceiver=xResultHandler}}
-            {{js-console eval_function=custom_eval_function autocomplete=custom_autocomplete_function}}
+
+            <div class="toolbar-actions">
+              <div class="btn-group">
+                {{#x-pushbutton state=showConsole tooltip_activate="mostrar consola" tooltip_deactivate="ocultar consola"}} {{p-icon icon="window"}} {{/x-pushbutton}}
+                {{#x-pushbutton state=showConsole tooltip_activate="mostrar consola" tooltip_deactivate="ocultar consola"}} {{p-icon icon="window"}} {{/x-pushbutton}}
+              </div>
+
+              <div class="btn-group btn-group pull-right">
+                {{#x-pushbutton state=showConsole tooltip_activate="mostrar consola" tooltip_deactivate="ocultar consola"}} {{p-icon icon="window"}} {{/x-pushbutton}}
+                {{#x-pushbutton state=showConsole tooltip_activate="mostrar consola" tooltip_deactivate="ocultar consola"}} {{p-icon icon="window"}} {{/x-pushbutton}}
+              </div>
+            </div>
+
+            {{#if showConsole}}
+              {{js-console eval_function=custom_eval_function autocomplete=custom_autocomplete_function}}
+            {{/if}}
+
           </div>
         {{/if}}
 

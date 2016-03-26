@@ -4,7 +4,8 @@ export default Ember.Controller.extend({
   leftPanelVisible: true,
   centerPanelVisible: true,
   editorPanelVisible: true,
-  queryParams: ['leftPanelVisible', 'centerPanelVisible', 'editorPanelVisible'],
+  showConsole: true,
+  queryParams: ['leftPanelVisible', 'centerPanelVisible', 'editorPanelVisible', 'showConsole'],
   editorFactory: Ember.inject.service(),
 
   itsSaved: Ember.computed("model.hasDirtyAttributes", function() {
