@@ -90,8 +90,10 @@ export default Ember.Controller.extend({
   },
 
   actions: {
-    save(project) {
-      project.save();
+    saveAndReload(project) {
+      project.save().then(() => {
+        this.get("xResultHandler").send('reload', project);
+      });
     },
     reload(project) {
       this.get("xResultHandler").send('reload', project);

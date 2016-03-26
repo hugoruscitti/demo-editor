@@ -29,13 +29,13 @@
       <div class="edit-principal">
 
         {{#if leftPanelVisible}}
-          <div class="edit-panel-izquierdo">
+          <div class="edit-panel-left">
             Panel lateral auxiliar.
           </div>
         {{/if}}
 
         {{#if centerPanelVisible}}
-          <div class="edit-panel-derecho">
+          <div class="edit-panel-center">
 
             <div class="toolbar-actions">
               <div class="btn-group pull-right">
@@ -44,15 +44,11 @@
               </div>
             </div>
 
-            <p class="loading-p">
-              {{x-spinner}}
-            </p>
-
             {{x-result project=model actionReceiver=xResultHandler}}
 
             <div class="toolbar-actions">
               <div class="btn-group">
-                {{#x-pushbutton state=showConsole tooltip_activate="mostrar consola" tooltip_deactivate="ocultar consola"}} {{p-icon icon="window"}} {{/x-pushbutton}}
+                {{#x-pushbutton state=showConsole position="right" tooltip_activate="mostrar consola" tooltip_deactivate="ocultar consola"}} {{p-icon icon="window"}} {{/x-pushbutton}}
                 <button class="btn btn-default"> {{p-icon icon="ccw"}} </button>
               </div>
 
@@ -71,14 +67,19 @@
 
         {{#if editorPanelVisible}}
 
-          <div class="edit-panel-principal">
+          <div class="edit-panel-editor">
 
-            <div class="toolbar-actions toolbar-fix">
+            <div class="toolbar-actions">
+
+              {{#tooltip-message message="Guardar y ejecutar (cmd+s)" position="right"}}
+                <button {{action "saveAndReload" model}} class="btn btn-default">{{p-icon icon="play"}}</button>
+              {{/tooltip-message}}
+
+
               {{#if itsSaved}}
-                <button class="btn btn-default">Guardar</button>
               {{else}}
-                <button {{action "save" model}} class="btn btn-primary">Guardar</button>
               {{/if}}
+
             </div>
 
             {{x-editor value=model.code}}
@@ -88,7 +89,7 @@
 
         {{#if allPanelsInvisible}}
           <div class="allPanelsInvisiblePanel">
-            <p>Hey, ningún panel está visible....</p>
+            <p>&nbsp;</p>
           </div>
         {{/if}}
 
