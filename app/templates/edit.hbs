@@ -38,8 +38,10 @@
           <div class="edit-panel-derecho">
 
             <div class="toolbar-actions">
-              <button {{action "reload" model}} class="btn btn-default pull-right"> {{p-icon icon="arrows-ccw"}} </button>
-              {{#link-to "edit.previewModal" model tagName="button" class="btn btn-default pull-right"}} {{p-icon icon="resize-full"}} {{/link-to}}
+              <div class="btn-group pull-right">
+                <button {{action "reload" model}} class="btn btn-default pull-right"> {{p-icon icon="arrows-ccw"}} </button>
+                {{#link-to "edit.previewModal" model tagName="button" class="btn btn-default pull-right"}} {{p-icon icon="resize-full"}} {{/link-to}}
+              </div>
             </div>
 
             <p class="loading-p">
@@ -51,7 +53,7 @@
             <div class="toolbar-actions">
               <div class="btn-group">
                 {{#x-pushbutton state=showConsole tooltip_activate="mostrar consola" tooltip_deactivate="ocultar consola"}} {{p-icon icon="window"}} {{/x-pushbutton}}
-                {{#x-pushbutton state=showConsole tooltip_activate="mostrar consola" tooltip_deactivate="ocultar consola"}} {{p-icon icon="window"}} {{/x-pushbutton}}
+                <button class="btn btn-default"> {{p-icon icon="ccw"}} </button>
               </div>
 
               <div class="btn-group btn-group pull-right">
