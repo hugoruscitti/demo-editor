@@ -672,8 +672,14 @@ var Pilas = (function () {
         this.imagenes.precargar_imagenes_estandar();
         this.mostrar_cuadros_por_segundo(true);
         if (this.opciones.escalar) {
-            this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+            this.game.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
+            //this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
             this.game.scale.refresh();
+            function gameResized(manager, bounds) {
+                var scale = Math.min(window.innerWidth / this.game.width, window.innerHeight / this.game.height);
+                manager.setUserScale(scale, scale, 0, 0);
+            }
+            this.game.scale.setResizeCallback(gameResized, this);
         }
     };
     Pilas.prototype.create = function () {
