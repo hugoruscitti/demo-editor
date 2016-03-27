@@ -630,7 +630,9 @@ var Pilas = (function () {
     Pilas.prototype.cuando = function (nombre_evento, callback) {
         if (nombre_evento === "inicia") {
             this._cuando_inicia_callback = callback;
-            window.addEventListener("evento_inicia", function () { callback(); });
+            window.addEventListener("evento_inicia", function () {
+                callback();
+            });
         }
         else {
             alert("El evento " + nombre_evento + " no est\u00E1 soportado.");
@@ -706,6 +708,8 @@ var Pilas = (function () {
         else {
             this.pausar();
         }
+    };
+    Pilas.prototype.terminar = function () {
     };
     /**
      * Realiza una actualización de la lógica del videojuego.
@@ -810,6 +814,10 @@ var Utils = (function () {
      * mientras se escribe.
      */
     Utils.prototype.autocompletar = function (prefijo) {
+        console.log("CASO: ", prefijo);
+        if (prefijo.length === 0) {
+            return [];
+        }
         function comienza_con(cadena, stringBuscada) {
             return cadena.indexOf(stringBuscada) === 0;
         }
@@ -832,7 +840,7 @@ var Utils = (function () {
                 });
             }
             else {
-                console.log(partes);
+                //console.log(prefijo, partes);
                 var inicio = partes.slice(0, partes.length - 1).join(".");
                 var prefijo_1 = partes[partes.length - 1];
                 if (partes[0] == "pilas") {

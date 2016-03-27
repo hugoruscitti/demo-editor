@@ -110,7 +110,11 @@ class Pilas {
   cuando(nombre_evento: string, callback: CallBackEvento) {
     if (nombre_evento === "inicia") {
       this._cuando_inicia_callback = callback;
-      window.addEventListener("evento_inicia", () => {callback(); });
+
+      window.addEventListener("evento_inicia", () => {
+        callback(); 
+      });
+
     } else {
       alert(`El evento ${nombre_evento} no está soportado.`);
     }
@@ -200,6 +204,10 @@ class Pilas {
     } else {
       this.pausar();
     }
+  }
+
+  terminar() {
+
   }
 
   /**

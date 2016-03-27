@@ -1,6 +1,6 @@
 test('Puede autocompletar', function(assert) {
   var done = assert.async();
-  var pilas = pilasengine.iniciar('elementoCanvas', {ancho: 320, alto: 240, en_test:true, data_path: '../ejemplos/data', escalar: false});
+  var pilas = pilasengine.iniciar('elementoCanvas', {ancho: 320, alto: 240, en_test: true, data_path: '../ejemplos/data', escalar: false});
 
   pilas.cuando('inicia', function() {
     equal(pilas.utils.autocompletar(""),                 [], "Retorna vacío si no especifica prefijo.");

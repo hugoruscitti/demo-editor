@@ -24,6 +24,11 @@ class Utils {
    * mientras se escribe.
    */
   autocompletar(prefijo:string) {
+    console.log("CASO: ", prefijo);
+
+    if (prefijo.length === 0) {
+      return [];
+    }
 
     function comienza_con(cadena:string, stringBuscada:string) {
       return cadena.indexOf(stringBuscada) === 0;
@@ -52,7 +57,8 @@ class Utils {
         });
 
       } else {
-        console.log(partes);
+        //console.log(prefijo, partes);
+
         let inicio = partes.slice(0, partes.length-1).join(".")
         let prefijo = partes[partes.length-1];
 

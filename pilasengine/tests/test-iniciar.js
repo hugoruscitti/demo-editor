@@ -2,7 +2,7 @@ test('Puede inicializar y crear actores', function(assert) {
   var done = assert.async();
   equal(0, 0, "El plano está en la posición inicial");
 
-  var pilas = pilasengine.iniciar('elementoCanvas', {ancho: 320, alto: 240, en_test:true, data_path: '../ejemplos/data', escalar: false});
+  var pilas = pilasengine.iniciar('elementoCanvas', {ancho: 100, alto: 100, en_test:true, data_path: '../ejemplos/data', escalar: false});
 
   pilas.cuando('inicia', function() {
     var fondo = pilas.fondos.Plano();
@@ -21,8 +21,9 @@ test('Puede inicializar y crear actores', function(assert) {
     patito.rotacion = 180;
     equal(patito.rotacion, 180, "Pudo cambiar de rotación.");
     patito.rotacion = 0;
-    equal(patito.rotacion, 0, "Y Pudo restaurar la rotación.");
+    equal(patito.rotacion, 0, "Y pudo restaurar la rotación.");
 
+    pilas.terminar();
     done();
   });
 

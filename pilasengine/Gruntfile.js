@@ -65,52 +65,50 @@ module.exports = function (grunt) {
               livereload: true,
               spawn: false,
             },
-            files: ['src/**/*.ts', 'tests/**'],
+            files: ['src/**/*.ts', 'tests/**', 'ejemplos/**'],
             tasks: ['typescript', 'concat', 'touch', /*'qunit'*/]
           },
-          withNoTests: {
-            options: {
-              livereload: true,
-              spawn: false,
-            },
-            files: ['src/**/*.ts', 'ejemplos/**'],
-            tasks: ['typescript', 'concat', 'touch']
-          }
         },
     });
 
 
     function show_message(message, url) {
-      var line = "*****************************************************************************";
-      var msg =  "*** " + message;
       var color = "\x1b[32m";
       var color2 = "\x1b[33m";
-      var reset = "\x1b[0m";
+      var msg =  "*** " + message;
 
-      console.log(reset, "");
-      console.log(color, line);
       console.log(color, msg, color2, url, color, "***");
+    }
+
+    function drawLine() {
+      var reset = "\x1b[0m";
+      var color = "\x1b[32m";
+      var line = "***********************************************************************************";
       console.log(color, line);
+    }
+
+    function clear() {
+      var reset = "\x1b[0m";
       console.log(reset, "");
     }
 
     grunt.registerTask('message', 'Muestra que url se tiene que abrir.', function(arg) {
-      show_message("Los ejemplos de pueden abrir desde la URL:", "http://localhost:8080");
-    });
+      clear();
+      drawLine();
 
-    grunt.registerTask('messageTests', 'Muestra que url se tiene que abrir.', function(arg) {
-      show_message("Los tests de pueden abrir desde la URL:", "http://localhost:8089/tests");
+      show_message("Los ejemplos de pueden abrir desde la URL:", "http://localhost:8089/ejemplos");
+      show_message("Los tests de pueden abrir desde la URL:   ", "http://localhost:8089/tests   ");
+
+      drawLine();
+      clear();
     });
 
     grunt.loadNpmTasks('grunt-typedoc');
     grunt.loadNpmTasks('grunt-contrib-concat');
 
-    //grunt.registerTask('test', ['qunit']);
-    //grunt.registerTask('default', ['typescript', 'typedoc', 'test', 'watch:withTests']);
 
-
-    grunt.registerTask('compilar-con-ejemplos-livereload', ['connect:server', 'typescript', 'message', 'watch:withNoTests']);
-    grunt.registerTask('compilar-y-notificar-live', ['typescript', 'watch:withNoTests']);
-    grunt.registerTask('compilar-y-notificar-live-con-tests', ['connect:tests', 'messageTests', 'watch:withTests' /*'typedoc', 'test'*/]);
+    grunt.registerTask('compilar-con-ejemplos-livereload', ['connect:tests', 'typescript', 'message', 'watch:withTests']);
+    grunt.registerTask('compilar-y-notificar-live', ['typescript', 'watch:withTests']);
+    grunt.registerTask('compilar-y-notificar-live-con-tests', ['connect:tests', 'message', 'watch:withTests' /*'typedoc', 'test'*/]);
     grunt.registerTask('compilar', ['typescript', 'concat', 'touch']);
 }
