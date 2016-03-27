@@ -1,0 +1,23 @@
+{{#modal-dialog close="toggleModal"}}
+  <h2>settings</h2>
+
+  <div class="window">
+    <div class="window-content">
+<form>
+
+  <div class="form-group">
+    <label>Ancho de la pantalla</label>
+    {{input class="form-control" value=model.ancho}}
+  </div>
+
+  <div class="form-group">
+    <label>Alto de la pantalla</label>
+    {{input class="form-control" value=model.alto}}
+  </div>
+
+</form>
+
+    </div>
+  </div>
+
+{{/modal-dialog}}

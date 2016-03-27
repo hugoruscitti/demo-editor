@@ -44,7 +44,7 @@ export default Ember.Component.extend(InboundActions, {
     });
   },
 
-  _executeJavascriptCode(javascriptCode) {
+  _executeJavascriptCode(javascriptCode, project) {
     let iframeElement = this.get("iframeElement");
 
     function evalCode(code, scope) {
@@ -58,8 +58,13 @@ export default Ember.Component.extend(InboundActions, {
 
     this.set('error', null);
 
+    let ancho = project.get("ancho");
+    let alto = project.get("alto");
+
     var code_to_run = `// hook
-      var pilas = pilasengine.iniciar('canvas');
+      var opciones = {ancho: ${ancho}, alto: ${alto}};
+
+      var pilas = pilasengine.iniciar('canvas', opciones);
       ${javascriptCode}
       console.log(window);
       // hook end
@@ -106,7 +111,7 @@ export default Ember.Component.extend(InboundActions, {
 
           /* Ejecuta el código completo. */
           this.get('languageService').execute(project).then(data => {
-            this._executeJavascriptCode(data.output);
+            this._executeJavascriptCode(data.output, project);
           });
       });
     },

@@ -80,6 +80,10 @@
               {{else}}
               {{/if}}
 
+              <div class="pull-right">
+                {{#link-to "edit.settingsModal" model tagName="button" class="btn btn-default"}} {{p-icon icon="cog"}} {{/link-to}}
+              </div>
+
             </div>
 
             {{x-editor value=model.code}}
