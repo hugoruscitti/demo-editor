@@ -17,6 +17,7 @@ export default Ember.Controller.extend({
       this.set("model.alto", parseInt(values[1], 10));
 
       this.send("toggleModal");
+      this.send("reloadGame", this.get("model"));
     }
   }
 });
