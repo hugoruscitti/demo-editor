@@ -1,23 +1,19 @@
-{{#modal-dialog close="toggleModal"}}
-  <h2>settings</h2>
+{{#modal-dialog close="toggleModal" class="epep"}}
+<div class="dialog-container">
 
-  <div class="window">
-    <div class="window-content">
-<form>
+  <p class="dialog-title">Configuración</p>
 
-  <div class="form-group">
-    <label>Ancho de la pantalla</label>
-    {{input class="form-control" value=model.ancho}}
+  <p>Tamaño de pantalla:</p>
+
+  {{#radio-button value="100x100" groupValue=resolution}}100x100{{/radio-button}}
+  {{#radio-button value="320x240" groupValue=resolution}}320x240{{/radio-button}}
+  {{#radio-button value="640x480" groupValue=resolution}}640x480{{/radio-button}}
+  {{#radio-button value="800x600" groupValue=resolution}}800x600{{/radio-button}}
+
+  <div class="dialog-buttons">
+    <button class="btn btn-default" {{action "cancel"}}>Cancelar</button>
+    <button class="btn btn-primary" {{action "confirm"}}>Confirmar</button>
   </div>
 
-  <div class="form-group">
-    <label>Alto de la pantalla</label>
-    {{input class="form-control" value=model.alto}}
-  </div>
-
-</form>
-
-    </div>
-  </div>
-
+</div>
 {{/modal-dialog}}

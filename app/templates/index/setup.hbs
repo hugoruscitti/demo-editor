@@ -1,6 +1,7 @@
 {{#modal-dialog close="toggleModal" focusSelector="a#close"}}
+<div class="dialog-container">
 
-<p>Configuración</p>
+  <p class="dialog-title">Configuración</p>
 
   <label for="vim">Modo VIM (no recomendado)
     {{input id="vim" type="checkbox" checked=preferences.vimMode}}
@@ -10,8 +11,9 @@
     <button {{action "changeTheme"}} class="btn btn-default">Tema: {{preferences.theme}}</button>
   </p>
 
-<div class="modal-footer right">
-  {{#link-to "index" id="close" tagName="button" class="btn btn-default"}}Cerrar{{/link-to}}
-</div>
+  <div class="dialog-buttons">
+    {{#link-to "index" id="close" tagName="button" class="btn btn-default"}}Cerrar{{/link-to}}
+  </div>
 
+</div>
 {{/modal-dialog}}

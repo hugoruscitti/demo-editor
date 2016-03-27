@@ -370,3 +370,28 @@ canvas {
 .jsconsole.eclipse .CodeMirror .completion-value-end {
   border-bottom: 0;
 }
+
+label.ember-radio-button {
+  padding-left: 18px;
+}
+
+
+.dialog-container {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.dialog-title {
+  font-weight: bold;
+}
+
+.dialog-buttons {
+  text-align: right;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  background-color: #ddd;
+  border-top: 1px solid #bbb;
+}

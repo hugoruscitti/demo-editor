@@ -54,6 +54,7 @@
     "ember-load-initializers": "^0.5.0",
     "ember-lodash": "0.0.5",
     "ember-modal-dialog": "0.8.3",
+    "ember-radio-button": "1.0.7",
     "ember-resolver": "^2.0.3",
     "grunt": "^0.4.5",
     "grunt-contrib-qunit": "^1.0.1",
