@@ -7,7 +7,7 @@ class ActorProxy {
     this.id = id;
   }
 
-  interpolar(propiedad: string, valor: any, duracion: number = 500.0, tipo: string = "desaceleracion_gradual", infinito: boolean = false) {
+  interpolar(propiedad: string, valor: any, duracion: number = 0.5, tipo: string = "desaceleracion_gradual", infinito: boolean = false) {
 
     if (!duracion) {
       duracion = 500.0;

@@ -23,10 +23,10 @@ class Interpolaciones {
     TWEEN.removeAll();
   }
 
-  crear_interpolacion(actor: ActorProxy, propiedad: string, valor: any, duracion: number = 500.0, tipo: string = "desaceleracion_gradual", infinito: boolean = false) {
+  crear_interpolacion(actor: ActorProxy, propiedad: string, valor: any, duracion: number = 0.5, tipo: string = "desaceleracion_gradual", infinito: boolean = false) {
 
     if (!duracion) {
-      duracion = 500.0;
+      duracion = 0.5;
     }
 
     if (!tipo) {
@@ -53,7 +53,7 @@ class Interpolaciones {
 
     }
 
-    var tween = new TWEEN.Tween(actor).to(attrs, duracion);
+    var tween = new TWEEN.Tween(actor).to(attrs, duracion * 1000.0);
 
     var algoritmos = {
       "lineal": TWEEN.Easing.Linear.None,

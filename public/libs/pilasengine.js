@@ -4,7 +4,7 @@ var ActorProxy = (function () {
         this.id = id;
     }
     ActorProxy.prototype.interpolar = function (propiedad, valor, duracion, tipo, infinito) {
-        if (duracion === void 0) { duracion = 500.0; }
+        if (duracion === void 0) { duracion = 0.5; }
         if (tipo === void 0) { tipo = "desaceleracion_gradual"; }
         if (infinito === void 0) { infinito = false; }
         if (!duracion) {
@@ -485,11 +485,11 @@ var Interpolaciones = (function () {
         TWEEN.removeAll();
     };
     Interpolaciones.prototype.crear_interpolacion = function (actor, propiedad, valor, duracion, tipo, infinito) {
-        if (duracion === void 0) { duracion = 500.0; }
+        if (duracion === void 0) { duracion = 0.5; }
         if (tipo === void 0) { tipo = "desaceleracion_gradual"; }
         if (infinito === void 0) { infinito = false; }
         if (!duracion) {
-            duracion = 500.0;
+            duracion = 0.5;
         }
         if (!tipo) {
             tipo = "desaceleracion_gradual";
@@ -508,7 +508,7 @@ var Interpolaciones = (function () {
                 valor.push(actor[propiedad]);
             }
         }
-        var tween = new TWEEN.Tween(actor).to(attrs, duracion);
+        var tween = new TWEEN.Tween(actor).to(attrs, duracion * 1000.0);
         var algoritmos = {
             "lineal": TWEEN.Easing.Linear.None,
             "aceleracion_gradual": TWEEN.Easing.Quadratic.In,
