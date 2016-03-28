@@ -6,12 +6,8 @@ class Imagenes {
   }
 
   precargar_imagenes_estandar() {
-    this.cargar("humo", "humo.png");
-    this.cargar("sin_imagen", "sin_imagen.png");
-    this.cargar("fondos/plano", "fondos/plano.png");
-    this.cargar("yamcha", "yamcha.png");
-
-    this.cargar_atlas("data", "sprites.png", "sprites.json");
+    //this.cargar("yamcha", "yamcha.png");
+    this.cargar_atlas("data", "spritesheet.png", "spritesheet.json");
   }
 
 

@@ -30,6 +30,7 @@ comandos:
 	@echo "    ${G}pilas_ejemplos_live${N}  Genera pilasengine.js y ejemplos (live)."
 	@echo "    ${G}docs${N}                 Genera la documentación de pilas."
 	@echo "    ${G}generar_ejemplo${N}      Permite crear un ejemplo nuevo."
+	@echo "    ${G}actualizar_imagenes${N}  Genera los spritesheets desde pilasengine/data/src"
 	@echo ""
 	@echo "  ${Y}Para distribuir${N}"
 	@echo ""
@@ -142,5 +143,16 @@ deploy:
 	@echo ""
 	@echo "    http://editor.pilas-engine.com.ar${N}"
 	@echo ""
+
+actualizar_imagenes:
+	$(call log, "Actualizando imagenes ...")
+	@spritesheet-js pilasengine/data/src/* -p public/data/ -f pixi.js
+	@echo ""
+	@echo "${G}Listo, las archivos que se generaron son:"
+	@echo ""
+	@echo "    public/data/spritesheet.json"
+	@echo "    public/data/spritesheet.png"
+	@echo "${N}"
+
 
 .PHONY: tmp

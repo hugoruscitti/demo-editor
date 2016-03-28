@@ -316,7 +316,15 @@ var Estados = (function () {
             return this.cache[id];
         }
         else {
-            this.cache[id] = this.pilas.game.add.tileSprite(0, 0, this.pilas.opciones.ancho, this.pilas.opciones.alto, imagen);
+            if (imagen.indexOf(":") > 0) {
+                var items = imagen.split(":");
+                var galeria = items[0];
+                var imagen = items[1];
+                this.cache[id] = this.pilas.game.add.tileSprite(0, 0, this.pilas.opciones.ancho, this.pilas.opciones.alto, galeria, imagen);
+            }
+            else {
+                this.cache[id] = this.pilas.game.add.tileSprite(0, 0, this.pilas.opciones.ancho, this.pilas.opciones.alto, imagen);
+            }
             return this.cache[id];
         }
     };
@@ -378,7 +386,7 @@ var Fondos = (function () {
         if (x === void 0) { x = 0; }
         if (y === void 0) { y = 0; }
         return this.pilas.crear_entidad("spriteTiled", {
-            imagen: "fondos/plano",
+            imagen: "data:plano.png",
             x: x,
             y: y,
         });
@@ -416,11 +424,8 @@ var Imagenes = (function () {
         this.pilas = pilas;
     }
     Imagenes.prototype.precargar_imagenes_estandar = function () {
-        this.cargar("humo", "humo.png");
-        this.cargar("sin_imagen", "sin_imagen.png");
-        this.cargar("fondos/plano", "fondos/plano.png");
-        this.cargar("yamcha", "yamcha.png");
-        this.cargar_atlas("data", "sprites.png", "sprites.json");
+        //this.cargar("yamcha", "yamcha.png");
+        this.cargar_atlas("data", "spritesheet.png", "spritesheet.json");
     };
     Imagenes.prototype.cargar = function (identificador, archivo) {
         var path = this.pilas.utils.join(this.pilas.opciones.data_path, archivo);

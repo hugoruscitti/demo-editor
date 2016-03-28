@@ -52,7 +52,17 @@ class Estados {
     if (this.cache[id]) {
       return this.cache[id];
     } else {
-      this.cache[id] = this.pilas.game.add.tileSprite(0, 0, this.pilas.opciones.ancho, this.pilas.opciones.alto, imagen);
+
+      if (imagen.indexOf(":") > 0) {
+        var items = imagen.split(":");
+        var galeria = items[0];
+        var imagen = items[1];
+
+        this.cache[id] = this.pilas.game.add.tileSprite(0, 0, this.pilas.opciones.ancho, this.pilas.opciones.alto, galeria, imagen);
+      } else {
+        this.cache[id] = this.pilas.game.add.tileSprite(0, 0, this.pilas.opciones.ancho, this.pilas.opciones.alto, imagen);
+      }
+
       return this.cache[id];
     }
   }
