@@ -10,7 +10,9 @@ export default Factory.extend({
   code(i) {
       return `let pilas;
 
-pilas.fondos.Plano();`;
+let plano = pilas.fondos.plano();
+let patito = pilas.actores.patito();
+`;
     },
 
 });

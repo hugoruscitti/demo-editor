@@ -1,13 +1,13 @@
 {
 	"meta": {
 		"image": "spritesheet.png",
-		"size": {"w":378,"h":189},
+		"size": {"w":438,"h":209},
 		"scale": "1"
 	},
 	"frames": {
 		"yamcha.png":
 		{
-			"frame": {"x":0,"y":0,"w":150,"h":189},
+			"frame": {"x":10,"y":10,"w":150,"h":189},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":150,"h":189},
@@ -15,7 +15,7 @@
 		},
 		"sin_imagen.png":
 		{
-			"frame": {"x":150,"y":0,"w":128,"h":128},
+			"frame": {"x":180,"y":10,"w":128,"h":128},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
@@ -23,7 +23,7 @@
 		},
 		"patito.png":
 		{
-			"frame": {"x":278,"y":0,"w":100,"h":100},
+			"frame": {"x":328,"y":10,"w":100,"h":100},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
@@ -31,7 +31,7 @@
 		},
 		"humo.png":
 		{
-			"frame": {"x":278,"y":100,"w":64,"h":63},
+			"frame": {"x":328,"y":130,"w":64,"h":63},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":64,"h":63},
@@ -39,7 +39,7 @@
 		},
 		"plano.png":
 		{
-			"frame": {"x":342,"y":100,"w":10,"h":10},
+			"frame": {"x":412,"y":130,"w":10,"h":10},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":10,"h":10},
