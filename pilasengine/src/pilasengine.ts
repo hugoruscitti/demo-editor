@@ -252,6 +252,9 @@ class Pilas {
     return this.obtener_actores().length;
   }
 
+  crear_entidad(tipo: string, entidad: any) {
+    return this.escenas.escena_actual.estados.crear_entidad(tipo, entidad);
+  }
 }
 
 /**
@@ -280,4 +283,5 @@ let pilasengine = {
 
     return new Pilas(element_id, opciones);
   }
+
 };

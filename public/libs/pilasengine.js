@@ -115,34 +115,18 @@ var Actores = (function () {
      * @param x - posición horizontal.
      * @param y - posición vertical.
      */
-    Actores.prototype.Actor = function (x, y) {
+    Actores.prototype.actor = function (x, y) {
         if (x === void 0) { x = 0; }
         if (y === void 0) { y = 0; }
-        var entity = {
-            id: 12,
-            nombre: "sin_imagen",
-            imagen: "sin_imagen",
-            x: x,
-            y: y,
-            scale_x: 1,
-            scale_y: 1,
-            rotation: 0,
-            anchor_x: 0.5,
-            anchor_y: 0.5,
-            scripts: {
-                rotate: {
-                    speed: 0.5,
-                }
-            }
-        };
-        entity.id = Math.ceil(Math.random() * 1000000000000);
-        //this.game.estados.entidades.push(entity);
-        return entity;
+        return this.pilas.crear_entidad("sprite", {
+            imagen: "data:tortuga.png",
+            clase: 'actor'
+        });
     };
     Actores.prototype.patito = function (x, y) {
         if (x === void 0) { x = 0; }
         if (y === void 0) { y = 0; }
-        return this.pilas.escenas.escena_actual.estados.crear_entidad("sprite", {
+        return this.pilas.crear_entidad("sprite", {
             imagen: "data:patito.png",
             clase: 'patito'
         });
@@ -154,31 +138,6 @@ var Actores = (function () {
         var style = { stroke: '#000000', strokeThickness: 4, font: "28px Arial", fill: "#fff" };
         var text = this.pilas.game.add.text(32, 64, "Hola mundo", style);
         window['text'] = text;
-    };
-    Actores.prototype.crear = function (diccionario) {
-        var entidad = {
-            id: Math.ceil(Math.random() * 1000000000000),
-            nombre: diccionario.nombre || "",
-            imagen: diccionario.imagen || "sin_imagen",
-            x: diccionario.x || 100,
-            y: diccionario.y || 100,
-            scale_x: 1,
-            scale_y: 1,
-            rotation: 0,
-            anchor_x: 0.5,
-            anchor_y: 0.5,
-            scripts: {}
-        };
-        entidad.contador = diccionario.contador;
-        this.pilas.codigos[entidad.nombre] = {
-            actualizar: diccionario.actualizar || function () { },
-        };
-        if (entidad.nombre === "") {
-            console.error("Tienes que especificar le nombre de la entidad.", entidad);
-            throw new Error("Tienes que especificar le nombre de la entidad.");
-        }
-        //this.game.estados.entidades.push(entidad);
-        return entidad;
     };
     return Actores;
 })();
@@ -277,6 +236,9 @@ var Escenas = (function () {
     };
     return Escenas;
 })();
+/**
+ * Clase abstracta que representa una escena dentro del juego.
+ */
 var Escena = (function () {
     function Escena(pilas) {
         this.sprites = [];
@@ -293,6 +255,9 @@ var Escena = (function () {
      */
     Escena.prototype.iniciar = function () {
     };
+    /**
+     * Se invoca seis veces por segundo para mantener en funcionamiento el juego.
+     */
     Escena.prototype.actualizar = function () {
         this.estados.actualizar();
         this.interpolaciones.actualizar();
@@ -305,7 +270,7 @@ var EscenaNormal = (function (_super) {
         _super.apply(this, arguments);
     }
     EscenaNormal.prototype.iniciar = function () {
-        this.pilas.fondos.Plano();
+        this.pilas.fondos.plano();
     };
     return EscenaNormal;
 })(Escena);
@@ -409,12 +374,13 @@ var Fondos = (function () {
     function Fondos(pilas) {
         this.pilas = pilas;
     }
-    Fondos.prototype.Plano = function (x, y) {
+    Fondos.prototype.plano = function (x, y) {
         if (x === void 0) { x = 0; }
         if (y === void 0) { y = 0; }
-        return this.pilas.escenas.escena_actual.estados.crear_entidad("spriteTiled", {
+        return this.pilas.crear_entidad("spriteTiled", {
             imagen: "fondos/plano",
-            x: 3
+            x: x,
+            y: y,
         });
     };
     return Fondos;
@@ -724,6 +690,9 @@ var Pilas = (function () {
      */
     Pilas.prototype.obtener_cantidad_de_actores = function () {
         return this.obtener_actores().length;
+    };
+    Pilas.prototype.crear_entidad = function (tipo, entidad) {
+        return this.escenas.escena_actual.estados.crear_entidad(tipo, entidad);
     };
     return Pilas;
 })();

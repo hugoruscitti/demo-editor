@@ -1,3 +1,6 @@
+/**
+ * Clase abstracta que representa una escena dentro del juego.
+ */
 class Escena {
   pilas: Pilas;
   estados: Estados;
@@ -22,6 +25,9 @@ class Escena {
 
   }
 
+  /**
+   * Se invoca seis veces por segundo para mantener en funcionamiento el juego.
+   */
   actualizar() {
     this.estados.actualizar();
     this.interpolaciones.actualizar();

@@ -5,10 +5,11 @@ class Fondos {
     this.pilas = pilas;
   }
 
-  Plano(x: number = 0, y: number = 0) {
-    return this.pilas.escenas.escena_actual.estados.crear_entidad("spriteTiled", {
+  plano(x: number = 0, y: number = 0) {
+    return this.pilas.crear_entidad("spriteTiled", {
       imagen: "fondos/plano",
-      x: 3
+      x: x,
+      y: y,
     });
   }
 }
