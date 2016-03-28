@@ -37,8 +37,20 @@ export default Ember.Controller.extend({
   },
 
   custom_autocomplete_function(cm) {
+    let end = cm.getCursor().ch;
+    let full_line = cm.getValue().substr(0, end);
+    let start = full_line.lastIndexOf(" ");
+
+    if (start === -1) {
+      start = 0;
+    }
+
+    let currentWord = full_line.substr(start, end - start);
+
+    //tests/dummy/app/controllers/application.js
+
     let iframeElement = $("iframe#innerIframe")[0];
-    let currentWord = cm.getTokenAt(cm.getCursor()).string;
+    //let currentWord = cm.getTokenAt(cm.getCursor()).string;
 
     let code = `pilas.utils.autocompletar('${currentWord}')`;
 
