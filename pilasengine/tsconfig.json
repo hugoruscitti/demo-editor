@@ -20,6 +20,7 @@
         "src/entidad.ts",
         "src/escenas.ts",
         "src/escenas/escena.ts",
+        "src/escenas/normal.ts",
         "src/estados.ts",
         "src/fondos.ts",
         "src/historial.ts",

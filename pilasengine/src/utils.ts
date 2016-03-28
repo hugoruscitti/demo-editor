@@ -23,8 +23,7 @@ class Utils {
    * para que el intérprete interactivo retorne información de la API
    * mientras se escribe.
    */
-  autocompletar(prefijo:string) {
-    console.log("CASO: ", prefijo);
+  autocompletar(prefijo:string): Array<String> {
 
     if (prefijo.length === 0) {
       return [];
@@ -44,6 +43,11 @@ class Utils {
       return atributos;
     }
 
+    function anteponer_prefijo(partes:Array<String>, palabra:string) {
+      let inicio = partes.slice(0, partes.length-1).join(".")
+      return `${inicio}.${palabra}`;
+    }
+
     if (!prefijo) {
       return [];
     } else {
@@ -57,19 +61,20 @@ class Utils {
         });
 
       } else {
-        //console.log(prefijo, partes);
 
         let inicio = partes.slice(0, partes.length-1).join(".")
         let prefijo = partes[partes.length-1];
 
-        if (partes[0] == "pilas") {
-          partes[0] = "this.pilas";
-        }
-
         try {
-          return obtener_atributos(eval.call(window, inicio)).filter(function (e:string) {
+          let valores = obtener_atributos(eval.call(window, inicio)).filter(function (e:string) {
             return comienza_con(e, prefijo.toLowerCase());
           });
+
+          return valores.map(function(e:string) {
+            return anteponer_prefijo(partes, e);
+          });
+
+
         } catch (e) {
           console.info(e);
           return [];

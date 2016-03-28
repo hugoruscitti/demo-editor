@@ -9,7 +9,7 @@ class Estados {
     this.cache = {};
   }
 
-  actualizar(pausa_habilitada: boolean) {
+  actualizar() {
     this.data.entidades.forEach((entidad: any) => {
 
       switch (entidad.tipo) {
@@ -39,8 +39,8 @@ class Estados {
   }
 
   private actualizar_sprite_desde_entidad(sprite: any, entidad: any) {
-    let dx = this.pilas.ancho / 2;
-    let dy = this.pilas.alto / 2;
+    let dx = this.pilas.opciones.ancho / 2;
+    let dy = this.pilas.opciones.alto / 2;
 
     sprite.position.set(dx + entidad.x, dy - entidad.y);
     sprite.scale.set(entidad.escala_x, entidad.escala_y);
@@ -52,7 +52,7 @@ class Estados {
     if (this.cache[id]) {
       return this.cache[id];
     } else {
-      this.cache[id] = this.pilas.game.add.tileSprite(0, 0, this.pilas.ancho, this.pilas.alto, imagen);
+      this.cache[id] = this.pilas.game.add.tileSprite(0, 0, this.pilas.opciones.ancho, this.pilas.opciones.alto, imagen);
       return this.cache[id];
     }
   }
@@ -87,89 +87,6 @@ class Estados {
 
     return entidad_buscada;
   }
-
-
-
-    /*
-
-      this.estados.entidades.forEach((entity: any) => {
-        let sprite: any = null;
-
-        if (entity.sprite_id) {
-          sprite = this._obtener_sprite_por_id(entity.sprite_id);
-
-          sprite.position.set(entity.x, entity.y);
-          sprite.scale.set(entity.scale_x, entity.scale_y);
-          sprite.anchor.setTo(entity.anchor_x, entity.anchor_y);
-          sprite.angle = -entity.rotation;
-        } else {
-
-          if (entity["tiled"]) {
-            sprite = this.game.add.tileSprite(entity.x, entity.y, this.ancho * 2, this.alto * 2, entity.imagen);
-          } else {
-            console.log(entity);
-            console.log(entity.imagen);
-
-            if (entity.imagen.indexOf(":") > 0) {
-              var items = entity.imagen.split(":");
-              var galeria = items[0];
-              var imagen = items[1];
-              sprite = this.game.add.sprite(entity.x, entity.y, galeria, imagen);
-            } else {
-              sprite = this.game.add.sprite(entity.x, entity.y, entity.imagen);
-            }
-          }
-
-          var sprite_id = this.add_sprite(sprite);
-
-          entity.sprite_id = sprite_id;
-
-          sprite.position.set(entity.x, entity.y);
-          sprite.scale.set(entity.scale_x, entity.scale_y);
-          sprite.anchor.setTo(entity.anchor_x, entity.anchor_y);
-          sprite.angle = -entity.rotation;
-        }
-
-        if (!pause_enabled) {
-
-          if (this.codigos[entity.nombre]) {
-            try {
-              this.codigos[entity.nombre].actualizar.call(entity);
-            } catch (e) {
-              console.warn("Hay un error en pilas, así que se activó la pausa. Usá la sentencia 'pilas.unpause()' luego de reparar el error.");
-              console.error(e);
-              this.pausar();
-            }
-          }
-
-          // Actualiza las entidades.
-          for (var name in entity.scripts) {
-            this.aplicar_script(entity, name, entity.scripts[name]);
-          }
-        }
-
-
-      });
-
-      if (!pause_enabled) {
-        this.historial_estados.save(this.estados);
-
-        // if (timer === 0) {
-        //   var data:any = JSON.stringify(this.game_state, null, "  ");
-        //   document.getElementById("result").innerHTML = data;
-        // }
-
-        // timer += 1;
-
-        // if (timer > 20) {
-        //   timer = 0;
-        // }
-
-      }
-
-
-    */
-
 
 
   crear_entidad(tipo: string, entidad: any) {

@@ -41,7 +41,7 @@ class Actores {
   }
 
   patito(x:number=0, y:number=0) {
-    return this.pilas.estados.crear_entidad("sprite", {
+    return this.pilas.escenas.escena_actual.estados.crear_entidad("sprite", {
       imagen: "data:patito.png",
       clase: 'patito'
     });

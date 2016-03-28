@@ -1,8 +1,8 @@
-var opciones = {ancho: 640, alto: 480, data_path: 'data'};
+var opciones = {ancho: 300, alto: 200, escalar: false, data_path: 'data'};
 var pilas = pilasengine.iniciar('contenedor', opciones);
 
 window.pilas = pilas;
 
 pilas.cuando('inicia', function() {
-  // ingresar código aquí
+  pilas.escenas.normal();
 });

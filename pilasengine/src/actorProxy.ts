@@ -21,7 +21,7 @@ class ActorProxy {
       infinito = false;
     }
 
-    this.pilas.interpolaciones.crear_interpolacion(this, propiedad, valor, duracion, tipo, infinito);
+    this.pilas.escenas.escena_actual.interpolaciones.crear_interpolacion(this, propiedad, valor, duracion, tipo, infinito);
   }
 
   get x() {
@@ -86,7 +86,7 @@ class ActorProxy {
   }
 
   private get data() {
-    return this.pilas.estados.obtener_entidad_por_id(this.id);
+    return this.pilas.escenas.escena_actual.estados.obtener_entidad_por_id(this.id);
   }
 
   imprimir() {

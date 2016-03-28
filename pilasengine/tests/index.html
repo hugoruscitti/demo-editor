@@ -6,19 +6,16 @@
     <!-- Load local QUnit. -->
     <link rel="stylesheet" href="../node_modules/qunitjs/qunit/qunit.css" media="screen">
     <script src="../node_modules/qunitjs/qunit/qunit.js"></script>
+    <script>
+      QUnit.config.autoload = false;
+      QUnit.config.autostart = false;
+    </script>
 
     <!-- Load local lib and tests. -->
     <script type="text/javascript" src='../ejemplos/libs/phaser.js'></script>
     <script type="text/javascript" src='../ejemplos/libs/pilasengine.js'></script>
+    <link rel="stylesheet" href="estilo.css" media="screen" title="no title" charset="utf-8">
 
-    <style>
-      #elementoCanvas {
-        border: 1px solid gray;
-        position: absolute;
-        right: 0;
-        bottom: 0;
-      }
-    </style>
 
   </head>
   <body>
@@ -27,9 +24,24 @@
 
     <div id='elementoCanvas'></div>
 
+    <script>
+      var data_path = '../ejemplos/data';
+      var opciones = {ancho: 200, alto: 200,
+                      data_path: data_path, escalar: false};
+      var pilas = pilasengine.iniciar('elementoCanvas', opciones);
+
+      pilas.cuando('inicia', function() {
+        QUnit.load();
+        QUnit.start()
+      });
+    </script>
+
     <script src="test-iniciar.js"></script>
     <script src="test-propiedades.js"></script>
     <script src="test-autocompletado.js"></script>
+    <script src="test-escenas.js"></script>
+    <script src="test-interpolaciones.js"></script>
+
 
   </body>
 </html>

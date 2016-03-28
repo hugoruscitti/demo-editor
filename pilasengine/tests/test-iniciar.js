@@ -1,30 +1,14 @@
-test('Puede inicializar y crear actores', function(assert) {
-  var done = assert.async();
-  equal(0, 0, "El plano está en la posición inicial");
+test('test-iniciar: Puede inicializar y crear actores', function(assert) {
+  pilas.reiniciar();
 
-  var pilas = pilasengine.iniciar('elementoCanvas', {ancho: 100, alto: 100, en_test:true, data_path: '../ejemplos/data', escalar: false});
+  equal(pilas.obtener_cantidad_de_actores(), 1, "Hay un solo actor en pantalla (el fondo).");
 
-  pilas.cuando('inicia', function() {
-    var fondo = pilas.fondos.Plano();
+  var patito = pilas.actores.patito();
+  ok(patito, "Pudo crear correctamente al actor parito.");
 
-    equal(fondo.x, 0, "El plano está en la posición inicial.");
+  equal(pilas.obtener_cantidad_de_actores(), 2, "Ahora hay dos, el fondo y el patito.");
 
-    var patito = pilas.actores.patito();
-
-    ok(patito, "Pudo crear un actor.");
-
-    equal(patito.x, 0, "El actor está en el centro de la pantalla.");
-    equal(patito.y, 0, "El actor está en el centro de la pantalla.");
-
-
-    equal(patito.rotacion, 0, "El actor está sin rotacion.");
-    patito.rotacion = 180;
-    equal(patito.rotacion, 180, "Pudo cambiar de rotación.");
-    patito.rotacion = 0;
-    equal(patito.rotacion, 0, "Y pudo restaurar la rotación.");
-
-    pilas.terminar();
-    done();
-  });
+  pilas.reiniciar();
+  equal(pilas.obtener_cantidad_de_actores(), 1, "Luego de reiniciar vuelve a haber un solo actor (el fondo).");
 
 });

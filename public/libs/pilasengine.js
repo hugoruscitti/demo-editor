@@ -16,7 +16,7 @@ var ActorProxy = (function () {
         if (infinito == undefined) {
             infinito = false;
         }
-        this.pilas.interpolaciones.crear_interpolacion(this, propiedad, valor, duracion, tipo, infinito);
+        this.pilas.escenas.escena_actual.interpolaciones.crear_interpolacion(this, propiedad, valor, duracion, tipo, infinito);
     };
     Object.defineProperty(ActorProxy.prototype, "x", {
         get: function () {
@@ -92,7 +92,7 @@ var ActorProxy = (function () {
     };
     Object.defineProperty(ActorProxy.prototype, "data", {
         get: function () {
-            return this.pilas.estados.obtener_entidad_por_id(this.id);
+            return this.pilas.escenas.escena_actual.estados.obtener_entidad_por_id(this.id);
         },
         enumerable: true,
         configurable: true
@@ -142,7 +142,7 @@ var Actores = (function () {
     Actores.prototype.patito = function (x, y) {
         if (x === void 0) { x = 0; }
         if (y === void 0) { y = 0; }
-        return this.pilas.estados.crear_entidad("sprite", {
+        return this.pilas.escenas.escena_actual.estados.crear_entidad("sprite", {
             imagen: "data:patito.png",
             clase: 'patito'
         });
@@ -237,27 +237,85 @@ var ModoFPS = (function (_super) {
 })(Modo);
 var Escenas = (function () {
     function Escenas(pilas) {
+        this.pausa_habilitada = false;
         this.pilas = pilas;
+        this.escena_actual = null;
+        this.mouse = { x: 0, y: 0 };
     }
-    Escenas.prototype.Normal = function () {
+    Escenas.prototype.normal = function () {
+        this.escena_actual = new EscenaNormal(this.pilas);
+        this.escena_actual.iniciar();
+    };
+    Escenas.prototype.actualizar = function () {
+        if (!this.pausa_habilitada) {
+            this.escena_actual.actualizar();
+            this.mouse.x = this.pilas.game.input.x;
+            this.mouse.y = this.pilas.game.input.y;
+        }
+    };
+    Escenas.prototype.pausar = function () {
+        if (this.pausa_habilitada) {
+            console.warn("El modo pausa ya estába habilitado.");
+        }
+        this.pausa_habilitada = true;
+    };
+    Escenas.prototype.continuar = function () {
+        if (!this.pausa_habilitada) {
+            console.warn("El modo pausa no estába habilitado.");
+        }
+        this.pausa_habilitada = false;
+        // TODO: Ubicar esta linea de código en donde corresponda.
+        //this.historial_estados.reset();
+    };
+    Escenas.prototype.alternar_pausa = function () {
+        if (this.pausa_habilitada) {
+            this.continuar();
+        }
+        else {
+            this.pausar();
+        }
     };
     return Escenas;
 })();
 var Escena = (function () {
     function Escena(pilas) {
+        this.sprites = [];
         this.pilas = pilas;
+        this.historial_estados = new Historial(this.pilas);
+        this.estados = new Estados(this.pilas);
+        this.interpolaciones = new Interpolaciones(this.pilas);
     }
+    /**
+     * Carga el código inicial para la escena.
+     *
+     * Este método se invoca por el gestor de escenas una vez
+     * que la escena se activa y pasa a ser la escena_actual de pilas.
+     */
+    Escena.prototype.iniciar = function () {
+    };
     Escena.prototype.actualizar = function () {
+        this.estados.actualizar();
+        this.interpolaciones.actualizar();
     };
     return Escena;
 })();
+var EscenaNormal = (function (_super) {
+    __extends(EscenaNormal, _super);
+    function EscenaNormal() {
+        _super.apply(this, arguments);
+    }
+    EscenaNormal.prototype.iniciar = function () {
+        this.pilas.fondos.Plano();
+    };
+    return EscenaNormal;
+})(Escena);
 var Estados = (function () {
     function Estados(pilas) {
         this.pilas = pilas;
         this.data = { entidades: [] };
         this.cache = {};
     }
-    Estados.prototype.actualizar = function (pausa_habilitada) {
+    Estados.prototype.actualizar = function () {
         var _this = this;
         this.data.entidades.forEach(function (entidad) {
             switch (entidad.tipo) {
@@ -281,8 +339,8 @@ var Estados = (function () {
         this.actualizar_sprite_desde_entidad(sprite, entidad);
     };
     Estados.prototype.actualizar_sprite_desde_entidad = function (sprite, entidad) {
-        var dx = this.pilas.ancho / 2;
-        var dy = this.pilas.alto / 2;
+        var dx = this.pilas.opciones.ancho / 2;
+        var dy = this.pilas.opciones.alto / 2;
         sprite.position.set(dx + entidad.x, dy - entidad.y);
         sprite.scale.set(entidad.escala_x, entidad.escala_y);
         sprite.anchor.setTo(entidad.anchor_x, entidad.anchor_y);
@@ -293,7 +351,7 @@ var Estados = (function () {
             return this.cache[id];
         }
         else {
-            this.cache[id] = this.pilas.game.add.tileSprite(0, 0, this.pilas.ancho, this.pilas.alto, imagen);
+            this.cache[id] = this.pilas.game.add.tileSprite(0, 0, this.pilas.opciones.ancho, this.pilas.opciones.alto, imagen);
             return this.cache[id];
         }
     };
@@ -323,85 +381,6 @@ var Estados = (function () {
         });
         return entidad_buscada;
     };
-    /*
-
-      this.estados.entidades.forEach((entity: any) => {
-        let sprite: any = null;
-
-        if (entity.sprite_id) {
-          sprite = this._obtener_sprite_por_id(entity.sprite_id);
-
-          sprite.position.set(entity.x, entity.y);
-          sprite.scale.set(entity.scale_x, entity.scale_y);
-          sprite.anchor.setTo(entity.anchor_x, entity.anchor_y);
-          sprite.angle = -entity.rotation;
-        } else {
-
-          if (entity["tiled"]) {
-            sprite = this.game.add.tileSprite(entity.x, entity.y, this.ancho * 2, this.alto * 2, entity.imagen);
-          } else {
-            console.log(entity);
-            console.log(entity.imagen);
-
-            if (entity.imagen.indexOf(":") > 0) {
-              var items = entity.imagen.split(":");
-              var galeria = items[0];
-              var imagen = items[1];
-              sprite = this.game.add.sprite(entity.x, entity.y, galeria, imagen);
-            } else {
-              sprite = this.game.add.sprite(entity.x, entity.y, entity.imagen);
-            }
-          }
-
-          var sprite_id = this.add_sprite(sprite);
-
-          entity.sprite_id = sprite_id;
-
-          sprite.position.set(entity.x, entity.y);
-          sprite.scale.set(entity.scale_x, entity.scale_y);
-          sprite.anchor.setTo(entity.anchor_x, entity.anchor_y);
-          sprite.angle = -entity.rotation;
-        }
-
-        if (!pause_enabled) {
-
-          if (this.codigos[entity.nombre]) {
-            try {
-              this.codigos[entity.nombre].actualizar.call(entity);
-            } catch (e) {
-              console.warn("Hay un error en pilas, así que se activó la pausa. Usá la sentencia 'pilas.unpause()' luego de reparar el error.");
-              console.error(e);
-              this.pausar();
-            }
-          }
-
-          // Actualiza las entidades.
-          for (var name in entity.scripts) {
-            this.aplicar_script(entity, name, entity.scripts[name]);
-          }
-        }
-
-
-      });
-
-      if (!pause_enabled) {
-        this.historial_estados.save(this.estados);
-
-        // if (timer === 0) {
-        //   var data:any = JSON.stringify(this.game_state, null, "  ");
-        //   document.getElementById("result").innerHTML = data;
-        // }
-
-        // timer += 1;
-
-        // if (timer > 20) {
-        //   timer = 0;
-        // }
-
-      }
-
-
-    */
     Estados.prototype.crear_entidad = function (tipo, entidad) {
         var iniciales = {
             tipo: tipo,
@@ -433,7 +412,7 @@ var Fondos = (function () {
     Fondos.prototype.Plano = function (x, y) {
         if (x === void 0) { x = 0; }
         if (y === void 0) { y = 0; }
-        return this.pilas.estados.crear_entidad("spriteTiled", {
+        return this.pilas.escenas.escena_actual.estados.crear_entidad("spriteTiled", {
             imagen: "fondos/plano",
             x: 3
         });
@@ -441,8 +420,8 @@ var Fondos = (function () {
     return Fondos;
 })();
 var Historial = (function () {
-    function Historial(game) {
-        this.pilas = game;
+    function Historial(pilas) {
+        this.pilas = pilas;
         this.game_state_history = [];
         this.current_step = 0;
     }
@@ -571,40 +550,34 @@ var Interpolaciones = (function () {
 var timer = 0;
 var __ha_mostrado_version = false;
 var Pilas = (function () {
+    //scripts: any;
     function Pilas(id_elemento_html, opciones) {
-        this.pausa_habilitada = false;
-        this.sprites = [];
-        this.mouse = { x: 0, y: 0 };
-        this.utils = new Utils(this);
-        var options = {
-            preload: this.preload.bind(this),
-            create: this.create.bind(this),
-            update: this.actualizar.bind(this),
-            render: this.render.bind(this)
-        };
         this._verificar_correctitud_de_id_elemento_html(id_elemento_html);
         this.id_elemento_html = id_elemento_html;
         this.ocultar_canvas();
+        this.utils = new Utils(this);
         if (!__ha_mostrado_version) {
             console.log("%cpilasengine.js v" + VERSION + " | http://www.pilas-engine.com.ar", "color: blue");
             __ha_mostrado_version = true;
         }
         this.codigos = {};
         this.opciones = opciones;
-        this.ancho = opciones.ancho || 640;
-        this.alto = opciones.alto || 480;
-        this.game = new Phaser.Game(this.ancho, this.alto, Phaser.CANVAS, id_elemento_html, options);
-        this.game.antialias = false;
-        this.escenas = new Escenas(this);
-        this.escenas.Normal();
-        this.interpolaciones = new Interpolaciones(this);
-        this.historial_estados = new Historial(this);
-        this.estados = new Estados(this);
-        this.load_scripts();
+        var options = {
+            preload: this.preload.bind(this),
+            create: this.create.bind(this),
+            update: this.actualizar.bind(this),
+            render: this.render.bind(this)
+        };
+        var ancho = opciones.ancho || 640;
+        var alto = opciones.alto || 480;
+        this.game = new Phaser.Game(ancho, alto, Phaser.CANVAS, id_elemento_html, options);
+        //this.load_scripts();
         this.actores = new Actores(this);
         this.fondos = new Fondos(this);
         this.imagenes = new Imagenes(this);
         this.depurador = new Depurador(this);
+        this.escenas = new Escenas(this);
+        this.escenas.normal();
         this.evento_inicia = document.createEvent("Event");
     }
     Pilas.prototype.mostrar_cuadros_por_segundo = function (estado) {
@@ -638,17 +611,26 @@ var Pilas = (function () {
             alert("El evento " + nombre_evento + " no est\u00E1 soportado.");
         }
     };
-    Pilas.prototype.load_scripts = function () {
-        this.scripts = {
-            rotate: function (entity, data) {
-                entity.rotation += data.speed;
-            },
-            move: function (entity, data) {
-                entity.x += data.dx;
-                entity.y += data.dy;
-            }
-        };
+    /**
+     * Elimina todo objeto de la escena y vuelve a cargar la escena normal.
+     */
+    Pilas.prototype.reiniciar = function () {
+        this.escenas.normal();
     };
+    /*
+    private load_scripts() {
+      this.scripts = {
+        rotate: function(entity: Entity, data: any) {
+          entity.rotation += data.speed;
+        },
+  
+        move: function(entity: Entity, data: any) {
+          entity.x += data.dx;
+          entity.y += data.dy;
+        }
+      };
+    }
+    */
     /**
      * Concatena dos rutas de manera similar a la función os.path.join
      */
@@ -689,25 +671,13 @@ var Pilas = (function () {
         window.dispatchEvent(new CustomEvent("evento_inicia"));
     };
     Pilas.prototype.pausar = function () {
-        if (this.pausa_habilitada) {
-            console.warn("El modo pausa ya estába habilitado.");
-        }
-        this.pausa_habilitada = true;
+        this.escenas.pausar();
     };
     Pilas.prototype.continuar = function () {
-        if (!this.pausa_habilitada) {
-            console.warn("El modo pausa no estába habilitado.");
-        }
-        this.pausa_habilitada = false;
-        this.historial_estados.reset();
+        this.escenas.continuar();
     };
     Pilas.prototype.alternar_pausa = function () {
-        if (this.pausa_habilitada) {
-            this.continuar();
-        }
-        else {
-            this.pausar();
-        }
+        this.escenas.alternar_pausa();
     };
     Pilas.prototype.terminar = function () {
     };
@@ -715,46 +685,29 @@ var Pilas = (function () {
      * Realiza una actualización de la lógica del videojuego.
      */
     Pilas.prototype.actualizar = function () {
-        if (!this.pausa_habilitada) {
-            this.estados.actualizar(this.pausa_habilitada);
-            this.mouse.x = this.game.input.x;
-            this.mouse.y = this.game.input.y;
-            this.interpolaciones.actualizar();
-        }
+        this.escenas.actualizar();
     };
     Pilas.prototype.render = function () {
         this.depurador.realizar_dibujado();
     };
-    Pilas.prototype.add_sprite = function (sprite) {
-        var id = this._crear_id();
-        this.sprites.push({ id: id, sprite: sprite });
-        return id;
-    };
-    Pilas.prototype._crear_id = function () {
-        return (0 | Math.random() * 9e6).toString(36);
-    };
-    Pilas.prototype._obtener_sprite_por_id = function (id) {
-        for (var i = 0; i < this.sprites.length; i++) {
-            var element = this.sprites[i];
-            if (element.id === id) {
-                return element.sprite;
-            }
-        }
-        throw new Error("No se encuentra el sprite con el ID " + id);
-    };
-    Pilas.prototype.aplicar_script = function (entity, script_name, script_data) {
+    /*
+      private aplicar_script(entity: Entity, script_name: string, script_data: any) {
         this.obtener_script_por_nombre(script_name)(entity, script_data);
-    };
-    Pilas.prototype.obtener_script_por_nombre = function (script_name) {
+      }
+    
+    */
+    /*
+      private obtener_script_por_nombre(script_name: string) {
         return this.scripts[script_name];
-    };
+      }
+      */
     Pilas.prototype.listar_actores = function () {
-        return this.estados.data.entidades.map(function (e) {
+        return this.escenas.escena_actual.estados.data.entidades.map(function (e) {
             return { tipo: "actor", id: e.id };
         });
     };
     Pilas.prototype.obtener_actor = function (id) {
-        var entidad = this.estados.data.entidades[id];
+        var entidad = this.escenas.escena_actual.estados.data.entidades[id];
         if (!entidad) {
             throw new Error("Lo siento, no existe actor con el ID=" + id);
         }
@@ -762,9 +715,15 @@ var Pilas = (function () {
     };
     Pilas.prototype.obtener_actores = function () {
         var _this = this;
-        return this.estados.data.entidades.map(function (e) {
+        return this.escenas.escena_actual.estados.data.entidades.map(function (e) {
             return new ActorProxy(_this, e.id);
         });
+    };
+    /**
+     * Retorna la cantidad de actores en pantalla (incluyendo al fondo).
+     */
+    Pilas.prototype.obtener_cantidad_de_actores = function () {
+        return this.obtener_actores().length;
     };
     return Pilas;
 })();
@@ -814,7 +773,6 @@ var Utils = (function () {
      * mientras se escribe.
      */
     Utils.prototype.autocompletar = function (prefijo) {
-        console.log("CASO: ", prefijo);
         if (prefijo.length === 0) {
             return [];
         }
@@ -828,6 +786,10 @@ var Utils = (function () {
             }
             return atributos;
         }
+        function anteponer_prefijo(partes, palabra) {
+            var inicio = partes.slice(0, partes.length - 1).join(".");
+            return inicio + "." + palabra;
+        }
         if (!prefijo) {
             return [];
         }
@@ -840,15 +802,14 @@ var Utils = (function () {
                 });
             }
             else {
-                //console.log(prefijo, partes);
                 var inicio = partes.slice(0, partes.length - 1).join(".");
                 var prefijo_1 = partes[partes.length - 1];
-                if (partes[0] == "pilas") {
-                    partes[0] = "this.pilas";
-                }
                 try {
-                    return obtener_atributos(eval.call(window, inicio)).filter(function (e) {
+                    var valores = obtener_atributos(eval.call(window, inicio)).filter(function (e) {
                         return comienza_con(e, prefijo_1.toLowerCase());
+                    });
+                    return valores.map(function (e) {
+                        return anteponer_prefijo(partes, e);
                     });
                 }
                 catch (e) {

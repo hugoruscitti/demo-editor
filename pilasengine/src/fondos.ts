@@ -6,7 +6,7 @@ class Fondos {
   }
 
   Plano(x: number = 0, y: number = 0) {
-    return this.pilas.estados.crear_entidad("spriteTiled", {
+    return this.pilas.escenas.escena_actual.estados.crear_entidad("spriteTiled", {
       imagen: "fondos/plano",
       x: 3
     });

@@ -1,33 +1,16 @@
 test('Puede cambiar propiedades de los actores', function(assert) {
-  //var done = assert.async();
-  //start();
-  expect(2);
-  equal(0, 0, "Dos enteros con el mismo valor.");
-  equal(1, 1, "Dos numeros con el mismo valor.");
-  //done();
+  pilas.reiniciar();
 
-  /*
-  expect(3);
+  var patito = pilas.actores.patito();
 
-  pilas = new Pilas();
-  pilas.iniciar({ancho: 320, alto: 240, data_path: '../public/data'});
+  equal(patito.x, 0, "El actor está en el centro de la pantalla.");
+  equal(patito.y, 0, "El actor está en el centro de la pantalla.");
 
-  pilas.onready = function() {
-      var aceituna = new pilas.actores.Aceituna();
 
-      equal(aceituna.x, 0, "Cargó la posición inicial.");
+  equal(patito.rotacion, 0, "El actor está sin rotacion.");
+  patito.rotacion = 180;
+  equal(patito.rotacion, 180, "Pudo cambiar de rotación.");
+  patito.rotacion = 0;
+  equal(patito.rotacion, 0, "Y pudo restaurar la rotación.");
 
-      aceituna.x = [100];
-      aceituna.rotacion = [-100];
-
-      setTimeout(function() {
-        equal(aceituna.x, 100, "A los dos segundos llegó la la posición 100.");
-        equal(aceituna.rotacion, 360 - 100, "A los dos segundos cambió la rotación.");
-        done();
-      }, 2000);
-
-  };
-
-  pilas.ejecutar();
-  */
 });

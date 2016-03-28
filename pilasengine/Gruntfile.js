@@ -83,7 +83,7 @@ module.exports = function (grunt) {
     function drawLine() {
       var reset = "\x1b[0m";
       var color = "\x1b[32m";
-      var line = "***********************************************************************************";
+      var line = "*".repeat(83);
       console.log(color, line);
     }
 
