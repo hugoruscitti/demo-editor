@@ -108,7 +108,6 @@ module.exports = function (grunt) {
 
 
     grunt.registerTask('compilar-con-ejemplos-livereload', ['connect:tests', 'typescript', 'message', 'watch:withTests']);
-    grunt.registerTask('compilar-y-notificar-live', ['typescript', 'watch:withTests']);
-    grunt.registerTask('compilar-y-notificar-live-con-tests', ['connect:tests', 'message', 'watch:withTests' /*'typedoc', 'test'*/]);
+    //grunt.registerTask('compilar-y-notificar-live-con-tests', ['connect:tests', 'message', 'watch:withTests' /*'typedoc', 'test'*/]);
     grunt.registerTask('compilar', ['typescript', 'concat', 'touch']);
 }
