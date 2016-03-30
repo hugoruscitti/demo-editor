@@ -35,7 +35,6 @@ export default Ember.Component.extend({
             return ;
           }
 
-
           languageService.getCompletions(absolutePosition, code).then((data) => {
             if (!data) {
               callback(null, []);
@@ -50,12 +49,11 @@ export default Ember.Component.extend({
 
           });
 
-          /*
+/*
           callback(null, [
             {name: 'hola', value: 'hola', score: 100, meta: "pepepe"}
           ]);
           */
-
 
         }
     };

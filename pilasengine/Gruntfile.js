@@ -10,6 +10,10 @@ module.exports = function (grunt) {
           dist: {
             src: ['tmp/pilasengine.js', 'libs/Tween.js'],
             dest: '../public/libs/pilasengine.js',
+          },
+          map: {
+            src: ['tmp/pilasengine.d.ts'],
+            dest: '../public/libs/pilasengine.d.ts',
           }
         },
         typedoc: {
@@ -36,6 +40,7 @@ module.exports = function (grunt) {
                     module: 'CommonJS',
                     removeComments: false,
                     target: 'es5',
+                    declaration: true,
                     sourceMap: false
                 }
             }
