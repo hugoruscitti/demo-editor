@@ -66,7 +66,6 @@ export default Ember.Component.extend(InboundActions, {
 
       var pilas = pilasengine.iniciar('canvas', opciones);
       ${javascriptCode}
-      console.log(window);
       // hook end
     `;
 
@@ -81,7 +80,7 @@ export default Ember.Component.extend(InboundActions, {
       if (this.get("electron.inElectron")) {
         this.get('iframeElement').src = `file://${__dirname}/game.html`;
       } else {
-        this.get("iframeElement").src = "game.html#" + Math.random();
+        this.get("iframeElement").src = "game.html";
       }
 
     } else {
