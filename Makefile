@@ -30,7 +30,8 @@ comandos:
 	@echo ""
 	@echo "    ${G}pilas${N}                Genera pilasengine.js."
 	@echo "    ${G}pilas_live${N}           Genera pilasengine.js, ejemplos y tests (live)."
-	@echo "    ${G}docs${N}                 Genera la documentación de pilas."
+	@echo "    ${G}api${N}                  Genera la documentación de API para pilas."
+	@echo "    ${G}docs${N}                 Genera el manual de pilas."
 	@echo "    ${G}generar_ejemplo${N}      Permite crear un ejemplo nuevo."
 	@echo "    ${G}actualizar_imagenes${N}  Genera los spritesheets desde pilasengine/data/src"
 	@echo ""
@@ -120,7 +121,7 @@ pilasengine/node_modules:
 	$(call log, "Instalando dependencias de pilas-engine")
 	@cd pilasengine; npm install
 
-docs:
+api:
 	$(call log, "Generando documentacion de pilas-engine")
 	@grunt --gruntfile pilasengine/Gruntfile.js typedoc --base pilasengine
 	$(call log, "Copiando imagenes ...")
@@ -156,5 +157,15 @@ actualizar_imagenes:
 	@echo "    public/data/spritesheet.png"
 	@echo "${N}"
 
+docs:
+	$(call log, "Generando documentación")
+	@cd docs; make generar;
+	@rm -rf public/docs
+	@mv docs/site public/docs
+	@echo ""
+	@echo "${G}OK, la documentación quedó en public/docs"
+	@echo ""
 
-.PHONY: tmp
+
+
+.PHONY: tmp docs

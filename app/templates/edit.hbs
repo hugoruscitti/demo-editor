@@ -30,7 +30,20 @@
 
         {{#if leftPanelVisible}}
           <div class="edit-panel-left">
-            Panel lateral auxiliar.
+            <div class="toolbar-actions">
+              <div class="btn-group">
+                {{#x-pushbutton state=showInspector}} Inspector {{/x-pushbutton}}
+                {{#x-pushbutton state=showManual}} Manual {{/x-pushbutton}}
+              </div>
+            </div>
+
+
+            {{#if showManual}}
+              {{x-manual}}
+            {{else}}
+              Inspector
+            {{/if}}
+
           </div>
         {{/if}}
 
@@ -99,9 +112,6 @@
 
       </div>
 
-      <div class="edit-fila right min-padding">
-        pilas-engine versión 2.0 alfa
-      </div>
     </div>
 
     {{outlet}}

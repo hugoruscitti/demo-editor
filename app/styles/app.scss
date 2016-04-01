@@ -180,7 +180,9 @@ div {
 
   .edit-panel-left {
     flex: 1 auto;
-    padding: 5px;
+    position: relative;
+    margin-right: 5px;
+    margin-left: 5px;
   }
 
   .edit-panel-editor {
@@ -394,4 +396,10 @@ label.ember-radio-button {
   padding: 10px;
   background-color: #ddd;
   border-top: 1px solid #bbb;
+}
+
+.x-manual-iframe {
+  overflow-y: scroll;
+  position: absolute;
+  border: 1px solid #eee;
 }
