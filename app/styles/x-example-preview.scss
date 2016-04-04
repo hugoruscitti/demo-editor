@@ -1,0 +1,19 @@
+.x-example-preview-container {
+  display: inline-block;
+  width: 100px;
+  height: 80px;
+  border: 1px solid gray;
+  box-shadow: 0 0 5px gray;
+  padding: 10px;
+  margin: 10px;
+  position:relative;
+}
+
+.x-example-preview-title {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.2);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+}
