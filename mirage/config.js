@@ -10,7 +10,8 @@ export default function() {
 
 
   this.passthrough("data/sprites.json");
-  
+  this.passthrough("ejemplos/**");
+
   // These comments are here to help you get started. Feel free to delete them.
 
   /*

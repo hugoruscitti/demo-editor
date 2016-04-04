@@ -11,7 +11,8 @@
     "process",
     "$",
     "__dirname",
-    "CodeMirror"
+    "CodeMirror",
+    "debugger"
   ],
   "browser": true,
   "boss": true,

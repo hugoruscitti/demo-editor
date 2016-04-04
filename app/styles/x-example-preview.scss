@@ -1,12 +1,16 @@
 .x-example-preview-container {
   display: inline-block;
-  width: 100px;
-  height: 80px;
-  border: 1px solid gray;
-  box-shadow: 0 0 5px gray;
-  padding: 10px;
+  width: 180px;
+  height: 120px;
+  overflow: hidden;
+  box-shadow: 0 0 5px black;
+  position: relative;
   margin: 10px;
-  position:relative;
+  border: 1px solid #bbb;
+}
+
+.x-example-preview-container:hover {
+  border: 1px solid #eee;
 }
 
 .x-example-preview-title {
@@ -16,4 +20,22 @@
   right: 0;
   bottom: 0;
   text-align: center;
+  color: white;
+}
+
+pre.example-code {
+  border: 1px solid #ddd;
+  background-color: #eee;
+  padding: 5px;
+}
+
+.example-iframe-container {
+  width: 300px;
+  height: 300px;
+  position: static;
+  display: flex;
+}
+
+a img {
+  cursor: pointer !important;
 }

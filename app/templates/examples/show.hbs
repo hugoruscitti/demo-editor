@@ -15,10 +15,20 @@
 
 <div class="window-content">
   <div class="pane padding">
-    <div class="">
+    <p>
+      Ejemplo: {{model.title}} (id: {{model.id}})
+    </p>
+
+    <p>
       {{#link-to "examples.index" tagName="button" class="btn btn-default"}}Volver{{/link-to}}
+    </p>
+
+    <div class="example-iframe-container">
+      {{x-result project=model}}
     </div>
 
-    Mostrando el ejemplo {{model.id}}
+
+    <pre class="example-code">{{model.code}}</pre>
+
   </div>
 </div>
