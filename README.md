@@ -1,5 +1,6 @@
 # Demo-editor
 
+[![Stories in Ready](https://badge.waffle.io/hugoruscitti/demo-editor.png?label=ready&title=Ready)](http://waffle.io/hugoruscitti/demo-editor)
 
 # Licencias y bibliotecas utilizadas
 
