@@ -13,6 +13,7 @@ Router.map(function() {
 
   this.route('edit', {path: "edit/:project_id"}, function() {
     this.route('previewModal');
+    this.route('settingsModal', {path: "settingsModal/:project_id"});
   });
 
   this.route('project', {path: "/project"}, function() {
@@ -20,6 +21,7 @@ Router.map(function() {
   });
 
   this.route('test');
+  this.route('game');
 });
 
 export default Router;

@@ -8,45 +8,82 @@
 /// <reference path="actorProxy.ts" />
 /// <reference path="tipos.ts" />
 
-
-
-var timer = 0;
-
-
+let timer = 0;
+let __ha_mostrado_version = false;
 
 class Pilas {
   game: Phaser.Game;
-  game_state: Estado;
-  game_history: Historial;
-  pause_enabled: boolean = false;
-  sprites: SpriteCache[] = [];
-  scripts: any;
+
+  /* Submódulos */
   actores: Actores;
   opciones: OpcionesIniciar;
   fondos: Fondos;
   utils: Utils;
+  imagenes: Imagenes;
+  depurador: Depurador;
+  escenas: Escenas;
 
   evento_inicia: any;
   _cuando_inicia_callback: any;
-  ancho: number;
-  alto: number;
-  mouse: {x: number, y: number};
 
   codigos: any;
-  canvas: Phaser.Graphics;
   id_elemento_html: string;
+  //scripts: any;
 
   constructor(id_elemento_html: string, opciones: OpcionesIniciar) {
 
-    this.mouse = {x: 0, y: 0};
+    this._verificar_correctitud_de_id_elemento_html(id_elemento_html);
+    this.id_elemento_html = id_elemento_html;
+    this.ocultar_canvas();
+
+    this.utils = new Utils(this);
+
+
+
+    if (!__ha_mostrado_version) {
+      console.log(`%cpilasengine.js v${VERSION} | http://www.pilas-engine.com.ar`, "color: blue");
+      __ha_mostrado_version = true;
+    }
+
+    this.codigos = {};
+    this.opciones = opciones;
 
     let options = {
       preload: this.preload.bind(this),
       create: this.create.bind(this),
-      update: this._actualizar.bind(this),
+      update: this.actualizar.bind(this),
       render: this.render.bind(this)
     };
 
+    let ancho = opciones.ancho || 640;
+    let alto = opciones.alto || 480;
+    this.game = new Phaser.Game(ancho, alto, Phaser.CANVAS, id_elemento_html, options);
+
+
+    //this.load_scripts();
+    this.actores = new Actores(this);
+    this.fondos = new Fondos(this);
+    this.imagenes = new Imagenes(this);
+    this.depurador = new Depurador(this);
+
+    this.escenas = new Escenas(this);
+    this.escenas.normal();
+
+    this.evento_inicia = document.createEvent("Event");
+  }
+
+  public mostrar_cuadros_por_segundo(estado: boolean) {
+
+    if (estado) {
+      this.depurador.activar_modo("fps");
+    } else {
+      this.depurador.desactivar_modo("fps");
+    }
+
+    this.game.time.advancedTiming = estado;
+  }
+
+  private _verificar_correctitud_de_id_elemento_html(id_elemento_html: string) {
     if (!id_elemento_html) {
       throw Error(`Tienes que especificar el ID del tag a usar. Algo como pilasengine.iniciar('idElemento')`);
     }
@@ -58,38 +95,31 @@ class Pilas {
     if (document.getElementById(id_elemento_html).tagName !== "DIV") {
       throw Error(`El elemento ID: ${id_elemento_html} tiene que ser un tag DIV.`);
     }
-
-    this.id_elemento_html = id_elemento_html;
-
-    console.log(`%cpilasengine.js v${VERSION} | http://www.pilas-engine.com.ar`, "color: blue");
-
-    this.codigos = {};
-    this.opciones = opciones;
-    this.ancho = 800;
-    this.alto = 600;
-    this.game = new Phaser.Game(this.ancho, this.alto, Phaser.CANVAS, id_elemento_html, options);
-    this.game_history = new Historial(this);
-
-    this.game_state = {entidades: []};
-
-    this.load_scripts();
-    this.actores = new Actores(this);
-    this.fondos = new Fondos(this);
-    this.utils = new Utils(this);
-
-    this.evento_inicia = document.createEvent("Event");
   }
-
 
   cuando(nombre_evento: string, callback: CallBackEvento) {
     if (nombre_evento === "inicia") {
       this._cuando_inicia_callback = callback;
-      window.addEventListener("evento_inicia", () => {callback(); });
+
+      window.addEventListener("evento_inicia", () => {
+        callback();
+      });
+
     } else {
       alert(`El evento ${nombre_evento} no está soportado.`);
     }
   }
 
+  /**
+   * Elimina todo objeto de la escena y vuelve a cargar la escena normal.
+   */
+  reiniciar() {
+    this.escenas.normal();
+  }
+
+
+
+  /*
   private load_scripts() {
     this.scripts = {
       rotate: function(entity: Entity, data: any) {
@@ -102,29 +132,7 @@ class Pilas {
       }
     };
   }
-
-  private cargar_imagen(identificador: string, archivo: string) {
-    var path = this.join(this.opciones.data_path, archivo);
-    this.game.load.image(identificador, path);
-  }
-
-  private cargar_imagen_atlas(id: string, archivo_png: string, archivo_json: string) {
-    var path_png = this.join(this.opciones.data_path, archivo_png);
-    var path_json = this.join(this.opciones.data_path, archivo_json);
-    this.game.load.atlasJSONHash(id, path_png, path_json);
-  }
-
-  /**
-   * Concatena dos rutas de manera similar a la función ``os.path.join`` de python.
-   */
-  private join(a: string, b: string) {
-    var path = [a, b].map(function (i) {
-      return i.replace(/(^\/|\/$)/, "");
-    }).join("/");
-
-    return path;
-  }
-
+  */
 
   /**
    * Concatena dos rutas de manera similar a la función os.path.join
@@ -135,214 +143,118 @@ class Pilas {
     }
   }
 
-  obtener_actores() {
-    console.log("TODO");
+  /**
+   * Muestra el contenedor que contiene al juego.
+   */
+  private mostrar_canvas() {
+    document.getElementById(this.id_elemento_html).style.opacity = "1";
+  }
+
+  /**
+   * Oculta el contenedor que contiene al juego.
+   */
+  private ocultar_canvas() {
+    document.getElementById(this.id_elemento_html).style.opacity = "0";
   }
 
   preload() {
     this.game.stage.disableVisibilityChange = true;
+    this.imagenes.precargar_imagenes_estandar();
+    this.mostrar_cuadros_por_segundo(true);
 
-    this.cargar_imagen("humo", "humo.png");
-    this.cargar_imagen("sin_imagen", "sin_imagen.png");
-    this.cargar_imagen("fondos/plano", "fondos/plano.png");
+    if (this.opciones.escalar) {
+      this.game.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
+      //this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+      this.game.scale.refresh();
 
-    this.cargar_imagen("yamcha", "yamcha.png");
+      function gameResized(manager: Phaser.ScaleManager, bounds: Phaser.Rectangle) {
+          var scale = Math.min(window.innerWidth / this.game.width, window.innerHeight / this.game.height);
+          manager.setUserScale(scale, scale, 0, 0);
+      }
 
-    this.cargar_imagen_atlas("data", "sprites.png", "sprites.json");
-
-    this.game.stage.disableVisibilityChange = false;
-
-    if (this.opciones.redimensionar) {
-      this.utils.activar_redimensionado(this.id_elemento_html);
+      this.game.scale.setResizeCallback(gameResized, this);
     }
+
   }
 
   create() {
+    this.mostrar_canvas();
     window.dispatchEvent(new CustomEvent("evento_inicia"));
-
-    this.canvas = this.game.add.graphics(0, 0);
-    // this.game.world.bringToTop();
   }
 
   pausar() {
-    this.pause_enabled = true;
+    this.escenas.pausar();
   }
 
   continuar() {
-    this.pause_enabled = false;
-    this.game_history.reset();
+    this.escenas.continuar();
   }
 
   alternar_pausa() {
-    if (this.pause_enabled) {
-      this.continuar();
-    } else {
-      this.pausar();
-    }
+    this.escenas.alternar_pausa();
   }
 
-  private _actualizar() {
-    this._actualizar_actores(this.pause_enabled);
-    this.mouse.x = this.game.input.x;
-    this.mouse.y = this.game.input.y;
-  }
-
-  private _actualizar_actores(pause_enabled: boolean) {
-    this.canvas.clear();
-
-    this.game_state.entidades.forEach((entity: any) => {
-      let sprite: any = null;
-
-      if (entity.sprite_id) {
-        sprite = this._obtener_sprite_por_id(entity.sprite_id);
-
-        sprite.position.set(entity.x, entity.y);
-        sprite.scale.set(entity.scale_x, entity.scale_y);
-        sprite.anchor.setTo(entity.anchor_x, entity.anchor_y);
-        sprite.angle = -entity.rotation;
-
-        this.canvas.beginFill(0xFF00FF, 1);
-        this.canvas.drawCircle(entity.x, entity.y, 200);
-        this.canvas.endFill();
-
-      } else {
-
-        if (entity["tiled"]) {
-          sprite = this.game.add.tileSprite(entity.x, entity.y, this.ancho * 2, this.alto * 2, entity.imagen);
-        } else {
-          console.log(entity);
-          console.log(entity.imagen);
-
-          if (entity.imagen.indexOf(":") > 0) {
-            var items = entity.imagen.split(":");
-            var galeria = items[0];
-            var imagen = items[1];
-            sprite = this.game.add.sprite(entity.x, entity.y, galeria, imagen);
-          } else {
-            sprite = this.game.add.sprite(entity.x, entity.y, entity.imagen);
-          }
-        }
-
-        var sprite_id = this.add_sprite(sprite);
-
-        entity.sprite_id = sprite_id;
-
-        sprite.position.set(entity.x, entity.y);
-        sprite.scale.set(entity.scale_x, entity.scale_y);
-        sprite.anchor.setTo(entity.anchor_x, entity.anchor_y);
-        sprite.angle = -entity.rotation;
-      }
-
-      if (!pause_enabled) {
-
-        if (this.codigos[entity.nombre]) {
-          try {
-            this.codigos[entity.nombre].actualizar.call(entity);
-          } catch (e) {
-            console.warn("Hay un error en pilas, así que se activó la pausa. Usá la sentencia 'pilas.unpause()' luego de reparar el error.");
-            console.error(e);
-            this.pausar();
-          }
-        }
-
-        // Actualiza las entidades.
-        for (var name in entity.scripts) {
-          this.aplicar_script(entity, name, entity.scripts[name]);
-        }
-      }
-
-
-    });
-
-    if (!pause_enabled) {
-      this.game_history.save(this.game_state);
-
-      /*
-      if (timer === 0) {
-        var data:any = JSON.stringify(this.game_state, null, "  ");
-        document.getElementById("result").innerHTML = data;
-      }
-
-      timer += 1;
-
-      if (timer > 20) {
-        timer = 0;
-      }
-      */
-
-
-    }
+  terminar() {
 
   }
 
-  step() {
-    this._actualizar_actores(false);
+  /**
+   * Realiza una actualización de la lógica del videojuego.
+   */
+  private actualizar() {
+    this.escenas.actualizar();
   }
 
   render() {
-  	// this.game.debug.inputInfo(32, 32);
+    this.depurador.realizar_dibujado();
   }
 
-  obtener_entidad_por_id(id: number) {
-    var entities = this.obtener_entidades();
-    var index = entities.indexOf(id);
 
-    return this.game_state.entidades[index];
-  }
-
-  private add_sprite(sprite: Phaser.Sprite) {
-    var id = this._crear_id();
-
-    this.sprites.push({id: id, sprite: sprite});
-
-    return id;
-  }
-
-  private _crear_id() {
-    return (0 | Math.random() * 9e6).toString(36);
-  }
-
-  private _obtener_sprite_por_id(id: string) {
-
-    for (var i = 0; i < this.sprites.length; i++) {
-      var element = this.sprites[i];
-
-      if (element.id === id) {
-        return element.sprite;
-      }
-    }
-
-    throw new Error("No se encuentra el sprite con el ID " + id);
-  }
-
+/*
   private aplicar_script(entity: Entity, script_name: string, script_data: any) {
     this.obtener_script_por_nombre(script_name)(entity, script_data);
   }
 
+*/
+
+/*
   private obtener_script_por_nombre(script_name: string) {
     return this.scripts[script_name];
   }
+  */
 
-  restaurar(step: number) {
-    var state = this.game_history.get_state_by_step(step);
-    this.transition_to_step(state);
-  }
-
-  obtener_entidades() {
-    return this.game_state.entidades.map((e) => {
-      return(e.id);
+  listar_actores() {
+    return this.escenas.escena_actual.estados.data.entidades.map((e:any) => {
+      return {tipo: "actor", id: e.id};
     });
   }
 
-  private getActorProxy(id: number) {
-    return new ActorProxy(this, id);
+  obtener_actor(id: string) {
+    let entidad = this.escenas.escena_actual.estados.data.entidades[id];
+
+    if (!entidad) {
+      throw new Error(`Lo siento, no existe actor con el ID=${id}`);
+    }
+
+    return new ActorProxy(this, entidad);
   }
 
-  private transition_to_step(state: Estado) {
-    var current_state = this.game_state;
-    this.game_state = state;
+  obtener_actores() {
+    return this.escenas.escena_actual.estados.data.entidades.map((e:any) => {
+      return new ActorProxy(this, e.id);
+    });
   }
 
+  /**
+   * Retorna la cantidad de actores en pantalla (incluyendo al fondo).
+   */
+  obtener_cantidad_de_actores() {
+    return this.obtener_actores().length;
+  }
+
+  crear_entidad(tipo: string, entidad: any) {
+    return this.escenas.escena_actual.estados.crear_entidad(tipo, entidad);
+  }
 }
 
 /**
@@ -352,20 +264,24 @@ class Pilas {
 let pilasengine = {
 
   /**
-   * Inicializa la biblioteca completa.
+   * Inicializa la biblioteca completa dentro de un contenedor DIV.
    *
    * @example
-   *     var pilas = pilasengine.iniciar("canvas_id");
+   *     var pilas = pilasengine.iniciar("id_del_contenedor");
    *
    * @param {OpcionesIniciar} las opciones de inicialización.
    * @return {Game} el objeto instanciado que representa el contexto del juego.
    * @api public
    */
-  iniciar: function(element_id: string, opciones: OpcionesIniciar = {data_path: "data", en_test: false, redimensionar: false}) {
+  iniciar: function(element_id: string, opciones: OpcionesIniciar = {data_path: "data", ancho: null, alto: null, escalar: true, en_test: false}) {
     opciones.data_path = opciones["data_path"] || "data";
     opciones.en_test = opciones["en_test"] || false;
-    opciones.redimensionar = opciones["redimensionar"] || false;
+
+    if (opciones["escalar"] === undefined) {
+      opciones.escalar = true;
+    }
 
     return new Pilas(element_id, opciones);
   }
+
 };

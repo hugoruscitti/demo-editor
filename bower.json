@@ -1,17 +1,22 @@
 {
   "name": "demo-editor",
   "dependencies": {
+    "ember": "2.2.0",
     "ember-cli-shims": "0.1.0",
     "ember-cli-test-loader": "0.2.1",
-    "ember-load-initializers": "0.1.7",
     "ember-qunit-notifications": "0.1.0",
-    "jquery": "^1.11.3",
+    "jquery": "1.11.3",
     "loader.js": "^3.5.0",
     "qunit": "~1.20.0",
-    "pretender": "~0.10.1",
+    "pretender": "~0.12.0",
     "lodash": "~3.7.0",
     "Faker": "~3.0.0",
     "font-awesome": "~4.4.0",
-    "bootstrap": "~3.3.6"
+    "bootstrap": "~3.3.6",
+    "codemirror": "5.1.0",
+    "jsconsole": "*",
+    "photon": "~0.1.2-alpha",
+    "tooled": "~0.1.4",
+    "qunit": "~1.20.0"
   }
 }

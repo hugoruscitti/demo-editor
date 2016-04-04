@@ -1,0 +1,6 @@
+#elementoCanvas {
+  border: 1px solid gray;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}

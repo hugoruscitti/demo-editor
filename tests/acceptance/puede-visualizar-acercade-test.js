@@ -8,7 +8,7 @@ test('visiting /', function(assert) {
 
   andThen(function() {
     assert.equal(currentURL(), '/', "puede ingresar a la sección inicial.");
-    click($("a:contains('Acerca de ...')"));
+    click($("button:contains('Acerca de ...')"));
   });
 
   andThen(function() {

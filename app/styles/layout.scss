@@ -1,0 +1,48 @@
+
+.wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  min-height: 100vh;
+}
+
+.wrapper > * {
+  flex: 1 100%;
+}
+
+.header {
+  background: tomato;
+  flex: 0 0 100%;
+  min-height: 100px;
+  max-height: 100px;
+}
+
+.footer {
+  background: lightgreen;
+}
+
+.main {
+  background: deepskyblue;
+  position: relative;
+  text-align: left;
+}
+
+.aside-1 {
+  background: gold;
+  text-align: left;
+  flex: 0 0 100px;
+}
+
+.aside-2 {
+  background: hotpink;
+  position: relative;
+  text-align: left;
+  overflow: scroll;
+}
+
+  .aside { flex: 1 auto; }
+
+  .main    { flex: 3 auto; }
+  .aside-1 { order: 1; }
+  .main    { order: 2; }
+  .aside-2 { order: 3; }
+  .footer  { order: 4; }

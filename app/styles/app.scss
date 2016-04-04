@@ -3,9 +3,13 @@
 @import "bower_components/font-awesome/scss/font-awesome";
 @import "modal";
 @import "x-spinner";
+@import "layout";
+
+$marginTop: 32px;
 
 body {
-  margin: 1em;
+  margin: 0;
+  padding: 0;
 }
 
 .canvas-container {
@@ -42,19 +46,18 @@ textarea {
   margin-top: 10px;
 }
 
-button {
-  margin-right: 5px !important;
-}
-
-
-
 #editor {
     margin: 0;
     position: absolute;
-    top: 100px;
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
+    top: $marginTop;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+.contenedor-editor {
+  height: 300px;
+  position:relative;
 }
 
 
@@ -63,6 +66,8 @@ button {
   right: -40px;
   top: -40px;
 }
+
+
 
 .btn-close {
   border-radius: 23px;
@@ -73,11 +78,18 @@ button {
 
 
 .x-title {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  text-align: center;
 }
 
 .x-title:hover {
   cursor: pointer;
-  color: blue;
 }
 
 
@@ -87,23 +99,14 @@ button {
 
 
 .console-panel {
-  border-top: 1px solid #E6E6E6;
-  background-color: white;
-  padding: 2px;
-  position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  overflow-y: scroll;
-  height: 120px;
 }
 
-.console-warning-line {
-  color: #BF902B;
-  background-color: #FFFFED;
-  border: 1px solid #FFEBD4;
-  margin-top: 2px;
-  padding: 3px;
+.overlay-messages .alert {
+  margin-bottom: 5px;
+  padding: 10px;
 }
 
 .console-error-line {
@@ -112,4 +115,291 @@ button {
   border: 1px solid #FFD4D4;
   margin-top: 2px;
   padding: 3px;
+}
+
+
+.CodeMirror-hints {
+  z-index: 600000;
+}
+
+
+.ember-modal-dialog {
+  overflow: hidden;
+}
+
+div#jsconsole-container {
+    overflow: scroll;
+}
+
+.jsconsole .CodeMirror {
+    line-height: 1em;
+    font-family: "Source code pro";
+    font-size: 15px;
+}
+
+.CodeMirror-sizer {
+  margin-left: 20px !important;
+}
+
+.CodeMirror-gutter-wrapper {
+   left: -16px !important;
+   width: 27px !important;
+   top: 5px !important;
+}
+
+.CodeMirror-hints {
+   font-size: 18px;
+   font-family: "Source code pro";
+}
+
+
+div {
+  /*outline: 1px solid #ccc;*/
+}
+
+.edit-contenedor {
+  display: flex;
+  flex-flow: column wrap;
+  min-height: calc(100vh - 38px);
+}
+
+.edit-fila {
+}
+
+.edit-fila-triple {
+  display: flex;
+  flex-flow: row nowrap;
+  height: 25px;
+}
+
+.edit-principal {
+  display: flex;
+  flex-flow: row wrap;
+  flex: 1 100%;
+}
+
+  .edit-panel-left {
+    flex: 1 auto;
+    position: relative;
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+
+  .edit-panel-editor {
+    flex: 2 auto;
+    position: relative;
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+
+  .edit-panel-center {
+    flex: 2 auto;
+    position: relative;
+  }
+
+.edit-fila {
+}
+
+
+.active-blue {
+  color: blue !important;
+}
+
+.float-right {
+  float: right;
+}
+
+
+#gameContainer {
+  padding: 4px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.overlay-messages {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.76);
+  border: 1px solid black;
+}
+
+
+.x-result {
+  top: $marginTop;
+  overflow: hidden; // para que no se vea es spinner interno.
+}
+
+
+.gameIframe {
+  border: 0;
+  position:absolute;
+  z-index: 0;
+  background: rgba(224, 224, 224, 0.23);
+  border: 1px solid rgb(214, 214, 214);
+}
+
+
+
+
+.padding {
+  padding: 10px;
+}
+
+.min-padding {
+  padding: 5px;
+}
+
+.border {
+  border: 1px solid #ddd;
+}
+
+td a {
+  text-decoration: none;
+}
+
+
+td a:active {
+  color: white !important;
+}
+
+.bar {
+  margin-bottom: 15px;
+}
+
+
+.tooled {
+  display: inline;
+}
+
+.tooled:after {
+  font-weight: lighter !important;
+}
+
+.allPanelsInvisiblePanel {
+  flex-flow: row nowrap;
+  flex: 1 auto;
+  width: 100%;
+
+  background-image: url("/images/mensaje-paneles-invisibles-pilas.png");
+  background-repeat: no-repeat;
+  background-position: right top;
+  margin-right: 70px;
+  margin-top: 32px;
+}
+
+
+.tooled-left:after, .tooled-left:before {
+  right: 20px;
+  top: 8px;
+}
+
+
+a:active {
+  outline: 0;
+  color: white;
+}
+
+
+.toolbar-fix {
+  margin-left: -7px;
+}
+
+
+.btn {
+  cursor: pointer;
+}
+
+
+canvas {
+  margin:auto;
+}
+
+.edit-panel-center {
+  display: flex;
+  flex-direction: column;
+}
+
+.toolbar-actions {
+  flex: 0 1 auto;
+}
+
+.x-result {
+  flex: 1 auto;
+  position: relative; // para que el iframe pueda ser absoluto
+  top:0;
+}
+
+.ember-modal-dialog .x-result {
+  position: initial; // caso particular, cuando está en un dialogo.
+}
+
+.jsconsole {
+  flex: 0 1 auto;
+  height: 200px;
+  overflow: scroll;
+  width: 100%;
+}
+
+.btn .icon {
+  cursor: pointer;
+}
+
+
+.toolbar-actions {
+    margin-bottom: 1px;
+}
+
+.jsconsole-input {
+  margin-top:0px;
+  border: 1px solid rgba(128, 128, 128, 0.35);
+  padding-bottom: 6px;
+}
+
+
+.ember-modal-dialog {
+  padding: 0px;
+}
+
+.jsconsole.eclipse .CodeMirror .completion-value-end {
+  border-bottom: 0;
+}
+
+label.ember-radio-button {
+  padding-left: 18px;
+}
+
+
+.dialog-container {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.dialog-title {
+  font-weight: bold;
+}
+
+.dialog-buttons {
+  text-align: right;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  background-color: #ddd;
+  border-top: 1px solid #bbb;
+}
+
+.x-manual-iframe {
+  overflow-y: scroll;
+  position: absolute;
+  border: 1px solid #eee;
 }

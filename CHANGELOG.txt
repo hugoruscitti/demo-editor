@@ -1,0 +1,72 @@
+  * Update.
+  * Arreglos generales.
+  * Comenzando a implementar proxies.
+  * Refactorizando estructura.
+  * Mejorando el mensaje de livereloading.
+  * Creando prueba con varios canvas.
+  * Actualizando la versión de phaser.
+  * Agregando enlaces simbólicos a la lista de archivos a ignorar.
+  * Agregando comando para hacer livereloading sobre los ejemplos.
+  * Merge branch 'develop'
+  * Arreglo menor.
+  * Creando la ruta test.
+  * Moviendo archivos data.
+  * integrando live-reload de ember a la compilación de typescript.
+  * agregando comandos para incrementar versiones.
+  * Modificando la locación de los archivos declaración typescript.
+  * Reparando compilación de pilas-engine.
+  * update
+  * agregando el modulo de pilas-engine.
+  * comenzando integración de pilas-engine.
+  * Comenzando a crear comando para compilar pilas.
+  * Realizando prueba sobre cómo mostrar errores en el editor.
+  * update
+  * Arreglo menor.
+  * Creando comando para compilar e iniciar electron.
+  * Creando servicio para electron.
+  * Creando un servicio para typescript, con soporte para warnings y conversión de código.
+  * Mejorando el mensaje de carga.
+  * Arreglo menor para que mirage funcione en electro.
+  * Implementando bootstrap y reparando deprecations.
+  * Reparando tests (creo).
+  * Agregando dialogo de preferencias y tema 'xcode'.
+  * Agregando posibilidad de abandonar cambios.
+  * Agregando capacidad de descartar cambios.
+  * Quitando la ruta 'run'
+  * Merge branch 'develop' of github.com:hugoruscitti/demo-editor into develop
+  * cambio menor.
+  * Eliminando test sin utilizar.
+  * Implementando transpiler de typescript a javascript.
+  * Arreglos menores en los tests.
+  * Corrigiendo errores de jshint
+  * Creando el archivo Makefile con los comandos principales.
+  * Haciendo que se vean los mensajes de error al ejecutar el juego.
+  * Merge branch 'feature/integrar-ember-electron' into develop
+  * Agregando ember-electron
+  * Mejorando la interacción entre el editor y el modal de ejecución.
+  * Implementando atajos de teclado y modo VIM.
+  * Creando componente editor con ACE.
+  * Creando un servicio que pre-carga el motor de juegos y haciendo que la aplicación espere a que cargue completamente.
+  * Arreglos menores de interfaz.
+  * Quitando el botón guardar y ejecutar.
+  * Merge branch 'feature/agregar-iconos' into develop
+  * Mejorando el component x-back.
+  * Implementando dialogo para previsualizar y ejecutar en modal.
+  * Mejorando el estilo de las barras de botones.
+  * Arreglo menor en el código de fixtures.
+  * Agregando font-awesome.
+  * Haciendo que se puedan cerrar los dialogos modales pulsando la tecla ESC.
+  * Capturando errores la ejecutar código.
+  * Merge branch 'feature/crear-tests-de-integración' into develop
+  * Creando dos tests básicos.
+  * Merge branch 'feature/reparar-tests' into develop
+  * Reparando los tests.
+  * Creando modal para la sección "acerca de..."
+  * Convirtiendo modelos a scss.
+  * Instalando ember-modal-dialog.
+  * Implementando la vista edición y otros arreglos.
+  * Creando atributo de código inicial y una vista para ejecutar.
+  * Creando factories para proyectos y navegación básica.
+  * Integrando ui-kit
+  * agregando mirage
+  * Commit inicial.

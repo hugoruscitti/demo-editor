@@ -1,11 +1,120 @@
-{{x-title title=model.title}}
+<header class="toolbar toolbar-header">
 
-<div class="button-container">
-  {{x-back to="project"}}
-  <button disabled={{itsSaved}} type="button" {{action "save" model}} class="btn btn-primary">Guardar</button>
-  {{#link-to "edit.previewModal" model class="btn btn-success"}}Previsualizar{{/link-to}}
+  <div class="toolbar-actions">
+
+    <div class="btn-group">
+      {{#link-to "index" tagName="button" class="btn btn-default"}} {{p-icon icon="home"}} {{/link-to}}
+      {{#link-to "project" tagName="button" class="btn btn-default"}} {{p-icon icon="bag"}} {{/link-to}}
+    </div>
+
+    {{x-title title=model.title}}
+
+    <div class="btn-group pull-right">
+      {{#x-pushbutton state=leftPanelVisible tooltip_activate="mostrar información" tooltip_deactivate="ocultar información"}} {{p-icon icon="info"}} {{/x-pushbutton}}
+      {{#x-pushbutton state=centerPanelVisible tooltip_activate="mostrar juego" tooltip_deactivate="ocultar juego"}} {{p-icon icon="window"}} {{/x-pushbutton}}
+      {{#x-pushbutton state=editorPanelVisible tooltip_activate="mostrar editor" tooltip_deactivate="ocultar editor"}} {{p-icon icon="doc-text"}} {{/x-pushbutton}}
+    </div>
+
+  </div>
+
+</header>
+
+
+
+<div class="window-content">
+  <div class="pane">
+
+    <div class="edit-contenedor">
+
+      <div class="edit-principal">
+
+        {{#if leftPanelVisible}}
+          <div class="edit-panel-left">
+            <div class="toolbar-actions">
+              <div class="btn-group">
+                {{#x-pushbutton state=showInspector}} Inspector {{/x-pushbutton}}
+                {{#x-pushbutton state=showManual}} Manual {{/x-pushbutton}}
+              </div>
+            </div>
+
+
+            {{#if showManual}}
+              {{x-manual}}
+            {{else}}
+              Inspector
+            {{/if}}
+
+          </div>
+        {{/if}}
+
+        {{#if centerPanelVisible}}
+          <div class="edit-panel-center">
+
+            <div class="toolbar-actions">
+              <div class="btn-group pull-right">
+                <button {{action "reload" model}} class="btn btn-default pull-right"> {{p-icon icon="arrows-ccw"}} </button>
+                {{#link-to "edit.previewModal" model tagName="button" class="btn btn-default pull-right"}} {{p-icon icon="resize-full"}} {{/link-to}}
+              </div>
+            </div>
+
+            {{x-result project=model actionReceiver=xResultHandler}}
+
+            <div class="toolbar-actions">
+              <div class="btn-group">
+                {{#x-pushbutton state=showConsole position="right" tooltip_activate="mostrar consola" tooltip_deactivate="ocultar consola"}} {{p-icon icon="window"}} {{/x-pushbutton}}
+                <button class="btn btn-default"> {{p-icon icon="ccw"}} </button>
+              </div>
+
+              <div class="btn-group btn-group pull-right">
+                {{#x-pushbutton state=showConsole tooltip_activate="mostrar consola" tooltip_deactivate="ocultar consola"}} {{p-icon icon="window"}} {{/x-pushbutton}}
+                {{#x-pushbutton state=showConsole tooltip_activate="mostrar consola" tooltip_deactivate="ocultar consola"}} {{p-icon icon="window"}} {{/x-pushbutton}}
+              </div>
+            </div>
+
+            {{#if showConsole}}
+              {{js-console eval_function=custom_eval_function autocomplete=custom_autocomplete_function}}
+            {{/if}}
+
+          </div>
+        {{/if}}
+
+        {{#if editorPanelVisible}}
+
+          <div class="edit-panel-editor">
+
+            <div class="toolbar-actions">
+
+              {{#tooltip-message message="Guardar y ejecutar (cmd+s)" position="right"}}
+                <button {{action "saveAndReload" model}} class="btn btn-default">{{p-icon icon="play"}}</button>
+              {{/tooltip-message}}
+
+
+              {{#if itsSaved}}
+              {{else}}
+              {{/if}}
+
+              <div class="pull-right">
+                {{#link-to "edit.settingsModal" model tagName="button" class="btn btn-default"}} {{p-icon icon="cog"}} {{/link-to}}
+              </div>
+
+            </div>
+
+            {{x-editor value=model.code}}
+          </div>
+
+        {{/if}}
+
+        {{#if allPanelsInvisible}}
+          <div class="allPanelsInvisiblePanel">
+            <p>&nbsp;</p>
+          </div>
+        {{/if}}
+
+      </div>
+
+    </div>
+
+    {{outlet}}
+
+  </div>
 </div>
-
-{{x-editor value=model.initialCode}}
-
-{{outlet}}

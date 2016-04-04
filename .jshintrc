@@ -8,7 +8,10 @@
     "pilasengine",
     "pilas",
     "ts",
-    "process"
+    "process",
+    "$",
+    "__dirname",
+    "CodeMirror"
   ],
   "browser": true,
   "boss": true,

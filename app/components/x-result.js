@@ -1,11 +1,19 @@
 import Ember from 'ember';
+import InboundActions from 'ember-component-inbound-actions/inbound-actions';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(InboundActions, {
+  classNames: ['x-result'],
   gameEngine: Ember.inject.service(),
   languageService: Ember.inject.service(),
+  electron: Ember.inject.service(),
   error: [],
   semanticDiagnostics: [],
   syntaxDiagnostics: [],
+  project: null,
+
+  areAnyConsoleMessage: Ember.computed('areSomeMessages', 'error', function() {
+    return (this.get("areSomeMessages") || this.get('error'));
+  }),
 
   areConsoleMessages: Ember.computed('semanticDiagnostics', 'syntaxDiagnostics', function() {
     var syntaxDiagnosticsLength = this.get('syntaxDiagnostics').length;
@@ -15,13 +23,17 @@ export default Ember.Component.extend({
   }),
 
   didInsertElement() {
-    Ember.run.scheduleOnce('afterRender', this, this.runProject);
+    Ember.run.scheduleOnce('afterRender', this, this.onAfterRender);
   },
 
-  runProject() {
-    if (this.get("project")) {
-      this.send("run", this.get("project"));
-    }
+  onAfterRender() {
+    let iframeElement = this.$().find('#innerIframe')[0];
+    this.set("iframeElement", iframeElement);
+
+    setTimeout(() => {
+      this.send('reload', this.get('project'));
+    }, 10);
+
   },
 
   _convert_diagnostics_to_string_list(diagnostics) {
@@ -32,29 +44,12 @@ export default Ember.Component.extend({
     });
   },
 
-  _executeJavascriptCode(javascriptCode) {
-    var gameInstance = this.get('gameEngine').get('gameInstance');
+  _executeJavascriptCode(javascriptCode, project) {
+    let iframeElement = this.get("iframeElement");
 
-    function scopeEvalCode(code, scope, game) {      //jshint ignore:line
-      "use strict";
-      //var pilas = 123123;
-      var windowObject = window;
-      var window = {console: {                        //jshint ignore:line
-        error: function() {
-          //Array.prototype.unshift.call(arguments, '-----');
-          alert(arguments);
-          //old.apply(this, arguments)
-          windowObject.error.apply(this, arguments);
-        },
-        log: function() {
-          alert(arguments);
-          //old.apply(this, arguments)
-          windowObject.error.apply(this, arguments);
-        }
-      }};
-
+    function evalCode(code, scope) {
       try {
-        eval(code);
+        iframeElement.contentWindow.eval(code);
       } catch(error) {
         scope.set('error', error);
         console.error(error);
@@ -62,10 +57,45 @@ export default Ember.Component.extend({
     }
 
     this.set('error', null);
-    scopeEvalCode(javascriptCode, this, gameInstance);
+
+    let ancho = project.get("ancho");
+    let alto = project.get("alto");
+
+    var code_to_run = `// hook
+      var opciones = {ancho: ${ancho}, alto: ${alto}};
+
+      var pilas = pilasengine.iniciar('canvas', opciones);
+      ${javascriptCode}
+      // hook end
+    `;
+
+    evalCode(code_to_run, this);
+  },
+
+  reloadIframe(onLoadFunction) {
+    if (this.get("iframeElement").contentWindow) {
+      this.get("iframeElement").onload = onLoadFunction;
+      this.get("iframeElement").contentWindow.location.reload(false);
+
+      if (this.get("electron.inElectron")) {
+        this.get('iframeElement').src = `file://${__dirname}/game.html`;
+      } else {
+        this.get("iframeElement").src = "game.html";
+      }
+
+    } else {
+      alert("No hay un canvas para visualizar...");
+    }
   },
 
   actions: {
+    reload(project) {
+      this.reloadIframe(() => {
+        if (project) {
+          this.send("run", project);
+        }
+      });
+    },
     run(project) {
       this.get('languageService').
         compile(project).
@@ -80,7 +110,7 @@ export default Ember.Component.extend({
 
           /* Ejecuta el código completo. */
           this.get('languageService').execute(project).then(data => {
-            this._executeJavascriptCode(data.output);
+            this._executeJavascriptCode(data.output, project);
           });
       });
     },

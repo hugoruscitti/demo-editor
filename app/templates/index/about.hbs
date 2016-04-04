@@ -1,11 +1,14 @@
-{{#modal-dialog close="toggleModal" focusSelector="a#close"}}
-<h1>Demo-editor</h1>
+{{#modal-dialog close="toggleModal"}}
+<div class="dialog-container">
 
-<p>Esta aplicación es simplemente un experimento sobre ember y mirage.</p>
+  <p class="dialog-title">Demo-editor</p>
+
+  <p>Esta aplicación es simplemente un experimento sobre ember y mirage.</p>
 
 
-<div class="modal-footer right">
-  {{#link-to "index" id="close" class="btn btn-success"}}Cerrar{{/link-to}}
+  <div class="dialog-buttons">
+    <button class="btn btn-default" {{action "toggleModal"}}>Cerrar</button>
+  </div>
+
 </div>
-
 {{/modal-dialog}}

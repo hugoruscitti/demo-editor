@@ -12,7 +12,9 @@ interface SpriteCache {
 interface OpcionesIniciar {
   data_path: string;
   en_test: boolean;
-  redimensionar: boolean;
+  ancho: number;
+  alto: number;
+  escalar: boolean;
 }
 
 

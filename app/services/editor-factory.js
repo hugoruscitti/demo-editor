@@ -7,12 +7,17 @@ export default Ember.Service.extend({
     ace.require("ace/ext/language_tools");
     var editor = ace.edit(elementID);
     this.set('editor', editor);
+    editor.getSession().setUseWorker(false);
     return editor;
   },
 
   tryToFocus() {
-    if (this.get("editor")) {
-      this.get("editor").focus();
+    let editor = this.get("editor");
+
+    if (editor) {
+      editor.getSession().setUseWorker(false);
+      editor.focus();
+      editor.blur();
     }
   }
 });

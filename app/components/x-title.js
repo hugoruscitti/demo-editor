@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  tagName: "h3",
+  tagName: "",
   actions: {
     change() {
       var newTitle = prompt("Ingrese un nuevo título", this.get('title'));

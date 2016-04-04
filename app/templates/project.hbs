@@ -1,28 +1,58 @@
-<h2>Proyectos</h2>
+<header class="toolbar toolbar-header">
 
-{{x-back to="index"}}
+  <div class="toolbar-actions">
+    <div class="btn-group">
+      {{#link-to "index" tagName="button" class="btn btn-default"}} {{p-icon icon="home"}} {{/link-to}}
+      {{#link-to "project" tagName="button" class="btn btn-default"}} {{p-icon icon="bag"}} {{/link-to}}
+    </div>
+  </div>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Nombre del proyecto</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
+</header>
 
-    <tbody>
-      {{#each model as |project|}}
-        <tr>
-            <td>
-              {{#link-to "edit" project}}{{project.title}}{{/link-to}}
-            </td>
-            <td>
-              {{#link-to "project.runModal" project class="btn btn-warning btn-xs"}}Ejecutar{{/link-to}}
-              {{#link-to "edit" project class="btn btn-primary btn-xs"}}Editar{{/link-to}}
-          </td>
-        </tr>
-      {{/each}}
-    </tbody>
-</table>
 
-{{outlet}}
+
+<div class="window-content">
+  <div class="pane">
+
+
+    <div class="padding">
+
+    <p>Proyectos</p>
+
+    <div class="bar">
+      <button {{action "newProject"}} class="btn btn-primary">Crear un proyecto nuevo</button>
+    </div>
+
+    <table class="border table-striped">
+        <thead>
+            <tr>
+                <th>Nombre del proyecto</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+          {{#each model as |project|}}
+            <tr>
+
+                {{#link-to "edit" project}}<td>{{project.title}}</td>{{/link-to}}
+                <td>
+                  {{#link-to "project.runModal" project tagName="button" class="btn btn-warning btn-mini"}}Ejecutar{{/link-to}}
+                  {{#link-to "edit" project tagName="button" class="btn btn-primary btn-mini"}}Editar{{/link-to}}
+                  <button {{action "remove" project}} class="btn btn-mini btn-negative">Eliminar</button>
+              </td>
+            </tr>
+          {{else}}
+            <tr>
+              <td colspan=2>No hay proyectos para mostrar aún.</td>
+            </tr>
+          {{/each}}
+        </tbody>
+    </table>
+
+    {{outlet}}
+
+    </div>
+
+</div>
+</div>

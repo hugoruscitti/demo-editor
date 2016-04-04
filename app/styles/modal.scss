@@ -1,3 +1,5 @@
+$margin: 40px;
+
 .ember-modal-overlay {
   height: 100vh;
   left: 0;
@@ -17,10 +19,11 @@
 
   // Aumenta el tamaño de la ventana
 
-  top: 80px !important;
-  bottom: 80px !important;
-  left: 80px !important;
-  right: 80px !important;
+  top: $margin !important;
+  bottom: $margin !important;
+  left: $margin !important;
+  right: $margin !important;
+
   margin-left: 0px !important;
   margin-top: 0px !important;
 }
