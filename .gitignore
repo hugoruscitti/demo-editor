@@ -22,3 +22,7 @@ pilasengine/ejemplos/data
 pilasengine/ejemplos/libs
 public/libs/phaser.js
 pilasengine/libs/Tween.js
+
+ember-cordova/cordova/platforms/
+ember-cordova/cordova/plugins/
+ember-cordova/cordova/www/*
