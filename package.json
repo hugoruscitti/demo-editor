@@ -95,5 +95,8 @@
       "ProductName": null,
       "InternalName": null
     }
+  },
+  "dependencies": {
+    "quick-temp": "^0.1.5"
   }
 }
