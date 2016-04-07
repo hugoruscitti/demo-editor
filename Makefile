@@ -37,6 +37,10 @@ comandos:
 	@echo ""
 	@echo "  ${Y}Para distribuir${N}"
 	@echo ""
+	@echo "    ${G}cordova${N}              Compila y genera la versión mobile."
+	@echo ""
+	@echo "  ${Y}Para distribuir${N}"
+	@echo ""
 	@echo "    ${G}version_patch${N}        Genera una nueva versión."
 	@echo "    ${G}version_minor${N}        Genera una nueva versión."
 	@echo "    ${G}subir_version${N}        Sube version generada al servidor."
@@ -166,6 +170,21 @@ docs:
 	@echo "${G}OK, la documentación quedó en public/docs"
 	@echo ""
 
+cordova: _cordova_icons _cordova_build _cordova_open
+	@echo "${G}Listo, ahora se abrirá xcode"
+	
+_cordova_icons:
+	$(call log, "Generando iconos")
+	@mobile-icon-resizer -i ember-cordova/cordova/res/pilas_logo_1024-fondo-color.png  --iosprefix="icon" --iosof=ember-cordova/cordova/res/ios/ --androidof=ember-cordova/cordova/res/android/
+
+_cordova_build:
+	$(call log, "Compilando con cordova:build")
+	@ember cordova:build
+
+_cordova_open:
+	$(call log, "Abriendo con cordova:open")
+	@ember cordova:open
+	
 
 
 .PHONY: tmp docs
