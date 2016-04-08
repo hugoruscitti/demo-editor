@@ -3,7 +3,7 @@
     version="0.0.1" 
     ios-CFBundleVersion="0.0.8"
     xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>pilas</name>
+    <name>Pilas</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
