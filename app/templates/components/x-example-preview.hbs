@@ -1,7 +1,11 @@
 {{#link-to "examples.show" model}}
   <img src={{image_url}}>
+{{/link-to}}
 
   <div class="x-example-preview-title">
     {{model.title}}
+
+    {{#link-to "examples.runModal" model class="btn btn-default"}}
+      {{p-icon icon="play"}}
+    {{/link-to}}
   </div>
-{{/link-to}}

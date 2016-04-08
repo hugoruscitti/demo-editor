@@ -23,7 +23,8 @@ Router.map(function() {
   this.route('test');
   this.route('game');
   this.route('examples', function() {
-    this.route('show', {path: ":example_id"}); // route like: /examples/5
+    this.route('show', {path: "show/:example_id"}); // route like: /examples/5
+    this.route('runModal', {path: ":example_id"}); // route like: /examples/5
   });
 });
 

@@ -1,7 +1,22 @@
 import Ember from 'ember';
 
 let items = [
-  Ember.Object.extend({}).create({id: 1, name: "escena_normal", title: "Hola mundo", ancho: 400, alto: 400}),
+  Ember.Object.extend({}).create({
+    id: 1,
+    name: "escena_normal",
+    title: "Hola mundo",
+    code: `
+let pilas;
+
+pilas.cuando('inicia', function() {
+  pilas.escenas.normal();
+  let patito = pilas.actores.patito();
+  patito.escala = [2];
+});
+`,
+    ancho: 400,
+    alto: 400,
+  }),
 ];
 
 export default Ember.Service.extend({

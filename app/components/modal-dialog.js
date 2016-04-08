@@ -3,7 +3,7 @@ import ModalDialog from 'ember-modal-dialog/components/modal-dialog';
 
 export default ModalDialog.extend({
   setup: function() {
-    Ember.$('body').on('keyup.modal-dialog', (e) => {
+    Ember.$('body').on('keyup', (e) => {
       if (e.keyCode === 27) {
         this.sendAction('close');
       }
@@ -24,6 +24,6 @@ export default ModalDialog.extend({
   },
 
   teardown: function() {
-    Ember.$('body').off('keyup.modal-dialog');
+    Ember.$('body').off('keyup');
   }.on('willDestroyElement')
 });
