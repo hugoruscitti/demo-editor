@@ -12,7 +12,8 @@
     "$",
     "__dirname",
     "CodeMirror",
-    "debugger"
+    "debugger",
+    "requireNode"
   ],
   "browser": true,
   "boss": true,

@@ -29,7 +29,8 @@
     "ts",
     "process",
     "debugger",
-    "pauseTest"
+    "pauseTest",
+    "requireNode"
   ],
   "node": false,
   "browser": false,
