@@ -42,6 +42,7 @@ tendrías que instalar alguna de las dependencias adicionales:
 ```
 npm install mobile-icon-resizer -g
 brew install imagemagick  # o bien, apt-get install imagemagick
+pip install mkdocs
 ```
 
 
