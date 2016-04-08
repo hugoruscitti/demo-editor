@@ -1,11 +1,7 @@
 # pilas-editor
 
-| ...  | ...  |
-|---|---|
-| Estado de los tests en 'develop'  |  [![Build Status](https://travis-ci.org/pilas-engine/pilas-editor.svg?branch=develop)](https://travis-ci.org/pilas-engine/pilas-editor) |
-| Estado de los test en la rama 'master' (estable)  | [![Build Status](https://travis-ci.org/pilas-engine/pilas-editor.svg?branch=master)](https://travis-ci.org/pilas-engine/pilas-editor)  |
-| Tareas en estado para realizar | [![Stories in Ready](https://badge.waffle.io/hugoruscitti/demo-editor.png?label=ready&title=Ready)](http://waffle.io/hugoruscitti/demo-editor)  |
-  
+[![Build Status](https://travis-ci.org/pilas-engine/pilas-editor.svg?branch=develop)](https://travis-ci.org/pilas-engine/pilas-editor) [![Build Status](https://travis-ci.org/pilas-engine/pilas-editor.svg?branch=master)](https://travis-ci.org/pilas-engine/pilas-editor) [![Stories in Ready](https://badge.waffle.io/hugoruscitti/demo-editor.png?label=ready&title=Ready)](http://waffle.io/hugoruscitti/demo-editor)
+
 
 
 
@@ -62,4 +58,3 @@ El motor multimedia que utilizamos es [phaser](http://phaser.io/) y las interpol
 Las colaboraciones son muy bien recibidas, te recomendamos hacer un fork del proyecto y enviarnos tus pull-requests.
 
 Si no estás seguro acerca de tu contribución o alguna idea, escribinos en el [foro de pilas-engine](http://foro.pilas-engine.com.ar/) o directamente creá un issue en github.
-
