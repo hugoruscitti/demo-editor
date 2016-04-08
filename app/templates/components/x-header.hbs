@@ -1,0 +1,11 @@
+<header class="toolbar toolbar-header">
+  
+  {{#if electron.inElectron}}
+    &nbsp; <!-- padding para el borde de la ventana -->
+  {{/if}}
+
+  <div class="toolbar-actions">
+    {{yield}}
+  </div>
+
+</header>

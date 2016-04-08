@@ -290,7 +290,7 @@ td a:active {
   flex: 1 auto;
   width: 100%;
 
-  background-image: url("/images/mensaje-paneles-invisibles-pilas.png");
+  background-image: url("../images/mensaje-paneles-invisibles-pilas.png");
   background-repeat: no-repeat;
   background-position: right top;
   margin-right: 70px;
@@ -403,4 +403,9 @@ label.ember-radio-button {
   overflow-y: scroll;
   position: absolute;
   border: 1px solid #eee;
+}
+
+
+.toolbar-header-electron {
+  padding-top: 20px;
 }
