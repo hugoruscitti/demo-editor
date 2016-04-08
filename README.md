@@ -1,7 +1,14 @@
 # pilas-editor
 
-[![Build Status](https://travis-ci.org/pilas-engine/pilas-editor.svg?branch=develop)](https://travis-ci.org/pilas-engine/pilas-editor) [![Build Status](https://travis-ci.org/pilas-engine/pilas-editor.svg?branch=master)](https://travis-ci.org/pilas-engine/pilas-editor)  [![Stories in Ready](https://badge.waffle.io/hugoruscitti/demo-editor.png?label=ready&title=Ready)](http://waffle.io/hugoruscitti/demo-editor) 
-
+| ...  | ...  |
+|---|---|
+| Estado de los tests en 'develop'  |  [![Build Status](https://travis-ci.org/pilas-engine/pilas-editor.svg?branch=develop)](https://travis-ci.org/pilas-engine/pilas-editor) |
+| Estado de los test en la rama 'master' (estable)  | [![Build Status](https://travis-ci.org/pilas-engine/pilas-editor.svg?branch=master)](https://travis-ci.org/pilas-engine/pilas-editor)  |
+| Tareas en estado para realizar | [![Stories in Ready](https://badge.waffle.io/hugoruscitti/demo-editor.png?label=ready&title=Ready)](http://waffle.io/hugoruscitti/demo-editor)  |
+  
+  
+  
+   
 Este repositorio contiene todos los componentes del editor de pilas-engine, con ejemplos, documentación y todo lo demás.
 
 # ¿Cómo instalar?
