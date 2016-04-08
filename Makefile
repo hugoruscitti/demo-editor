@@ -29,11 +29,11 @@ comandos:
 	@echo "  ${Y}Relacionados con pilas ${N}"
 	@echo ""
 	@echo "    ${G}pilas${N}                Genera pilasengine.js."
-	@echo "    ${G}pilas_live${N}           Genera pilasengine.js, ejemplos y tests (live)."
+	@echo "    ${G}pilas_live${N}           Genera pilasengine.js, ejemplos y tests."
 	@echo "    ${G}api${N}                  Genera la documentación de API para pilas."
 	@echo "    ${G}docs${N}                 Genera el manual de pilas."
 	@echo "    ${G}generar_ejemplo${N}      Permite crear un ejemplo nuevo."
-	@echo "    ${G}actualizar_imagenes${N}  Genera los spritesheets desde pilasengine/data/src"
+	@echo "    ${G}actualizar_imagenes${N}  Genera los spritesheets"
 	@echo ""
 	@echo "  ${Y}Para distribuir${N}"
 	@echo ""
@@ -44,7 +44,7 @@ comandos:
 	@echo "    ${G}version_patch${N}        Genera una nueva versión."
 	@echo "    ${G}version_minor${N}        Genera una nueva versión."
 	@echo "    ${G}subir_version${N}        Sube version generada al servidor."
-	@echo "    ${G}deploy${N}               Sube el editor a la web editor.pilas-engine.com.ar"
+	@echo "    ${G}deploy${N}               Sube la web editor.pilas-engine.com.ar"
 	@echo ""
 
 _crear_enlaces:
