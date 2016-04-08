@@ -1,5 +1,5 @@
 {
-  "name": "demo-editor",
+  "name": "pilas-editor",
   "dependencies": {
     "ember": "2.2.0",
     "ember-cli-shims": "0.1.0",

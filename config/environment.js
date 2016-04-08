@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'demo-editor',
+    modulePrefix: 'pilas-editor',
     environment: environment,
     baseURL: '/',
     locationType: 'hash',

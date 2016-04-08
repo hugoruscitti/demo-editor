@@ -1,5 +1,5 @@
 VERSION=0.0.1
-NOMBRE="demo-editor"
+NOMBRE="pilas-editor"
 
 N=[0m
 G=[01;32m

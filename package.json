@@ -1,7 +1,7 @@
 {
-  "name": "demo-editor",
+  "name": "pilas-editor",
   "version": "0.0.0",
-  "description": "Small description for demo-editor goes here",
+  "description": "Small description for pilas-editor goes here",
   "private": true,
   "directories": {
     "doc": "doc",
@@ -67,7 +67,7 @@
   },
   "main": "electron.js",
   "ember-electron": {
-    "name": "demo-editor",
+    "name": "pilas-editor",
     "platform": null,
     "arch": null,
     "version": null,

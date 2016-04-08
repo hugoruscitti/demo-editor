@@ -33,7 +33,7 @@
   * Agregando posibilidad de abandonar cambios.
   * Agregando capacidad de descartar cambios.
   * Quitando la ruta 'run'
-  * Merge branch 'develop' of github.com:hugoruscitti/demo-editor into develop
+  * Merge branch 'develop' of github.com:hugoruscitti/pilas-editor into develop
   * cambio menor.
   * Eliminando test sin utilizar.
   * Implementando transpiler de typescript a javascript.

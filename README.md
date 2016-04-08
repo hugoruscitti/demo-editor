@@ -1,6 +1,6 @@
 # pilas-editor
 
-[![Stories in Ready](https://badge.waffle.io/hugoruscitti/demo-editor.png?label=ready&title=Ready)](http://waffle.io/hugoruscitti/demo-editor)
+[![Stories in Ready](https://badge.waffle.io/hugoruscitti/pilas-editor.png?label=ready&title=Ready)](http://waffle.io/hugoruscitti/pilas-editor)
 
 Este repositorio contiene todos los componentes del editor de pilas-engine, con ejemplos, documentación y todo lo demás.
 
