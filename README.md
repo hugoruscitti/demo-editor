@@ -1,6 +1,7 @@
 # pilas-editor
 
-[![Stories in Ready](https://badge.waffle.io/hugoruscitti/demo-editor.png?label=ready&title=Ready)](http://waffle.io/hugoruscitti/demo-editor)
+- Tests en develop: [![Build Status](https://travis-ci.org/pilas-engine/pilas-editor.svg?branch=develop)](https://travis-ci.org/pilas-engine/pilas-editor)
+- Tareas de este sprint: [![Stories in Ready](https://badge.waffle.io/hugoruscitti/demo-editor.png?label=ready&title=Ready)](http://waffle.io/hugoruscitti/demo-editor) 
 
 Este repositorio contiene todos los componentes del editor de pilas-engine, con ejemplos, documentación y todo lo demás.
 
