@@ -2,8 +2,7 @@
 
 [![Stories in Ready](https://badge.waffle.io/hugoruscitti/demo-editor.png?label=ready&title=Ready)](http://waffle.io/hugoruscitti/demo-editor)
 
-Este repositorio contiene todos los componentes del editor de pilas-engine, con ejemplos, documentación y todo lo demás :)
-
+Este repositorio contiene todos los componentes del editor de pilas-engine, con ejemplos, documentación y todo lo demás.
 
 # ¿Cómo instalar?
 
