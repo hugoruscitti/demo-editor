@@ -68,6 +68,10 @@ textarea {
   top: 5px;
 }
 
+.close-container a, .close-container i {
+  cursor: pointer;
+}
+
 .btn-close {
   width: 30px;
   height: 30px;
@@ -180,8 +184,8 @@ div {
   .edit-panel-left {
     flex: 1 auto;
     position: relative;
+    margin-left: 10px;
     margin-right: 5px;
-    margin-left: 5px;
   }
 
   .edit-panel-editor {
@@ -401,6 +405,7 @@ label.ember-radio-button {
   overflow-y: scroll;
   position: absolute;
   border: 1px solid #eee;
+  height: -webkit-calc(100% - 36px);
 }
 
 

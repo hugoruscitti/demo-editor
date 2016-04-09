@@ -38,3 +38,13 @@ td {
 .wy-menu-vertical li.current a:hover {
   background: #444444;
 }
+
+nav.stickynav {
+    width: 214px;
+    box-shadow: 0 0 10px black;
+    transition: all 0.25s;
+}
+
+.wy-nav-top {
+  display: none;
+}
