@@ -58,6 +58,7 @@ class Pilas {
     let ancho = opciones.ancho || 640;
     let alto = opciones.alto || 480;
     this.game = new Phaser.Game(ancho, alto, Phaser.CANVAS, id_elemento_html, options);
+    game.input.enabled = false;
 
 
     //this.load_scripts();
