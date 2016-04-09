@@ -1,3 +1,135 @@
+  * release 0.0.12
+  * update
+  * Agregando archivo .xml de cordova al versionado.
+  * Arreglos generales.
+  * Mejorando barra de navegación en el manual.
+  * Moviendo ejemplos a un servicio closes #8
+  * Haciendo que se pueda cerrar el dialogo con ESC closes #13
+  * Aumentando version ios
+  * Mejorando el dialogo preview, ahora ocupa toda la pantalla closes #7
+  * update
+  * update
+  * Haciendo que se oculte el panel lateral del manual closes #10
+  * update
+  * update
+  * update
+  * Actualizando versión ios.
+  * reparando tests
+  * Reparando livereload y barra de titulo en electron closes #9
+  * fix merge
+  * Cambiando el nombre del proyecto a pilas-editor.
+  * Update README.md
+  * Update README.md
+  * Update README.md
+  * Update README.md
+  * Update README.md
+  * Update README.md
+  * Actualizando el icono principal.
+  * Agregando íconos.
+  * Agregando preferencias al proyecto de ios.
+  * update
+  * volviendo a agregar ember-cordova.
+  * quitando ember-cordova
+  * actualizando .gitignore.
+  * Agregando archivos a gitignore.
+  * Merge branch 'develop' of github.com:hugoruscitti/demo-editor into develop
+  * Agregando template de ember-cordova
+  * Update README.md
+  * Agregando ember-cordova y ember-cli-fastclick
+  * Modificando la ruta a la clave publica de ssh
+  * Aumentando el tamaño del area de juego en los ejemplos.
+  * Comenzando a integrar ejemplos closes #3
+  * Creando rutas para visualizar ejemplos closes #1
+  * Merge branch 'master' into develop
+  * closes #2
+  * Closes #2
+  * update
+  * Comenzando a integrar la documentación.
+  * Generando definiciones para la compilacion de pilas-engine
+  * update
+  * actualizando spritesheet.
+  * update
+  * Reparando el autocompletado de la consola cuando se usan metodos encadenados.
+  * Simplificando los comandos para pilas
+  * Agregando padding para las imagenes del spritesheet
+  * Agregando comando para generar imagenes de pilas-engine en formato spritesheet.
+  * Arreglos menores.
+  * Cambiando la unidad de tiempo para las interpolaciones.
+  * Refactorizando el código para utilizar escenas y reparando los tests.
+  * update
+  * update
+  * Actualizando canvas luego de cambiar tamaño de la pantalla.
+  * Mejorando el selector de resolución.
+  * Creando un dialogo modal para cambiar la resolución del juego.
+  * Eliminando archivos sin utilizar y comenzando a crear un ejemplo para listar actores.
+  * Quitando borde inferior a los mensajes de consola.
+  * Mejorando layout completo.
+  * update
+  * Modificando el layout para que la consola ocupe un lugar fijo y se pueda ocultar.
+  * Reparando el escalado de pantalla.
+  * Creando tests para autocompletar código.
+  * Implementando autocompletado delegado a pilas-engine.
+  * Deshabilitando tests desde consola con qunit, ahora los test solo corren en el navegador.
+  * Comenzando a implementar tests.
+  * update
+  * update
+  * Ocultando el contenedor de mensajes de consola si no hay mensajes para mostrar.
+  * Agregando ember-cli-deploy y configuración para subir cambios a la web.
+  * Actualizando a ember 2.3.0
+  * Copiando imagenes de la documentación.
+  * Agregando comando para generar documentación de pilas
+  * Mejorando estilos de los mensajes de error y botones.
+  * Modificando nombres de los paneles.
+  * Agregando funciones personalizadas para autocompletar y ejecutar en el intérprete de pilas.
+  * Reparando el uso de iframes en electron.
+  * update
+  * update
+  * Agregando deteccion de errores mientras se escribe en el editor.
+  * Reparando el problema del foco sobre el editor y la altura del layout.
+  * Mejorando interfaz.
+  * Agregando botón para crear proyectos nuevos.
+  * Arreglo menor.
+  * Agregando biblioteca de tooltips.
+  * Mostrando un mensaje si todos los panales están ocultos.
+  * Mejorando el estilo usando photon y otros arreglos menores.
+  * update
+  * Mejorando el ejemplo de pausa.
+  * Implementando el modo pausa y agregando estilo a los ejemplos.
+  * Creando ejemplo de interpolación infinita.
+  * Creando comando para generar ejemplos.
+  * Creando módulo de interpolaciones.
+  * update
+  * Agregando Tweenjs
+  * Corrigiendo posiciones de los actores.
+  * Agregando liquid-fire para realizar animaciones.
+  * Limpiando el código.
+  * update
+  * Haciendo que el canvas se pueda cambiar de tamaño.
+  * Reparando el canvas que quedaba completamente blanco.
+  * Actualizando iframe.
+  * update
+  * Agregando pilasengine.js al repositorio.
+  * Migrando el canvas a un iframe.
+  * update
+  * update
+  * update
+  * Reparando guardado de proyectos.
+  * Mejorando el actor fondo plano.
+  * Modificando el contenedor de pilas para que utilice un iframe.
+  * Arreglo menor en bower.json
+  * Agregando inbound-actions y comenzando a probar la integracion con pilas-engine usando un iframe.
+  * Agregando método para visualizar actores en consola.
+  * Actualizando jsconsole.
+  * Ocultando el indicador de la columna 80.
+  * Haciendo que se puedan ocultar / mostrar los paneles.
+  * Mejorando el layout del editor.
+  * Arreglos menores de estílo y actualizando jsconsole.
+  * Agregando consola interactiva.
+  * update
+  * update
+  * Actualizando ember-cli-mirage a la version 0.2
+  * Comenzando a implementar modos depuración.
+  * Arreglos menores en la visualización del canvas y el escalado.
   * Update.
   * Arreglos generales.
   * Comenzando a implementar proxies.
@@ -33,7 +165,7 @@
   * Agregando posibilidad de abandonar cambios.
   * Agregando capacidad de descartar cambios.
   * Quitando la ruta 'run'
-  * Merge branch 'develop' of github.com:hugoruscitti/pilas-editor into develop
+  * Merge branch 'develop' of github.com:hugoruscitti/demo-editor into develop
   * cambio menor.
   * Eliminando test sin utilizar.
   * Implementando transpiler de typescript a javascript.
