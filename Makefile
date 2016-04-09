@@ -1,4 +1,4 @@
-VERSION=0.0.1
+VERSION=0.0.11
 NOMBRE="pilas-editor"
 
 N=[0m
@@ -87,11 +87,11 @@ _instalar_phaser:
 	@mv Tween.d.ts pilasengine/libs/
 
 version_patch:
-	@bumpversion patch --current-version ${VERSION} Makefile --list
+	@bumpversion patch --current-version ${VERSION} Makefile ember-cordova/cordova/config.xml --list
 	make _help_version
 
 version_minor:
-	@bumpversion minor --current-version ${VERSION} Makefile --list
+	@bumpversion minor --current-version ${VERSION} Makefile ember-cordova/cordova/config.xml --list
 	make _help_version
 
 _help_version:
