@@ -3,7 +3,6 @@ import InboundActions from 'ember-component-inbound-actions/inbound-actions';
 
 export default Ember.Component.extend(InboundActions, {
   classNames: ['x-result'],
-  gameEngine: Ember.inject.service(),
   languageService: Ember.inject.service(),
   electron: Ember.inject.service(),
   error: [],

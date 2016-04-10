@@ -2,6 +2,7 @@ var ActorProxy = (function () {
     function ActorProxy(pilas, id) {
         this.pilas = pilas;
         this.id = id;
+        this.habilidades = [];
     }
     ActorProxy.prototype.interpolar = function (propiedad, valor, duracion, tipo, infinito) {
         if (duracion === void 0) { duracion = 0.5; }
@@ -100,6 +101,19 @@ var ActorProxy = (function () {
     ActorProxy.prototype.imprimir = function () {
         return "<Actor " + this.data.clase + " en (" + this.x + ", " + this.y + ")>";
     };
+    ActorProxy.prototype.actualizar_habilidades = function () {
+        for (var x in this.habilidades) {
+            this.habilidades[x].actualizar();
+        }
+    };
+    ActorProxy.prototype.aprender = function (nombre_de_habilidad) {
+        if (nombre_de_habilidad === "SeguirClicks") {
+            this.habilidades.push(new SeguirClicks(this.pilas));
+        }
+        else {
+            throw new Error("No existe la habilidad " + nombre_de_habilidad);
+        }
+    };
     return ActorProxy;
 })();
 var Actores = (function () {
@@ -119,7 +133,7 @@ var Actores = (function () {
         if (x === void 0) { x = 0; }
         if (y === void 0) { y = 0; }
         return this.pilas.crear_entidad("sprite", {
-            imagen: "data:tortuga.png",
+            imagen: "data:sin_imagen.png",
             clase: 'actor'
         });
     };
@@ -393,6 +407,24 @@ var Fondos = (function () {
     };
     return Fondos;
 })();
+var Habilidad = (function () {
+    function Habilidad(pilas) {
+        this.pilas = pilas;
+    }
+    Habilidad.prototype.actualizar = function () {
+    };
+    return Habilidad;
+})();
+var SeguirClicks = (function (_super) {
+    __extends(SeguirClicks, _super);
+    function SeguirClicks() {
+        _super.apply(this, arguments);
+    }
+    SeguirClicks.prototype.actualizar = function () {
+        console.log("SeguirClick ...");
+    };
+    return SeguirClicks;
+})(Habilidad);
 var Historial = (function () {
     function Historial(pilas) {
         this.pilas = pilas;
@@ -626,9 +658,9 @@ var Pilas = (function () {
         this.game.stage.disableVisibilityChange = true;
         this.imagenes.precargar_imagenes_estandar();
         this.mostrar_cuadros_por_segundo(true);
+        this.game.input.enabled = false;
         if (this.opciones.escalar) {
             this.game.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
-            //this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
             this.game.scale.refresh();
             function gameResized(manager, bounds) {
                 var scale = Math.min(window.innerWidth / this.game.width, window.innerHeight / this.game.height);
@@ -795,7 +827,7 @@ var Utils = (function () {
     };
     return Utils;
 })();
-var VERSION = "0.0.2";
+var VERSION = "0.0.12";
 
 /**
  * Tween.js - Licensed under the MIT license

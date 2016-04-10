@@ -10,7 +10,6 @@ class Imagenes {
     this.cargar_atlas("data", "spritesheet.png", "spritesheet.json");
   }
 
-
   private cargar(identificador: string, archivo: string) {
     let path = this.pilas.utils.join(this.pilas.opciones.data_path, archivo);
     this.pilas.game.load.image(identificador, path);

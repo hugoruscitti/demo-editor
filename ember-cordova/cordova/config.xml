@@ -41,7 +41,6 @@
     </platform>
 
     <preference name="Fullscreen" value="true" />
-    <preference name="Orientation" value="landscape" />
 
     <content src="index.html" />
     <access origin="*" />
