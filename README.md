@@ -1,7 +1,8 @@
 # pilas-editor
 
-[![Build Status](https://travis-ci.org/pilas-engine/pilas-editor.svg?branch=develop)](https://travis-ci.org/pilas-engine/pilas-editor) [![Build Status](https://travis-ci.org/pilas-engine/pilas-editor.svg?branch=master)](https://travis-ci.org/pilas-engine/pilas-editor) [![Stories in Ready](https://badge.waffle.io/hugoruscitti/demo-editor.png?label=ready&title=Ready)](http://waffle.io/hugoruscitti/demo-editor)
+[![Build Status](https://travis-ci.org/pilas-engine/pilas-editor.svg?branch=develop)](https://travis-ci.org/pilas-engine/pilas-editor) [![Build Status](https://travis-ci.org/pilas-engine/pilas-editor.svg?branch=master)](https://travis-ci.org/pilas-engine/pilas-editor) [![Code Climate](https://codeclimate.com/github/pilas-engine/pilas-editor/badges/gpa.svg)](https://codeclimate.com/github/pilas-engine/pilas-editor)
 
+[![Stories in Ready](https://badge.waffle.io/hugoruscitti/demo-editor.png?label=ready&title=Ready)](http://waffle.io/hugoruscitti/demo-editor) 
 
 
 
