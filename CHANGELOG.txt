@@ -1,3 +1,10 @@
+  * release 0.0.13
+  * Eliminando servicio gameEngine y otros arreglos menores.
+  * Eliminando test de ruta que ya no existe.
+  * Merge branch 'develop' of github.com:pilas-engine/pilas-editor into develop
+  * creando archivo code-climate.
+  * Agregando code-climate
+  * actualizando changelog.
   * release 0.0.12
   * update
   * Agregando archivo .xml de cordova al versionado.
