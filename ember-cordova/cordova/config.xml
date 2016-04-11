@@ -43,6 +43,10 @@
     </platform>
 
     <preference name="Fullscreen" value="true" />
+    <preference name="orientation" value="default" />
+
+    <preference name="WebViewBounce" value="true" />
+    <preference name="EnableViewportScale" value="true"/>
 
     <content src="index.html" />
     <access origin="*" />
