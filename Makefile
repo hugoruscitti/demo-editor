@@ -23,6 +23,7 @@ comandos:
 	@echo "  ${Y}Generales de la aplicación${N}"
 	@echo ""
 	@echo "    ${G}iniciar${N}              Instala dependencias."
+	@echo "    ${G}compilar${N}             Compila la aplicación."
 	@echo "    ${G}electron${N}             Compila y ejecuta electron (modo live)."
 	@echo "    ${G}serve${N}                Ejecuta la aplicación en modo desarrollo."
 	@echo ""
@@ -61,6 +62,11 @@ iniciar:
 	@cd pilasengine; npm install
 	@make _instalar_phaser
 	@make _crear_enlaces
+
+
+compilar:
+	$(call log, "Iniciando compilación.")
+	@ember build
 
 
 s: serve
