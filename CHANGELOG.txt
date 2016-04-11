@@ -1,3 +1,8 @@
+  * release 0.0.14
+  * update
+  * update
+  * Creando splash-screen.
+  * actualizando changelog.
   * release 0.0.13
   * Eliminando servicio gameEngine y otros arreglos menores.
   * Eliminando test de ruta que ya no existe.
