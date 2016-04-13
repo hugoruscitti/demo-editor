@@ -8,6 +8,11 @@
 
 $marginTop: 32px;
 
+
+.ionic-namespace {
+  @import "ionic";
+}
+
 body {
   margin: 0;
   padding: 0;

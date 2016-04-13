@@ -25,6 +25,7 @@ Router.map(function() {
   this.route('examples', function() {
     this.route('runModal', {path: ":example_id"}); // route like: /examples/5
   });
+  this.route('mobile');
 });
 
 export default Router;
