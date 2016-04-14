@@ -12,6 +12,16 @@ $marginTop: 32px;
 .ratchet-namespace {
   @import "ratchet";
   @import "ratchet-theme-ios";
+
+  margin-top: 50px;
+}
+
+.ratchet-namespace .bar-nav ~ .content {
+    padding-top: 64px;
+}
+
+.ratchet-namespace .bar {
+    top: 20px;
 }
 
 body {
