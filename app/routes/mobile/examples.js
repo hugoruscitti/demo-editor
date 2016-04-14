@@ -5,7 +5,5 @@ export default Ember.Route.extend({
 
   model() {
     return this.get("exampleList").findAll();
-  },
-
-
+  }
 });

@@ -16,6 +16,11 @@ module.exports = function(defaults) {
   //});
 
 
+  app.import('vendor/fonts/ratchicons.eot', {destDir: 'fonts'});
+  app.import('vendor/fonts/ratchicons.svg', {destDir: 'fonts'});
+  app.import('vendor/fonts/ratchicons.ttf', {destDir: 'fonts'});
+  app.import('vendor/fonts/ratchicons.woff', {destDir: 'fonts'});
+
   app.import('vendor/ace.js');
 
   app.import('vendor/ext-language_tools.js');

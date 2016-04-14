@@ -9,8 +9,9 @@
 $marginTop: 32px;
 
 
-.ionic-namespace {
-  @import "ionic";
+.ratchet-namespace {
+  @import "ratchet";
+  @import "ratchet-theme-ios";
 }
 
 body {
