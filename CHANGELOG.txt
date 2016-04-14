@@ -1,3 +1,6 @@
+  * release 0.0.17
+  * Agregando padding en la versión mobile.
+  * actualizando changelog.
   * release 0.0.16
   * Integrando el framework ratchet (en lugar de ionic) y creando la vista mobile acorde a ese framework.
   * Cambiando la url de la aplicación mobile.
