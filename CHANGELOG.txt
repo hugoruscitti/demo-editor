@@ -1,3 +1,5 @@
+  * release 0.0.18
+  * actualizando changelog.
   * release 0.0.17
   * Agregando padding en la versión mobile.
   * actualizando changelog.
