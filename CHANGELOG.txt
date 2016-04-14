@@ -1,3 +1,10 @@
+  * release 0.0.16
+  * Integrando el framework ratchet (en lugar de ionic) y creando la vista mobile acorde a ese framework.
+  * Cambiando la url de la aplicación mobile.
+  * Agregando la ruta 'mobile' y archivos iniciales de ionic.
+  * agregando comando para compilar.
+  * update
+  * actualizando changelog.
   * release 0.0.15
   * actualizando changelog.
   * release 0.0.14
