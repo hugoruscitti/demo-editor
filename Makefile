@@ -1,4 +1,4 @@
-VERSION=0.0.16
+VERSION=0.0.17
 NOMBRE="pilas-editor"
 
 N=[0m
