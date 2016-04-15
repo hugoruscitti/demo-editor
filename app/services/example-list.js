@@ -17,6 +17,7 @@ pilas.cuando('inicia', function() {
   pilas.escenas.normal();
   let actor = pilas.actores.actor();
   actor.aprender("SeguirClicks");
+  actor.rotacion = [360];
 });
 `;
 

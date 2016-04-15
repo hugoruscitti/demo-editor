@@ -827,7 +827,7 @@ var Utils = (function () {
     };
     return Utils;
 })();
-var VERSION = "0.0.12";
+var VERSION = "0.0.18";
 
 /**
  * Tween.js - Licensed under the MIT license
