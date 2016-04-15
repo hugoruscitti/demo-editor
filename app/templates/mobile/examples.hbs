@@ -1,11 +1,9 @@
 <header class="bar bar-nav">
-  {{#link-to "mobile.index" class="pull-left"}}{{p-icon icon="left-open"}}{{/link-to}}
+  {{#link-to "mobile.index" class="pull-left btn"}} volver {{/link-to}}
   <h1 class="title">pilas-engine</h1>
 </header>
 
 <div class="content">
-  
   <p class="content-padded text-center">¡Hola, esto es pilas-engine!</p>
-
-  {{x-example-list examples=model}}
+  {{x-example-list examples=model isMobile=true}}
 </div>

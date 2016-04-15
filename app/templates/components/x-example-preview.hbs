@@ -1,7 +1,17 @@
-{{#link-to "examples.runModal" model}}
-  <img src={{image_url}}>
+{{#if isMobile}}
+  {{#link-to "mobile.runModal" model}}
+    <img src={{image_url}}>
 
-  <div class="x-example-preview-title">
-    {{model.title}}
-  </div>
-{{/link-to}}
+    <div class="x-example-preview-title">
+      {{model.title}}
+    </div>
+  {{/link-to}}
+{{else}}
+  {{#link-to "examples.runModal" model}}
+    <img src={{image_url}}>
+
+    <div class="x-example-preview-title">
+      {{model.title}}
+    </div>
+  {{/link-to}}
+{{/if}}

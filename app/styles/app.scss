@@ -12,8 +12,7 @@ $marginTop: 32px;
 .ratchet-namespace {
   @import "ratchet";
   @import "ratchet-theme-ios";
-
-  margin-top: 50px;
+  padding-top: 20px;
 }
 
 .ratchet-namespace .bar-nav ~ .content {
@@ -427,4 +426,8 @@ label.ember-radio-button {
 
 .toolbar-header-electron {
   padding-top: 20px;
+}
+
+.mobile-top-padding {
+  margin-top: 20px;
 }

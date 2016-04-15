@@ -1,0 +1,10 @@
+{{#modal-dialog close="toggleModal"}}
+  {{x-result project=model isMobile=true}}
+
+  <div class="close-container mobile-top-padding">
+    <a href="" id="close-button" {{action "toggleModal"}} class="btn btn-default btn-close">{{fa-icon "close"}}</a>
+  </div>
+
+{{/modal-dialog}}
+
+{{yield}}
