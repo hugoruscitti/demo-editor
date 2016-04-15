@@ -51,12 +51,6 @@ module.exports = function (grunt) {
         },
 */
         connect: {
-            server: {
-                options: {
-                    port: 8080,
-                    base: './ejemplos'
-                }
-            },
             tests: {
                 options: {
                     port: 8089,
@@ -70,7 +64,7 @@ module.exports = function (grunt) {
               livereload: true,
               spawn: false,
             },
-            files: ['src/**/*.ts', 'tests/**', 'ejemplos/**'],
+            files: ['src/**/*.ts', 'tests/**'],
             tasks: ['typescript', 'concat', 'touch', /*'qunit'*/]
           },
         },
@@ -101,8 +95,8 @@ module.exports = function (grunt) {
       clear();
       drawLine();
 
-      show_message("Los ejemplos de pueden abrir desde la URL:", "http://localhost:8089/ejemplos");
-      show_message("Los tests de pueden abrir desde la URL:   ", "http://localhost:8089/tests   ");
+      show_message("Los tests de pueden abrir desde la URL:", "http://localhost:8089/tests   ");
+      show_message("Para ejemplos, arir desde ember con:   ", "http://localhost:4200/#/examples");
 
       drawLine();
       clear();
