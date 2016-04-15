@@ -26,6 +26,7 @@ comandos:
 	@echo "    ${G}compilar${N}             Compila la aplicación."
 	@echo "    ${G}electron${N}             Compila y ejecuta electron (modo live)."
 	@echo "    ${G}serve${N}                Ejecuta la aplicación en modo desarrollo."
+	@echo "    ${G}test${N}                 Ejecuta los tests de la aplicación."
 	@echo ""
 	@echo "  ${Y}Relacionados con pilas ${N}"
 	@echo ""
@@ -192,6 +193,10 @@ _cordova_open:
 	$(call log, "Abriendo con cordova:open")
 	@ember cordova:open
 	
+
+test:
+	$(call log, "Ejecutando test...")
+	@ember test
 
 
 .PHONY: tmp docs
