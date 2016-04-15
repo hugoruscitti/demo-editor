@@ -1,3 +1,9 @@
+  * release 0.0.19
+  * Agregando rutas personalizadas para la versión mobile, con padding superior y otros detalles.
+  * Agregando comando para disparar los tests.
+  * Eliminando ejemplos de pilas porque ahora se incluyen en la aplicación ember.
+  * update
+  * actualizando changelog.
   * release 0.0.18
   * actualizando changelog.
   * release 0.0.17
