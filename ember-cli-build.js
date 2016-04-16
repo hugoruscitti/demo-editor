@@ -17,7 +17,7 @@ module.exports = function(defaults) {
       stylesheet: 'css',
       stylesheetOptions: {
         prefix: 'img-',
-        spritePath: '/assets/ember-sprites.png',
+        spritePath: 'ember-sprites.png',
         pixelRatio: 1,
       },
       layoutOptions: {
