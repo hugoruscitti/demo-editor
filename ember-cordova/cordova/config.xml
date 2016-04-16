@@ -44,6 +44,7 @@
 
     <preference name="Fullscreen" value="true" />
     <preference name="orientation" value="portrait" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
 
     <preference name="WebViewBounce" value="true" />
     <preference name="EnableViewportScale" value="true"/>
