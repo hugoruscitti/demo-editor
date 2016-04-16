@@ -6,7 +6,28 @@ module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     emberCliFontAwesome: {
       useScss: true
+    },
+    sprite: [{
+      debug: false,
+      src: [
+        'images/sprites/**/*.png'
+      ],
+      spritePath: 'assets/ember-sprites.png',
+      stylesheetPath: 'assets/ember-sprites.css',
+      stylesheet: 'css',
+      stylesheetOptions: {
+        prefix: 'img-',
+        spritePath: '/assets/ember-sprites.png',
+        pixelRatio: 1,
+      },
+      layoutOptions: {
+        padding: 2,
+      },
+      optiping: (process.env.NODE_ENV === 'production'),
     }
+    // optional: more sprite sheet configurations
+    // , { ... }
+  ]
   });
 
   //app.import(app.bowerDirectory + '/bootstrap/dist/css/bootstrap.css');
