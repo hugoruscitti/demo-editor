@@ -1,3 +1,7 @@
+  * release 0.0.20
+  * Agregando ember-sprite para tener íconos coloridos y la ruta nueva para el manual.
+  * Quitando el padding de la ventana en electron.
+  * actualizando changelog.
   * release 0.0.19
   * Agregando rutas personalizadas para la versión mobile, con padding superior y otros detalles.
   * Agregando comando para disparar los tests.
