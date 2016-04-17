@@ -1,3 +1,7 @@
+  * release 0.0.22
+  * Reparando la barra de status en ios.
+  * update
+  * actualizando changelog.
   * release 0.0.21
   * Convirtiendo ejemplos en sprite-sheets y arreglos menores css.
   * agregando plugin status-bar de cordova.
