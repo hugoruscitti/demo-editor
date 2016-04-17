@@ -377,8 +377,7 @@ canvas {
 }
 
 .jsconsole-input {
-  margin-top:0px;
-  border: 1px solid rgba(128, 128, 128, 0.35);
+  margin-top: 0px;
   padding-bottom: 6px;
 }
 
@@ -456,4 +455,10 @@ label.ember-radio-button {
   top: 5px;
   right: 3px;
   cursor: inherit;
+}
+
+
+.CodeMirror-vscrollbar {
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
 }

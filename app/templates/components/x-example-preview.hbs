@@ -1,6 +1,6 @@
 {{#if isMobile}}
   {{#link-to "mobile.runModal" model}}
-    <img src={{image_url}}>
+    <div class={{image_class}}></div>
 
     <div class="x-example-preview-title">
       {{model.title}}
@@ -8,7 +8,9 @@
   {{/link-to}}
 {{else}}
   {{#link-to "examples.runModal" model}}
-    <img src={{image_url}}>
+
+    <div class={{image_class}}></div>
+
 
     <div class="x-example-preview-title">
       {{model.title}}

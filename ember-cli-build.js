@@ -7,7 +7,7 @@ module.exports = function(defaults) {
     emberCliFontAwesome: {
       useScss: true
     },
-    sprite: [{
+    sprite: [{ 
       debug: false,
       src: [
         'images/sprites/**/*.png'
@@ -25,8 +25,6 @@ module.exports = function(defaults) {
       },
       optiping: (process.env.NODE_ENV === 'production'),
     }
-    // optional: more sprite sheet configurations
-    // , { ... }
   ]
   });
 
