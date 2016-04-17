@@ -12,15 +12,9 @@ $marginTop: 32px;
 .ratchet-namespace {
   @import "ratchet";
   @import "ratchet-theme-ios";
-  padding-top: 20px;
-}
-
-.ratchet-namespace .bar-nav ~ .content {
-    padding-top: 64px;
 }
 
 .ratchet-namespace .bar {
-    top: 20px;
 }
 
 body {
@@ -88,10 +82,11 @@ textarea {
 }
 
 .btn-close {
-  width: 30px;
-  height: 30px;
-  padding-top: 5px;
+  width: 33px;
+  height: 33px;
+  padding-top: 7px;
   cursor: pointer !important;
+  opacity: 0.5;
 }
 
 
