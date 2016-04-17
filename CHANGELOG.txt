@@ -1,3 +1,8 @@
+  * release 0.0.21
+  * Convirtiendo ejemplos en sprite-sheets y arreglos menores css.
+  * agregando plugin status-bar de cordova.
+  * arreglo menor en las rutas a las imagenes.
+  * actualizando changelog.
   * release 0.0.20
   * Agregando ember-sprite para tener íconos coloridos y la ruta nueva para el manual.
   * Quitando el padding de la ventana en electron.
