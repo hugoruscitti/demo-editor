@@ -87,7 +87,7 @@ test('Puede aplicar interpolaciones a los actores', function(assert) {
   return createPilasTest(this, (pilas, resolve) => {
     pilas.reiniciar();
 
-    patito = pilas.actores.patito();
+    let patito = pilas.actores.patito();
     patito.escala = [2, 1, 2];
 
     setTimeout(function() {
@@ -119,7 +119,7 @@ test('test-iniciar: Puede inicializar y crear actores', function(assert) {
     assert.equal(pilas.obtener_cantidad_de_actores(), 1, "Hay un solo actor en pantalla (el fondo).");
 
     var patito = pilas.actores.patito();
-    ok(patito, "Pudo crear correctamente al actor parito.");
+    assert.ok(patito, "Pudo crear correctamente al actor parito.");
 
     assert.equal(pilas.obtener_cantidad_de_actores(), 2, "Ahora hay dos, el fondo y el patito.");
 

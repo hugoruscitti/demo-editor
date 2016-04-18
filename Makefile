@@ -48,6 +48,7 @@ comandos:
 	@echo "    ${G}version_minor${N}        Genera una nueva versión."
 	@echo "    ${G}subir_version${N}        Sube version generada al servidor."
 	@echo "    ${G}deploy${N}               Sube la web editor.pilas-engine.com.ar"
+	@echo "    ${G}binarios${N}             Genera los binarios de la aplicación"
 	@echo ""
 
 _crear_enlaces:
@@ -197,6 +198,14 @@ _cordova_open:
 test:
 	$(call log, "Ejecutando test...")
 	@ember test
+
+binarios:
+	$(call task, "Comenzando a generar binarios.")
+	$(call log, "Compilando ...")
+	@ember build
+	$(call log, "Generando binarios ...")
+	@electron-packager dist pilas-editor --platform=darwin --arch=x64 --version=0.37.6 --ignore=node_modules
+	@tar czf pilas-editor-darwin-x64/pilas-editor.app.tar.gz pilas-editor-darwin-x64/pilas-editor.app
 
 
 .PHONY: tmp docs
