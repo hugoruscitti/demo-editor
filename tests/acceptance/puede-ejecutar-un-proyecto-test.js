@@ -1,5 +1,5 @@
 import { test } from 'qunit';
-import moduleForAcceptance from 'demo-editor/tests/helpers/module-for-acceptance';
+import moduleForAcceptance from 'pilas-editor/tests/helpers/module-for-acceptance';
 
 moduleForAcceptance('Acceptance | puede ejecutar un proyecto');
 

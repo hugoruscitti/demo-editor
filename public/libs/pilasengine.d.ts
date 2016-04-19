@@ -4,6 +4,7 @@
 declare class ActorProxy {
     id: string;
     pilas: Pilas;
+    habilidades: Array<Habilidad>;
     constructor(pilas: Pilas, id: string);
     interpolar(propiedad: string, valor: any, duracion?: number, tipo?: string, infinito?: boolean): void;
     x: number;
@@ -15,6 +16,8 @@ declare class ActorProxy {
     setData(property: string, value: any): void;
     private data;
     imprimir(): string;
+    actualizar_habilidades(): void;
+    aprender(nombre_de_habilidad: string): void;
 }
 declare class Actores {
     pilas: Pilas;
@@ -132,6 +135,14 @@ declare class Fondos {
     pilas: Pilas;
     constructor(pilas: Pilas);
     plano(x?: number, y?: number): ActorProxy;
+}
+declare class Habilidad {
+    pilas: Pilas;
+    constructor(pilas: Pilas);
+    actualizar(): void;
+}
+declare class SeguirClicks extends Habilidad {
+    actualizar(): void;
 }
 declare class Historial {
     pilas: Pilas;

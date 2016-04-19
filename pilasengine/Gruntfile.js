@@ -45,33 +45,14 @@ module.exports = function (grunt) {
                 }
             }
         },
-/*
-        qunit: {
-          files: ['./tests/index.html']
-        },
-*/
-        connect: {
-            server: {
-                options: {
-                    port: 8080,
-                    base: './ejemplos'
-                }
-            },
-            tests: {
-                options: {
-                    port: 8089,
-                    base: './'
-                }
-            }
-        },
         watch: {
-          withTests: {
+          simple: {
             options: {
               livereload: true,
               spawn: false,
             },
-            files: ['src/**/*.ts', 'tests/**', 'ejemplos/**'],
-            tasks: ['typescript', 'concat', 'touch', /*'qunit'*/]
+            files: ['src/**/*.ts'],
+            tasks: ['typescript', 'concat', 'touch']
           },
         },
     });
@@ -101,8 +82,7 @@ module.exports = function (grunt) {
       clear();
       drawLine();
 
-      show_message("Los ejemplos de pueden abrir desde la URL:", "http://localhost:8089/ejemplos");
-      show_message("Los tests de pueden abrir desde la URL:   ", "http://localhost:8089/tests   ");
+      show_message("Para ejemplos, arir desde ember con:   ", "http://localhost:4200/#/examples");
 
       drawLine();
       clear();
@@ -112,7 +92,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
 
 
-    grunt.registerTask('compilar-con-ejemplos-livereload', ['connect:tests', 'typescript', 'message', 'watch:withTests']);
+    grunt.registerTask('compilar-con-ejemplos-livereload', ['typescript', 'message', 'watch:simple']);
     //grunt.registerTask('compilar-y-notificar-live-con-tests', ['connect:tests', 'message', 'watch:withTests' /*'typedoc', 'test'*/]);
     grunt.registerTask('compilar', ['typescript', 'concat', 'touch']);
 }

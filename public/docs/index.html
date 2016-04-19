@@ -3,7 +3,10 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
   
   <title>pilas-engine</title>
   
@@ -21,6 +24,8 @@
   <script>
     // Current page data
     var mkdocs_page_name = "None";
+    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_url = "/";
   </script>
   
   <script src="./js/jquery-2.1.1.min.js"></script>
@@ -181,6 +186,21 @@ y profesionales especialistas en desarrollo de Software.</p>
         }
 
       }
+
+      var links = document.querySelectorAll('.stickynav a');
+
+      for (var i in links) {
+        links[i].onclick = function() {
+          var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+
+          if (w < 768) {
+            alternar_menu();
+          }
+
+          return true;
+        }
+      }
+
     });
   </script>
 
@@ -214,6 +234,7 @@ y profesionales especialistas en desarrollo de Software.</p>
 
 
 <script type="text/javascript">
+/*
   var dentro_de_pilas_engine = (document.location.href.indexOf('file://') === 0);
 
   // Ocultando la barra de búsqueda
@@ -221,6 +242,7 @@ y profesionales especialistas en desarrollo de Software.</p>
     var b = document.getElementsByName('q');
     b[0].style.display = "none"
   }
+*/
 </script>
 
 
@@ -272,6 +294,8 @@ td {
 .wy-menu-vertical li.current a:hover {
   background: #444444;
 }
+
+
 </pre>
 	  
         </div>
@@ -293,6 +317,6 @@ td {
 </html>
 
 <!--
-MkDocs version : 0.14.0
-Build Date UTC : 2016-04-01 19:17:54.372536
+MkDocs version : 0.15.3
+Build Date UTC : 2016-04-16 02:18:42.155166
 -->

@@ -16,5 +16,14 @@
 
 <body>
 <div id="canvas" class="gameArea"></div>
+
+
+<script>
+  window.onkeydown = function(e) {
+    if (e.keyCode == 27) {
+      window.parent.document.getElementById("close-button").click();
+    }
+  };
+</script>
 </body>
 </html>

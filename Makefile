@@ -1,5 +1,5 @@
-VERSION=0.0.1
-NOMBRE="demo-editor"
+VERSION=0.0.22
+NOMBRE="pilas-editor"
 
 N=[0m
 G=[01;32m
@@ -23,24 +23,32 @@ comandos:
 	@echo "  ${Y}Generales de la aplicación${N}"
 	@echo ""
 	@echo "    ${G}iniciar${N}              Instala dependencias."
+	@echo "    ${G}compilar${N}             Compila la aplicación."
 	@echo "    ${G}electron${N}             Compila y ejecuta electron (modo live)."
 	@echo "    ${G}serve${N}                Ejecuta la aplicación en modo desarrollo."
+	@echo "    ${G}test${N}                 Ejecuta los tests de la aplicación."
 	@echo ""
 	@echo "  ${Y}Relacionados con pilas ${N}"
 	@echo ""
 	@echo "    ${G}pilas${N}                Genera pilasengine.js."
-	@echo "    ${G}pilas_live${N}           Genera pilasengine.js, ejemplos y tests (live)."
+	@echo "    ${G}pilas_live${N}           Genera pilasengine.js, ejemplos y tests."
 	@echo "    ${G}api${N}                  Genera la documentación de API para pilas."
 	@echo "    ${G}docs${N}                 Genera el manual de pilas."
 	@echo "    ${G}generar_ejemplo${N}      Permite crear un ejemplo nuevo."
-	@echo "    ${G}actualizar_imagenes${N}  Genera los spritesheets desde pilasengine/data/src"
+	@echo "    ${G}actualizar_imagenes${N}  Genera los spritesheets"
+	@echo ""
+	@echo "  ${Y}Para distribuir${N}"
+	@echo ""
+	@echo "    ${G}cordova_icons${N}        Genera los iconos para cordova."
+	@echo "    ${G}cordova${N}              Compila y genera la versión mobile."
 	@echo ""
 	@echo "  ${Y}Para distribuir${N}"
 	@echo ""
 	@echo "    ${G}version_patch${N}        Genera una nueva versión."
 	@echo "    ${G}version_minor${N}        Genera una nueva versión."
 	@echo "    ${G}subir_version${N}        Sube version generada al servidor."
-	@echo "    ${G}deploy${N}               Sube el editor a la web editor.pilas-engine.com.ar"
+	@echo "    ${G}deploy${N}               Sube la web editor.pilas-engine.com.ar"
+	@echo "    ${G}binarios${N}             Genera los binarios de la aplicación"
 	@echo ""
 
 _crear_enlaces:
@@ -56,6 +64,11 @@ iniciar:
 	@cd pilasengine; npm install
 	@make _instalar_phaser
 	@make _crear_enlaces
+
+
+compilar:
+	$(call log, "Iniciando compilación.")
+	@ember build
 
 
 s: serve
@@ -83,11 +96,11 @@ _instalar_phaser:
 	@mv Tween.d.ts pilasengine/libs/
 
 version_patch:
-	@bumpversion patch --current-version ${VERSION} Makefile --list
+	@bumpversion patch --current-version ${VERSION} Makefile pilasengine/src/version.ts ember-cordova/cordova/config.xml --list
 	make _help_version
 
 version_minor:
-	@bumpversion minor --current-version ${VERSION} Makefile --list
+	@bumpversion minor --current-version ${VERSION} Makefile pilasengine/src/version.ts ember-cordova/cordova/config.xml --list
 	make _help_version
 
 _help_version:
@@ -166,6 +179,33 @@ docs:
 	@echo "${G}OK, la documentación quedó en public/docs"
 	@echo ""
 
+cordova: _cordova_build _cordova_open
+	@echo "${G}Listo, ahora se abrirá xcode"
+	
+cordova_icons:
+	$(call log, "Generando iconos")
+	@mobile-icon-resizer -i ember-cordova/cordova/res/pilas_logo_1024-fondo-color.png  --iosprefix="icon" --iosof=ember-cordova/cordova/res/ios/ --androidof=ember-cordova/cordova/res/android/
+
+_cordova_build:
+	$(call log, "Compilando con cordova:build")
+	@ember cordova:build
+
+_cordova_open:
+	$(call log, "Abriendo con cordova:open")
+	@ember cordova:open
+	
+
+test:
+	$(call log, "Ejecutando test...")
+	@ember test
+
+binarios:
+	$(call task, "Comenzando a generar binarios.")
+	$(call log, "Compilando ...")
+	@ember build
+	$(call log, "Generando binarios ...")
+	@electron-packager dist pilas-editor --platform=darwin --arch=x64 --version=0.37.6 --ignore=node_modules
+	@tar czf pilas-editor-darwin-x64/pilas-editor.app.tar.gz pilas-editor-darwin-x64/pilas-editor.app
 
 
 .PHONY: tmp docs

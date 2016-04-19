@@ -1,10 +1,12 @@
 class ActorProxy {
   id: string;
   pilas: Pilas;
+  habilidades: Array<Habilidad>;
 
   constructor(pilas: Pilas, id: string) {
     this.pilas = pilas;
     this.id = id;
+    this.habilidades = [];
   }
 
   interpolar(propiedad: string, valor: any, duracion: number = 0.5, tipo: string = "desaceleracion_gradual", infinito: boolean = false) {
@@ -93,4 +95,17 @@ class ActorProxy {
     return `<Actor ${this.data.clase} en (${this.x}, ${this.y})>`;
   }
 
+  actualizar_habilidades() {
+    for (let x in this.habilidades) {
+      this.habilidades[x].actualizar();
+    }
+  }
+
+  aprender(nombre_de_habilidad: string) {
+    if (nombre_de_habilidad === "SeguirClicks") {
+      this.habilidades.push(new SeguirClicks(this.pilas));
+    } else {
+      throw new Error("No existe la habilidad " + nombre_de_habilidad);
+    }
+  }
 }

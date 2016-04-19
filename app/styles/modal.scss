@@ -1,4 +1,4 @@
-$margin: 40px;
+$margin: 0px;
 
 .ember-modal-overlay {
   height: 100vh;
@@ -33,4 +33,27 @@ $margin: 40px;
   position: absolute;
   left: 10px;
   right: 10px;
+}
+
+
+.about-dialog {
+  margin-top: 20px !important;
+  margin-left: 20px !important;
+  margin-right: 20px !important;
+  height: 270px;
+}
+
+.settings-dialog {
+  margin-top: 20px !important;
+  margin-left: 20px !important;
+  margin-right: 20px !important;
+  height: 270px;
+}
+
+
+.setup-dialog {
+  margin-top: 20px !important;
+  margin-left: 20px !important;
+  margin-right: 20px !important;
+  height: 270px;
 }

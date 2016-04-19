@@ -1,9 +1,11 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  exampleList: Ember.inject.service(),
+
   model() {
-    return [
-      {id: 1, title: "sample"}
-    ]
-  }
+    return this.get("exampleList").findAll();
+  },
+
+
 });

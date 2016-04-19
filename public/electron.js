@@ -22,7 +22,7 @@ app.on('ready', function onReady() {
     height: 600,
     minWidth: 800,
     minHeight: 600,
-    titleBarStyle: 'hidden' 
+    //titleBarStyle: 'hidden' 
   });
 
   delete mainWindow.module;

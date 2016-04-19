@@ -6,7 +6,26 @@ module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     emberCliFontAwesome: {
       useScss: true
+    },
+    nosprite: [{ 
+      debug: false,
+      src: [
+        'images/sprites/**/*.png'
+      ],
+      spritePath: 'assets/ember-sprites.png',
+      stylesheetPath: 'assets/ember-sprites.css',
+      stylesheet: 'css',
+      stylesheetOptions: {
+        prefix: 'img-',
+        spritePath: 'ember-sprites.png',
+        pixelRatio: 1,
+      },
+      layoutOptions: {
+        padding: 2,
+      },
+      optiping: (process.env.NODE_ENV === 'production'),
     }
+  ]
   });
 
   //app.import(app.bowerDirectory + '/bootstrap/dist/css/bootstrap.css');
@@ -15,6 +34,11 @@ module.exports = function(defaults) {
   //  destDir: 'fonts'
   //});
 
+
+  app.import('vendor/fonts/ratchicons.eot', {destDir: 'fonts'});
+  app.import('vendor/fonts/ratchicons.svg', {destDir: 'fonts'});
+  app.import('vendor/fonts/ratchicons.ttf', {destDir: 'fonts'});
+  app.import('vendor/fonts/ratchicons.woff', {destDir: 'fonts'});
 
   app.import('vendor/ace.js');
 

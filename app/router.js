@@ -22,9 +22,17 @@ Router.map(function() {
 
   this.route('test');
   this.route('game');
+
   this.route('examples', function() {
-    this.route('show', {path: ":example_id"}); // route like: /examples/5
+    this.route('runModal', {path: ":example_id"}); // route like: /examples/5
   });
+
+  this.route('mobile', function() {
+    this.route('examples');
+    this.route('runModal', {path: ":example_id"}); // route like: /examples/5
+  });
+
+  this.route('manual');
 });
 
 export default Router;

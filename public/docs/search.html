@@ -3,7 +3,10 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
   
   <title>pilas-engine</title>
   
@@ -175,6 +178,21 @@
         }
 
       }
+
+      var links = document.querySelectorAll('.stickynav a');
+
+      for (var i in links) {
+        links[i].onclick = function() {
+          var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+
+          if (w < 768) {
+            alternar_menu();
+          }
+
+          return true;
+        }
+      }
+
     });
   </script>
 
@@ -208,6 +226,7 @@
 
 
 <script type="text/javascript">
+/*
   var dentro_de_pilas_engine = (document.location.href.indexOf('file://') === 0);
 
   // Ocultando la barra de búsqueda
@@ -215,6 +234,7 @@
     var b = document.getElementsByName('q');
     b[0].style.display = "none"
   }
+*/
 </script>
 
 
@@ -266,6 +286,8 @@ td {
 .wy-menu-vertical li.current a:hover {
   background: #444444;
 }
+
+
 </pre>
 	  
         </div>

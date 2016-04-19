@@ -27,7 +27,10 @@
     "pilasengine",
     "pilas",
     "ts",
-    "process"
+    "process",
+    "debugger",
+    "pauseTest",
+    "requireNode"
   ],
   "node": false,
   "browser": false,

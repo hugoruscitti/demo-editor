@@ -1,13 +1,11 @@
-<header class="toolbar toolbar-header">
+{{#x-header}}
 
-  <div class="toolbar-actions">
     <div class="btn-group">
       {{#link-to "index" tagName="button" class="btn btn-default"}} {{p-icon icon="home"}} {{/link-to}}
       {{#link-to "project" tagName="button" class="btn btn-default"}} {{p-icon icon="bag"}} {{/link-to}}
     </div>
-  </div>
 
-</header>
+{{/x-header}}
 
 
 
@@ -16,12 +14,14 @@
 
     <div class="padding">
 
-    <p>¡Hola, te damos a bienvenida a demo-editor!</p>
+    <p>¡Hola, te damos a bienvenida a pilas-editor!</p>
 
-    {{#link-to "project" tagName="button" class="btn btn-default"}}{{p-icon icon="bag"}} &nbsp; Proyectos{{/link-to}}
-    {{#link-to "index.about" tagName="button" class="btn btn-default"}}{{p-icon icon="star-empty"}} &nbsp; Acerca de ...{{/link-to}}
-    {{#link-to "index.setup" tagName="button" class="btn btn-default"}}{{p-icon icon="cog"}} &nbsp; Preferencias{{/link-to}}
-    {{#link-to "examples" tagName="button" class="btn btn-default"}}{{p-icon icon="box"}} &nbsp; Ejemplos{{/link-to}}
+
+    {{x-mainButton icon="add_folder" text="Proyectos" route="project"}}
+    {{x-mainButton icon="user_manual" text="Ver el manual" route="manual"}}
+    {{x-mainButton icon="info_squared" text="Acerca de ..." route="index.about"}}
+    {{x-mainButton icon="settings" text="Configuración" route="index.setup"}}
+    {{x-mainButton icon="filled_box" text="Ejemplos" route="examples"}}
 
     {{outlet}}
 

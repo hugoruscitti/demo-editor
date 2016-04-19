@@ -11,7 +11,9 @@
     "process",
     "$",
     "__dirname",
-    "CodeMirror"
+    "CodeMirror",
+    "debugger",
+    "requireNode"
   ],
   "browser": true,
   "boss": true,

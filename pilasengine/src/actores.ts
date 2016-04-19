@@ -16,7 +16,7 @@ class Actores {
    */
   actor(x: number= 0, y: number= 0) {
     return this.pilas.crear_entidad("sprite", {
-      imagen: "data:tortuga.png",
+      imagen: "data:sin_imagen.png",
       clase: 'actor'
     });
   }

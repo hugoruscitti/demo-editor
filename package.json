@@ -1,7 +1,7 @@
 {
-  "name": "demo-editor",
+  "name": "pilas-editor",
   "version": "0.0.0",
-  "description": "Small description for demo-editor goes here",
+  "description": "Small description for pilas-editor goes here",
   "private": true,
   "directories": {
     "doc": "doc",
@@ -33,6 +33,7 @@
     "ember-cli-deploy-revision-data": "0.1.1",
     "ember-cli-deploy-rsync": "0.0.4",
     "ember-cli-deploy-ssh-index": "0.2.0",
+    "ember-cli-fastclick": "1.1.0",
     "ember-cli-font-awesome": "1.3.0",
     "ember-cli-htmlbars": "^1.0.1",
     "ember-cli-htmlbars-inline-precompile": "^0.3.1",
@@ -47,6 +48,7 @@
     "ember-cli-tooled": "0.2.1",
     "ember-cli-uglify": "^1.2.0",
     "ember-component-inbound-actions": "1.0.1",
+    "ember-cordova": "0.1.2",
     "ember-data": "^2.2.1",
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-electron": "0.3.2",
@@ -56,6 +58,7 @@
     "ember-modal-dialog": "0.8.3",
     "ember-radio-button": "1.0.7",
     "ember-resolver": "^2.0.3",
+    "ember-sprite": "0.7.0",
     "grunt": "^0.4.5",
     "grunt-contrib-qunit": "^1.0.1",
     "grunt-contrib-watch": "^0.6.1",
@@ -65,7 +68,7 @@
   },
   "main": "electron.js",
   "ember-electron": {
-    "name": "demo-editor",
+    "name": "pilas-editor",
     "platform": null,
     "arch": null,
     "version": null,
@@ -93,5 +96,8 @@
       "ProductName": null,
       "InternalName": null
     }
+  },
+  "dependencies": {
+    "quick-temp": "^0.1.5"
   }
 }

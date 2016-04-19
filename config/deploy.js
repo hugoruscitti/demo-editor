@@ -1,4 +1,5 @@
 /* jshint node: true */
+var HOME_DIR = process.env["HOME"] + "/";
 
 module.exports = function(deployTarget) {
   var ENV = {
@@ -7,7 +8,7 @@ module.exports = function(deployTarget) {
       remoteDir: "/home/hugoruscitti/editor.pilas-engine.com.ar/",
       host: "162.243.50.192",
       username: "hugoruscitti",
-      privateKeyFile: "/Users/hugo/.ssh/id_rsa",
+      privateKeyFile: HOME_DIR + ".ssh/id_rsa",
       allowOverwrite: true
     },
     'revision-data': {

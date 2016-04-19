@@ -59,7 +59,6 @@ class Pilas {
     let alto = opciones.alto || 480;
     this.game = new Phaser.Game(ancho, alto, Phaser.CANVAS, id_elemento_html, options);
 
-
     //this.load_scripts();
     this.actores = new Actores(this);
     this.fondos = new Fondos(this);
@@ -161,10 +160,10 @@ class Pilas {
     this.game.stage.disableVisibilityChange = true;
     this.imagenes.precargar_imagenes_estandar();
     this.mostrar_cuadros_por_segundo(true);
+    this.game.input.enabled = false;
 
     if (this.opciones.escalar) {
       this.game.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
-      //this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
       this.game.scale.refresh();
 
       function gameResized(manager: Phaser.ScaleManager, bounds: Phaser.Rectangle) {

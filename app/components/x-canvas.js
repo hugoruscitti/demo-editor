@@ -4,6 +4,7 @@ import InboundActions from 'ember-component-inbound-actions/inbound-actions';
 export default Ember.Component.extend(InboundActions, {
   classNames: ['x-canvas'],
   innerWindow: null,
+  onLoad: null,
 
   didInsertElement() {
     Ember.run.scheduleOnce('afterRender', this, this.initElement);
@@ -14,6 +15,13 @@ export default Ember.Component.extend(InboundActions, {
 
     this.set("iframeElement", iframeElement);
     window.iframeElement = iframeElement;
+
+    this.get("iframeElement").onload = () => {
+      if (this.get('onLoad')) {
+        this.sendAction('onLoad', {iframeElement});
+      }
+    };
+
   },
 
   reloadIframe(onLoadFunction) {

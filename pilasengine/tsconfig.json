@@ -23,6 +23,8 @@
         "src/escenas/normal.ts",
         "src/estados.ts",
         "src/fondos.ts",
+        "src/habilidades/habilidad.ts",
+        "src/habilidades/seguirClicks.ts",
         "src/historial.ts",
         "src/imagenes.ts",
         "src/interpolaciones.ts",
