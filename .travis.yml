@@ -8,7 +8,8 @@ cache:
 before_install:
   - wget https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
   - sudo rm -rf /usr/local/phantomjs/bin/phantomjs
-  - sudo mv phantomjs-2.1.1 /usr/local/phantomjs/bin/phantomjs
+  - sudo mv phantomjs-2.1.1 phantomjs
+  - sudo mv phantomjs /usr/local/phantomjs/bin/
   - npm config set spin false
   - npm install -g npm@^2
   - sudo apt-get install -y imagemagick 
