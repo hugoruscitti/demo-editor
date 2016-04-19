@@ -24,5 +24,4 @@ deploy:
     secure: H8kYaUOiDKLe38gasz7LljyAiIC09H4HRdx2ThaS4In+HxkiWlNPsVHMJOaebufagrBWKgbW7sVSCPT2zlXEmpUOYZ2ZTmlL9qaZXqeuyThCIM3dUR0/P/cXM8Up7uCSPc7Lae+zuloHS/qfN5aOFITT3iI2X3ftJJf9DgqZ9lCFcAjf9ebY1JFoPy6DajJp1sWcJ53KOSNstTABLHuIP5z+aMli+5nxRMupRhVr2V5SV3XsYtbbTiXqyKre3fj9GCKzEZEa43AeMouVpxWDZLunb7HZkh1Yg/NUXabdi9f6PLBHiqFIClyElqFdn7ab8Zh28U6ogUzh2CzYJfwQjyamxry4ZzBVCzzUC4bVu1zG5LcnNL53ZBzYH1DpHEIRq1NR+Lxinh7pdD1+w1+A+UpJms8uR85qBE7hOnMEiMhIhbPN20gO4m4d/I8AlifY1HLr87rNmo4PwFgNGr2ken476lP+eJHwpckLBEft0jTsQM4My7kzYNWjl4qi5MS0JX20jtiyjje06Z9czOA/ZP1SR0/g2sJMPZir9bDRLs/bGc5JvAajbz81niE4WIZTW4yJFsI0YDhAb6IbmtZTSIXc82DrjeS/BhjpCr3jaP58bBr8MSnVmA7TSoVLhSpfHie8Vzf+ztAg/YX1jYqYyCu52UCaeo5XwnceV3vv8cE=
   file: pilasEditor-darwin-x64/pilasEditor.app.tar.gz
   on:
-    repo: pilas-engine/pilas-editor
-    branch: develop
+    tags: true
