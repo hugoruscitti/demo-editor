@@ -1,1 +1,1 @@
-var VERSION: string =  "0.0.22";
+var VERSION: string =  "0.0.23";
