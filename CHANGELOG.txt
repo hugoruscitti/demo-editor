@@ -1,3 +1,7 @@
+  * release 0.0.24
+  * arreglo menor.
+  * update
+  * actualizando changelog.
   * release 0.0.23
   * update
   * modificación menor.
