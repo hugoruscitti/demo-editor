@@ -550,6 +550,9 @@ var Interpolaciones = (function () {
 /// <reference path="historial.ts" />
 /// <reference path="actorProxy.ts" />
 /// <reference path="tipos.ts" />
+if (!window['Phaser']) {
+    window['Phaser'] = {};
+}
 var timer = 0;
 var __ha_mostrado_version = false;
 var Pilas = (function () {
@@ -827,7 +830,7 @@ var Utils = (function () {
     };
     return Utils;
 })();
-var VERSION = "0.0.18";
+var VERSION = "0.0.25";
 
 /**
  * Tween.js - Licensed under the MIT license

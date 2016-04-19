@@ -8,6 +8,11 @@
 /// <reference path="actorProxy.ts" />
 /// <reference path="tipos.ts" />
 
+
+if (!window['Phaser']) {
+  window['Phaser'] = {};
+}
+
 let timer = 0;
 let __ha_mostrado_version = false;
 
