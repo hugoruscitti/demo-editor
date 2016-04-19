@@ -6,17 +6,21 @@ cache:
   directories:
   - node_modules
 before_install:
-- export PATH=/usr/local/phantomjs-2.0.0/bin:$PATH
-- npm config set spin false
-- npm install -g npm@^2
-- sudo apt-get install -y imagemagick 
+  - wget https://s3.amazonaws.com/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2
+  - tar -xjf phantomjs-2.0.0-ubuntu-12.04.tar.bz2
+  - sudo rm -rf /usr/local/phantomjs/bin/phantomjs
+  - sudo mv phantomjs /usr/local/phantomjs/bin/phantomjs
+before_install:
+  - npm config set spin false
+  - npm install -g npm@^2
+  - sudo apt-get install -y imagemagick 
 install:
-- npm install -g bower
-- npm install
-- bower install
+  - npm install -g bower
+  - npm install
+  - bower install
 script:
-- npm test
-- make binarios
+  - npm test
+  - make binarios
 before_deploy: "Echo 'listo?'"
 deploy:
   skip_cleanup: true
