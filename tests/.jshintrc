@@ -30,7 +30,8 @@
     "process",
     "debugger",
     "pauseTest",
-    "requireNode"
+    "requireNode",
+    "Phaser"
   ],
   "node": false,
   "browser": false,
