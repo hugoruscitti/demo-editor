@@ -204,7 +204,7 @@ binarios:
 	$(call log, "Compilando ...")
 	@ember build
 	$(call log, "Generando binarios ...")
-	@electron-packager dist pilas-editor --platform=darwin --arch=x64 --version=0.37.6 --ignore=node_modules
+	@node_modules/.bin/electron-packager dist pilasEditor --platform=darwin --arch=x64 --version=0.37.6 --ignore=node_modules
 	@tar czf pilas-editor-darwin-x64/pilas-editor.app.tar.gz pilas-editor-darwin-x64/pilas-editor.app
 
 
