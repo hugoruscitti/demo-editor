@@ -1,5 +1,5 @@
 {
-  "name": "super-editor-reactivo",
+  "name": "pilas-engine",
   "version": "1.0.0",
   "description": "Un experimento que busca crear un motor de juegos con posibilidad de editar el código en tiempo real y revertir cambios.",
   "main": "index.js",

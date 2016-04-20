@@ -51,10 +51,6 @@ comandos:
 	@echo "    ${G}binarios${N}             Genera los binarios de la aplicación"
 	@echo ""
 
-_crear_enlaces:
-	$(call log, "Creando enlaces a vendor y data.")
-	@cd pilasengine/ejemplos; rm -rf libs data; ln -s ../../public/libs; ln -s ../../public/data
-
 iniciar:
 	$(call task, "Iniciando el proyecto.")
 	$(call log, "Instalando dependencias.")
@@ -63,7 +59,6 @@ iniciar:
 	$(call log, "Instalando dependencias de pilas-engine")
 	@cd pilasengine; npm install
 	@make _instalar_phaser
-	@make _crear_enlaces
 
 
 compilar:
@@ -81,8 +76,7 @@ serve:
 _instalar_phaser:
 	$(call log, "Descargando phaser.js ...")
 	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/${PHASER_VERSION}/build/phaser.js
-	@cp phaser.js pilasengine/libs/
-	@mv phaser.js public/libs/
+	@mv phaser.js pilasengine/libs/
 	$(call log, "Descargando Tween.js ...")
 	@wget -q https://raw.githubusercontent.com/tweenjs/tween.js/6cb21f23975d0230499a11e567d6c954815dd7f2/src/Tween.js
 	@mv Tween.js pilasengine/libs/
