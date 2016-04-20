@@ -48,7 +48,6 @@ comandos:
 	@echo "    ${G}version_patch${N}        Genera una nueva versión."
 	@echo "    ${G}version_minor${N}        Genera una nueva versión."
 	@echo "    ${G}subir_version${N}        Sube version generada al servidor."
-	@echo "    ${G}deploy${N}               Sube la web editor.pilas-engine.com.ar"
 	@echo "    ${G}binarios${N}             Genera los binarios de la aplicación"
 	@echo ""
 
@@ -147,7 +146,7 @@ pilas_live:
 generar_ejemplo:
 	@node pilasengine/utils/generar_ejemplo.js
 
-deploy:
+deploy_DEPRECATED:
 	$(call log, "Subiendo a la web...")
 	@ember deploy development --activate=true
 	@echo ""
