@@ -81,6 +81,7 @@ serve:
 _instalar_phaser:
 	$(call log, "Descargando phaser.js ...")
 	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/${PHASER_VERSION}/build/phaser.js
+	@cp phaser.js pilasengine/libs/
 	@mv phaser.js public/libs/
 	$(call log, "Descargando Tween.js ...")
 	@wget -q https://raw.githubusercontent.com/tweenjs/tween.js/6cb21f23975d0230499a11e567d6c954815dd7f2/src/Tween.js
