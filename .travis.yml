@@ -22,8 +22,9 @@ install:
   - npm install
   - bower install
 script:
-  - npm test
+  - ls
   - make binarios
+#  - npm test
 before_deploy: "Echo 'listo?'"
 deploy:
   skip_cleanup: true
