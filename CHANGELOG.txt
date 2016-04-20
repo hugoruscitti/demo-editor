@@ -1,3 +1,19 @@
+  * release 0.0.26
+  * update
+  * update
+  * Merge branch 'master' into develop
+  * update
+  * Merge pull request #17 from pilas-engine/master
+  * update
+  * cambiando el nombre del binario de phantom
+  * Probando phantom 2.1
+  * update
+  * update
+  * release 0.0.25
+  * Merge
+  * release 0.0.23
+  * Merge branch 'develop'
+  * actualizando changelog.
   * release 0.0.24
   * arreglo menor.
   * update
@@ -105,6 +121,7 @@
   * Modificando la ruta a la clave publica de ssh
   * Aumentando el tamaño del area de juego en los ejemplos.
   * Comenzando a integrar ejemplos closes #3
+  * Merge pull request #4 from hugoruscitti/develop
   * Creando rutas para visualizar ejemplos closes #1
   * Merge branch 'master' into develop
   * closes #2
