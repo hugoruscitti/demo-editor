@@ -568,11 +568,20 @@ var Pilas = (function () {
         }
         this.codigos = {};
         this.opciones = opciones;
+        var self = this;
         var options = {
-            preload: this.preload.bind(this),
-            create: this.create.bind(this),
-            update: this.actualizar.bind(this),
-            render: this.render.bind(this)
+            preload: function () {
+                self.preload();
+            },
+            create: function () {
+                self.create();
+            },
+            update: function () {
+                self.actualizar();
+            },
+            render: function () {
+                self.render();
+            }
         };
         var ancho = opciones.ancho || 640;
         var alto = opciones.alto || 480;
@@ -830,7 +839,7 @@ var Utils = (function () {
     };
     return Utils;
 })();
-var VERSION = "0.0.25";
+var VERSION = "0.0.27";
 
 /**
  * Tween.js - Licensed under the MIT license
