@@ -27,6 +27,7 @@ comandos:
 	@echo "    ${G}electron${N}             Compila y ejecuta electron (modo live)."
 	@echo "    ${G}serve${N}                Ejecuta la aplicación en modo desarrollo."
 	@echo "    ${G}test${N}                 Ejecuta los tests de la aplicación."
+	@echo "    ${G}sprites${N}              Genera las imágenes de la aplicación."
 	@echo ""
 	@echo "  ${Y}Relacionados con pilas ${N}"
 	@echo ""
@@ -203,4 +204,9 @@ binarios:
 	@tar czf pilasEditor-darwin-x64/pilasEditor.app.tar.gz pilasEditor-darwin-x64/pilasEditor.app
 
 
+sprites:
+	$(call log, "Generando Spritesheets ...")
+	@spritesheet-js images/sprites/* -p public/images -f css --padding=2
+
 .PHONY: tmp docs
+

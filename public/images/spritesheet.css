@@ -1,0 +1,42 @@
+.ejemplo_escena_normal {
+    width: 180px;
+    height: 120px;
+    background: url("spritesheet.png") -2px -2px;
+}
+
+.ejemplo_disparo {
+    width: 180px;
+    height: 119px;
+    background: url("spritesheet.png") -186px -2px;
+}
+
+.add_folder {
+    width: 25px;
+    height: 25px;
+    background: url("spritesheet.png") -2px -126px;
+}
+
+.filled_box {
+    width: 25px;
+    height: 25px;
+    background: url("spritesheet.png") -31px -126px;
+}
+
+.info_squared {
+    width: 25px;
+    height: 25px;
+    background: url("spritesheet.png") -60px -126px;
+}
+
+.settings {
+    width: 25px;
+    height: 25px;
+    background: url("spritesheet.png") -89px -126px;
+}
+
+.user_manual {
+    width: 25px;
+    height: 25px;
+    background: url("spritesheet.png") -118px -126px;
+}
+
