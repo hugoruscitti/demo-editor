@@ -1,3 +1,6 @@
+  * release 0.0.29
+  * Agregando listado de binarios para subir a github releases.
+  * actualizando changelog.
   * release 0.0.28
   * Mejorando scripts para generar binarios.
   * Agregando el logotipo de pilas a la pantalla inicial.
