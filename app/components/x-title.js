@@ -12,6 +12,7 @@ export default Ember.Component.extend({
                       type: "input",
                       inputPlaceholder: this.get("title"),
                       cancelButtonText: "Cancelar",
+                      animation: false,
                       showCancelButton: true};
 
       this.get("sweetalert").prompt(options).then((data) => {
