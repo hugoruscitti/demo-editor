@@ -1,5 +1,6 @@
 VERSION=0.0.27
 NOMBRE="pilas-editor"
+NOMBREBIN="pilasEditor"
 
 N=[0m
 G=[01;32m
@@ -198,14 +199,19 @@ binarios:
 	$(call task, "Comenzando a generar binarios.")
 	$(call log, "Compilando ...")
 	@ember build
+	@rm -rf binarios
 	$(call log, "Generando binarios ...")
-	@node_modules/.bin/electron-packager dist pilasEditor --platform=darwin --arch=x64 --version=0.37.6 --ignore=node_modules
-	@tar czf pilasEditor-darwin-x64/pilasEditor.app.tar.gz pilasEditor-darwin-x64/pilasEditor.app
-
-
+	@node_modules/.bin/electron-packager dist ${NOMBREBIN} --platform=all --arch=all --version=0.37.6 --ignore=node_modules --out=binarios
+	$(call log, "Comprimiendo ...")
+	@zip -r binarios/${NOMBREBIN}-darwin-x64.zip binarios/${NOMBREBIN}-darwin-x64/
+	@zip -r binarios/${NOMBREBIN}-linux-ia32.zip binarios/${NOMBREBIN}-linux-ia32/
+	@zip -r binarios/${NOMBREBIN}-linux-x64.zip binarios/${NOMBREBIN}-linux-x64/
+	@zip -r binarios/${NOMBREBIN}-win32-ia32.zip binarios/${NOMBREBIN}-win32-ia32/
+	@zip -r binarios/${NOMBREBIN}-win32-x64.zip binarios/${NOMBREBIN}-win32-x64/
+	
 sprites:
 	$(call log, "Generando Spritesheets ...")
 	@spritesheet-js images/sprites/* -p public/images -f css --padding=2
 
-.PHONY: tmp docs
+.PHONY: tmp docs binarios
 
