@@ -108,15 +108,13 @@ _help_version:
 ver_sync: subir_version
 
 subir_version:
+	make changelog
+	@git add CHANGELOG.txt
 	git commit -am 'release ${VERSION}'
 	git tag '${VERSION}'
 	git push
 	git push --all
 	git push --tags
-	make changelog
-	@git add CHANGELOG.txt
-	@git commit -m "actualizando changelog."
-	@git push
 
 electron:
 	ember build
