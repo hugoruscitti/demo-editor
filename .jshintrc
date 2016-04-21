@@ -13,7 +13,8 @@
     "__dirname",
     "CodeMirror",
     "debugger",
-    "requireNode"
+    "requireNode",
+    "swal"
   ],
   "browser": true,
   "boss": true,

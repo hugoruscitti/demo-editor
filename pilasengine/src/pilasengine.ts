@@ -8,6 +8,11 @@
 /// <reference path="actorProxy.ts" />
 /// <reference path="tipos.ts" />
 
+
+if (!window['Phaser']) {
+  window['Phaser'] = {};
+}
+
 let timer = 0;
 let __ha_mostrado_version = false;
 
@@ -38,8 +43,6 @@ class Pilas {
 
     this.utils = new Utils(this);
 
-
-
     if (!__ha_mostrado_version) {
       console.log(`%cpilasengine.js v${VERSION} | http://www.pilas-engine.com.ar`, "color: blue");
       __ha_mostrado_version = true;
@@ -48,11 +51,21 @@ class Pilas {
     this.codigos = {};
     this.opciones = opciones;
 
+    let self = this;
+
     let options = {
-      preload: this.preload.bind(this),
-      create: this.create.bind(this),
-      update: this.actualizar.bind(this),
-      render: this.render.bind(this)
+      preload: function() {
+        self.preload();
+      },
+      create: function() {
+        self.create();
+      },
+      update: function() {
+        self.actualizar();
+      },
+      render: function() {
+        self.render();
+      }
     };
 
     let ancho = opciones.ancho || 640;

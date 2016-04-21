@@ -1,0 +1,48 @@
+.ejemplo_escena_normal {
+    width: 180px;
+    height: 120px;
+    background: url("spritesheet.png") -2px -2px;
+}
+
+.ejemplo_disparo {
+    width: 180px;
+    height: 119px;
+    background: url("spritesheet.png") -186px -2px;
+}
+
+.pilas_logo_128 {
+    width: 128px;
+    height: 128px;
+    background: url("spritesheet.png") -2px -126px;
+}
+
+.add_folder {
+    width: 25px;
+    height: 25px;
+    background: url("spritesheet.png") -134px -126px;
+}
+
+.filled_box {
+    width: 25px;
+    height: 25px;
+    background: url("spritesheet.png") -163px -126px;
+}
+
+.info_squared {
+    width: 25px;
+    height: 25px;
+    background: url("spritesheet.png") -192px -126px;
+}
+
+.settings {
+    width: 25px;
+    height: 25px;
+    background: url("spritesheet.png") -221px -126px;
+}
+
+.user_manual {
+    width: 25px;
+    height: 25px;
+    background: url("spritesheet.png") -250px -126px;
+}
+

@@ -22,8 +22,10 @@ app.on('ready', function onReady() {
     height: 600,
     minWidth: 800,
     minHeight: 600,
-    //titleBarStyle: 'hidden' 
+    //titleBarStyle: 'hidden'
   });
+
+  //mainWindow.openDevTools();
 
   delete mainWindow.module;
 
@@ -33,9 +35,11 @@ app.on('ready', function onReady() {
     mainWindow = null;
   });
 
-
-  fs.watchFile('dist/index.html', function() {
-    mainWindow.reload();
-  });
+  /* Detecta cambios y reinicia automáticamente en modo desarrollo */
+  if (fs.existsSync(__dirname)) {
+    fs.watch(__dirname, {recursive: true}, function() {
+      mainWindow.reload();
+    });
+  }
 
 });

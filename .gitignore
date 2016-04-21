@@ -22,6 +22,7 @@ pilasengine/ejemplos/data
 pilasengine/ejemplos/libs
 public/libs/phaser.js
 pilasengine/libs/Tween.js
+pilasengine/libs/phaser.js
 
 /ember-cordova/cordova/platforms/
 /ember-cordova/cordova/plugins/
@@ -30,3 +31,4 @@ pilasengine/libs/Tween.js
 /ember-cordova/cordova/www/
 pilas-editor-darwin-x64
 pilasEditor-darwin-x64
+binarios

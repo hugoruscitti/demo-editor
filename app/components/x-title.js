@@ -1,14 +1,22 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  sweetalert: Ember.inject.service(),
+
   tagName: "",
   actions: {
     change() {
-      var newTitle = prompt("Ingrese un nuevo título", this.get('title'));
+      let options = {
+                      title: "Título",
+                      text: "Ingresá un título nuevo:",
+                      type: "input",
+                      inputPlaceholder: this.get("title"),
+                      cancelButtonText: "Cancelar",
+                      showCancelButton: true};
 
-      if (newTitle) {
-        this.set("title", newTitle);
-      }
+      this.get("sweetalert").prompt(options).then((data) => {
+        this.set("title", data);
+      });
     }
   }
 });

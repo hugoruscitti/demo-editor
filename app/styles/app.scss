@@ -6,6 +6,8 @@
 @import "layout";
 @import "x-example-preview";
 
+@import "../images/spritesheet.css";
+
 $marginTop: 32px;
 
 
@@ -456,4 +458,9 @@ label.ember-radio-button {
 .CodeMirror-vscrollbar {
   overflow-x: hidden !important;
   overflow-y: hidden !important;
+}
+
+
+div#jsconsole-container {
+  overflow: hidden;
 }

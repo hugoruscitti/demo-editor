@@ -1,5 +1,6 @@
-VERSION=0.0.25
+VERSION=0.0.30
 NOMBRE="pilas-editor"
+NOMBREBIN="pilasEditor"
 
 N=[0m
 G=[01;32m
@@ -27,6 +28,7 @@ comandos:
 	@echo "    ${G}electron${N}             Compila y ejecuta electron (modo live)."
 	@echo "    ${G}serve${N}                Ejecuta la aplicación en modo desarrollo."
 	@echo "    ${G}test${N}                 Ejecuta los tests de la aplicación."
+	@echo "    ${G}sprites${N}              Genera las imágenes de la aplicación."
 	@echo ""
 	@echo "  ${Y}Relacionados con pilas ${N}"
 	@echo ""
@@ -34,7 +36,6 @@ comandos:
 	@echo "    ${G}pilas_live${N}           Genera pilasengine.js, ejemplos y tests."
 	@echo "    ${G}api${N}                  Genera la documentación de API para pilas."
 	@echo "    ${G}docs${N}                 Genera el manual de pilas."
-	@echo "    ${G}generar_ejemplo${N}      Permite crear un ejemplo nuevo."
 	@echo "    ${G}actualizar_imagenes${N}  Genera los spritesheets"
 	@echo ""
 	@echo "  ${Y}Para distribuir${N}"
@@ -47,13 +48,9 @@ comandos:
 	@echo "    ${G}version_patch${N}        Genera una nueva versión."
 	@echo "    ${G}version_minor${N}        Genera una nueva versión."
 	@echo "    ${G}subir_version${N}        Sube version generada al servidor."
-	@echo "    ${G}deploy${N}               Sube la web editor.pilas-engine.com.ar"
 	@echo "    ${G}binarios${N}             Genera los binarios de la aplicación"
+	@echo "    ${G}binario_osx_test${N}     Genera un binario para osx de prueba."
 	@echo ""
-
-_crear_enlaces:
-	$(call log, "Creando enlaces a vendor y data.")
-	@cd pilasengine/ejemplos; rm -rf libs data; ln -s ../../public/libs; ln -s ../../public/data
 
 iniciar:
 	$(call task, "Iniciando el proyecto.")
@@ -63,7 +60,6 @@ iniciar:
 	$(call log, "Instalando dependencias de pilas-engine")
 	@cd pilasengine; npm install
 	@make _instalar_phaser
-	@make _crear_enlaces
 
 
 compilar:
@@ -81,7 +77,7 @@ serve:
 _instalar_phaser:
 	$(call log, "Descargando phaser.js ...")
 	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/${PHASER_VERSION}/build/phaser.js
-	@mv phaser.js public/libs/
+	@mv phaser.js pilasengine/libs/
 	$(call log, "Descargando Tween.js ...")
 	@wget -q https://raw.githubusercontent.com/tweenjs/tween.js/6cb21f23975d0230499a11e567d6c954815dd7f2/src/Tween.js
 	@mv Tween.js pilasengine/libs/
@@ -111,15 +107,13 @@ _help_version:
 ver_sync: subir_version
 
 subir_version:
+	make changelog
+	@git add CHANGELOG.txt
 	git commit -am 'release ${VERSION}'
 	git tag '${VERSION}'
 	git push
 	git push --all
 	git push --tags
-	make changelog
-	@git add CHANGELOG.txt
-	@git commit -m "actualizando changelog."
-	@git push
 
 electron:
 	ember build
@@ -148,10 +142,7 @@ pilas_live:
 	$(call log, "Compilando ejemplos de pilas-engine en modo live")
 	@grunt --gruntfile pilasengine/Gruntfile.js compilar-con-ejemplos-livereload --base pilasengine
 
-generar_ejemplo:
-	@node pilasengine/utils/generar_ejemplo.js
-
-deploy:
+deploy_DEPRECATED:
 	$(call log, "Subiendo a la web...")
 	@ember deploy development --activate=true
 	@echo ""
@@ -203,9 +194,27 @@ binarios:
 	$(call task, "Comenzando a generar binarios.")
 	$(call log, "Compilando ...")
 	@ember build
+	@rm -rf binarios
 	$(call log, "Generando binarios ...")
-	@node_modules/.bin/electron-packager dist pilasEditor --platform=darwin --arch=x64 --version=0.37.6 --ignore=node_modules
-	@tar czf pilasEditor-darwin-x64/pilasEditor.app.tar.gz pilasEditor-darwin-x64/pilasEditor.app
+	@node_modules/.bin/electron-packager dist ${NOMBREBIN} --platform=all --arch=all --version=0.37.6 --ignore=node_modules --out=binarios
+	$(call log, "Comprimiendo ...")
+	@zip -qr binarios/${NOMBREBIN}-darwin-x64.zip binarios/${NOMBREBIN}-darwin-x64/
+	@zip -qr binarios/${NOMBREBIN}-linux-ia32.zip binarios/${NOMBREBIN}-linux-ia32/
+	@zip -qr binarios/${NOMBREBIN}-linux-x64.zip binarios/${NOMBREBIN}-linux-x64/
+	@zip -qr binarios/${NOMBREBIN}-win32-ia32.zip binarios/${NOMBREBIN}-win32-ia32/
+	@zip -qr binarios/${NOMBREBIN}-win32-x64.zip binarios/${NOMBREBIN}-win32-x64/
 
+binario_osx_test:
+	$(call log, "Compilando...")
+	ember build
+	$(call log, "Empaquetando...")
+	@node_modules/.bin/electron-packager dist ${NOMBREBIN} --platform=darwin --arch=x64 --version=0.37.6 --ignore=node_modules --out=binarios --overwrite
+	$(call log, "Ejecutando...")
+	@open binarios/pilasEditor-darwin-x64/pilasEditor.app
+	
+sprites:
+	$(call log, "Generando Spritesheets ...")
+	@spritesheet-js images/sprites/* -p public/images -f css --padding=2
 
-.PHONY: tmp docs
+.PHONY: tmp docs binarios
+
