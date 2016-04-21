@@ -31,7 +31,8 @@
     "debugger",
     "pauseTest",
     "requireNode",
-    "Phaser"
+    "Phaser",
+    "swal"
   ],
   "node": false,
   "browser": false,
