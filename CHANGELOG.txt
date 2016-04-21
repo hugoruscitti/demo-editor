@@ -1,3 +1,23 @@
+  * release 0.0.28
+  * Mejorando scripts para generar binarios.
+  * Agregando el logotipo de pilas a la pantalla inicial.
+  * Agregando CNAME
+  * Comenzando a implementar deploy a gitpages automático.
+  * Eliminando imagenes sin utilizar.
+  * Cambiando la generación de spritesheets.
+  * Arreglos menores en los comandos make
+  * Empaquetando phaser y pilas juntos.
+  * update
+  * update
+  * update
+  * update
+  * update
+  * Evitando el uso de bind para llamar funciones.
+  * Volviendo a habilitar los tests de travis.
+  * Comentando algunos tests.
+  * Quitando ember-sprite y ajustando la version de node para travis.
+  * Prueba
+  * actualizando changelog.
   * release 0.0.27
   * update
   * actualizando changelog.
