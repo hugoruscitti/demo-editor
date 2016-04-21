@@ -50,6 +50,7 @@ comandos:
 	@echo "    ${G}version_minor${N}        Genera una nueva versión."
 	@echo "    ${G}subir_version${N}        Sube version generada al servidor."
 	@echo "    ${G}binarios${N}             Genera los binarios de la aplicación"
+	@echo "    ${G}binario_osx_test${N}     Genera un binario para osx de prueba."
 	@echo ""
 
 iniciar:
@@ -208,6 +209,14 @@ binarios:
 	@zip -qr binarios/${NOMBREBIN}-linux-x64.zip binarios/${NOMBREBIN}-linux-x64/
 	@zip -qr binarios/${NOMBREBIN}-win32-ia32.zip binarios/${NOMBREBIN}-win32-ia32/
 	@zip -qr binarios/${NOMBREBIN}-win32-x64.zip binarios/${NOMBREBIN}-win32-x64/
+
+binario_osx_test:
+	$(call log, "Compilando...")
+	ember build
+	$(call log, "Empaquetando...")
+	@node_modules/.bin/electron-packager dist ${NOMBREBIN} --platform=darwin --arch=x64 --version=0.37.6 --ignore=node_modules --out=binarios --overwrite
+	$(call log, "Ejecutando...")
+	@open binarios/pilasEditor-darwin-x64/pilasEditor.app
 	
 sprites:
 	$(call log, "Generando Spritesheets ...")
