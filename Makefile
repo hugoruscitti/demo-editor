@@ -203,11 +203,11 @@ binarios:
 	$(call log, "Generando binarios ...")
 	@node_modules/.bin/electron-packager dist ${NOMBREBIN} --platform=all --arch=all --version=0.37.6 --ignore=node_modules --out=binarios
 	$(call log, "Comprimiendo ...")
-	@zip -r binarios/${NOMBREBIN}-darwin-x64.zip binarios/${NOMBREBIN}-darwin-x64/
-	@zip -r binarios/${NOMBREBIN}-linux-ia32.zip binarios/${NOMBREBIN}-linux-ia32/
-	@zip -r binarios/${NOMBREBIN}-linux-x64.zip binarios/${NOMBREBIN}-linux-x64/
-	@zip -r binarios/${NOMBREBIN}-win32-ia32.zip binarios/${NOMBREBIN}-win32-ia32/
-	@zip -r binarios/${NOMBREBIN}-win32-x64.zip binarios/${NOMBREBIN}-win32-x64/
+	@zip -qr binarios/${NOMBREBIN}-darwin-x64.zip binarios/${NOMBREBIN}-darwin-x64/
+	@zip -qr binarios/${NOMBREBIN}-linux-ia32.zip binarios/${NOMBREBIN}-linux-ia32/
+	@zip -qr binarios/${NOMBREBIN}-linux-x64.zip binarios/${NOMBREBIN}-linux-x64/
+	@zip -qr binarios/${NOMBREBIN}-win32-ia32.zip binarios/${NOMBREBIN}-win32-ia32/
+	@zip -qr binarios/${NOMBREBIN}-win32-x64.zip binarios/${NOMBREBIN}-win32-x64/
 	
 sprites:
 	$(call log, "Generando Spritesheets ...")
