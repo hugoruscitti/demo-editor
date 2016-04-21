@@ -36,7 +36,6 @@ comandos:
 	@echo "    ${G}pilas_live${N}           Genera pilasengine.js, ejemplos y tests."
 	@echo "    ${G}api${N}                  Genera la documentación de API para pilas."
 	@echo "    ${G}docs${N}                 Genera el manual de pilas."
-	@echo "    ${G}generar_ejemplo${N}      Permite crear un ejemplo nuevo."
 	@echo "    ${G}actualizar_imagenes${N}  Genera los spritesheets"
 	@echo ""
 	@echo "  ${Y}Para distribuir${N}"
@@ -142,9 +141,6 @@ pilas: pilasengine/node_modules
 pilas_live:
 	$(call log, "Compilando ejemplos de pilas-engine en modo live")
 	@grunt --gruntfile pilasengine/Gruntfile.js compilar-con-ejemplos-livereload --base pilasengine
-
-generar_ejemplo:
-	@node pilasengine/utils/generar_ejemplo.js
 
 deploy_DEPRECATED:
 	$(call log, "Subiendo a la web...")
