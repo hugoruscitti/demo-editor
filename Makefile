@@ -6,7 +6,7 @@ N=[0m
 G=[01;32m
 Y=[01;33m
 B=[01;34m
-PHASER_VERSION="v2.4.6"
+PHASER_VERSION="v2.4.7"
 
 define log
 	@echo "${G}▷$(1) ${N}"
