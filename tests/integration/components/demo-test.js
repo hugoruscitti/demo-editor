@@ -5,6 +5,16 @@ moduleForComponent('demo', 'Integration | Component | demo', {
   integration: true
 });
 
+test('puede crear un actor personalizado', function(assert) {
+  return createPilasTest(this, (pilas, resolve) => {
+
+    let a = pilas.actores.vincular();
+    let b = pilas.actores.vincular("cadena");
+
+    resolve({});
+  })
+
+});
 
 test('puede crear un actor', function(assert) {
 
