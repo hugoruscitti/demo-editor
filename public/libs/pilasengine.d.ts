@@ -71,8 +71,17 @@ declare class Escenas {
     constructor(pilas: Pilas);
     normal(): void;
     actualizar(): void;
+    /**
+     * Detiene la actualización lógica del motor.
+     */
     pausar(): void;
+    /**
+     * Reanuda la actualización lógica del motor.
+     */
     continuar(): void;
+    /**
+     * Permite permutar el estado de pausa y ejecución.
+     */
     alternar_pausa(): void;
 }
 /**
@@ -80,9 +89,6 @@ declare class Escenas {
  */
 declare class Escena {
     pilas: Pilas;
-    estados: Estados;
-    historial_estados: Historial;
-    sprites: SpriteCache[];
     interpolaciones: Interpolaciones;
     actores: any[];
     constructor(pilas: Pilas);
@@ -105,20 +111,14 @@ declare class EscenaNormal extends Escena {
     pilas: Pilas;
     iniciar(): void;
 }
-declare class Estados {
-    pilas: Pilas;
-    data: Estado;
-    cache: any;
-    private obtener_sprite_tiled(id, imagen);
-}
-declare class Fondos extends Actores {
-    _vincular_métodos_de_creación(): void;
-}
 declare class ActorFondo extends Actor {
     protected _crear_sprite_interno(galeria: string, imagen: string): void;
 }
 declare class Plano extends ActorFondo {
     iniciar(): void;
+}
+declare class Fondos extends Actores {
+    _vincular_métodos_de_creación(): void;
 }
 declare class Habilidad {
     pilas: Pilas;
@@ -127,16 +127,6 @@ declare class Habilidad {
 }
 declare class SeguirClicks extends Habilidad {
     actualizar(): void;
-}
-declare class Historial {
-    pilas: Pilas;
-    game_state_history: Estado[];
-    current_step: number;
-    constructor(pilas: Pilas);
-    reset(): void;
-    get_length(): number;
-    save(state: Estado): void;
-    get_state_by_step(step: number): Estado;
 }
 declare class Imagenes {
     pilas: Pilas;
@@ -153,13 +143,6 @@ declare class Interpolaciones {
     actualizar(): void;
     reiniciar(): void;
     crear_interpolacion(actor: ActorProxy, propiedad: string, valor: any, duracion?: number, tipo?: string, infinito?: boolean): void;
-}
-interface Estado {
-    entidades: any[];
-}
-interface SpriteCache {
-    id: string;
-    sprite: Phaser.Sprite;
 }
 interface OpcionesIniciar {
     data_path: string;
@@ -193,8 +176,6 @@ declare class Pilas {
     _cuando_inicia_callback: any;
     codigos: any;
     id_elemento_html: string;
-    Actor: Actor;
-    actor: Actor;
     constructor(id_elemento_html: string, opciones: OpcionesIniciar);
     /**
      * Retorna una refencia a la escena en curso.

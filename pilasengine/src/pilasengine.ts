@@ -2,8 +2,8 @@
 /// <reference path="../libs/p2.d.ts"/>
 /// <reference path="../libs/phaser.d.ts"/>
 /// <reference path="actores.ts" />
+/// <reference path="actores/actor.ts" />
 /// <reference path="fondos.ts" />
-/// <reference path="historial.ts" />
 /// <reference path="tipos.ts" />
 
 
@@ -32,8 +32,6 @@ class Pilas {
   codigos: any;
   id_elemento_html: string;
 
-  Actor: Actor;
-  actor: Actor;
 
   constructor(id_elemento_html: string, opciones: OpcionesIniciar) {
 

@@ -98583,18 +98583,27 @@ var Escenas = (function () {
             this.mouse.y = this.pilas.game.input.y;
         }
     };
+    /**
+     * Detiene la actualización lógica del motor.
+     */
     Escenas.prototype.pausar = function () {
         if (this.pausa_habilitada) {
             console.warn("El modo pausa ya estába habilitado.");
         }
         this.pausa_habilitada = true;
     };
+    /**
+     * Reanuda la actualización lógica del motor.
+     */
     Escenas.prototype.continuar = function () {
         if (!this.pausa_habilitada) {
             console.warn("El modo pausa no estába habilitado.");
         }
         this.pausa_habilitada = false;
     };
+    /**
+     * Permite permutar el estado de pausa y ejecución.
+     */
     Escenas.prototype.alternar_pausa = function () {
         if (this.pausa_habilitada) {
             this.continuar();
@@ -98610,11 +98619,8 @@ var Escenas = (function () {
  */
 var Escena = (function () {
     function Escena(pilas) {
-        this.sprites = [];
         this.actores = [];
         this.pilas = pilas;
-        //this.historial_estados = new Historial(this.pilas);
-        //this.estados = new Estados(this.pilas);
         this.interpolaciones = new Interpolaciones(this.pilas);
     }
     /** TMP */
@@ -98640,7 +98646,6 @@ var Escena = (function () {
      * Se invoca seis veces por segundo para mantener en funcionamiento el juego.
      */
     Escena.prototype.actualizar = function () {
-        //this.estados.actualizar();
         this._actualizar_actores();
         this.interpolaciones.actualizar();
     };
@@ -98657,38 +98662,6 @@ var EscenaNormal = (function (_super) {
     };
     return EscenaNormal;
 })(Escena);
-var Estados = (function () {
-    function Estados() {
-    }
-    Estados.prototype.obtener_sprite_tiled = function (id, imagen) {
-        if (this.cache[id]) {
-            return this.cache[id];
-        }
-        else {
-            if (imagen.indexOf(":") > 0) {
-                var items = imagen.split(":");
-                var galeria = items[0];
-                var imagen = items[1];
-                this.cache[id] = this.pilas.game.add.tileSprite(0, 0, this.pilas.opciones.ancho, this.pilas.opciones.alto, galeria, imagen);
-            }
-            else {
-                this.cache[id] = this.pilas.game.add.tileSprite(0, 0, this.pilas.opciones.ancho, this.pilas.opciones.alto, imagen);
-            }
-            return this.cache[id];
-        }
-    };
-    return Estados;
-})();
-var Fondos = (function (_super) {
-    __extends(Fondos, _super);
-    function Fondos() {
-        _super.apply(this, arguments);
-    }
-    Fondos.prototype._vincular_métodos_de_creación = function () {
-        this.vincular(Plano);
-    };
-    return Fondos;
-})(Actores);
 var ActorFondo = (function (_super) {
     __extends(ActorFondo, _super);
     function ActorFondo() {
@@ -98707,6 +98680,7 @@ var ActorFondo = (function (_super) {
     };
     return ActorFondo;
 })(Actor);
+/// <reference path="fondo.ts" />
 var Plano = (function (_super) {
     __extends(Plano, _super);
     function Plano() {
@@ -98717,6 +98691,17 @@ var Plano = (function (_super) {
     };
     return Plano;
 })(ActorFondo);
+/// <reference path="fondos/plano.ts" />
+var Fondos = (function (_super) {
+    __extends(Fondos, _super);
+    function Fondos() {
+        _super.apply(this, arguments);
+    }
+    Fondos.prototype._vincular_métodos_de_creación = function () {
+        this.vincular(Plano);
+    };
+    return Fondos;
+})(Actores);
 var Habilidad = (function () {
     function Habilidad(pilas) {
         this.pilas = pilas;
@@ -98735,32 +98720,6 @@ var SeguirClicks = (function (_super) {
     };
     return SeguirClicks;
 })(Habilidad);
-var Historial = (function () {
-    function Historial(pilas) {
-        this.pilas = pilas;
-        this.game_state_history = [];
-        this.current_step = 0;
-    }
-    Historial.prototype.reset = function () {
-        this.game_state_history = [];
-        this.current_step = 0;
-    };
-    Historial.prototype.get_length = function () {
-        return this.game_state_history.length;
-    };
-    Historial.prototype.save = function (state) {
-        this.game_state_history.push(JSON.parse(JSON.stringify(state)));
-        this.current_step = this.game_state_history.length;
-    };
-    Historial.prototype.get_state_by_step = function (step) {
-        var total = this.get_length();
-        if (step < 0 || step >= total) {
-            throw new Error("No se puede recuperar el historial en el paso " + step);
-        }
-        return this.game_state_history[step];
-    };
-    return Historial;
-})();
 var Imagenes = (function () {
     function Imagenes(pilas) {
         this.pilas = pilas;
@@ -98855,8 +98814,8 @@ var Interpolaciones = (function () {
 /// <reference path="../libs/p2.d.ts"/>
 /// <reference path="../libs/phaser.d.ts"/>
 /// <reference path="actores.ts" />
+/// <reference path="actores/actor.ts" />
 /// <reference path="fondos.ts" />
-/// <reference path="historial.ts" />
 /// <reference path="tipos.ts" />
 if (!window['Phaser']) {
     window['Phaser'] = {};

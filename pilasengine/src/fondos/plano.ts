@@ -1,3 +1,5 @@
+/// <reference path="fondo.ts" />
+
 class Plano extends ActorFondo {
 
   iniciar() {

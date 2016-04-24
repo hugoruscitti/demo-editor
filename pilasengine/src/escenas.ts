@@ -25,6 +25,9 @@ class Escenas {
 
   }
 
+  /**
+   * Detiene la actualización lógica del motor.
+   */
   pausar() {
     if (this.pausa_habilitada) {
       console.warn("El modo pausa ya estába habilitado.");
@@ -33,6 +36,9 @@ class Escenas {
     this.pausa_habilitada = true;
   }
 
+  /**
+   * Reanuda la actualización lógica del motor.
+   */
   continuar() {
     if (!this.pausa_habilitada) {
       console.warn("El modo pausa no estába habilitado.");
@@ -40,7 +46,10 @@ class Escenas {
 
     this.pausa_habilitada = false;
   }
-
+  
+  /**
+   * Permite permutar el estado de pausa y ejecución.
+   */
   alternar_pausa() {
     if (this.pausa_habilitada) {
       this.continuar();
