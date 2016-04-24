@@ -39,8 +39,6 @@ class Escenas {
     }
 
     this.pausa_habilitada = false;
-    // TODO: Ubicar esta linea de código en donde corresponda.
-    //this.historial_estados.reset();
   }
 
   alternar_pausa() {

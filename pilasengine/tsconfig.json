@@ -13,6 +13,7 @@
     ],
     "files": [
         "src/actores.ts",
+        "src/actores/actor.ts",
         "src/actorProxy.ts",
         "src/depurador/depurador.ts",
         "src/depurador/modo_fps.ts",

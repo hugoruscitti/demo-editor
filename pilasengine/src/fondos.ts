@@ -5,6 +5,11 @@ class Fondos {
     this.pilas = pilas;
   }
 
+  plano() {
+  }
+
+
+/*
   plano(x: number = 0, y: number = 0) {
     return this.pilas.crear_entidad("spriteTiled", {
       imagen: "data:plano.png",
@@ -12,4 +17,5 @@ class Fondos {
       y: y,
     });
   }
+  */
 }

@@ -25,6 +25,10 @@ class Estados {
           throw new Error(`No existe un manejador de entidad para el tipo: ${entidad.tipo}`);
       }
 
+      if (entidad.instancia) {
+        entidad.instancia.actualizar();
+      }
+
     });
   }
 
