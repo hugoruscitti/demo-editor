@@ -41,7 +41,16 @@ class Actor {
       this._sprite.kill();
     }
 
-    this._sprite = this.pilas.game.add.sprite(0, 0, galeria, img);
+    this._crear_sprite_interno(galeria, img);
+    this._actualizar_propiedades();
+  }
+
+  protected _crear_sprite_interno(galeria:string, imagen:string) {
+    if (galeria) {
+      this._sprite = this.pilas.game.add.sprite(0, 0, galeria, imagen);
+    } else {
+      this._sprite = this.pilas.game.add.sprite(0, 0, imagen);
+    }
   }
 
   pre_actualizar() {

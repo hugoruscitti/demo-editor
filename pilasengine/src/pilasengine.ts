@@ -1,11 +1,9 @@
 /// <reference path="../libs/pixi.d.ts"/>
 /// <reference path="../libs/p2.d.ts"/>
 /// <reference path="../libs/phaser.d.ts"/>
-/// <reference path="entidad.ts" />
 /// <reference path="actores.ts" />
 /// <reference path="fondos.ts" />
 /// <reference path="historial.ts" />
-/// <reference path="actorProxy.ts" />
 /// <reference path="tipos.ts" />
 
 
@@ -281,6 +279,29 @@ class Pilas {
     return this.listar_actores().length;
   }
 
+
+  /**
+   * Busca entre los actores y retorna el que tenga el ID buscado.
+   */
+  obtener_actor_por_id(id: number) {
+    let actores = this.listar_actores_con_ids();
+    let actorBuscado:any = null;
+
+    actores.forEach((e) => {
+
+      if (e.id === id) {
+        actorBuscado = e.actor;
+      }
+
+    });
+
+    if (actorBuscado) {
+      return actorBuscado;
+    } else {
+      throw new Error(`No se encuentra un actor con el id=${id}`);
+    }
+
+  }
 }
 
 

@@ -98387,145 +98387,18 @@ PIXI.TextureSilentFail = true;
 */
 
 var ActorProxy = (function () {
-    function ActorProxy(pilas, id) {
-        this.pilas = pilas;
-        this.id = id;
-        this.habilidades = [];
+    function ActorProxy() {
     }
-    ActorProxy.prototype.interpolar = function (propiedad, valor, duracion, tipo, infinito) {
-        if (duracion === void 0) { duracion = 0.5; }
-        if (tipo === void 0) { tipo = "desaceleracion_gradual"; }
-        if (infinito === void 0) { infinito = false; }
-        if (!duracion) {
-            duracion = 500.0;
-        }
-        if (!tipo) {
-            tipo = "desaceleracion_gradual";
-        }
-        if (infinito == undefined) {
-            infinito = false;
-        }
-        this.pilas.escenas.escena_actual.interpolaciones.crear_interpolacion(this, propiedad, valor, duracion, tipo, infinito);
-    };
-    Object.defineProperty(ActorProxy.prototype, "x", {
-        get: function () {
-            return this.data.x;
-        },
-        set: function (value) {
-            this.setData('x', value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ActorProxy.prototype, "y", {
-        get: function () {
-            return this.data.y;
-        },
-        set: function (value) {
-            this.setData('y', value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ActorProxy.prototype, "escala_x", {
-        get: function () {
-            return this.data.escala_x;
-        },
-        set: function (value) {
-            this.setData('escala_x', value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ActorProxy.prototype, "escala_y", {
-        get: function () {
-            return this.data.escala_y;
-        },
-        set: function (value) {
-            this.setData('escala_y', value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ActorProxy.prototype, "escala", {
-        get: function () {
-            if (this.escala_x != this.escala_y) {
-                console.warn("Los valores de escala_x y escala_y son diferentes, se asume que la escala conjunta es la mayor.");
-            }
-            return Math.max(this.escala_x, this.escala_y);
-        },
-        set: function (value) {
-            this.escala_x = value;
-            this.escala_y = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ActorProxy.prototype, "rotacion", {
-        get: function () {
-            return this.data.rotacion;
-        },
-        set: function (value) {
-            this.setData('rotacion', value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ActorProxy.prototype.setData = function (property, value) {
-        if (value instanceof Array) {
-            this.interpolar(property, value);
-        }
-        else {
-            this.data[property] = value;
-        }
-    };
-    Object.defineProperty(ActorProxy.prototype, "data", {
-        get: function () {
-            return this.pilas.escenas.escena_actual.estados.obtener_entidad_por_id(this.id);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ActorProxy.prototype.imprimir = function () {
-        return "<Actor " + this.data.clase + " en (" + this.x + ", " + this.y + ")>";
-    };
-    ActorProxy.prototype.actualizar_habilidades = function () {
-        for (var x in this.habilidades) {
-            this.habilidades[x].actualizar();
-        }
-    };
-    ActorProxy.prototype.aprender = function (nombre_de_habilidad) {
-        if (nombre_de_habilidad === "SeguirClicks") {
-            this.habilidades.push(new SeguirClicks(this.pilas));
-        }
-        else {
-            throw new Error("No existe la habilidad " + nombre_de_habilidad);
-        }
-    };
     return ActorProxy;
 })();
 var Actores = (function () {
     function Actores(pilas) {
         this.pilas = pilas;
+        this._vincular_métodos_de_creación();
+    }
+    Actores.prototype._vincular_métodos_de_creación = function () {
         this.vincular(Actor);
-    }
-    /**
-     * Representa a un actor genérico, con una imagen y propiedades
-     * de transformación como ``x``, ``y``, ``escala_x``, ``escala_y`` etc...
-     *
-     * ![](../imagenes/sin_imagen.png)
-     *
-     * @param x - posición horizontal.
-     * @param y - posición vertical.
-     */
-    /*
-    actor(x: number= 0, y: number= 0) {
-      return this.pilas.crear_entidad("sprite", {
-        imagen: "data:sin_imagen.png",
-        clase: 'actor'
-      });
-    }
-    */
+    };
     /*
   
     patito(x:number=0, y:number=0) {
@@ -98540,17 +98413,6 @@ var Actores = (function () {
         imagen: "data:nave.png",
         clase: 'nave'
       });
-    }
-    */
-    /*
-    obtener_por_id(id: string) {
-      return new ActorProxy(this.pilas, id);
-    }
-  
-    texto(mensaje: string) {
-      var style = {stroke: '#000000', strokeThickness: 4, font: "28px Arial", fill: "#fff"};
-      var text = this.pilas.game.add.text(32, 64, "Hola mundo", style);
-      window['text'] = text;
     }
     */
     /**
@@ -98574,6 +98436,11 @@ var Actores = (function () {
             nuevo.post_actualizar();
             return nuevo;
         };
+        // Si el nombre de la clase es camelcase, también permite
+        // crear el actor usando solamente minúsculas.
+        if (clase.name !== clase.name.toLocaleLowerCase()) {
+            this[clase.name.toLocaleLowerCase()] = this[clase.name];
+        }
     };
     return Actores;
 })();
@@ -98612,11 +98479,20 @@ var Actor = (function () {
             if (this._sprite) {
                 this._sprite.kill();
             }
-            this._sprite = this.pilas.game.add.sprite(0, 0, galeria, img);
+            this._crear_sprite_interno(galeria, img);
+            this._actualizar_propiedades();
         },
         enumerable: true,
         configurable: true
     });
+    Actor.prototype._crear_sprite_interno = function (galeria, imagen) {
+        if (galeria) {
+            this._sprite = this.pilas.game.add.sprite(0, 0, galeria, imagen);
+        }
+        else {
+            this._sprite = this.pilas.game.add.sprite(0, 0, imagen);
+        }
+    };
     Actor.prototype.pre_actualizar = function () {
         this._actualizar_propiedades();
     };
@@ -98776,51 +98652,14 @@ var EscenaNormal = (function (_super) {
         _super.apply(this, arguments);
     }
     EscenaNormal.prototype.iniciar = function () {
-        //this.pilas.fondos.plano();
+        //this.pilas.fondos['Plano']();
         console.log("iniciando EscenaNormal (omitiendo crear plano).");
     };
     return EscenaNormal;
 })(Escena);
 var Estados = (function () {
-    function Estados(pilas) {
-        this.pilas = pilas;
-        this.data = { entidades: [] };
-        this.cache = {};
+    function Estados() {
     }
-    Estados.prototype.actualizar = function () {
-        var _this = this;
-        this.data.entidades.forEach(function (entidad) {
-            switch (entidad.tipo) {
-                case "spriteTiled":
-                    _this.actualizar_entidad_tipo_sprite_tiled(entidad);
-                    break;
-                case "sprite":
-                    _this.actualizar_entidad_tipo_sprite(entidad);
-                    break;
-                default:
-                    throw new Error("No existe un manejador de entidad para el tipo: " + entidad.tipo);
-            }
-            if (entidad.instancia) {
-                entidad.instancia.actualizar();
-            }
-        });
-    };
-    Estados.prototype.actualizar_entidad_tipo_sprite_tiled = function (entidad) {
-        var sprite = this.obtener_sprite_tiled(entidad.id, entidad.imagen);
-        this.actualizar_sprite_desde_entidad(sprite, entidad);
-    };
-    Estados.prototype.actualizar_entidad_tipo_sprite = function (entidad) {
-        var sprite = this.obtener_sprite(entidad.id, entidad.imagen);
-        this.actualizar_sprite_desde_entidad(sprite, entidad);
-    };
-    Estados.prototype.actualizar_sprite_desde_entidad = function (sprite, entidad) {
-        var dx = this.pilas.opciones.ancho / 2;
-        var dy = this.pilas.opciones.alto / 2;
-        sprite.position.set(dx + entidad.x, dy - entidad.y);
-        sprite.scale.set(entidad.escala_x, entidad.escala_y);
-        sprite.anchor.setTo(entidad.anchor_x, entidad.anchor_y);
-        sprite.angle = -entidad.rotacion;
-    };
     Estados.prototype.obtener_sprite_tiled = function (id, imagen) {
         if (this.cache[id]) {
             return this.cache[id];
@@ -98838,64 +98677,46 @@ var Estados = (function () {
             return this.cache[id];
         }
     };
-    Estados.prototype.obtener_sprite = function (id, imagen) {
-        if (this.cache[id]) {
-            return this.cache[id];
-        }
-        else {
-            if (imagen.indexOf(":") > 0) {
-                var items = imagen.split(":");
-                var galeria = items[0];
-                var imagen = items[1];
-                this.cache[id] = this.pilas.game.add.sprite(0, 0, galeria, imagen);
-            }
-            else {
-                this.cache[id] = this.pilas.game.add.sprite(0, 0, imagen);
-            }
-            return this.cache[id];
-        }
-    };
-    Estados.prototype.obtener_entidad_por_id = function (id) {
-        var entidad_buscada = null;
-        this.data.entidades.forEach(function (e) {
-            if (e.id === id) {
-                entidad_buscada = e;
-            }
-        });
-        return entidad_buscada;
-    };
-    Estados.prototype.crear_entidad = function (tipo, entidad) {
-        var iniciales = {
-            tipo: tipo,
-            id: Math.ceil(Math.random() * 1000000000000),
-            x: 0,
-            y: 0,
-            tiled: true,
-            escala_x: 1,
-            escala_y: 1,
-            rotacion: 0,
-            anchor_x: 0.5,
-            anchor_y: 0.5,
-            scripts: {}
-        };
-        for (var i in iniciales) {
-            if (entidad[i] != "undefined") {
-                entidad[i] = iniciales[i];
-            }
-        }
-        this.data.entidades.push(entidad);
-        return new ActorProxy(this.pilas, entidad.id);
-    };
     return Estados;
 })();
-var Fondos = (function () {
-    function Fondos(pilas) {
-        this.pilas = pilas;
+var Fondos = (function (_super) {
+    __extends(Fondos, _super);
+    function Fondos() {
+        _super.apply(this, arguments);
     }
-    Fondos.prototype.plano = function () {
+    Fondos.prototype._vincular_métodos_de_creación = function () {
+        this.vincular(Plano);
     };
     return Fondos;
-})();
+})(Actores);
+var ActorFondo = (function (_super) {
+    __extends(ActorFondo, _super);
+    function ActorFondo() {
+        _super.apply(this, arguments);
+    }
+    ActorFondo.prototype._crear_sprite_interno = function (galeria, imagen) {
+        var ancho = this.pilas.opciones.ancho;
+        var alto = this.pilas.opciones.alto;
+        if (galeria) {
+            this._sprite = this.pilas.game.add.tileSprite(0, 0, ancho, alto, galeria, imagen);
+        }
+        else {
+            this._sprite = this.pilas.game.add.tileSprite(0, 0, ancho, alto, imagen);
+        }
+        this._sprite.sendToBack();
+    };
+    return ActorFondo;
+})(Actor);
+var Plano = (function (_super) {
+    __extends(Plano, _super);
+    function Plano() {
+        _super.apply(this, arguments);
+    }
+    Plano.prototype.iniciar = function () {
+        this.imagen = "data:plano.png";
+    };
+    return Plano;
+})(ActorFondo);
 var Habilidad = (function () {
     function Habilidad(pilas) {
         this.pilas = pilas;
@@ -99033,11 +98854,9 @@ var Interpolaciones = (function () {
 /// <reference path="../libs/pixi.d.ts"/>
 /// <reference path="../libs/p2.d.ts"/>
 /// <reference path="../libs/phaser.d.ts"/>
-/// <reference path="entidad.ts" />
 /// <reference path="actores.ts" />
 /// <reference path="fondos.ts" />
 /// <reference path="historial.ts" />
-/// <reference path="actorProxy.ts" />
 /// <reference path="tipos.ts" />
 if (!window['Phaser']) {
     window['Phaser'] = {};
@@ -99257,6 +99076,24 @@ var Pilas = (function () {
      */
     Pilas.prototype.obtener_cantidad_de_actores = function () {
         return this.listar_actores().length;
+    };
+    /**
+     * Busca entre los actores y retorna el que tenga el ID buscado.
+     */
+    Pilas.prototype.obtener_actor_por_id = function (id) {
+        var actores = this.listar_actores_con_ids();
+        var actorBuscado = null;
+        actores.forEach(function (e) {
+            if (e.id === id) {
+                actorBuscado = e.actor;
+            }
+        });
+        if (actorBuscado) {
+            return actorBuscado;
+        }
+        else {
+            throw new Error("No se encuentra un actor con el id=" + id);
+        }
     };
     return Pilas;
 })();

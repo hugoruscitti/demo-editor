@@ -25,6 +25,8 @@ pilas.cuando('inicia', function() {
   let unActor = pilas.actores.MiActor({x: 0, y: 0});
   unActor.imagen = "data:patito.png";
 
+  pilas.fondos.plano();
+
 });
 
 

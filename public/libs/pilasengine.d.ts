@@ -2,35 +2,11 @@
 /// <reference path="../libs/p2.d.ts" />
 /// <reference path="../libs/phaser.d.ts" />
 declare class ActorProxy {
-    id: string;
-    pilas: Pilas;
-    habilidades: Array<Habilidad>;
-    constructor(pilas: Pilas, id: string);
-    interpolar(propiedad: string, valor: any, duracion?: number, tipo?: string, infinito?: boolean): void;
-    x: number;
-    y: number;
-    escala_x: any;
-    escala_y: number;
-    escala: number;
-    rotacion: number;
-    setData(property: string, value: any): void;
-    private data;
-    imprimir(): string;
-    actualizar_habilidades(): void;
-    aprender(nombre_de_habilidad: string): void;
 }
 declare class Actores {
     pilas: Pilas;
     constructor(pilas: Pilas);
-    /**
-     * Representa a un actor genérico, con una imagen y propiedades
-     * de transformación como ``x``, ``y``, ``escala_x``, ``escala_y`` etc...
-     *
-     * ![](../imagenes/sin_imagen.png)
-     *
-     * @param x - posición horizontal.
-     * @param y - posición vertical.
-     */
+    protected _vincular_métodos_de_creación(): void;
     /**
      * Permite vincular una clase para generar un actor personalizado.
      *
@@ -59,6 +35,7 @@ declare class Actor {
     private generar_id();
     iniciar(opciones: any): void;
     imagen: string;
+    protected _crear_sprite_interno(galeria: string, imagen: string): void;
     pre_actualizar(): void;
     private _actualizar_propiedades();
     actualizar(): void;
@@ -82,27 +59,6 @@ declare class Modo {
 }
 declare class ModoFPS extends Modo {
     realizar_dibujado(): void;
-}
-/**
- * Representa una entidad dentro del motor, como un actor por ejemplo.
- *
- * Esta interfaz no se utiliza de forma directa, sino que solamente sirve
- * para agrupar todos los datos referidos a una entidad.
- *
- */
-interface Entity {
-    nombre: string;
-    id: number;
-    x: number;
-    y: number;
-    sprite_id?: string;
-    scale_x: number;
-    scale_y: number;
-    rotation: number;
-    anchor_x: number;
-    anchor_y: number;
-    image: string;
-    scripts?: any;
 }
 declare class Escenas {
     pilas: Pilas;
@@ -153,20 +109,16 @@ declare class Estados {
     pilas: Pilas;
     data: Estado;
     cache: any;
-    constructor(pilas: Pilas);
-    actualizar(): void;
-    private actualizar_entidad_tipo_sprite_tiled(entidad);
-    private actualizar_entidad_tipo_sprite(entidad);
-    private actualizar_sprite_desde_entidad(sprite, entidad);
     private obtener_sprite_tiled(id, imagen);
-    private obtener_sprite(id, imagen);
-    obtener_entidad_por_id(id: string): any;
-    crear_entidad(tipo: string, entidad: any): ActorProxy;
 }
-declare class Fondos {
-    pilas: Pilas;
-    constructor(pilas: Pilas);
-    plano(): void;
+declare class Fondos extends Actores {
+    _vincular_métodos_de_creación(): void;
+}
+declare class ActorFondo extends Actor {
+    protected _crear_sprite_interno(galeria: string, imagen: string): void;
+}
+declare class Plano extends ActorFondo {
+    iniciar(): void;
 }
 declare class Habilidad {
     pilas: Pilas;
@@ -334,6 +286,10 @@ declare class Pilas {
      * Retorna la cantidad de actores en pantalla (incluyendo al fondo).
      */
     obtener_cantidad_de_actores(): number;
+    /**
+     * Busca entre los actores y retorna el que tenga el ID buscado.
+     */
+    obtener_actor_por_id(id: number): any;
 }
 /**
  * Representa el espacio de nombres para acceder a todos los componentes
