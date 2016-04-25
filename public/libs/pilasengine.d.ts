@@ -35,11 +35,15 @@ declare class Actor {
     private generar_id();
     iniciar(opciones: any): void;
     imagen: string;
+    protected _cambiar_imagen_de_sprite_interno(galeria: string, imagen: string): void;
     protected _crear_sprite_interno(galeria: string, imagen: string): void;
     pre_actualizar(): void;
     private _actualizar_propiedades();
     actualizar(): void;
     post_actualizar(): void;
+}
+declare class Nave extends Actor {
+    iniciar(): void;
 }
 declare class Depurador {
     pilas: Pilas;

@@ -98398,6 +98398,7 @@ var Actores = (function () {
     }
     Actores.prototype._vincular_métodos_de_creación = function () {
         this.vincular(Actor);
+        this.vincular(Nave);
     };
     /*
   
@@ -98477,14 +98478,24 @@ var Actor = (function () {
             var galeria = items[0];
             var img = items[1];
             if (this._sprite) {
-                this._sprite.kill();
+                this._cambiar_imagen_de_sprite_interno(galeria, img);
             }
-            this._crear_sprite_interno(galeria, img);
+            else {
+                this._crear_sprite_interno(galeria, img);
+            }
             this._actualizar_propiedades();
         },
         enumerable: true,
         configurable: true
     });
+    Actor.prototype._cambiar_imagen_de_sprite_interno = function (galeria, imagen) {
+        if (galeria) {
+            this._sprite.loadTexture(galeria, imagen);
+        }
+        else {
+            this._sprite.loadTexture(imagen);
+        }
+    };
     Actor.prototype._crear_sprite_interno = function (galeria, imagen) {
         if (galeria) {
             this._sprite = this.pilas.game.add.sprite(0, 0, galeria, imagen);
@@ -98512,6 +98523,22 @@ var Actor = (function () {
     };
     return Actor;
 })();
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
+var Nave = (function (_super) {
+    __extends(Nave, _super);
+    function Nave() {
+        _super.apply(this, arguments);
+    }
+    Nave.prototype.iniciar = function () {
+        this.imagen = "data:nave_f1.png";
+    };
+    return Nave;
+})(Actor);
 var Depurador = (function () {
     function Depurador(pilas) {
         this.pilas = pilas;
@@ -98549,12 +98576,6 @@ var Modo = (function () {
     };
     return Modo;
 })();
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
 var ModoFPS = (function (_super) {
     __extends(ModoFPS, _super);
     function ModoFPS() {
@@ -98657,7 +98678,6 @@ var EscenaNormal = (function (_super) {
         _super.apply(this, arguments);
     }
     EscenaNormal.prototype.iniciar = function () {
-        //this.pilas.fondos['Plano']();
         console.log("iniciando EscenaNormal (omitiendo crear plano).");
     };
     return EscenaNormal;

@@ -38,11 +38,20 @@ class Actor {
     var img = items[1];
 
     if (this._sprite) {
-      this._sprite.kill();
+      this._cambiar_imagen_de_sprite_interno(galeria, img);
+    } else {
+      this._crear_sprite_interno(galeria, img);
     }
 
-    this._crear_sprite_interno(galeria, img);
     this._actualizar_propiedades();
+  }
+
+  protected _cambiar_imagen_de_sprite_interno(galeria:string, imagen:string) {
+    if (galeria) {
+      this._sprite.loadTexture(galeria, imagen);
+    } else {
+      this._sprite.loadTexture(imagen);
+    }
   }
 
   protected _crear_sprite_interno(galeria:string, imagen:string) {

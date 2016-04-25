@@ -8,6 +8,7 @@ class Actores {
 
   protected _vincular_métodos_de_creación() {
     this.vincular(Actor);
+    this.vincular(Nave);
   }
 
   /*

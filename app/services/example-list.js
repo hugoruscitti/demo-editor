@@ -8,18 +8,18 @@ class MiActor extends pilasengine.Actor {
   iniciar(opciones) {
     this.x = opciones.x;
     this.velocidad = 1;
-    console.log("llamaron a iniciar asi", opciones);
+    //console.log("llamaron a iniciar asi", opciones);
   }
 
   actualizar() {
-    console.log("actualiza", this.velocidad);
+    //console.log("actualiza", this.velocidad);
     this.rotacion += 5;
   }
 }
 
 pilas.cuando('inicia', function() {
 
-  pilas.actualizaciones_por_segundo = 1;
+  //pilas.actualizaciones_por_segundo = 1;
 
   pilas.actores.vincular(MiActor);
   let unActor = pilas.actores.MiActor({x: 0, y: 0});
@@ -58,10 +58,12 @@ let codigo_nave = `
 let pilas;
 
 pilas.cuando('inicia', function() {
-  pilas.escenas.normal();
+  pilas.fondos.plano();
   let actor = pilas.actores.nave();
 });
 `;
+
+
 
 let items = [
   Ember.Object.extend({}).create({
@@ -98,6 +100,7 @@ let items = [
       ancho: 650,
       alto: 216,
     }),
+
 ];
 
 
