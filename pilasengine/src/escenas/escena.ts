@@ -52,6 +52,9 @@ class Escena {
     this.interpolaciones.actualizar();
   }
 
+  /**
+   * Se invoca desde el gestor de escenas cuando se cambia de una escena a otra.
+   */
   terminar() {
     this._eliminar_a_todos_los_actores();
   }
@@ -60,6 +63,5 @@ class Escena {
     this.actores.forEach((actor) => {
       actor.eliminar();
     });
-    //this.actores = [];
   }
 }
