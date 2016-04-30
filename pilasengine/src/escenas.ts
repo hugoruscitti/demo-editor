@@ -11,6 +11,10 @@ class Escenas {
   }
 
   normal() {
+    if (this.escena_actual) {
+      this.escena_actual.terminar();
+    }
+
     this.escena_actual = new EscenaNormal(this.pilas);
     this.escena_actual.iniciar();
   }

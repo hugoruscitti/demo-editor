@@ -10,6 +10,7 @@ declare class Actores {
     Patito: any;
     constructor(pilas: Pilas);
     protected _vincular_métodos_de_creación(): void;
+    eliminar_actor(actor: Actor): void;
     /**
      * Permite vincular una clase para generar un actor personalizado.
      *
@@ -44,6 +45,7 @@ declare class Actor {
     private _actualizar_propiedades();
     actualizar(): void;
     post_actualizar(): void;
+    eliminar(): void;
 }
 declare class Nave extends Actor {
     iniciar(): void;
@@ -102,8 +104,8 @@ declare class Escena {
     interpolaciones: Interpolaciones;
     actores: any[];
     constructor(pilas: Pilas);
-    /** TMP */
-    agregar(actor: any): void;
+    agregar_actor(actor: any): void;
+    eliminar_actor(actor: any): void;
     private _actualizar_actores();
     /**
      * Carga el código inicial para la escena.
@@ -116,6 +118,8 @@ declare class Escena {
      * Se invoca seis veces por segundo para mantener en funcionamiento el juego.
      */
     actualizar(): void;
+    terminar(): void;
+    private _eliminar_a_todos_los_actores();
 }
 declare class EscenaNormal extends Escena {
     pilas: Pilas;
