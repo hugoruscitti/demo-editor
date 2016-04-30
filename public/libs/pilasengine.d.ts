@@ -5,6 +5,9 @@ declare class ActorProxy {
 }
 declare class Actores {
     pilas: Pilas;
+    Actor: any;
+    Nave: any;
+    Patito: any;
     constructor(pilas: Pilas);
     protected _vincular_métodos_de_creación(): void;
     /**
@@ -126,7 +129,11 @@ declare class Plano extends ActorFondo {
 }
 declare class Fondos extends Actores {
     Plano: any;
+    Azul: any;
     _vincular_métodos_de_creación(): void;
+}
+declare class Azul extends ActorFondo {
+    iniciar(): void;
 }
 declare class Habilidad {
     pilas: Pilas;

@@ -1,6 +1,6 @@
 class ActorFondo extends Actor {
 
-  protected _crear_sprite_interno(galeria:string, imagen:string) {
+  protected _crear_sprite_interno(galeria: string, imagen: string) {
     let ancho = this.pilas.opciones.ancho;
     let alto = this.pilas.opciones.alto;
 

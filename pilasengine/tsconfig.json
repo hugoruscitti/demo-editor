@@ -24,6 +24,7 @@
         "src/escenas/escena.ts",
         "src/escenas/normal.ts",
         "src/fondos.ts",
+        "src/fondos/azul.ts",
         "src/fondos/fondo.ts",
         "src/fondos/plano.ts",
         "src/habilidades/habilidad.ts",

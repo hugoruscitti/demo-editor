@@ -1,6 +1,11 @@
 class Actores {
   pilas: Pilas;
 
+  // Metodos que se generan en tiempo de ejecución.
+  Actor: any;
+  Nave: any;
+  Patito: any;
+
   constructor(pilas: Pilas) {
     this.pilas = pilas;
     this._vincular_métodos_de_creación();
@@ -11,23 +16,6 @@ class Actores {
     this.vincular(Nave);
     this.vincular(Patito);
   }
-
-  /*
-
-  patito(x:number=0, y:number=0) {
-    return this.pilas.crear_entidad("sprite", {
-      imagen: "data:patito.png",
-      clase: 'patito'
-    });
-  }
-
-  nave(x:number=0, y:number=0) {
-    return this.pilas.crear_entidad("sprite", {
-      imagen: "data:nave.png",
-      clase: 'nave'
-    });
-  }
-  */
 
   /**
    * Permite vincular una clase para generar un actor personalizado.
@@ -42,6 +30,9 @@ class Actores {
       throw Error("Solo se admiten clases como parámetro.");
     }
 
+    // Genera el método que servirá para instaciar la
+    // clase del actor, agregarlo a la escena e inicializarlo
+    // con el estado inicial.
     this[clase.name] = (opciones: any) => {
 
       let nuevo = new clase(this.pilas);

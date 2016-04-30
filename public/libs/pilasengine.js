@@ -98401,22 +98401,6 @@ var Actores = (function () {
         this.vincular(Nave);
         this.vincular(Patito);
     };
-    /*
-  
-    patito(x:number=0, y:number=0) {
-      return this.pilas.crear_entidad("sprite", {
-        imagen: "data:patito.png",
-        clase: 'patito'
-      });
-    }
-  
-    nave(x:number=0, y:number=0) {
-      return this.pilas.crear_entidad("sprite", {
-        imagen: "data:nave.png",
-        clase: 'nave'
-      });
-    }
-    */
     /**
      * Permite vincular una clase para generar un actor personalizado.
      *
@@ -98429,6 +98413,9 @@ var Actores = (function () {
         if (!clase || !clase.name) {
             throw Error("Solo se admiten clases como parámetro.");
         }
+        // Genera el método que servirá para instaciar la
+        // clase del actor, agregarlo a la escena e inicializarlo
+        // con el estado inicial.
         this[clase.name] = function (opciones) {
             var nuevo = new clase(_this.pilas);
             _this.pilas.escena_actual.agregar(nuevo);
@@ -98689,7 +98676,6 @@ var EscenaNormal = (function (_super) {
         _super.apply(this, arguments);
     }
     EscenaNormal.prototype.iniciar = function () {
-        console.log(this.pilas.ha_iniciado);
         this.pilas.fondos.Plano();
     };
     return EscenaNormal;
@@ -98731,9 +98717,21 @@ var Fondos = (function (_super) {
     }
     Fondos.prototype._vincular_métodos_de_creación = function () {
         this.vincular(Plano);
+        this.vincular(Azul);
     };
     return Fondos;
 })(Actores);
+/// <reference path="fondo.ts" />
+var Azul = (function (_super) {
+    __extends(Azul, _super);
+    function Azul() {
+        _super.apply(this, arguments);
+    }
+    Azul.prototype.iniciar = function () {
+        this.imagen = "data:azul.png";
+    };
+    return Azul;
+})(ActorFondo);
 var Habilidad = (function () {
     function Habilidad(pilas) {
         this.pilas = pilas;

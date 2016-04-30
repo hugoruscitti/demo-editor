@@ -53,9 +53,17 @@
 			"spriteSourceSize": {"x":0,"y":0,"w":47,"h":46},
 			"sourceSize": {"w":47,"h":46}
 		},
-		"plano.png":
+		"azul.png":
 		{
 			"frame": {"x":412,"y":130,"w":10,"h":10},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":10,"h":10},
+			"sourceSize": {"w":10,"h":10}
+		},
+		"plano.png":
+		{
+			"frame": {"x":412,"y":160,"w":10,"h":10},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":10,"h":10},
