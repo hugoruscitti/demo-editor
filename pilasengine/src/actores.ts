@@ -17,6 +17,10 @@ class Actores {
     this.vincular(Patito);
   }
 
+  eliminar_actor(actor: Actor) {
+    this.pilas.escena_actual.eliminar_actor(actor);
+  }
+
   /**
    * Permite vincular una clase para generar un actor personalizado.
    *
@@ -36,7 +40,7 @@ class Actores {
     this[clase.name] = (opciones: any) => {
 
       let nuevo = new clase(this.pilas);
-      this.pilas.escena_actual.agregar(nuevo);
+      this.pilas.escena_actual.agregar_actor(nuevo);
 
       nuevo.iniciar(opciones);
 

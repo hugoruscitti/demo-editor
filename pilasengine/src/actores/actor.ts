@@ -87,4 +87,9 @@ class Actor {
   post_actualizar() {
 
   }
+
+  eliminar() {
+    this._sprite.kill();
+    this.pilas.actores.eliminar_actor(this);
+  }
 }

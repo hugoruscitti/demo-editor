@@ -11,8 +11,20 @@ class Escena {
     this.interpolaciones = new Interpolaciones(this.pilas);
   }
 
-  /** TMP */
-  agregar(actor: any) {
+  /* TODO: Reemplazar por un grupo, o algo que simplifique el
+           acceso y la gestión de los actores.  */
+  agregar_actor(actor: any) {
+    this.actores.push(actor);
+
+    function funcion_filtro(unActor: Actor) {
+        return unActor.id !== actor.id;
+    };
+
+    this.actores = this.actores.filter(funcion_filtro);
+
+  }
+
+  eliminar_actor(actor: any) {
     this.actores.push(actor);
   }
 
