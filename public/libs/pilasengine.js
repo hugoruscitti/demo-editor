@@ -98399,6 +98399,7 @@ var Actores = (function () {
     Actores.prototype._vincular_métodos_de_creación = function () {
         this.vincular(Actor);
         this.vincular(Nave);
+        this.vincular(Patito);
     };
     /*
   
@@ -98539,6 +98540,16 @@ var Nave = (function (_super) {
     };
     return Nave;
 })(Actor);
+var Patito = (function (_super) {
+    __extends(Patito, _super);
+    function Patito() {
+        _super.apply(this, arguments);
+    }
+    Patito.prototype.iniciar = function () {
+        this.imagen = "data:patito.png";
+    };
+    return Patito;
+})(Actor);
 var Depurador = (function () {
     function Depurador(pilas) {
         this.pilas = pilas;
@@ -98678,7 +98689,8 @@ var EscenaNormal = (function (_super) {
         _super.apply(this, arguments);
     }
     EscenaNormal.prototype.iniciar = function () {
-        console.log("iniciando EscenaNormal (omitiendo crear plano).");
+        console.log(this.pilas.ha_iniciado);
+        this.pilas.fondos.Plano();
     };
     return EscenaNormal;
 })(Escena);
@@ -98844,6 +98856,7 @@ var timer = 0;
 var __ha_mostrado_version = false;
 var Pilas = (function () {
     function Pilas(id_elemento_html, opciones) {
+        this.ha_iniciado = false;
         this._verificar_correctitud_de_id_elemento_html(id_elemento_html);
         this.id_elemento_html = id_elemento_html;
         this.ocultar_canvas();
@@ -98872,13 +98885,6 @@ var Pilas = (function () {
         var ancho = opciones.ancho || 640;
         var alto = opciones.alto || 480;
         this.game = new Phaser.Game(ancho, alto, Phaser.CANVAS, id_elemento_html, options);
-        //this.load_scripts();
-        this.actores = new Actores(this);
-        this.fondos = new Fondos(this);
-        this.imagenes = new Imagenes(this);
-        this.depurador = new Depurador(this);
-        this.escenas = new Escenas(this);
-        this.escenas.normal();
         this.evento_inicia = document.createEvent("Event");
     }
     Object.defineProperty(Pilas.prototype, "escena_actual", {
@@ -98984,6 +98990,11 @@ var Pilas = (function () {
         document.getElementById(this.id_elemento_html).style.opacity = "0";
     };
     Pilas.prototype.preload = function () {
+        this.actores = new Actores(this);
+        this.fondos = new Fondos(this);
+        this.depurador = new Depurador(this);
+        this.escenas = new Escenas(this);
+        this.imagenes = new Imagenes(this);
         this.game.stage.disableVisibilityChange = true;
         this.imagenes.precargar_imagenes_estandar();
         this.mostrar_cuadros_por_segundo(true);
@@ -99003,6 +99014,8 @@ var Pilas = (function () {
      */
     Pilas.prototype.create = function () {
         this.mostrar_canvas();
+        this.ha_iniciado = true;
+        this.escenas.normal();
         window.dispatchEvent(new CustomEvent("evento_inicia"));
     };
     /**

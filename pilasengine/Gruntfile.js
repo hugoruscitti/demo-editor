@@ -92,7 +92,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
 
 
-    grunt.registerTask('compilar-con-ejemplos-livereload', ['typescript', 'message', 'watch:simple']);
+    grunt.registerTask('compilar-con-ejemplos-livereload', ['typescript', 'watch:simple']);
     //grunt.registerTask('compilar-y-notificar-live-con-tests', ['connect:tests', 'message', 'watch:withTests' /*'typedoc', 'test'*/]);
     grunt.registerTask('compilar', ['typescript', 'concat', 'touch']);
 }

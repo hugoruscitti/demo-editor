@@ -45,6 +45,9 @@ declare class Actor {
 declare class Nave extends Actor {
     iniciar(): void;
 }
+declare class Patito extends Actor {
+    iniciar(): void;
+}
 declare class Depurador {
     pilas: Pilas;
     modos: any;
@@ -122,6 +125,7 @@ declare class Plano extends ActorFondo {
     iniciar(): void;
 }
 declare class Fondos extends Actores {
+    Plano: any;
     _vincular_métodos_de_creación(): void;
 }
 declare class Habilidad {
@@ -180,6 +184,7 @@ declare class Pilas {
     _cuando_inicia_callback: any;
     codigos: any;
     id_elemento_html: string;
+    ha_iniciado: boolean;
     constructor(id_elemento_html: string, opciones: OpcionesIniciar);
     /**
      * Retorna una refencia a la escena en curso.

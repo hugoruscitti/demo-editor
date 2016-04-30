@@ -46,7 +46,7 @@ class Escenas {
 
     this.pausa_habilitada = false;
   }
-  
+
   /**
    * Permite permutar el estado de pausa y ejecución.
    */

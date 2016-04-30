@@ -33,9 +33,9 @@ class Actor {
   set imagen(valor: string) {
     this._imagen = valor;
 
-    var items = valor.split(":");
-    var galeria = items[0];
-    var img = items[1];
+    let items = valor.split(":");
+    let galeria = items[0];
+    let img = items[1];
 
     if (this._sprite) {
       this._cambiar_imagen_de_sprite_interno(galeria, img);
@@ -46,7 +46,7 @@ class Actor {
     this._actualizar_propiedades();
   }
 
-  protected _cambiar_imagen_de_sprite_interno(galeria:string, imagen:string) {
+  protected _cambiar_imagen_de_sprite_interno(galeria: string, imagen: string) {
     if (galeria) {
       this._sprite.loadTexture(galeria, imagen);
     } else {
@@ -54,7 +54,7 @@ class Actor {
     }
   }
 
-  protected _crear_sprite_interno(galeria:string, imagen:string) {
+  protected _crear_sprite_interno(galeria: string, imagen: string) {
     if (galeria) {
       this._sprite = this.pilas.game.add.sprite(0, 0, galeria, imagen);
     } else {

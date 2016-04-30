@@ -31,10 +31,12 @@ class Pilas {
 
   codigos: any;
   id_elemento_html: string;
+  ha_iniciado: boolean;
 
 
   constructor(id_elemento_html: string, opciones: OpcionesIniciar) {
 
+    this.ha_iniciado = false;
     this._verificar_correctitud_de_id_elemento_html(id_elemento_html);
     this.id_elemento_html = id_elemento_html;
     this.ocultar_canvas();
@@ -69,15 +71,6 @@ class Pilas {
     let ancho = opciones.ancho || 640;
     let alto = opciones.alto || 480;
     this.game = new Phaser.Game(ancho, alto, Phaser.CANVAS, id_elemento_html, options);
-
-    //this.load_scripts();
-    this.actores = new Actores(this);
-    this.fondos = new Fondos(this);
-    this.imagenes = new Imagenes(this);
-    this.depurador = new Depurador(this);
-
-    this.escenas = new Escenas(this);
-    this.escenas.normal();
 
     this.evento_inicia = document.createEvent("Event");
   }
@@ -191,6 +184,12 @@ class Pilas {
   }
 
   preload() {
+    this.actores = new Actores(this);
+    this.fondos = new Fondos(this);
+    this.depurador = new Depurador(this);
+    this.escenas = new Escenas(this);
+    this.imagenes = new Imagenes(this);
+
     this.game.stage.disableVisibilityChange = true;
     this.imagenes.precargar_imagenes_estandar();
     this.mostrar_cuadros_por_segundo(true);
@@ -201,7 +200,7 @@ class Pilas {
       this.game.scale.refresh();
 
       function gameResized(manager: Phaser.ScaleManager, bounds: Phaser.Rectangle) {
-          var scale = Math.min(window.innerWidth / this.game.width, window.innerHeight / this.game.height);
+          let scale = Math.min(window.innerWidth / this.game.width, window.innerHeight / this.game.height);
           manager.setUserScale(scale, scale, 0, 0);
       }
 
@@ -215,6 +214,10 @@ class Pilas {
    */
   create() {
     this.mostrar_canvas();
+    this.ha_iniciado = true;
+
+    this.escenas.normal();
+
     window.dispatchEvent(new CustomEvent("evento_inicia"));
   }
 
