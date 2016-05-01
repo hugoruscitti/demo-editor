@@ -8,7 +8,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         concat: {
           dist: {
-            src: ['libs/phaser.js', 'tmp/pilasengine.js', 'libs/Tween.js'],
+            src: ['libs/phaser.js', 'tmp/pilasengine.js', 'libs/shifty.min.js', 'libs/Tween.js'],
             dest: '../public/libs/pilasengine.js',
           },
           map: {

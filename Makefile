@@ -78,18 +78,21 @@ _instalar_phaser:
 	$(call log, "Descargando phaser.js ...")
 	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/${PHASER_VERSION}/build/phaser.js
 	@mv phaser.js pilasengine/libs/
-	$(call log, "Descargando Tween.js ...")
-	@wget -q https://raw.githubusercontent.com/tweenjs/tween.js/6cb21f23975d0230499a11e567d6c954815dd7f2/src/Tween.js
-	@mv Tween.js pilasengine/libs/
+	#$(call log, "Descargando Tween.js ...")
+	#@wget -q https://raw.githubusercontent.com/tweenjs/tween.js/6cb21f23975d0230499a11e567d6c954815dd7f2/src/Tween.js
+	#@mv Tween.js pilasengine/libs/
+	$(call log, "Descargando shifty.js ...")
+	@wget -q https://raw.githubusercontent.com/jeremyckahn/shifty/master/dist/shifty.min.js
+	@mv shifty.min.js pilasengine/libs/
 	$(call log, "Descargando definiciones de typescript ...")
 	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/master/typescript/phaser.d.ts
 	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/master/typescript/pixi.d.ts
 	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/master/typescript/p2.d.ts
-	@wget -q https://raw.githubusercontent.com/edsilv/tween.ts/master/src/Tween.d.ts
+	#@wget -q https://raw.githubusercontent.com/edsilv/tween.ts/master/src/Tween.d.ts
 	@mv phaser.d.ts pilasengine/libs/
 	@mv pixi.d.ts pilasengine/libs/
 	@mv p2.d.ts pilasengine/libs/
-	@mv Tween.d.ts pilasengine/libs/
+	#@mv Tween.d.ts pilasengine/libs/
 
 version_patch:
 	@bumpversion patch --current-version ${VERSION} Makefile pilasengine/src/version.ts ember-cordova/cordova/config.xml --list
