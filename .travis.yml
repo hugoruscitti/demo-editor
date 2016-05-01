@@ -5,18 +5,19 @@ sudo: false
 cache:
   directories:
     - "node_modules"
+    - "phantom"
 before_install:
   - npm config set spin false
   - npm install -g npm@^2
+  - mkdir phantom
+  - curl --output phantom/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
+  - export PATH=$PWD/phantom:$PATH
 install:
   - npm install -g bower
   - npm install
   - bower install
   - make iniciar
 script:
-  - mkdir phantom
-  - curl --output phantom/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
-  - export PATH=phantom/:$PATH
   - npm test
 before_deploy:
   - make binarios
