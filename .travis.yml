@@ -13,7 +13,7 @@ before_install:
   - curl --output phantom/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
   - phantomjs --version
   - sudo rm -rf /usr/local/phantomjs/bin/phantomjs
-  - sudo mv $PWD/phantomt /phantomjs /usr/local/phantomjs/bin/phantomjs
+  - sudo mv $PWD/phantom /phantomjs /usr/local/phantomjs/bin/phantomjs
   - phantomjs --version
 install:
   - npm install -g bower
