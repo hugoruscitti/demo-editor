@@ -13,7 +13,8 @@ before_install:
   - curl --output $PWD/phantom/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
   - chmod a+x $PWD/phantom/phantomjs
   - phantomjs --version
-  #- phantomjs --version
+  - export PATH=$PWD/phantom:$PATH
+  - phantomjs --version
   #- sudo rm -rf /usr/local/phantomjs/bin/phantomjs
   #- sudo mv $PWD/phantom/phantomjs /usr/local/phantomjs/bin/phantomjs
   #- chmod a+x /usr/local/phantomjs/bin/phantomjs
