@@ -13,9 +13,9 @@ install:
   - npm install
   - bower install
   - make iniciar
-  - curl --output phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
-  - export PATH=.:$PATH
 script:
+  - curl --output phantom/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
+  - export PATH=phantom/:$PATH
   - npm test
 before_deploy:
   - make binarios
