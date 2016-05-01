@@ -1,7 +1,7 @@
 language: node_js
 node_js:
   - 'v4'
-sudo: false
+sudo: true
 cache:
   directories:
     - "node_modules"
@@ -12,6 +12,8 @@ before_install:
   - mkdir -p $PWD/phantom
   - curl --output phantom/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
   - export PATH=$PWD/phantom:$PATH
+  - sudo rm -rf /usr/local/phantomjs/bin/phantomjs
+  - sudo mv $PWD/phantom/phantomjs /usr/local/phantomjs/bin/phantomjs
 install:
   - npm install -g bower
   - npm install
