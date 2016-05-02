@@ -118,6 +118,9 @@ declare class Escena {
      * Se invoca seis veces por segundo para mantener en funcionamiento el juego.
      */
     actualizar(): void;
+    /**
+     * Se invoca desde el gestor de escenas cuando se cambia de una escena a otra.
+     */
     terminar(): void;
     private _eliminar_a_todos_los_actores();
 }

@@ -1,14 +1,13 @@
 module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-typescript');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    //grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-touch');
     grunt.loadNpmTasks('grunt-contrib-connect');
 
     grunt.initConfig({
         concat: {
           dist: {
-            src: ['libs/phaser.js', 'tmp/pilasengine.js', 'libs/shifty.min.js', 'libs/Tween.js'],
+            src: ['libs/phaser.js', 'tmp/pilasengine.js', 'libs/TweenLite.js', 'libs/TimelineLite.js', 'libs/EasePack.js'],
             dest: '../public/libs/pilasengine.js',
           },
           map: {
