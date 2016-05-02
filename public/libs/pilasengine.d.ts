@@ -1,3 +1,4 @@
+/// <reference path="../libs/greensock.d.ts" />
 /// <reference path="../libs/pixi.d.ts" />
 /// <reference path="../libs/p2.d.ts" />
 /// <reference path="../libs/phaser.d.ts" />
@@ -46,6 +47,7 @@ declare class Actor {
     actualizar(): void;
     post_actualizar(): void;
     eliminar(): void;
+    interpolar(propiedad: string, valor: any, duracion?: number, tipo?: string, infinito?: boolean): void;
 }
 declare class Nave extends Actor {
     iniciar(): void;
@@ -157,14 +159,17 @@ declare class Imagenes {
     private cargar(identificador, archivo);
     private cargar_atlas(id, archivo_png, archivo_json);
 }
-declare var TWEEN: any;
+declare var Timeline: any;
 declare class Interpolaciones {
     pilas: Pilas;
     time: number;
+    tl: any;
     constructor(pilas: Pilas);
+    private _agregar_intepolacion(interpolacion);
+    onDrawAll(data: any): void;
     actualizar(): void;
     reiniciar(): void;
-    crear_interpolacion(actor: ActorProxy, propiedad: string, valor: any, duracion?: number, tipo?: string, infinito?: boolean): void;
+    crear_interpolacion(actor: Actor, propiedad: string, valor: any, duracion: number, tipo: string, infinito: boolean): void;
 }
 interface OpcionesIniciar {
     data_path: string;

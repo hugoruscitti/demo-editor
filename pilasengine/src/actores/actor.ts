@@ -92,4 +92,22 @@ class Actor {
     this._sprite.kill();
     this.pilas.actores.eliminar_actor(this);
   }
+
+  interpolar(propiedad: string, valor: any, duracion: number = 2.0, tipo: string = "desaceleracion_gradual", infinito: boolean = false) {
+
+    if (!duracion) {
+      duracion = 2.0;
+    }
+
+    if (!tipo) {
+      tipo = "desaceleracion_gradual";
+    }
+
+    if (infinito == undefined) {
+      infinito = false;
+    }
+
+    this.pilas.escenas.escena_actual.interpolaciones.crear_interpolacion(this, propiedad, valor, duracion, tipo, infinito);
+  }
+
 }

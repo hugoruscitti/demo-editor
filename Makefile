@@ -89,12 +89,8 @@ _instalar_phaser:
 
 _instalar_greensock:
 	$(call log, "Descargando GreenSock .js ...")
-	@wget -q https://raw.githubusercontent.com/greensock/GreenSock-JS/master/src/uncompressed/TweenLite.js
-	@wget -q https://raw.githubusercontent.com/greensock/GreenSock-JS/master/src/uncompressed/TimelineLite.js
-	@wget -q https://raw.githubusercontent.com/greensock/GreenSock-JS/master/src/uncompressed/easing/EasePack.js
-	@mv TweenLite.js pilasengine/libs/
-	@mv TimelineLite.js pilasengine/libs/
-	@mv EasePack.js pilasengine/libs/
+	@wget -q https://raw.githubusercontent.com/greensock/GreenSock-JS/master/src/uncompressed/TweenMax.js
+	@mv TweenMax.js pilasengine/libs/
 	$(call log, "Descargando definiciones typescript para GreenSock ...")
 	@wget -q https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/master/greensock/greensock.d.ts
 	@mv greensock.d.ts pilasengine/libs/

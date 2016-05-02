@@ -9,7 +9,8 @@
         "sourceMap": true
     },
     "filesGlob": [
-        "src/**/*.ts"
+        "src/**/*.ts",
+        "libs/*.d.ts"
     ],
     "files": [
         "src/actores.ts",
@@ -34,7 +35,12 @@
         "src/pilasengine.ts",
         "src/tipos.ts",
         "src/utils.ts",
-        "src/version.ts"
+        "src/version.ts",
+        "libs/greensock.d.ts",
+        "libs/p2.d.ts",
+        "libs/phaser.d.ts",
+        "libs/pixi.d.ts",
+        "libs/Tween.d.ts"
     ],
     "atom": {
         "rewriteTsconfig": true

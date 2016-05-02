@@ -1,8 +1,11 @@
-declare var TWEEN: any
+/// <reference path="../libs/greensock.d.ts"/>
+
+declare var Timeline: any;
 
 class Interpolaciones {
   pilas: Pilas;
   time: number;
+  tl: any;
 
   constructor(pilas: Pilas) {
     this.pilas = pilas;
@@ -12,48 +15,78 @@ class Interpolaciones {
     } else {
       this.time = window.performance.now();
     }
+
+
+    //this.tl = new TimelineLite({onUpdate: this.onDrawAll});
+  }
+
+  private _agregar_intepolacion(interpolacion: TweenLite) {
+    //this.tl.resume();
+    //this.tl["insert"](interpolacion);
+    console.log(interpolacion);
+  }
+
+  onDrawAll(data:any) {
+    console.log(data);
   }
 
   actualizar() {
-    this.time += 1000.0/60;
-    TWEEN.update(this.time);
+    //this.time += 1000.0/60;
+    //TWEEN.update(this.time);
   }
 
   reiniciar() {
-    TWEEN.removeAll();
+    //TWEEN.removeAll();
   }
 
-  crear_interpolacion(actor: ActorProxy, propiedad: string, valor: any, duracion: number = 0.5, tipo: string = "desaceleracion_gradual", infinito: boolean = false) {
-
-    if (!duracion) {
-      duracion = 0.5;
-    }
-
-    if (!tipo) {
-      tipo = "desaceleracion_gradual";
-    }
-
-    if (infinito == undefined) {
-      infinito = false;
-    }
-
+  crear_interpolacion(actor: Actor, propiedad: string, valor: any, duracion: number, tipo: string, infinito: boolean) {
+    var contadorDelay = 0;
     var attrs = {};
     attrs[propiedad] = valor;
 
     // Se asegura que la demora sea de cada paso de la interpolación.
-    if (valor instanceof Array) {
-      duracion *= valor.length;
-    }
+    //if (valor instanceof Array) {
+    //  duracion *= valor.length;
+    //}
 
     if (infinito) {
 
-      if (valor instanceof Array) {
+      if (valor['length']) {
         valor.push(actor[propiedad]);
       }
 
+    } else {
+
+      if (valor['length']) {
+        var timeline = new TimelineMax();
+
+        valor.forEach((i: any) => {
+          let attr = {};
+          attr[propiedad] = i;
+          attr['ease'] = Power0['easeNone'];
+
+          timeline.add(new TweenMax(actor, duracion, attr));
+
+
+
+          /*
+          attrs[propiedad] = i;
+          attrs['delay'] = contadorDelay;
+          console.log(attrs);
+          this._agregar_intepolacion(TweenMax.to(actor, duracion, attrs));
+          contadorDelay += duracion;
+          */
+        });
+
+        //timeline.yoyo();
+      } else {
+        this._agregar_intepolacion(TweenMax.to(actor, duracion, attrs));
+      }
     }
 
-    var tween = new TWEEN.Tween(actor).to(attrs, duracion * 1000.0);
+
+    /*
+    //var tween = new TWEEN.Tween(actor).to(attrs, duracion * 1000.0);
 
     var algoritmos = {
       "lineal": TWEEN.Easing.Linear.None,
@@ -75,18 +108,9 @@ class Interpolaciones {
     tween.easing(interporlacion_como_constante);
 
 
-    /*
-    tween.onStart(function(){
-    });
 
-    tween.onUpdate(function(){
-      console.log("tewwn");
-    });
-
-    tween.onComplete(function(){
-    });
-    */
 
     tween.start();
+    */
   }
 }
