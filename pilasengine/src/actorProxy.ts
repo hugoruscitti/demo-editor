@@ -1,4 +1,5 @@
 class ActorProxy {
+  /*
   id: string;
   pilas: Pilas;
   habilidades: Array<Habilidad>;
@@ -8,6 +9,7 @@ class ActorProxy {
     this.id = id;
     this.habilidades = [];
   }
+
 
   interpolar(propiedad: string, valor: any, duracion: number = 0.5, tipo: string = "desaceleracion_gradual", infinito: boolean = false) {
 
@@ -108,4 +110,5 @@ class ActorProxy {
       throw new Error("No existe la habilidad " + nombre_de_habilidad);
     }
   }
+  */
 }

@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"image": "spritesheet.png",
-		"size": {"w":438,"h":209},
+		"size": {"w":438,"h":275},
 		"scale": "1"
 	},
 	"frames": {
@@ -37,9 +37,33 @@
 			"spriteSourceSize": {"x":0,"y":0,"w":64,"h":63},
 			"sourceSize": {"w":64,"h":63}
 		},
-		"plano.png":
+		"nave_f1.png":
+		{
+			"frame": {"x":10,"y":219,"w":47,"h":46},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":47,"h":46},
+			"sourceSize": {"w":47,"h":46}
+		},
+		"nave_f2.png":
+		{
+			"frame": {"x":77,"y":219,"w":47,"h":46},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":47,"h":46},
+			"sourceSize": {"w":47,"h":46}
+		},
+		"azul.png":
 		{
 			"frame": {"x":412,"y":130,"w":10,"h":10},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":10,"h":10},
+			"sourceSize": {"w":10,"h":10}
+		},
+		"plano.png":
+		{
+			"frame": {"x":412,"y":160,"w":10,"h":10},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":10,"h":10},

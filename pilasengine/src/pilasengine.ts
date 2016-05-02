@@ -1,11 +1,9 @@
 /// <reference path="../libs/pixi.d.ts"/>
 /// <reference path="../libs/p2.d.ts"/>
 /// <reference path="../libs/phaser.d.ts"/>
-/// <reference path="entidad.ts" />
 /// <reference path="actores.ts" />
+/// <reference path="actores/actor.ts" />
 /// <reference path="fondos.ts" />
-/// <reference path="historial.ts" />
-/// <reference path="actorProxy.ts" />
 /// <reference path="tipos.ts" />
 
 
@@ -33,10 +31,12 @@ class Pilas {
 
   codigos: any;
   id_elemento_html: string;
-  //scripts: any;
+  ha_iniciado: boolean;
+
 
   constructor(id_elemento_html: string, opciones: OpcionesIniciar) {
 
+    this.ha_iniciado = false;
     this._verificar_correctitud_de_id_elemento_html(id_elemento_html);
     this.id_elemento_html = id_elemento_html;
     this.ocultar_canvas();
@@ -72,18 +72,39 @@ class Pilas {
     let alto = opciones.alto || 480;
     this.game = new Phaser.Game(ancho, alto, Phaser.CANVAS, id_elemento_html, options);
 
-    //this.load_scripts();
-    this.actores = new Actores(this);
-    this.fondos = new Fondos(this);
-    this.imagenes = new Imagenes(this);
-    this.depurador = new Depurador(this);
-
-    this.escenas = new Escenas(this);
-    this.escenas.normal();
-
     this.evento_inicia = document.createEvent("Event");
   }
 
+  /**
+   * Retorna una refencia a la escena en curso.
+   */
+  get escena_actual() {
+    return this.escenas.escena_actual;
+  }
+
+  /**
+   * Define la cantidad de veces que se actualizarán los actores por segundo.
+   *
+   * Por omisión este atributo vale 60, porque se actualiza 60 veces por segundo.
+   */
+  set actualizaciones_por_segundo(valor: number) {
+    this.game.time.desiredFps = valor;
+  }
+
+  /**
+   * Retorna la cantidad de actualizaciones por segundo (generalmente 60).
+   */
+  get actualizaciones_por_segundo() {
+    return this.game.time.desiredFps;
+  }
+
+  /**
+   * Activa o desactiva el visor de rendimiento o cuadros por segundo.
+   *
+   * Este indicador es interno de Phaser, la bibliteca multimedia que
+   * utiliza pilas, y es independiente a las actualizaciones lógicas
+   * que se configuran con la propiedad `actualizaciones_por_segundo`.
+   */
   public mostrar_cuadros_por_segundo(estado: boolean) {
 
     if (estado) {
@@ -95,6 +116,9 @@ class Pilas {
     this.game.time.advancedTiming = estado;
   }
 
+  /**
+   * Realiza chequeos para verificar que se tiene acceso al canvas html.
+   */
   private _verificar_correctitud_de_id_elemento_html(id_elemento_html: string) {
     if (!id_elemento_html) {
       throw Error(`Tienes que especificar el ID del tag a usar. Algo como pilasengine.iniciar('idElemento')`);
@@ -109,6 +133,13 @@ class Pilas {
     }
   }
 
+  /**
+   * Permite conectar una función a un evento interno de pilas-engine.
+   *
+   * Los eventos que se pueden conectar son:
+   *
+   *  - "inicia": Se invoca cuando pilas está listo para ejecutar código.
+   */
   cuando(nombre_evento: string, callback: CallBackEvento) {
     if (nombre_evento === "inicia") {
       this._cuando_inicia_callback = callback;
@@ -128,23 +159,6 @@ class Pilas {
   reiniciar() {
     this.escenas.normal();
   }
-
-
-
-  /*
-  private load_scripts() {
-    this.scripts = {
-      rotate: function(entity: Entity, data: any) {
-        entity.rotation += data.speed;
-      },
-
-      move: function(entity: Entity, data: any) {
-        entity.x += data.dx;
-        entity.y += data.dy;
-      }
-    };
-  }
-  */
 
   /**
    * Concatena dos rutas de manera similar a la función os.path.join
@@ -170,6 +184,12 @@ class Pilas {
   }
 
   preload() {
+    this.actores = new Actores(this);
+    this.fondos = new Fondos(this);
+    this.depurador = new Depurador(this);
+    this.escenas = new Escenas(this);
+    this.imagenes = new Imagenes(this);
+
     this.game.stage.disableVisibilityChange = true;
     this.imagenes.precargar_imagenes_estandar();
     this.mostrar_cuadros_por_segundo(true);
@@ -180,7 +200,7 @@ class Pilas {
       this.game.scale.refresh();
 
       function gameResized(manager: Phaser.ScaleManager, bounds: Phaser.Rectangle) {
-          var scale = Math.min(window.innerWidth / this.game.width, window.innerHeight / this.game.height);
+          let scale = Math.min(window.innerWidth / this.game.width, window.innerHeight / this.game.height);
           manager.setUserScale(scale, scale, 0, 0);
       }
 
@@ -189,25 +209,37 @@ class Pilas {
 
   }
 
+  /**
+   * Callback iterno que se ejecuta cuando se puede comenzar a ejecutar código.
+   */
   create() {
     this.mostrar_canvas();
+    this.ha_iniciado = true;
+
+    this.escenas.normal();
+
     window.dispatchEvent(new CustomEvent("evento_inicia"));
   }
 
+  /**
+   * Detiene la actualización lógica del motor.
+   */
   pausar() {
     this.escenas.pausar();
   }
 
+  /**
+   * Reanuda la actualización lógica del motor.
+   */
   continuar() {
     this.escenas.continuar();
   }
 
+  /**
+   * Permite permutar el estado de pausa y ejecución.
+   */
   alternar_pausa() {
     this.escenas.alternar_pausa();
-  }
-
-  terminar() {
-
   }
 
   /**
@@ -217,43 +249,27 @@ class Pilas {
     this.escenas.actualizar();
   }
 
+  /**
+   * Realiza el actualizado gráfico.
+   */
   render() {
     this.depurador.realizar_dibujado();
   }
 
-
-/*
-  private aplicar_script(entity: Entity, script_name: string, script_data: any) {
-    this.obtener_script_por_nombre(script_name)(entity, script_data);
-  }
-
-*/
-
-/*
-  private obtener_script_por_nombre(script_name: string) {
-    return this.scripts[script_name];
-  }
-  */
-
+  /**
+   * Retorna una lista de todos los actores en la escena.
+   */
   listar_actores() {
-    return this.escenas.escena_actual.estados.data.entidades.map((e:any) => {
-      return {tipo: "actor", id: e.id};
-    });
+    return this.escena_actual.actores;
   }
 
-  obtener_actor(id: string) {
-    let entidad = this.escenas.escena_actual.estados.data.entidades[id];
-
-    if (!entidad) {
-      throw new Error(`Lo siento, no existe actor con el ID=${id}`);
-    }
-
-    return new ActorProxy(this, entidad);
-  }
-
-  obtener_actores() {
-    return this.escenas.escena_actual.estados.data.entidades.map((e:any) => {
-      return new ActorProxy(this, e.id);
+  /**
+   * Retorna una lista de actores pero especificando
+   * el id de cada uno.
+   */
+  listar_actores_con_ids() {
+    return this.escena_actual.actores.map((e) => {
+      return {id: e.id, actor: e};
     });
   }
 
@@ -261,13 +277,34 @@ class Pilas {
    * Retorna la cantidad de actores en pantalla (incluyendo al fondo).
    */
   obtener_cantidad_de_actores() {
-    return this.obtener_actores().length;
+    return this.listar_actores().length;
   }
 
-  crear_entidad(tipo: string, entidad: any) {
-    return this.escenas.escena_actual.estados.crear_entidad(tipo, entidad);
+
+  /**
+   * Busca entre los actores y retorna el que tenga el ID buscado.
+   */
+  obtener_actor_por_id(id: number) {
+    let actores = this.listar_actores_con_ids();
+    let actorBuscado:any = null;
+
+    actores.forEach((e) => {
+
+      if (e.id === id) {
+        actorBuscado = e.actor;
+      }
+
+    });
+
+    if (actorBuscado) {
+      return actorBuscado;
+    } else {
+      throw new Error(`No se encuentra un actor con el id=${id}`);
+    }
+
   }
 }
+
 
 /**
  * Representa el espacio de nombres para acceder a todos los componentes
@@ -294,6 +331,9 @@ let pilasengine = {
     }
 
     return new Pilas(element_id, opciones);
-  }
+  },
+
+  Actor: Actor,
+  actor: Actor
 
 };

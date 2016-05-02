@@ -1,14 +1,3 @@
-interface Estado {
-  entidades: any[];
-}
-
-interface SpriteCache {
-  id: string;
-  sprite: Phaser.Sprite;
-}
-
-
-
 interface OpcionesIniciar {
   data_path: string;
   en_test: boolean;
@@ -16,7 +5,6 @@ interface OpcionesIniciar {
   alto: number;
   escalar: boolean;
 }
-
 
 interface CallBackEvento {
   (): void;

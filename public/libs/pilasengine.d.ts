@@ -1,40 +1,59 @@
+/// <reference path="../libs/greensock.d.ts" />
 /// <reference path="../libs/pixi.d.ts" />
 /// <reference path="../libs/p2.d.ts" />
 /// <reference path="../libs/phaser.d.ts" />
 declare class ActorProxy {
-    id: string;
-    pilas: Pilas;
-    habilidades: Array<Habilidad>;
-    constructor(pilas: Pilas, id: string);
-    interpolar(propiedad: string, valor: any, duracion?: number, tipo?: string, infinito?: boolean): void;
-    x: number;
-    y: number;
-    escala_x: any;
-    escala_y: number;
-    escala: number;
-    rotacion: number;
-    setData(property: string, value: any): void;
-    private data;
-    imprimir(): string;
-    actualizar_habilidades(): void;
-    aprender(nombre_de_habilidad: string): void;
 }
 declare class Actores {
     pilas: Pilas;
+    Actor: any;
+    Nave: any;
+    Patito: any;
+    constructor(pilas: Pilas);
+    protected _vincular_métodos_de_creación(): void;
+    eliminar_actor(actor: Actor): void;
+    /**
+     * Permite vincular una clase para generar un actor personalizado.
+     *
+     * El actor puede ser cualquier tipo de clase, pero tiene que tener
+     * definida una función llamada "iniciar" que espere un argumento opciones
+     * (tipo diccionario).
+     */
+    vincular(clase: any): void;
+}
+declare class Actor {
+    x: number;
+    y: number;
+    _imagen: any;
+    _sprite: any;
+    pilas: Pilas;
+    rotacion: number;
+    anchor_x: number;
+    anchor_y: number;
+    escala_x: number;
+    escala_y: number;
+    id: number;
     constructor(pilas: Pilas);
     /**
-     * Representa a un actor genérico, con una imagen y propiedades
-     * de transformación como ``x``, ``y``, ``escala_x``, ``escala_y`` etc...
-     *
-     * ![](../imagenes/sin_imagen.png)
-     *
-     * @param x - posición horizontal.
-     * @param y - posición vertical.
+     * Retorna un identificador aleatorio para el Actor.
      */
-    actor(x?: number, y?: number): ActorProxy;
-    patito(x?: number, y?: number): ActorProxy;
-    obtener_por_id(id: string): ActorProxy;
-    texto(mensaje: string): void;
+    private generar_id();
+    iniciar(opciones: any): void;
+    imagen: string;
+    protected _cambiar_imagen_de_sprite_interno(galeria: string, imagen: string): void;
+    protected _crear_sprite_interno(galeria: string, imagen: string): void;
+    pre_actualizar(): void;
+    private _actualizar_propiedades();
+    actualizar(): void;
+    post_actualizar(): void;
+    eliminar(): void;
+    interpolar(propiedad: string, valor: any, duracion?: number, tipo?: string, infinito?: boolean): void;
+}
+declare class Nave extends Actor {
+    iniciar(): void;
+}
+declare class Patito extends Actor {
+    iniciar(): void;
 }
 declare class Depurador {
     pilas: Pilas;
@@ -55,27 +74,6 @@ declare class Modo {
 declare class ModoFPS extends Modo {
     realizar_dibujado(): void;
 }
-/**
- * Representa una entidad dentro del motor, como un actor por ejemplo.
- *
- * Esta interfaz no se utiliza de forma directa, sino que solamente sirve
- * para agrupar todos los datos referidos a una entidad.
- *
- */
-interface Entity {
-    nombre: string;
-    id: number;
-    x: number;
-    y: number;
-    sprite_id?: string;
-    scale_x: number;
-    scale_y: number;
-    rotation: number;
-    anchor_x: number;
-    anchor_y: number;
-    image: string;
-    scripts?: any;
-}
 declare class Escenas {
     pilas: Pilas;
     escena_actual: Escena;
@@ -87,8 +85,17 @@ declare class Escenas {
     constructor(pilas: Pilas);
     normal(): void;
     actualizar(): void;
+    /**
+     * Detiene la actualización lógica del motor.
+     */
     pausar(): void;
+    /**
+     * Reanuda la actualización lógica del motor.
+     */
     continuar(): void;
+    /**
+     * Permite permutar el estado de pausa y ejecución.
+     */
     alternar_pausa(): void;
 }
 /**
@@ -96,11 +103,12 @@ declare class Escenas {
  */
 declare class Escena {
     pilas: Pilas;
-    estados: Estados;
-    historial_estados: Historial;
-    sprites: SpriteCache[];
     interpolaciones: Interpolaciones;
+    actores: any[];
     constructor(pilas: Pilas);
+    agregar_actor(actor: any): void;
+    eliminar_actor(actor: any): void;
+    private _actualizar_actores();
     /**
      * Carga el código inicial para la escena.
      *
@@ -112,29 +120,29 @@ declare class Escena {
      * Se invoca seis veces por segundo para mantener en funcionamiento el juego.
      */
     actualizar(): void;
+    /**
+     * Se invoca desde el gestor de escenas cuando se cambia de una escena a otra.
+     */
+    terminar(): void;
+    private _eliminar_a_todos_los_actores();
 }
 declare class EscenaNormal extends Escena {
     pilas: Pilas;
     iniciar(): void;
 }
-declare class Estados {
-    pilas: Pilas;
-    data: Estado;
-    cache: any;
-    constructor(pilas: Pilas);
-    actualizar(): void;
-    private actualizar_entidad_tipo_sprite_tiled(entidad);
-    private actualizar_entidad_tipo_sprite(entidad);
-    private actualizar_sprite_desde_entidad(sprite, entidad);
-    private obtener_sprite_tiled(id, imagen);
-    private obtener_sprite(id, imagen);
-    obtener_entidad_por_id(id: string): any;
-    crear_entidad(tipo: string, entidad: any): ActorProxy;
+declare class ActorFondo extends Actor {
+    protected _crear_sprite_interno(galeria: string, imagen: string): void;
 }
-declare class Fondos {
-    pilas: Pilas;
-    constructor(pilas: Pilas);
-    plano(x?: number, y?: number): ActorProxy;
+declare class Plano extends ActorFondo {
+    iniciar(): void;
+}
+declare class Fondos extends Actores {
+    Plano: any;
+    Azul: any;
+    _vincular_métodos_de_creación(): void;
+}
+declare class Azul extends ActorFondo {
+    iniciar(): void;
 }
 declare class Habilidad {
     pilas: Pilas;
@@ -144,16 +152,6 @@ declare class Habilidad {
 declare class SeguirClicks extends Habilidad {
     actualizar(): void;
 }
-declare class Historial {
-    pilas: Pilas;
-    game_state_history: Estado[];
-    current_step: number;
-    constructor(pilas: Pilas);
-    reset(): void;
-    get_length(): number;
-    save(state: Estado): void;
-    get_state_by_step(step: number): Estado;
-}
 declare class Imagenes {
     pilas: Pilas;
     constructor(pilas: Pilas);
@@ -161,21 +159,17 @@ declare class Imagenes {
     private cargar(identificador, archivo);
     private cargar_atlas(id, archivo_png, archivo_json);
 }
-declare var TWEEN: any;
+declare var Timeline: any;
 declare class Interpolaciones {
     pilas: Pilas;
     time: number;
+    tl: any;
     constructor(pilas: Pilas);
+    private _agregar_intepolacion(interpolacion);
+    onDrawAll(data: any): void;
     actualizar(): void;
     reiniciar(): void;
-    crear_interpolacion(actor: ActorProxy, propiedad: string, valor: any, duracion?: number, tipo?: string, infinito?: boolean): void;
-}
-interface Estado {
-    entidades: any[];
-}
-interface SpriteCache {
-    id: string;
-    sprite: Phaser.Sprite;
+    crear_interpolacion(actor: Actor, propiedad: string, valor: any, duracion: number, tipo: string, infinito: boolean): void;
 }
 interface OpcionesIniciar {
     data_path: string;
@@ -209,9 +203,40 @@ declare class Pilas {
     _cuando_inicia_callback: any;
     codigos: any;
     id_elemento_html: string;
+    ha_iniciado: boolean;
     constructor(id_elemento_html: string, opciones: OpcionesIniciar);
+    /**
+     * Retorna una refencia a la escena en curso.
+     */
+    escena_actual: Escena;
+    /**
+     * Retorna la cantidad de actualizaciones por segundo (generalmente 60).
+     */
+    /**
+     * Define la cantidad de veces que se actualizarán los actores por segundo.
+     *
+     * Por omisión este atributo vale 60, porque se actualiza 60 veces por segundo.
+     */
+    actualizaciones_por_segundo: number;
+    /**
+     * Activa o desactiva el visor de rendimiento o cuadros por segundo.
+     *
+     * Este indicador es interno de Phaser, la bibliteca multimedia que
+     * utiliza pilas, y es independiente a las actualizaciones lógicas
+     * que se configuran con la propiedad `actualizaciones_por_segundo`.
+     */
     mostrar_cuadros_por_segundo(estado: boolean): void;
+    /**
+     * Realiza chequeos para verificar que se tiene acceso al canvas html.
+     */
     private _verificar_correctitud_de_id_elemento_html(id_elemento_html);
+    /**
+     * Permite conectar una función a un evento interno de pilas-engine.
+     *
+     * Los eventos que se pueden conectar son:
+     *
+     *  - "inicia": Se invoca cuando pilas está listo para ejecutar código.
+     */
     cuando(nombre_evento: string, callback: CallBackEvento): void;
     /**
      * Elimina todo objeto de la escena y vuelve a cargar la escena normal.
@@ -230,27 +255,50 @@ declare class Pilas {
      */
     private ocultar_canvas();
     preload(): void;
+    /**
+     * Callback iterno que se ejecuta cuando se puede comenzar a ejecutar código.
+     */
     create(): void;
+    /**
+     * Detiene la actualización lógica del motor.
+     */
     pausar(): void;
+    /**
+     * Reanuda la actualización lógica del motor.
+     */
     continuar(): void;
+    /**
+     * Permite permutar el estado de pausa y ejecución.
+     */
     alternar_pausa(): void;
-    terminar(): void;
     /**
      * Realiza una actualización de la lógica del videojuego.
      */
     private actualizar();
+    /**
+     * Realiza el actualizado gráfico.
+     */
     render(): void;
-    listar_actores(): {
-        tipo: string;
+    /**
+     * Retorna una lista de todos los actores en la escena.
+     */
+    listar_actores(): any[];
+    /**
+     * Retorna una lista de actores pero especificando
+     * el id de cada uno.
+     */
+    listar_actores_con_ids(): {
         id: any;
+        actor: any;
     }[];
-    obtener_actor(id: string): ActorProxy;
-    obtener_actores(): ActorProxy[];
     /**
      * Retorna la cantidad de actores en pantalla (incluyendo al fondo).
      */
     obtener_cantidad_de_actores(): number;
-    crear_entidad(tipo: string, entidad: any): ActorProxy;
+    /**
+     * Busca entre los actores y retorna el que tenga el ID buscado.
+     */
+    obtener_actor_por_id(id: number): any;
 }
 /**
  * Representa el espacio de nombres para acceder a todos los componentes
@@ -258,6 +306,8 @@ declare class Pilas {
  */
 declare let pilasengine: {
     iniciar: (element_id: string, opciones?: OpcionesIniciar) => Pilas;
+    Actor: typeof Actor;
+    actor: typeof Actor;
 };
 declare class Utils {
     pilas: Pilas;

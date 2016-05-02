@@ -53,6 +53,10 @@ export default Ember.Component.extend(InboundActions, {
         scope.set('error', error);
         console.error(error);
       }
+
+      let pilas = iframeElement.contentWindow.eval("pilas");
+      console.warn("Exponiendo la variable `pilas` para depuración:");
+      window['pilas'] = pilas;
     }
 
     this.set('error', null);

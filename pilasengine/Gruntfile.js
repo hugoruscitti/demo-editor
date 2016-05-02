@@ -1,14 +1,13 @@
 module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-typescript');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    //grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-touch');
     grunt.loadNpmTasks('grunt-contrib-connect');
 
     grunt.initConfig({
         concat: {
           dist: {
-            src: ['libs/phaser.js', 'tmp/pilasengine.js', 'libs/Tween.js'],
+            src: ['libs/phaser.js', 'tmp/pilasengine.js', 'libs/TweenMax.js'],
             dest: '../public/libs/pilasengine.js',
           },
           map: {
@@ -92,7 +91,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
 
 
-    grunt.registerTask('compilar-con-ejemplos-livereload', ['typescript', 'message', 'watch:simple']);
-    //grunt.registerTask('compilar-y-notificar-live-con-tests', ['connect:tests', 'message', 'watch:withTests' /*'typedoc', 'test'*/]);
+    grunt.registerTask('compilar-con-ejemplos-livereload', ['typescript', 'watch:simple']);
     grunt.registerTask('compilar', ['typescript', 'concat', 'touch']);
 }

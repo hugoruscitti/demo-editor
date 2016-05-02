@@ -2,6 +2,6 @@ class EscenaNormal extends Escena {
   pilas: Pilas;
 
   iniciar() {
-    this.pilas.fondos.plano();
+    this.pilas.fondos.Plano();
   }
 }

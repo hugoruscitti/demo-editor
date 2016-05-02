@@ -15,6 +15,7 @@ export default Ember.Controller.extend({
                       inputPlaceholder: this.get("title"),
                       cancelButtonText: "Cancelar",
                       confirmButtonText: "Crear proyecto",
+                      animation: false,
                       showCancelButton: true};
 
       this.get("sweetalert").prompt(options).then((name) => {

@@ -1,13 +1,13 @@
-.ejemplo_escena_normal {
-    width: 180px;
-    height: 120px;
-    background: url("spritesheet.png") -2px -2px;
-}
-
 .ejemplo_disparo {
     width: 180px;
     height: 119px;
     background: url("spritesheet.png") -186px -2px;
+}
+
+.ejemplo_escena_normal {
+    width: 180px;
+    height: 120px;
+    background: url("spritesheet.png") -2px -2px;
 }
 
 .pilas_logo_128 {
@@ -16,33 +16,75 @@
     background: url("spritesheet.png") -2px -126px;
 }
 
-.add_folder {
-    width: 25px;
-    height: 25px;
+.phaser {
+    width: 70px;
+    height: 70px;
     background: url("spritesheet.png") -134px -126px;
 }
 
-.filled_box {
-    width: 25px;
-    height: 25px;
-    background: url("spritesheet.png") -163px -126px;
+.ember {
+    width: 63px;
+    height: 60px;
+    background: url("spritesheet.png") -208px -126px;
 }
 
-.info_squared {
-    width: 25px;
-    height: 25px;
-    background: url("spritesheet.png") -192px -126px;
+.greenSock {
+    width: 60px;
+    height: 60px;
+    background: url("spritesheet.png") -275px -126px;
 }
 
-.settings {
-    width: 25px;
-    height: 25px;
-    background: url("spritesheet.png") -221px -126px;
+.electron {
+    width: 60px;
+    height: 60px;
+    background: url("spritesheet.png") -2px -258px;
 }
 
 .user_manual {
     width: 25px;
     height: 25px;
-    background: url("spritesheet.png") -250px -126px;
+    background: url("spritesheet.png") -256px -200px;
+}
+
+.typescript {
+    width: 60px;
+    height: 60px;
+    background: url("spritesheet.png") -130px -258px;
+}
+
+.github {
+    width: 60px;
+    height: 50px;
+    background: url("spritesheet.png") -134px -200px;
+}
+
+.filled_box {
+    width: 25px;
+    height: 25px;
+    background: url("spritesheet.png") -339px -126px;
+}
+
+.info_squared {
+    width: 25px;
+    height: 25px;
+    background: url("spritesheet.png") -339px -155px;
+}
+
+.settings {
+    width: 25px;
+    height: 25px;
+    background: url("spritesheet.png") -198px -200px;
+}
+
+.add_folder {
+    width: 25px;
+    height: 25px;
+    background: url("spritesheet.png") -227px -200px;
+}
+
+.pilas_logo_60 {
+    width: 60px;
+    height: 60px;
+    background: url("spritesheet.png") -66px -258px;
 }
 

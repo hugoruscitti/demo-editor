@@ -27,6 +27,7 @@ export default Ember.Route.extend({
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
+            animation: false,
             confirmButtonText: "Si, abandono",
             cancelButtonText: "No, quiero volver al editor!"
           }).then((hasConfirm) => {

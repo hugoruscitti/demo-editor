@@ -1,41 +1,63 @@
 class Actores {
   pilas: Pilas;
 
+  // Metodos que se generan en tiempo de ejecución.
+  Actor: any;
+  Nave: any;
+  Patito: any;
+
   constructor(pilas: Pilas) {
     this.pilas = pilas;
+    this._vincular_métodos_de_creación();
+  }
+
+  protected _vincular_métodos_de_creación() {
+    this.vincular(Actor);
+    this.vincular(Nave);
+    this.vincular(Patito);
+  }
+
+  eliminar_actor(actor: Actor) {
+    this.pilas.escena_actual.eliminar_actor(actor);
   }
 
   /**
-   * Representa a un actor genérico, con una imagen y propiedades
-   * de transformación como ``x``, ``y``, ``escala_x``, ``escala_y`` etc...
+   * Permite vincular una clase para generar un actor personalizado.
    *
-   * ![](../imagenes/sin_imagen.png)
-   *
-   * @param x - posición horizontal.
-   * @param y - posición vertical.
+   * El actor puede ser cualquier tipo de clase, pero tiene que tener
+   * definida una función llamada "iniciar" que espere un argumento opciones
+   * (tipo diccionario).
    */
-  actor(x: number= 0, y: number= 0) {
-    return this.pilas.crear_entidad("sprite", {
-      imagen: "data:sin_imagen.png",
-      clase: 'actor'
-    });
-  }
+  vincular(clase: any) {
 
-  patito(x:number=0, y:number=0) {
-    return this.pilas.crear_entidad("sprite", {
-      imagen: "data:patito.png",
-      clase: 'patito'
-    });
-  }
+    if (!clase || !clase.name) {
+      throw Error("Solo se admiten clases como parámetro.");
+    }
 
-  obtener_por_id(id: string) {
-    return new ActorProxy(this.pilas, id);
-  }
+    // Genera el método que servirá para instaciar la
+    // clase del actor, agregarlo a la escena e inicializarlo
+    // con el estado inicial.
+    this[clase.name] = (opciones: any) => {
 
-  texto(mensaje: string) {
-    var style = {stroke: '#000000', strokeThickness: 4, font: "28px Arial", fill: "#fff"};
-    var text = this.pilas.game.add.text(32, 64, "Hola mundo", style);
-    window['text'] = text;
+      let nuevo = new clase(this.pilas);
+      this.pilas.escena_actual.agregar_actor(nuevo);
+
+      nuevo.iniciar(opciones);
+
+      nuevo.pre_actualizar();
+      nuevo.actualizar();
+      nuevo.post_actualizar();
+
+      return nuevo;
+    };
+
+
+    // Si el nombre de la clase es camelcase, también permite
+    // crear el actor usando solamente minúsculas.
+    if (clase.name !== clase.name.toLocaleLowerCase()) {
+      this[clase.name.toLocaleLowerCase()] = this[clase.name];
+    }
+
   }
 
 }

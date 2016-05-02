@@ -11,6 +11,7 @@ export default function() {
 
   this.passthrough("data/sprites.json");
   this.passthrough("ejemplos/**");
+  this.passthrough("https://api.keen.io/**");
 
   // These comments are here to help you get started. Feel free to delete them.
 

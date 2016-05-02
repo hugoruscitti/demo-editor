@@ -5,6 +5,22 @@ moduleForComponent('demo', 'Integration | Component | demo', {
   integration: true
 });
 
+test('puede crear un actor personalizado', function(assert) {
+  return createPilasTest(this, (pilas, resolve) => {
+    let mensaje_error_esperado = /Solo se admiten clases como parámetro./;
+
+    assert.throws(() => {
+      pilas.actores.vincular();
+    }, mensaje_error_esperado, "Laza un error si no se especifica una clase.");
+
+    assert.throws(() => {
+      pilas.actores.vincular("cadena");
+    }, mensaje_error_esperado, "También lanza error si no se envía una clase.");
+
+    resolve({});
+  });
+
+});
 
 test('puede crear un actor', function(assert) {
 
