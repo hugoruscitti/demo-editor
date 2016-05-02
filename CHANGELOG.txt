@@ -1,3 +1,8 @@
+  * release 0.0.30
+  * Actualizando makefile.
+  * Moviendo el botón 'acerca de...' al header y mejorando la portada #fix 19
+  * Evitando que el comando zip imprima tantos mensajes en pantalla.
+  * actualizando changelog.
   * release 0.0.29
   * Agregando listado de binarios para subir a github releases.
   * actualizando changelog.
