@@ -1,109 +1,99 @@
 import Ember from 'ember';
 
-let codigo_actor_personalizado = `
+let items = [];
+let contadorID = 0;
 
-class MiActor extends pilasengine.Actor {
-  velocidad;
+function crear_ejemplo(nick, nombre, codigo) {
 
-  iniciar(opciones) {
-    this.x = opciones.x;
-    this.velocidad = 1;
-    //console.log("llamaron a iniciar asi", opciones);
-  }
+  let obj = Ember.Object.extend({}).create({
+    id: contadorID,
+    name: nick,
+    title: nombre,
+    code: codigo,
+    ancho: 400,
+    alto: 400
+  });
 
-  actualizar() {
-    //console.log("actualiza", this.velocidad);
-    this.rotacion += 5;
-  }
+  items.push(obj);
+
+  contadorID += 1;
 }
 
-pilas.cuando('inicia', function() {
 
-  //pilas.actualizaciones_por_segundo = 1;
+crear_ejemplo("interpolaciones", "Interpolar propiedades",
+  `let pilas;
 
-  pilas.actores.vincular(MiActor);
-  let unActor = pilas.actores.MiActor({x: 0, y: 0});
-  unActor.imagen = "data:patito.png";
+  pilas.cuando('inicia', function() {
+    pilas.fondos.plano();
+    let actor = pilas.actores.nave();
 
-  pilas.fondos.plano();
+    actor.interpolar('escala', [2, 1]);
+    window.nave = actor;
+  });
+  `);
 
-});
+crear_ejemplo("personalizado", "Actor Personalizado",
+  `
+  class MiActor extends pilasengine.Actor {
+    velocidad;
 
+    iniciar(opciones) {
+      this.x = opciones.x;
+      this.velocidad = 1;
+      //console.log("llamaron a iniciar asi", opciones);
+    }
 
-`;
+    actualizar() {
+      //console.log("actualiza", this.velocidad);
+      this.rotacion += 5;
+    }
+  }
 
+  pilas.cuando('inicia', function() {
 
-let codigo_escena_normal = `
-let pilas;
+    //pilas.actualizaciones_por_segundo = 1;
 
-pilas.cuando('inicia', function() {
-  pilas.escenas.normal();
-  let patito = pilas.actores.patito();
-  patito.escala = [2, 1];
-});
-`;
+    pilas.actores.vincular(MiActor);
+    let unActor = pilas.actores.MiActor({x: 0, y: 0});
+    unActor.imagen = "data:patito.png";
 
-let codigo_disparo = `
-let pilas;
+    pilas.fondos.plano();
 
-pilas.cuando('inicia', function() {
-  pilas.escenas.normal();
-  let actor = pilas.actores.actor();
-  actor.aprender("SeguirClicks");
-  actor.rotacion = [360];
-});
-`;
+  });
+  `);
 
-let codigo_nave = `
-let pilas;
+crear_ejemplo("escena_normal", "Hola mundo",
+  `
+  let pilas;
 
-pilas.cuando('inicia', function() {
-  pilas.fondos.plano();
-  let actor = pilas.actores.nave();
-});
-`;
+  pilas.cuando('inicia', function() {
+    pilas.escenas.normal();
+    let patito = pilas.actores.patito();
+    patito.escala = [2, 1];
+  });
+  `);
 
+crear_ejemplo("disparo", "Nave dispara",
+  `
+  let pilas;
 
+  pilas.cuando('inicia', function() {
+    pilas.escenas.normal();
+    let actor = pilas.actores.actor();
+    actor.aprender("SeguirClicks");
+    actor.rotacion = [360];
+  });
+  `);
 
-let items = [
-  Ember.Object.extend({}).create({
-      id: 1,
-      name: "escena_normal",
-      title: "Hola mundo",
-      code: codigo_escena_normal,
-      ancho: 400,
-      alto: 400,
-    }),
-  Ember.Object.extend({}).create({
-      id: 2,
-      name: "disparo",
-      title: "Nave dispara",
-      code: codigo_disparo,
-      ancho: 600,
-      alto: 600,
-    }),
+crear_ejemplo("nave", "Actor Nave",
+  `
+  let pilas;
 
-  Ember.Object.extend({}).create({
-      id: 3,
-      name: "nave",
-      title: "Actor Nave",
-      code: codigo_nave,
-      ancho: 600,
-      alto: 600,
-    }),
-
-  Ember.Object.extend({}).create({
-      id: 4,
-      name: "personalizado",
-      title: "Actor Personalizado",
-      code: codigo_actor_personalizado,
-      ancho: 650,
-      alto: 216,
-    }),
-
-];
-
-
+  pilas.cuando('inicia', function() {
+    pilas.fondos.plano();
+    let actor = pilas.actores.nave();
+  });
+  `);
 
 
 export default Ember.Service.extend({
