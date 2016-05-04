@@ -17,7 +17,6 @@
         "src/actores/actor.ts",
         "src/actores/nave.ts",
         "src/actores/patito.ts",
-        "src/actorProxy.ts",
         "src/depurador/depurador.ts",
         "src/depurador/modo_fps.ts",
         "src/depurador/modo.ts",

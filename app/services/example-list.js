@@ -19,7 +19,6 @@ function crear_ejemplo(nick, nombre, codigo) {
   contadorID += 1;
 }
 
-
 crear_ejemplo("interpolaciones", "Interpolar propiedades",
   `let pilas;
 

@@ -2,8 +2,6 @@
 /// <reference path="../libs/pixi.d.ts" />
 /// <reference path="../libs/p2.d.ts" />
 /// <reference path="../libs/phaser.d.ts" />
-declare class ActorProxy {
-}
 declare class Actores {
     pilas: Pilas;
     Actor: any;
@@ -22,16 +20,16 @@ declare class Actores {
     vincular(clase: any): void;
 }
 declare class Actor {
-    x: number;
-    y: number;
+    _x: number;
+    _y: number;
     _imagen: any;
     _sprite: any;
     pilas: Pilas;
-    rotacion: number;
-    anchor_x: number;
-    anchor_y: number;
-    escala_x: number;
-    escala_y: number;
+    _rotacion: number;
+    _anchor_x: number;
+    _anchor_y: number;
+    _escala_x: number;
+    _escala_y: number;
     id: number;
     constructor(pilas: Pilas);
     /**
@@ -48,6 +46,14 @@ declare class Actor {
     post_actualizar(): void;
     eliminar(): void;
     interpolar(propiedad: string, valor: any, duracion?: number, tipo?: string, infinito?: boolean): void;
+    escala: number;
+    escala_x: number;
+    escala_y: number;
+    private _interpretar_propiedad_numerica(propiedad, valor);
+    x: number;
+    y: number;
+    rotacion: number;
+    imprimir(): string;
 }
 declare class Nave extends Actor {
     iniciar(): void;
