@@ -3,7 +3,7 @@
     {{#link-to "index" tagName="button" class="btn btn-default"}} {{p-icon icon="home"}} {{/link-to}}
     {{#link-to "project" tagName="button" class="btn btn-default"}} {{p-icon icon="bag"}} {{/link-to}}
   </div>
-  
+
   {{x-title title=model.title}}
 
   <div class="btn-group pull-right">
@@ -51,6 +51,12 @@
                 {{#link-to "edit.previewModal" model tagName="button" class="btn btn-default pull-right"}} {{p-icon icon="resize-full"}} {{/link-to}}
               </div>
             </div>
+
+            <!--
+              x-result contiene el iframe con el canvas de pilas-engine.
+              El actionReceiver sirve para enviarle acciones al componente
+              desde afuera.
+            -->
 
             {{x-result project=model actionReceiver=xResultHandler}}
 
