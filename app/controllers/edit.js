@@ -92,8 +92,6 @@ export default Ember.Controller.extend({
     }
   },
 
-
-
   onKeyDown(e) {
     var editorFactory = this.get("editorFactory");
     var that = this;
@@ -122,6 +120,9 @@ export default Ember.Controller.extend({
       project.save().then(() => {
         this.get("xResultHandler").send('reload', project);
       });
+    },
+    onLoad(pilas) {
+      alert("ha cargado pilas! controller:edit");
     },
     reload(project) {
       this.get("xResultHandler").send('reload', project);

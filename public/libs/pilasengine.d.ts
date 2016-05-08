@@ -136,6 +136,11 @@ declare class EscenaNormal extends Escena {
     pilas: Pilas;
     iniciar(): void;
 }
+declare class Eventos {
+    pilas: Pilas;
+    cambia_coleccion_de_actores: Phaser.Signal;
+    constructor(pilas: Pilas);
+}
 declare class ActorFondo extends Actor {
     protected _crear_sprite_interno(galeria: string, imagen: string): void;
 }
@@ -205,6 +210,7 @@ declare class Pilas {
     imagenes: Imagenes;
     depurador: Depurador;
     escenas: Escenas;
+    eventos: Eventos;
     evento_inicia: any;
     _cuando_inicia_callback: any;
     codigos: any;

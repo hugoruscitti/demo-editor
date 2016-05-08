@@ -23,6 +23,7 @@
         "src/escenas.ts",
         "src/escenas/escena.ts",
         "src/escenas/normal.ts",
+        "src/eventos.ts",
         "src/fondos.ts",
         "src/fondos/azul.ts",
         "src/fondos/fondo.ts",

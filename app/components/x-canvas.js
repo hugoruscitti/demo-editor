@@ -17,8 +17,9 @@ export default Ember.Component.extend(InboundActions, {
     window.iframeElement = iframeElement;
 
     this.get("iframeElement").onload = () => {
-      if (this.get('onLoad')) {
-        this.sendAction('onLoad', {iframeElement});
+      if (this.get('pilas')) {
+        this.get("pilas").onLoadIframe(iframeElement);
+        //this.sendAction('onLoad', {iframeElement});
       }
     };
 
@@ -32,6 +33,7 @@ export default Ember.Component.extend(InboundActions, {
   actions: {
     execute(code) {
       this.reloadIframe(() => {
+        alert("Ha cargado el código y está todo listo!");
         this.get("iframeElement").contentWindow.eval(code);
       });
     },

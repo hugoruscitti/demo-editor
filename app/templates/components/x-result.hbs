@@ -24,12 +24,7 @@
 
   {{/if}}
 
-  <p class="loading-p">
-    {{x-spinner}}
-  </p>
-
-
-  <iframe class="gameIframe" id='innerIframe' src="" width="100%" height="100%" scrolling="no"></iframe>
+  {{x-canvas onLoad="onLoad"}}
 
 {{else}}
   <p>Se necesita un proyecto.</p>

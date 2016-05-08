@@ -98734,6 +98734,7 @@ var Escena = (function () {
              acceso y la gestión de los actores.  */
     Escena.prototype.agregar_actor = function (actor) {
         this.actores.push(actor);
+        this.pilas.eventos.cambia_coleccion_de_actores.dispatch({ cantidad: this.actores.length });
     };
     Escena.prototype.eliminar_actor = function (actor) {
         function funcion_filtro(unActor) {
@@ -98741,6 +98742,7 @@ var Escena = (function () {
         }
         ;
         this.actores = this.actores.filter(funcion_filtro);
+        this.pilas.eventos.cambia_coleccion_de_actores.dispatch({ cantidad: this.actores.length });
     };
     Escena.prototype._actualizar_actores = function () {
         this.actores.forEach(function (e) {
@@ -98787,6 +98789,13 @@ var EscenaNormal = (function (_super) {
     };
     return EscenaNormal;
 })(Escena);
+var Eventos = (function () {
+    function Eventos(pilas) {
+        this.pilas = pilas;
+        this.cambia_coleccion_de_actores = new Phaser.Signal();
+    }
+    return Eventos;
+})();
 var ActorFondo = (function (_super) {
     __extends(ActorFondo, _super);
     function ActorFondo() {
@@ -99118,6 +99127,7 @@ var Pilas = (function () {
         this.depurador = new Depurador(this);
         this.escenas = new Escenas(this);
         this.imagenes = new Imagenes(this);
+        this.eventos = new Eventos(this);
         this.game.stage.disableVisibilityChange = true;
         this.imagenes.precargar_imagenes_estandar();
         this.mostrar_cuadros_por_segundo(true);

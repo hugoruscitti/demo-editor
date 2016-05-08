@@ -29,9 +29,11 @@ export default Ember.Component.extend(InboundActions, {
     let iframeElement = this.$().find('#innerIframe')[0];
     this.set("iframeElement", iframeElement);
 
+    /*
     setTimeout(() => {
       this.send('reload', this.get('project'));
     }, 10);
+    */
 
   },
 
@@ -92,6 +94,11 @@ export default Ember.Component.extend(InboundActions, {
   },
 
   actions: {
+    onLoad(pilas) {
+      alert("carga pilas desde x-result");
+      this.sendAction('onLoad', pilas);
+      this.send('reload', this.get('project'));
+    },
     reload(project) {
       this.reloadIframe(() => {
         if (project) {
