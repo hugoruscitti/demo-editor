@@ -6,7 +6,6 @@ export default function createPilasTest(context, callback) {
 
   return new Ember.RSVP.Promise((resolve) => {
 
-
     context.on('onLoad', function(val) {
       let iframe = val.iframeElement;
       let pilas = iframe.contentWindow.eval("pilasengine.iniciar('canvas', {ancho: 640, alto: 384})");

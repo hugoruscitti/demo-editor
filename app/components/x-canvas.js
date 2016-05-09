@@ -19,8 +19,14 @@ export default Ember.Component.extend(InboundActions, {
     this.get("iframeElement").onload = () => {
       if (this.get('pilas')) {
         this.get("pilas").onLoadIframe(iframeElement);
-        //this.sendAction('onLoad', {iframeElement});
       }
+
+      if (this.get('onLoad')) {
+        console.warn("Ha usado onLoad en el componente, algo que está destinado a test exclusivamente.");
+        this.sendAction('onLoad', {iframeElement});
+      }
+
+
     };
 
   },
