@@ -40,6 +40,7 @@ export default Ember.Service.extend({
   },
 
   reload(iframe) {
+    console.log(iframe);
     this.get("iframe").contentWindow.location.reload(true);
   }
 

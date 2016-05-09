@@ -122,7 +122,7 @@ export default Ember.Controller.extend({
       });
     },
     onLoad(pilas) {
-      alert("ha cargado pilas! controller:edit");
+      alert("ha cargado pilas! controller:edit", pilas);
     },
     reload(project) {
       this.get("xResultHandler").send('reload', project);
