@@ -16,7 +16,6 @@ export default Ember.Controller.extend({
         var pilas = pilasengine.iniciar('canvas', opciones);
       `);
 
-
     }
   }
 });

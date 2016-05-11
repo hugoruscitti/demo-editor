@@ -36,7 +36,9 @@
             {{#if showManual}}
               {{x-manual}}
             {{else}}
-              Inspector
+              <h4>Inspector</h4>
+
+              <p>Cantidad de actores: {{pilasService.actorCounter}}</p>
             {{/if}}
 
           </div>
@@ -58,7 +60,9 @@
               desde afuera.
             -->
 
-            {{x-result project=model actionReceiver=xResultHandler onLoad="onLoad"}}
+            {{x-result pilas=pilasService project=model}}
+
+            {{!x-result project=model actionReceiver=xResultHandler onLoad="onLoad"}}
 
             <div class="toolbar-actions">
               <div class="btn-group">

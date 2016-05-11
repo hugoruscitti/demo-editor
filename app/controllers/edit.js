@@ -9,6 +9,8 @@ export default Ember.Controller.extend({
   showInspector: true,
   queryParams: ['leftPanelVisible', 'centerPanelVisible', 'editorPanelVisible', 'showConsole', 'showManual', 'showInspector'],
   editorFactory: Ember.inject.service(),
+  pilasService: Ember.inject.service('pilas'),
+
 
   itsSaved: Ember.computed("model.hasDirtyAttributes", function() {
     return (!this.get("model.hasDirtyAttributes"));
@@ -125,7 +127,9 @@ export default Ember.Controller.extend({
       alert("ha cargado pilas! controller:edit", pilas);
     },
     reload(project) {
-      this.get("xResultHandler").send('reload', project);
+      this.get("pilasService").reload();
+
+      //this.get("xResultHandler").send('reload', project);
     }
   }
 });

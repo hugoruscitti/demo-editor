@@ -24,7 +24,11 @@
 
   {{/if}}
 
-  {{x-canvas onLoad="onLoad"}}
+  <p class="loading-p">
+    {{x-spinner}}
+  </p>
+
+  {{x-canvas pilas=pilas}}
 
 {{else}}
   <p>Se necesita un proyecto.</p>
