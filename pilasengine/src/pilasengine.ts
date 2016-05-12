@@ -25,6 +25,7 @@ class Pilas {
   imagenes: Imagenes;
   depurador: Depurador;
   escenas: Escenas;
+  eventos: Eventos;
 
   evento_inicia: any;
   _cuando_inicia_callback: any;
@@ -189,6 +190,7 @@ class Pilas {
     this.depurador = new Depurador(this);
     this.escenas = new Escenas(this);
     this.imagenes = new Imagenes(this);
+    this.eventos = new Eventos(this);
 
     this.game.stage.disableVisibilityChange = true;
     this.imagenes.precargar_imagenes_estandar();

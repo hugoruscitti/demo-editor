@@ -9,6 +9,8 @@ export default Ember.Controller.extend({
   showInspector: true,
   queryParams: ['leftPanelVisible', 'centerPanelVisible', 'editorPanelVisible', 'showConsole', 'showManual', 'showInspector'],
   editorFactory: Ember.inject.service(),
+  pilasService: Ember.inject.service('pilas'),
+
 
   itsSaved: Ember.computed("model.hasDirtyAttributes", function() {
     return (!this.get("model.hasDirtyAttributes"));
@@ -92,8 +94,6 @@ export default Ember.Controller.extend({
     }
   },
 
-
-
   onKeyDown(e) {
     var editorFactory = this.get("editorFactory");
     var that = this;
@@ -123,8 +123,13 @@ export default Ember.Controller.extend({
         this.get("xResultHandler").send('reload', project);
       });
     },
-    reload(project) {
-      this.get("xResultHandler").send('reload', project);
+    onLoad(pilas) {
+      alert("ha cargado pilas! controller:edit", pilas);
+    },
+    reload(/*project*/) {
+      this.get("pilasService").reload();
+
+      //this.get("xResultHandler").send('reload', project);
     }
   }
 });

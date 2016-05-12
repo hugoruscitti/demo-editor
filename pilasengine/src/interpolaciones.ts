@@ -16,13 +16,10 @@ class Interpolaciones {
       this.time = window.performance.now();
     }
 
-
     //this.tl = new TimelineLite({onUpdate: this.onDrawAll});
   }
 
   private _agregar_intepolacion(interpolacion: TweenLite) {
-    //this.tl.resume();
-    //this.tl["insert"](interpolacion);
     console.log(interpolacion);
   }
 
@@ -66,8 +63,6 @@ class Interpolaciones {
           attr['ease'] = Power0['easeNone'];
 
           timeline.add(new TweenMax(actor, duracion, attr));
-
-
 
           /*
           attrs[propiedad] = i;

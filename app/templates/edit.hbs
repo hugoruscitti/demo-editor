@@ -3,7 +3,7 @@
     {{#link-to "index" tagName="button" class="btn btn-default"}} {{p-icon icon="home"}} {{/link-to}}
     {{#link-to "project" tagName="button" class="btn btn-default"}} {{p-icon icon="bag"}} {{/link-to}}
   </div>
-  
+
   {{x-title title=model.title}}
 
   <div class="btn-group pull-right">
@@ -36,7 +36,9 @@
             {{#if showManual}}
               {{x-manual}}
             {{else}}
-              Inspector
+              <h4>Inspector</h4>
+
+              <p>Cantidad de actores: {{pilasService.actorCounter}}</p>
             {{/if}}
 
           </div>
@@ -52,7 +54,15 @@
               </div>
             </div>
 
-            {{x-result project=model actionReceiver=xResultHandler}}
+            <!--
+              x-result contiene el iframe con el canvas de pilas-engine.
+              El actionReceiver sirve para enviarle acciones al componente
+              desde afuera.
+            -->
+
+            {{x-result pilas=pilasService project=model}}
+
+            {{!x-result project=model actionReceiver=xResultHandler onLoad="onLoad"}}
 
             <div class="toolbar-actions">
               <div class="btn-group">

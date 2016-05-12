@@ -1,15 +1,15 @@
 
 class Actor {
-  x: number = 0;
-  y: number = 0;
+  _x: number = 0;
+  _y: number = 0;
   _imagen: any = null;
   _sprite: any = null;
   pilas: Pilas = null;
-  rotacion: number = 0;
-  anchor_x: number = 0.5;
-  anchor_y: number = 0.5;
-  escala_x: number = 1;
-  escala_y: number = 1;
+  _rotacion: number = 0;
+  _anchor_x: number = 0.5;
+  _anchor_y: number = 0.5;
+  _escala_x: number = 1;
+  _escala_y: number = 1;
   id: number = 0;
 
   constructor(pilas: Pilas) {
@@ -72,10 +72,10 @@ class Actor {
       let dx = this.pilas.opciones.ancho / 2;
       let dy = this.pilas.opciones.alto / 2;
 
-      this._sprite.position.set(dx + this.x, dy - this.y);
-      this._sprite.scale.set(this.escala_x, this.escala_y);
-      this._sprite.anchor.setTo(this.anchor_x, this.anchor_y);
-      this._sprite.angle = -this.rotacion;
+      this._sprite.position.set(dx + this._x, dy - this._y);
+      this._sprite.scale.set(this._escala_x, this._escala_y);
+      this._sprite.anchor.setTo(this._anchor_x, this._anchor_y);
+      this._sprite.angle = -this._rotacion;
     }
 
   }
@@ -93,21 +93,76 @@ class Actor {
     this.pilas.actores.eliminar_actor(this);
   }
 
-  interpolar(propiedad: string, valor: any, duracion: number = 2.0, tipo: string = "desaceleracion_gradual", infinito: boolean = false) {
+  interpolar(propiedad: string, valor: any, duracion: number = 0.5, tipo: string = "desaceleracion_gradual", infinito: boolean = false) {
+    return this.pilas.escenas.escena_actual.interpolaciones.crear_interpolacion(this, propiedad, valor, duracion, tipo, infinito);
+  }
 
-    if (!duracion) {
-      duracion = 2.0;
+  set escala(value: number) {
+    this.escala_x = value;
+    this.escala_y = value;
+  }
+
+  get escala() {
+    if (this._escala_x != this._escala_y) {
+      console.warn("Los valores de escala_x y escala_y son diferentes, se asume que la escala conjunta es la mayor.");
     }
 
-    if (!tipo) {
-      tipo = "desaceleracion_gradual";
-    }
+    return Math.max(this._escala_x, this._escala_y);
+  }
 
-    if (infinito == undefined) {
-      infinito = false;
-    }
+  get escala_x() {
+    return this._escala_x;
+  }
 
-    this.pilas.escenas.escena_actual.interpolaciones.crear_interpolacion(this, propiedad, valor, duracion, tipo, infinito);
+  set escala_x(valor: number) {
+    this._interpretar_propiedad_numerica("_escala_x", valor);
+  }
+
+  get escala_y() {
+    return this._escala_y;
+  }
+
+  set escala_y(valor: number) {
+    this._interpretar_propiedad_numerica("_escala_y", valor);
+  }
+
+  private _interpretar_propiedad_numerica(propiedad: string, valor: any) {
+    let es_un_array = (valor.push !== undefined);
+
+    if (es_un_array) {
+      this.interpolar(propiedad, valor);
+    } else {
+      this[propiedad] = valor;
+    }
+  }
+
+  get x() {
+    return this._x;
+  }
+
+  set x(valor: number) {
+    this._interpretar_propiedad_numerica("_x", valor);
+  }
+
+  get y() {
+    return this._y;
+  }
+
+  set y(valor: number) {
+    this._interpretar_propiedad_numerica("_y", valor);
+  }
+
+  get rotacion() {
+    return this._rotacion;
+  }
+
+  set rotacion(valor: number) {
+    this._interpretar_propiedad_numerica("_rotacion", valor);
+  }
+
+  imprimir() {
+    let nombre_de_la_clase = this.constructor['name'];
+    return `<Actor de la clase ${nombre_de_la_clase} en (${this.x}, ${this.y})>`;
   }
 
 }

@@ -4,7 +4,7 @@ import InboundActions from 'ember-component-inbound-actions/inbound-actions';
 export default Ember.Component.extend(InboundActions, {
   classNames: ['x-canvas'],
   innerWindow: null,
-  onLoad: null,
+  onLoad: null, // solo para usar en testing.
 
   didInsertElement() {
     Ember.run.scheduleOnce('afterRender', this, this.initElement);
@@ -14,12 +14,20 @@ export default Ember.Component.extend(InboundActions, {
     let iframeElement = this.$().find('#innerIframe')[0];
 
     this.set("iframeElement", iframeElement);
-    window.iframeElement = iframeElement;
 
     this.get("iframeElement").onload = () => {
+
+      if (this.get('pilas')) {
+        this.get("pilas").onLoadIframe(iframeElement);
+      }
+
+      // onLoad solo se utiliza dentro de la batería de tests. Este
+      // componente se tendría que usar mediante el servicio "pilas"
+      // en cualquier otro lugar.
       if (this.get('onLoad')) {
         this.sendAction('onLoad', {iframeElement});
       }
+
     };
 
   },
@@ -32,6 +40,7 @@ export default Ember.Component.extend(InboundActions, {
   actions: {
     execute(code) {
       this.reloadIframe(() => {
+        alert("Ha cargado el código y está todo listo!");
         this.get("iframeElement").contentWindow.eval(code);
       });
     },

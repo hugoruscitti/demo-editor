@@ -15,6 +15,7 @@ class Escena {
            acceso y la gestión de los actores.  */
   agregar_actor(actor: any) {
     this.actores.push(actor);
+    this.pilas.eventos.cambia_coleccion_de_actores.dispatch({cantidad: this.actores.length});
   }
 
   eliminar_actor(actor: any) {
@@ -23,6 +24,7 @@ class Escena {
     };
 
     this.actores = this.actores.filter(funcion_filtro);
+    this.pilas.eventos.cambia_coleccion_de_actores.dispatch({cantidad: this.actores.length});
   }
 
 

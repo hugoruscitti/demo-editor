@@ -98386,11 +98386,6 @@ PIXI.TextureSilentFail = true;
 * "What matters in this life is not what we do but what we do for others, the legacy we leave and the imprint we make." - Eric Meyer
 */
 
-var ActorProxy = (function () {
-    function ActorProxy() {
-    }
-    return ActorProxy;
-})();
 var Actores = (function () {
     function Actores(pilas) {
         this.pilas = pilas;
@@ -98438,16 +98433,16 @@ var Actores = (function () {
 })();
 var Actor = (function () {
     function Actor(pilas) {
-        this.x = 0;
-        this.y = 0;
+        this._x = 0;
+        this._y = 0;
         this._imagen = null;
         this._sprite = null;
         this.pilas = null;
-        this.rotacion = 0;
-        this.anchor_x = 0.5;
-        this.anchor_y = 0.5;
-        this.escala_x = 1;
-        this.escala_y = 1;
+        this._rotacion = 0;
+        this._anchor_x = 0.5;
+        this._anchor_y = 0.5;
+        this._escala_x = 1;
+        this._escala_y = 1;
         this.id = 0;
         this.id = this.generar_id();
         this.pilas = pilas;
@@ -98502,10 +98497,10 @@ var Actor = (function () {
         if (this._sprite) {
             var dx = this.pilas.opciones.ancho / 2;
             var dy = this.pilas.opciones.alto / 2;
-            this._sprite.position.set(dx + this.x, dy - this.y);
-            this._sprite.scale.set(this.escala_x, this.escala_y);
-            this._sprite.anchor.setTo(this.anchor_x, this.anchor_y);
-            this._sprite.angle = -this.rotacion;
+            this._sprite.position.set(dx + this._x, dy - this._y);
+            this._sprite.scale.set(this._escala_x, this._escala_y);
+            this._sprite.anchor.setTo(this._anchor_x, this._anchor_y);
+            this._sprite.angle = -this._rotacion;
         }
     };
     Actor.prototype.actualizar = function () {
@@ -98517,19 +98512,87 @@ var Actor = (function () {
         this.pilas.actores.eliminar_actor(this);
     };
     Actor.prototype.interpolar = function (propiedad, valor, duracion, tipo, infinito) {
-        if (duracion === void 0) { duracion = 2.0; }
+        if (duracion === void 0) { duracion = 0.5; }
         if (tipo === void 0) { tipo = "desaceleracion_gradual"; }
         if (infinito === void 0) { infinito = false; }
-        if (!duracion) {
-            duracion = 2.0;
+        return this.pilas.escenas.escena_actual.interpolaciones.crear_interpolacion(this, propiedad, valor, duracion, tipo, infinito);
+    };
+    Object.defineProperty(Actor.prototype, "escala", {
+        get: function () {
+            if (this._escala_x != this._escala_y) {
+                console.warn("Los valores de escala_x y escala_y son diferentes, se asume que la escala conjunta es la mayor.");
+            }
+            return Math.max(this._escala_x, this._escala_y);
+        },
+        set: function (value) {
+            this.escala_x = value;
+            this.escala_y = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Actor.prototype, "escala_x", {
+        get: function () {
+            return this._escala_x;
+        },
+        set: function (valor) {
+            this._interpretar_propiedad_numerica("_escala_x", valor);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Actor.prototype, "escala_y", {
+        get: function () {
+            return this._escala_y;
+        },
+        set: function (valor) {
+            this._interpretar_propiedad_numerica("_escala_y", valor);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Actor.prototype._interpretar_propiedad_numerica = function (propiedad, valor) {
+        var es_un_array = (valor.push !== undefined);
+        if (es_un_array) {
+            this.interpolar(propiedad, valor);
         }
-        if (!tipo) {
-            tipo = "desaceleracion_gradual";
+        else {
+            this[propiedad] = valor;
         }
-        if (infinito == undefined) {
-            infinito = false;
-        }
-        this.pilas.escenas.escena_actual.interpolaciones.crear_interpolacion(this, propiedad, valor, duracion, tipo, infinito);
+    };
+    Object.defineProperty(Actor.prototype, "x", {
+        get: function () {
+            return this._x;
+        },
+        set: function (valor) {
+            this._interpretar_propiedad_numerica("_x", valor);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Actor.prototype, "y", {
+        get: function () {
+            return this._y;
+        },
+        set: function (valor) {
+            this._interpretar_propiedad_numerica("_y", valor);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Actor.prototype, "rotacion", {
+        get: function () {
+            return this._rotacion;
+        },
+        set: function (valor) {
+            this._interpretar_propiedad_numerica("_rotacion", valor);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Actor.prototype.imprimir = function () {
+        var nombre_de_la_clase = this.constructor['name'];
+        return "<Actor de la clase " + nombre_de_la_clase + " en (" + this.x + ", " + this.y + ")>";
     };
     return Actor;
 })();
@@ -98671,6 +98734,7 @@ var Escena = (function () {
              acceso y la gestión de los actores.  */
     Escena.prototype.agregar_actor = function (actor) {
         this.actores.push(actor);
+        this.pilas.eventos.cambia_coleccion_de_actores.dispatch({ cantidad: this.actores.length });
     };
     Escena.prototype.eliminar_actor = function (actor) {
         function funcion_filtro(unActor) {
@@ -98678,6 +98742,7 @@ var Escena = (function () {
         }
         ;
         this.actores = this.actores.filter(funcion_filtro);
+        this.pilas.eventos.cambia_coleccion_de_actores.dispatch({ cantidad: this.actores.length });
     };
     Escena.prototype._actualizar_actores = function () {
         this.actores.forEach(function (e) {
@@ -98724,6 +98789,13 @@ var EscenaNormal = (function (_super) {
     };
     return EscenaNormal;
 })(Escena);
+var Eventos = (function () {
+    function Eventos(pilas) {
+        this.pilas = pilas;
+        this.cambia_coleccion_de_actores = new Phaser.Signal();
+    }
+    return Eventos;
+})();
 var ActorFondo = (function (_super) {
     __extends(ActorFondo, _super);
     function ActorFondo() {
@@ -98826,8 +98898,6 @@ var Interpolaciones = (function () {
         //this.tl = new TimelineLite({onUpdate: this.onDrawAll});
     }
     Interpolaciones.prototype._agregar_intepolacion = function (interpolacion) {
-        //this.tl.resume();
-        //this.tl["insert"](interpolacion);
         console.log(interpolacion);
     };
     Interpolaciones.prototype.onDrawAll = function (data) {
@@ -99057,6 +99127,7 @@ var Pilas = (function () {
         this.depurador = new Depurador(this);
         this.escenas = new Escenas(this);
         this.imagenes = new Imagenes(this);
+        this.eventos = new Eventos(this);
         this.game.stage.disableVisibilityChange = true;
         this.imagenes.precargar_imagenes_estandar();
         this.mostrar_cuadros_por_segundo(true);
@@ -99247,7 +99318,7 @@ var Utils = (function () {
     };
     return Utils;
 })();
-var VERSION = "0.0.30";
+var VERSION = "0.0.31";
 
 /*!
  * VERSION: 1.18.4
