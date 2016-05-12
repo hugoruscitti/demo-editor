@@ -126,7 +126,7 @@ export default Ember.Controller.extend({
     onLoad(pilas) {
       alert("ha cargado pilas! controller:edit", pilas);
     },
-    reload(project) {
+    reload(/*project*/) {
       this.get("pilasService").reload();
 
       //this.get("xResultHandler").send('reload', project);

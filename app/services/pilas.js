@@ -39,7 +39,7 @@ export default Ember.Service.extend({
     console.log("ha cargado pilas", pilas);
   },
 
-  reload(iframe) {
+  reload(/*iframe*/) {
     this.get("iframe").contentWindow.location.reload(true);
   }
 
