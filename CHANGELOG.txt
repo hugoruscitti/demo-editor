@@ -1,3 +1,41 @@
+  * release 0.0.31
+  * Merge branch 'develop'
+  * Implementando tweenMax de greensock y comenzando a realizar el método "interpolar" refs #27
+  * Comenzando a implementar greenshock como sistema de interpolaciones refs #27
+  * Agregando logotipos faltantes a la sección "acerca de..." closes #29
+  * Mejorando el dialogo "acerca de..." refs #29
+  * Test
+  * Test
+  * Test
+  * Test
+  * Test
+  * Test
+  * Test
+  * arreglo menor.
+  * test
+  * Arreglo menor.
+  * Arreglo menor para reparar el uso de phantom en travis.ci
+  * Configurando travis para usar phantom2.1.1
+  * Comenzando a agregar la biblioteca shifty.js
+  * Arreglo menor.
+  * Reparando tests.
+  * Haciendo que se puedan eliminar a los actores.
+  * Creando el fondo Azul.
+  * Reparando problemas de inicialización en la biblioteca y actualizando a phaser 2.4.7
+  * Agregando capturador de eventos a keen.io
+  * Comenzando a crear el actor Nave.
+  * Exponiendo la variable pilas para realizar pruebas.
+  * Merge branch 'feature/sistema_de_actores_y_fondos' into develop
+  * Limpieza general
+  * Mejorando sistema de actores y creando sistema de fondos básico closes #25
+  * Comenzando a implementar modelo de actores #24
+  * Actualizando phaser a la versión 2.4.7
+  * Deshabilitando las animaciones de sweet-alert.
+  * Merge branch 'master' into develop
+  * Implementando dialogo de pregunta para evitar que se salga sin guardar los cambios refs #16
+  * Merge branch 'develop'
+  * Implementando sweet-alert para evitar usar prompt en electron closes #11 closes #16
+  * Eliminando generador de ejemplos closes #20
   * release 0.0.30
   * Actualizando makefile.
   * Moviendo el botón 'acerca de...' al header y mejorando la portada #fix 19
