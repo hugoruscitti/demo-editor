@@ -6,7 +6,7 @@ export default Ember.Service.extend({
   pilas: null,
 
   onLoadIframe(iframe) {
-    console.log("onLoadIframe");
+    //console.log("onLoadIframe");
     this.set("iframe", iframe);
 
     //debugger;
@@ -30,8 +30,6 @@ export default Ember.Service.extend({
         this.set('actorCounter', data.cantidad);
       });
     });
-
-
 
   },
 
