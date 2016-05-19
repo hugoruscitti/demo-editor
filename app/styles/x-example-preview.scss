@@ -1,26 +1,29 @@
 .x-example-preview-container {
   display: inline-block;
   width: 180px;
-  height: 120px;
+  height: 150px;
   overflow: hidden;
-  box-shadow: 0 0 5px black;
+  box-shadow: 0 0 5px #ccc;
   position: relative;
-  margin: 10px;
+  margin: 5px;
   border: 1px solid #bbb;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .x-example-preview-container:hover {
-  border: 1px solid #eee;
+}
+
+a:link, a:visited, a {
+  text-decoration: none;
+}
+
+.x-example-preview-container img {
+  cursor: pointer;
 }
 
 .x-example-preview-title {
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.2);
-  left: 0;
-  right: 0;
-  bottom: 0;
   text-align: center;
-  color: white;
+  color: gray;
 }
 
 pre.example-code {
