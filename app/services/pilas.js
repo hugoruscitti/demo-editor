@@ -5,16 +5,17 @@ export default Ember.Service.extend({
   actorCounter: 0,
   pilas: null,
 
+  width: 300,
+  height: 300,
+
   onLoadIframe(iframe) {
-    //console.log("onLoadIframe");
     this.set("iframe", iframe);
 
-    //debugger;
-    //this.get("iframeElement").onload = onLoadFunction;
-    //this.get("iframeElement").contentWindow.location.reload(true);
+    let width = this.get("width");
+    let height = this.get("height");
 
     let pilas = iframe.contentWindow.eval(`
-      var opciones = {ancho: 300, alto: 300};
+      var opciones = {ancho: ${width}, alto: ${height}};
 
       pilasengine.iniciar('canvas', opciones);
     `);

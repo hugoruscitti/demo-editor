@@ -29,11 +29,9 @@ export default Ember.Component.extend(InboundActions, {
     let iframeElement = this.$().find('#innerIframe')[0];
     this.set("iframeElement", iframeElement);
 
-    /*
     setTimeout(() => {
       this.send('reload', this.get('project'));
     }, 10);
-    */
 
   },
 

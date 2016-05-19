@@ -5,6 +5,7 @@ export default Ember.Component.extend(InboundActions, {
   classNames: ['x-canvas'],
   innerWindow: null,
   onLoad: null, // solo para usar en testing.
+  onLoadPilas: null,
 
   didInsertElement() {
     Ember.run.scheduleOnce('afterRender', this, this.initElement);
