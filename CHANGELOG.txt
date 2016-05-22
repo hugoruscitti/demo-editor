@@ -1,3 +1,18 @@
+  * release 0.0.32
+  * Merge branch 'develop'
+  * update
+  * Modificando el editor para que pilas se use como servicio.
+  * Eliminando liquid-fire y otros arreglos menores.
+  * Reparando los test de integración.
+  * update
+  * Comenzando a implementar eventos refs #34
+  * update
+  * update
+  * Instalando blanket para conocer test coverage.
+  * Mostrando un spinner mientras carga el manual closes #32
+  * Terminando de implementar el sistema de interpolaciones nuevo closes #27
+  * Simplificando el servicio de ejemplos closes #33
+  * Merge branch 'master' into develop
   * release 0.0.31
   * Merge branch 'develop'
   * Implementando tweenMax de greensock y comenzando a realizar el método "interpolar" refs #27
