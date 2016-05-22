@@ -5,41 +5,59 @@ export default Ember.Service.extend({
   actorCounter: 0,
   pilas: null,
 
-  onLoadIframe(iframe) {
-    console.log("onLoadIframe");
-    this.set("iframe", iframe);
+  width: 300,
+  height: 300,
 
-    //debugger;
-    //this.get("iframeElement").onload = onLoadFunction;
-    //this.get("iframeElement").contentWindow.location.reload(true);
+  /*
+   * Instancia pilas-engine con los atributos que le envíe
+   * el componente x-canvas.
+   *
+   * Este método realiza una conexión con el servicio pilas, y
+   * se llamará automáticamente ante dos eventos: se agrega el
+   * componente x-canvas a un template o se ha llamado a `reload`
+   * en el servicio pilas.
+   */
+  instantiatePilas(iframeElement, options) {
+    this.set("iframe", iframeElement);
 
-    let pilas = iframe.contentWindow.eval(`
-      var opciones = {ancho: 300, alto: 300};
+    return new Ember.RSVP.Promise((success) => {
+      let width = options.width;
+      let height = options.height;
 
-      pilasengine.iniciar('canvas', opciones);
-    `);
+      let pilas = iframeElement.contentWindow.eval(`
+        var opciones = {ancho: ${width}, alto: ${height}};
 
-    pilas.cuando("inicia", () => {
-      console.log("Reiniciando el objeto pilas");
-      this.onLoadPilas(pilas);
-      this.set('pilas', pilas);
+        pilasengine.iniciar('canvas', opciones);
+      `);
 
-      this.set('actorCounter', pilas.obtener_cantidad_de_actores());
-
-      pilas.eventos.cambia_coleccion_de_actores.add((data) => {
-        this.set('actorCounter', data.cantidad);
+      pilas.cuando("inicia", () => {
+        this._vincular_propiedades(pilas);
+        success(pilas);
       });
+
     });
-
-
-
   },
 
-  onLoadPilas(pilas) {
-    console.log("ha cargado pilas", pilas);
+  /**
+   * Método privado que se encarga de vincular todas las propiedades
+   * que nos permiten observar el comportamiento de pilas.
+   */
+  _vincular_propiedades(pilas) {
+    this.set('actorCounter', pilas.obtener_cantidad_de_actores());
+
+    pilas.eventos.cambia_coleccion_de_actores.add((data) => {
+      this.set('actorCounter', data.cantidad);
+    });
   },
 
-  reload(/*iframe*/) {
+  /**
+   * Permite reiniciar pilas por completo.
+   *
+   * La acción de reinicio se realiza re-cargando el iframe
+   * que contiene a pilas, así que se va a volver a llamar al
+   * método `instantiatePilas` automáticamente.
+   */
+  reload() {
     this.get("iframe").contentWindow.location.reload(true);
   }
 

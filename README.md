@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/pilas-engine/pilas-editor.svg?branch=develop)](https://travis-ci.org/pilas-engine/pilas-editor) [![Build Status](https://travis-ci.org/pilas-engine/pilas-editor.svg?branch=master)](https://travis-ci.org/pilas-engine/pilas-editor) [![Code Climate](https://codeclimate.com/github/pilas-engine/pilas-editor/badges/gpa.svg)](https://codeclimate.com/github/pilas-engine/pilas-editor)
 
-[![Stories in Ready](https://badge.waffle.io/hugoruscitti/demo-editor.png?label=ready&title=Ready)](http://waffle.io/hugoruscitti/demo-editor) 
+[![Stories in Ready](https://badge.waffle.io/hugoruscitti/demo-editor.png?label=ready&title=Ready)](http://waffle.io/hugoruscitti/demo-editor)
 
 
 
@@ -58,5 +58,15 @@ El motor multimedia que utilizamos es [phaser](http://phaser.io/) y las interpol
 # Colaboraciones
 
 Las colaboraciones son muy bien recibidas, te recomendamos hacer un fork del proyecto y enviarnos tus pull-requests.
+
+Los pasos para hacer esto suelen ser:
+
+1. Conversar sobre el problema o mejora y asignarse un issue.
+2. Realizar un fork.
+3. Crear un branch para realizar la mejora (`git checkout -b feature-mi_mejora`).
+4. Realizar los commits de la mejora (`git commit -m "Descripción de los cambios..."`).
+5. Publicar el branch (`git push origin feature-mi_mejora`).
+6. Realizar un Pull Request desde la web de github.
+
 
 Si no estás seguro acerca de tu contribución o alguna idea, escribinos en el [foro de pilas-engine](http://foro.pilas-engine.com.ar/) o directamente creá un issue en github.

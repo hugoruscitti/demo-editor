@@ -5,6 +5,9 @@ export default Ember.Component.extend(InboundActions, {
   classNames: ['x-canvas'],
   innerWindow: null,
   onLoad: null, // solo para usar en testing.
+  onLoadPilas: null,
+  width: 600,
+  height: 600,
 
   didInsertElement() {
     Ember.run.scheduleOnce('afterRender', this, this.initElement);
@@ -18,7 +21,13 @@ export default Ember.Component.extend(InboundActions, {
     this.get("iframeElement").onload = () => {
 
       if (this.get('pilas')) {
-        this.get("pilas").onLoadIframe(iframeElement);
+        let width = this.get("width");
+        let height = this.get("height");
+
+        this.get("pilas").instantiatePilas(iframeElement, {width, height}).
+          then((pilas) => {
+            this.sendAction("onReady", pilas);
+          });
       }
 
       // onLoad solo se utiliza dentro de la batería de tests. Este

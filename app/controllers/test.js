@@ -8,14 +8,20 @@ export default Ember.Controller.extend({
   }),
 
   actions: {
+    onReady(pilas) {
+      window.pilas = pilas;
+      window.pilasService = this.get("pilas");
+    },
+
     didLoad(iframe) {
       console.log("Ha cargado, y con el argumento ", iframe);
+      /*
       window['ifr'] = iframe;
 
       iframe.iframeElement.contentWindow.eval(`
         var pilas = pilasengine.iniciar('canvas', opciones);
       `);
-
+      */
     }
   }
 });
