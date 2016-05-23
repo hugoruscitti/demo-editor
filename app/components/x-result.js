@@ -9,6 +9,7 @@ export default Ember.Component.extend(InboundActions, {
   semanticDiagnostics: [],
   syntaxDiagnostics: [],
   project: null,
+  pilas: Ember.inject.service(),
 
   areAnyConsoleMessage: Ember.computed('areSomeMessages', 'error', function() {
     return (this.get("areSomeMessages") || this.get('error'));
@@ -21,19 +22,21 @@ export default Ember.Component.extend(InboundActions, {
     return (semanticDiagnosticsLength > 0 || syntaxDiagnosticsLength > 0);
   }),
 
-  didInsertElement() {
-    Ember.run.scheduleOnce('afterRender', this, this.onAfterRender);
-  },
+  //didInsertElement() {
+  //  Ember.run.scheduleOnce('afterRender', this, this.onAfterRender);
+  //},
 
-  onAfterRender() {
-    let iframeElement = this.$().find('#innerIframe')[0];
-    this.set("iframeElement", iframeElement);
+  //onAfterRender() {
+  //  let iframeElement = this.$().find('#innerIframe')[0];
+  //  this.set("iframeElement", iframeElement);
 
+    /*
     setTimeout(() => {
       this.send('reload', this.get('project'));
     }, 10);
+    */
 
-  },
+  //},
 
   _convert_diagnostics_to_string_list(diagnostics) {
     return diagnostics.map((diagnostic) => {
@@ -43,9 +46,10 @@ export default Ember.Component.extend(InboundActions, {
     });
   },
 
-  _executeJavascriptCode(javascriptCode, project) {
-    let iframeElement = this.get("iframeElement");
+  _executeJavascriptCode(pilas, javascriptCode/*, project */) {
+    //let iframeElement = this.get("iframeElement");
 
+    /*
     function evalCode(code, scope) {
       try {
         iframeElement.contentWindow.eval(code);
@@ -54,13 +58,19 @@ export default Ember.Component.extend(InboundActions, {
         console.error(error);
       }
 
-      let pilas = iframeElement.contentWindow.eval("pilas");
-      console.warn("Exponiendo la variable `pilas` para depuración:");
-      window['pilas'] = pilas;
+      //let pilas = iframeElement.contentWindow.eval("pilas");
+      //console.warn("Exponiendo la variable `pilas` para depuración:");
+      //window['pilas'] = pilas;
     }
+    */
 
     this.set('error', null);
 
+    eval(javascriptCode);
+
+    //pilas.eval(javascriptCode);
+
+    /*
     let ancho = project.get("ancho");
     let alto = project.get("alto");
 
@@ -73,6 +83,7 @@ export default Ember.Component.extend(InboundActions, {
     `;
 
     evalCode(code_to_run, this);
+    */
   },
 
   reloadIframe(onLoadFunction) {
@@ -92,10 +103,8 @@ export default Ember.Component.extend(InboundActions, {
   },
 
   actions: {
-    onLoad(pilas) {
-      alert("carga pilas desde x-result");
-      this.sendAction('onLoad', pilas);
-      this.send('reload', this.get('project'));
+    onReady(pilas) {
+      this.send('run', pilas, this.get("project"));
     },
     reload(project) {
       this.reloadIframe(() => {
@@ -104,7 +113,7 @@ export default Ember.Component.extend(InboundActions, {
         }
       });
     },
-    run(project) {
+    run(pilas, project) {
       this.get('languageService').
         compile(project).
         then(data => {
@@ -118,7 +127,7 @@ export default Ember.Component.extend(InboundActions, {
 
           /* Ejecuta el código completo. */
           this.get('languageService').execute(project).then(data => {
-            this._executeJavascriptCode(data.output, project);
+            this._executeJavascriptCode(pilas, data.output, project);
           });
       });
     },

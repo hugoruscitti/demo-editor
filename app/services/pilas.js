@@ -6,8 +6,8 @@ export default Ember.Service.extend({
   pilas: null,
   loading: true,
 
-  width: 300,
-  height: 300,
+  width: null,
+  height: null,
 
   temporallyCallback: null, /* almacena el callback para avisar si pilas
                                se reinició correctamente. */
@@ -26,8 +26,8 @@ export default Ember.Service.extend({
     this.set("loading", true);
 
     return new Ember.RSVP.Promise((success) => {
-      let width = options.width;
-      let height = options.height;
+      let width = this.get("width") || options.width;
+      let height = this.get("height") || options.height;
 
       let pilas = iframeElement.contentWindow.eval(`
         var opciones = {ancho: ${width}, alto: ${height}};
@@ -39,7 +39,8 @@ export default Ember.Service.extend({
         this._vincular_propiedades(pilas);
         success(pilas);
 
-        /* Si el usuario llamó a "reload" desde este servicio, tendría
+        /*
+         * Si el usuario llamó a "reload" desde este servicio, tendría
          * que existir una promesa en curso, así que estas lineas se
          * encargan de satisfacer esa promesa llamando al callback success.
          */

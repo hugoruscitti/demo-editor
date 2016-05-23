@@ -26,16 +26,26 @@ export default Ember.Component.extend(InboundActions, {
 
         this.get("pilas").instantiatePilas(iframeElement, {width, height}).
           then((pilas) => {
-            this.sendAction("onReady", pilas);
+
+            /*
+             * Invoca a la acción "onReady" que envía el objeto pilas listo
+             * para ser utilizado.
+             *
+             */
+            if (this.get('onReady')) {
+              this.sendAction("onReady", pilas);
+            } else {
+              console.warn("Se a iniciado el componente x-canvas sin referencia a la acción onLoad.");
+            }
           });
+      } else {
+        console.warn("Se a iniciado el componente x-canvas sin referencia a pilas.");
       }
 
       // onLoad solo se utiliza dentro de la batería de tests. Este
       // componente se tendría que usar mediante el servicio "pilas"
       // en cualquier otro lugar.
-      if (this.get('onLoad')) {
-        this.sendAction('onLoad', {iframeElement});
-      }
+      this.sendAction('onLoad', {iframeElement});
 
     };
 
