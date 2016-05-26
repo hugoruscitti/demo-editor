@@ -10,7 +10,7 @@ function crear_ejemplo(nick, nombre, codigo) {
     name: nick,
     title: nombre,
     code: codigo,
-    ancho: 400,
+    ancho: 100,
     alto: 400
   });
 
@@ -20,15 +20,12 @@ function crear_ejemplo(nick, nombre, codigo) {
 }
 
 crear_ejemplo("interpolaciones", "Interpolar propiedades",
-  `let pilas;
-
-  pilas.cuando('inicia', function() {
+  `
     pilas.fondos.plano();
     let actor = pilas.actores.nave();
 
     actor.interpolar('escala', [2, 1]);
     window.nave = actor;
-  });
   `);
 
 crear_ejemplo("personalizado", "Actor Personalizado",
@@ -48,50 +45,35 @@ crear_ejemplo("personalizado", "Actor Personalizado",
     }
   }
 
-  pilas.cuando('inicia', function() {
+  //pilas.actualizaciones_por_segundo = 1;
 
-    //pilas.actualizaciones_por_segundo = 1;
+  pilas.actores.vincular(MiActor);
+  let unActor = pilas.actores.MiActor({x: 0, y: 0});
+  unActor.imagen = "data:patito.png";
 
-    pilas.actores.vincular(MiActor);
-    let unActor = pilas.actores.MiActor({x: 0, y: 0});
-    unActor.imagen = "data:patito.png";
+  pilas.fondos.plano();
 
-    pilas.fondos.plano();
-
-  });
   `);
 
 crear_ejemplo("escena_normal", "Hola mundo",
   `
-  let pilas;
-
-  pilas.cuando('inicia', function() {
     pilas.escenas.normal();
     let patito = pilas.actores.patito();
     patito.escala = [2, 1];
-  });
   `);
 
 crear_ejemplo("disparo", "Nave dispara",
   `
-  let pilas;
-
-  pilas.cuando('inicia', function() {
     pilas.escenas.normal();
     let actor = pilas.actores.actor();
     actor.aprender("SeguirClicks");
     actor.rotacion = [360];
-  });
   `);
 
 crear_ejemplo("nave", "Actor Nave",
   `
-  let pilas;
-
-  pilas.cuando('inicia', function() {
     pilas.fondos.plano();
     let actor = pilas.actores.nave();
-  });
   `);
 
 
