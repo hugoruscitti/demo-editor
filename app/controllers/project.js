@@ -23,7 +23,7 @@ export default Ember.Controller.extend({
           title: name,
           ancho: 640,
           alto: 480,
-          code: "let pilas;\npilas.fondos.plano();"
+          code: "pilas.fondos.plano();"
         });
 
         record.save().then(() => {

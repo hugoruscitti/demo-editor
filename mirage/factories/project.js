@@ -8,10 +8,7 @@ export default Factory.extend({
   alto: 240,
 
   code(i) {
-      return `let pilas;
-
-let plano = pilas.fondos.plano();
-let patito = pilas.actores.patito();
+      return `var patito = pilas.actores.patito();
 `;
     },
 

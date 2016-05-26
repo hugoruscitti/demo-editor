@@ -80,17 +80,16 @@ export default Ember.Service.extend({
   reload() {
     return new Ember.RSVP.Promise((success) => {
       if (this.get("loading")) {
-        console.warn("Se omite el reinicio porque está aún está cargando.");
-      } else {
-        this.set("loading", true);
-        this.get("iframe").contentWindow.location.reload(true);
-
-        this.set("temporallyCallback", success); /* Guarda el callback  para
-                                                  * que se llame luego de
-                                                  * la carga de pilas.
-                                                  */
+        console.warn("Cuidado, se está reiniciando en medio de la carga.");
       }
+
+      this.set("loading", true);
+      this.get("iframe").contentWindow.location.reload(true);
+
+      this.set("temporallyCallback", success); /* Guarda el callback  para
+                                                * que se llame luego de
+                                                * la carga de pilas.
+                                                */
     });
   }
-
 });

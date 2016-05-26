@@ -11,9 +11,7 @@
     {{#x-pushbutton state=centerPanelVisible}} {{p-icon icon="window"}} {{/x-pushbutton}}
     {{#x-pushbutton state=editorPanelVisible}} {{p-icon icon="doc-text"}} {{/x-pushbutton}}
   </div>
-
 {{/x-header}}
-
 
 
 <div class="window-content">
@@ -50,19 +48,10 @@
             <div class="toolbar-actions">
               <div class="btn-group pull-right">
                 <button {{action "reload" model}} class="btn btn-default pull-right"> {{p-icon icon="arrows-ccw"}} </button>
-                {{#link-to "edit.previewModal" model tagName="button" class="btn btn-default pull-right"}} {{p-icon icon="resize-full"}} {{/link-to}}
               </div>
             </div>
 
-            <!--
-              x-result contiene el iframe con el canvas de pilas-engine.
-              El actionReceiver sirve para enviarle acciones al componente
-              desde afuera.
-            -->
-
             {{x-result pilas=pilasService onReady="onReady" project=model}}
-
-            {{!x-result project=model actionReceiver=xResultHandler onLoad="onLoad"}}
 
             <div class="toolbar-actions">
               <div class="btn-group">
@@ -71,8 +60,7 @@
               </div>
 
               <div class="btn-group btn-group pull-right">
-                {{#x-pushbutton state=showConsole}} {{p-icon icon="window"}} {{/x-pushbutton}}
-                {{#x-pushbutton state=showConsole}} {{p-icon icon="window"}} {{/x-pushbutton}}
+                <!-- botones de depuración -->
               </div>
             </div>
 
@@ -89,15 +77,13 @@
 
             <div class="toolbar-actions">
 
-
                 <button {{action "saveAndReload" model}} class="btn-default btn">{{p-icon icon="play"}} Ejecutar</button>
-                
+
                 {{#if loadingPilas}}
                   <span>Cargando ...</span>
                 {{else}}
                   <span class="text-white">Cargando ...</span>
                 {{/if}}
-
 
               {{#if itsSaved}}
               {{else}}

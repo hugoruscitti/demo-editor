@@ -104,7 +104,9 @@ export default Ember.Component.extend(InboundActions, {
 
   actions: {
     onReady(pilas) {
-      this.send('run', pilas, this.get("project"));
+      //console.log("PEPE");
+      //this.send('run', pilas, this.get("project"));
+      this.sendAction("onReady", pilas);
     },
     reload(project) {
       this.reloadIframe(() => {
