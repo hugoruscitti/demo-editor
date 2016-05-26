@@ -123,6 +123,7 @@ export default Ember.Controller.extend({
     return new Ember.RSVP.Promise((success) => {
       project.save().then(() => {
         this.get("pilasService").reload().then((pilas) => {
+          console.log('Invocando a `saveProjectAndRun`...', pilas);
           eval(project.get("code"));
           success();
         });
@@ -138,7 +139,7 @@ export default Ember.Controller.extend({
         this.set("loadingPilas", false);
       });
     },
-    onReady(pilas) {
+    onReady(/*pilas*/) {
       this.set("loadingPilas", false);
     },
     reload(project) {

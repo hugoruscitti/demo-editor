@@ -1,7 +1,6 @@
 import Ember from 'ember';
-import InboundActions from 'ember-component-inbound-actions/inbound-actions';
 
-export default Ember.Component.extend(InboundActions, {
+export default Ember.Component.extend({
   classNames: ['x-result'],
   languageService: Ember.inject.service(),
   electron: Ember.inject.service(),
