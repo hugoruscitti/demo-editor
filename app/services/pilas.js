@@ -31,8 +31,9 @@ export default Ember.Service.extend({
 
       let pilas = iframeElement.contentWindow.eval(`
         var opciones = {ancho: ${width}, alto: ${height}};
-
-        pilasengine.iniciar('canvas', opciones);
+        var pilas = pilasengine.iniciar('canvas', opciones);
+        
+        pilas;
       `);
 
       pilas.cuando("inicia", () => {
@@ -91,5 +92,12 @@ export default Ember.Service.extend({
                                                 * la carga de pilas.
                                                 */
     });
+  },
+
+  runProject(project) {
+    this.reload().then(() => {
+      this.get("iframe").contentWindow.eval(project.get("code"));
+    });
   }
+
 });

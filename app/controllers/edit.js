@@ -107,14 +107,11 @@ export default Ember.Controller.extend({
 
         this.get('model').save().then(() => {
 
-          setTimeout(function () {
-            console.log("ASDAds");
-            editorFactory.tryToFocus();
-          }, 1000);
+          setTimeout(() => {editorFactory.tryToFocus();}, 500);
+          setTimeout(() => {editorFactory.tryToFocus();}, 1000);
 
         });
 
-        //this.transitionToRoute("edit.previewModal", this.get('model'));
       }
     }
   },
@@ -122,11 +119,8 @@ export default Ember.Controller.extend({
   saveProjectAndRun(project) {
     return new Ember.RSVP.Promise((success) => {
       project.save().then(() => {
-        this.get("pilasService").reload().then((pilas) => {
-          console.log('Invocando a `saveProjectAndRun`...', pilas);
-          eval(project.get("code"));
-          success();
-        });
+        this.get("pilasService").runProject(project);
+        success();
       });
     });
   },
