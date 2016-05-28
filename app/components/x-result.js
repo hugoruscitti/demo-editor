@@ -9,6 +9,7 @@ export default Ember.Component.extend({
   syntaxDiagnostics: [],
   project: null,
   pilas: Ember.inject.service(),
+  isFirstRun: true,
 
   areAnyConsoleMessage: Ember.computed('areSomeMessages', 'error', function() {
     return (this.get("areSomeMessages") || this.get('error'));
@@ -103,9 +104,12 @@ export default Ember.Component.extend({
 
   actions: {
     onReady(pilas) {
-      //console.log("PEPE");
-      //this.send('run', pilas, this.get("project"));
-      this.sendAction("onReady", pilas);
+      if (this.get("isFirstRun")) {
+        this.get("pilas").runProjectWithoutReload(this.get("project"));
+        this.set("isFirstRun", false);
+      } else {
+        this.sendAction("onReady", pilas);
+      }
     },
     reload(project) {
       this.reloadIframe(() => {

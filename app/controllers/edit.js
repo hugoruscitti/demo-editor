@@ -11,7 +11,7 @@ export default Ember.Controller.extend({
   editorFactory: Ember.inject.service(),
   pilasService: Ember.inject.service('pilas'),
 
-  loadingPilas: true,
+  loadingPilas: false,
 
   itsSaved: Ember.computed("model.hasDirtyAttributes", function() {
     return (!this.get("model.hasDirtyAttributes"));
