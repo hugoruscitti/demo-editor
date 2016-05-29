@@ -4,13 +4,14 @@ export default Ember.Controller.extend({
   leftPanelVisible: true,
   centerPanelVisible: true,
   editorPanelVisible: true,
-  showConsole: true,
+  showConsole: false,
   showManual: false,
   showInspector: true,
   queryParams: ['leftPanelVisible', 'centerPanelVisible', 'editorPanelVisible', 'showConsole', 'showManual', 'showInspector'],
   editorFactory: Ember.inject.service(),
   pilasService: Ember.inject.service('pilas'),
 
+  loadingPilas: false,
 
   itsSaved: Ember.computed("model.hasDirtyAttributes", function() {
     return (!this.get("model.hasDirtyAttributes"));
@@ -99,37 +100,48 @@ export default Ember.Controller.extend({
     var that = this;
 
     if (e.metaKey) {
-      if (e.which === 83 || e.which === 13) {
+      if (e.which === 83 /* S */ || e.which === 13 /* ENTER */) {
         e.preventDefault();
+
         that.send('reload', that.get('model'));
 
         this.get('model').save().then(() => {
 
-          setTimeout(function () {
-            editorFactory.tryToFocus();
-          }, 100);
+          setTimeout(() => {editorFactory.tryToFocus();}, 500);
+          setTimeout(() => {editorFactory.tryToFocus();}, 1000);
 
         });
 
-
-        //this.transitionToRoute("edit.previewModal", this.get('model'));
       }
     }
   },
 
+  saveProjectAndRun(project) {
+    return new Ember.RSVP.Promise((success) => {
+      project.save().then(() => {
+        this.get("pilasService").runProject(project);
+        success();
+      });
+    });
+  },
+
   actions: {
     saveAndReload(project) {
-      project.save().then(() => {
-        this.get("xResultHandler").send('reload', project);
+      this.set("loadingPilas", true);
+
+      this.saveProjectAndRun(project).then(() => {
+        this.set("loadingPilas", false);
       });
     },
-    onLoad(pilas) {
-      alert("ha cargado pilas! controller:edit", pilas);
+    onReady(/*pilas*/) {
+      this.set("loadingPilas", false);
     },
-    reload(/*project*/) {
-      this.get("pilasService").reload();
+    reload(project) {
+      this.set("loadingPilas", true);
 
-      //this.get("xResultHandler").send('reload', project);
+      this.saveProjectAndRun(project).then(() => {
+        this.set("loadingPilas", false);
+      });
     }
   }
 });

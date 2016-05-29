@@ -12,7 +12,6 @@ Router.map(function() {
   });
 
   this.route('edit', {path: "edit/:project_id"}, function() {
-    this.route('previewModal');
     this.route('settingsModal', {path: "settingsModal/:project_id"});
   });
 

@@ -1,7 +1,6 @@
 import Ember from 'ember';
-import InboundActions from 'ember-component-inbound-actions/inbound-actions';
 
-export default Ember.Component.extend(InboundActions, {
+export default Ember.Component.extend({
   classNames: ['x-result'],
   languageService: Ember.inject.service(),
   electron: Ember.inject.service(),
@@ -10,6 +9,7 @@ export default Ember.Component.extend(InboundActions, {
   syntaxDiagnostics: [],
   project: null,
   pilas: Ember.inject.service(),
+  isFirstRun: true,
 
   areAnyConsoleMessage: Ember.computed('areSomeMessages', 'error', function() {
     return (this.get("areSomeMessages") || this.get('error'));
@@ -104,7 +104,12 @@ export default Ember.Component.extend(InboundActions, {
 
   actions: {
     onReady(pilas) {
-      this.send('run', pilas, this.get("project"));
+      if (this.get("isFirstRun")) {
+        this.get("pilas").runProjectWithoutReload(this.get("project"));
+        this.set("isFirstRun", false);
+      } else {
+        this.sendAction("onReady", pilas);
+      }
     },
     reload(project) {
       this.reloadIframe(() => {

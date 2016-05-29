@@ -1,8 +1,9 @@
 import Ember from 'ember';
-import InboundActions from 'ember-component-inbound-actions/inbound-actions';
 
-export default Ember.Component.extend(InboundActions, {
+export default Ember.Component.extend({
   classNames: ['x-canvas'],
+  classNameBindings: ['inFullScreen:x-canvas-fullscreen'],
+  inFullScreen: false,
   innerWindow: null,
   onLoad: null, // solo para usar en testing.
   onLoadPilas: null,
@@ -65,6 +66,12 @@ export default Ember.Component.extend(InboundActions, {
     },
     clear() {
       this.reloadIframe();
+    },
+    quitFullscreen() {
+      this.set('inFullScreen', false);
+    },
+    enterFullscreen() {
+      this.set('inFullScreen', true);
     }
   }
 

@@ -88,7 +88,6 @@ textarea {
   height: 33px;
   padding-top: 7px;
   cursor: pointer !important;
-  opacity: 0.5;
 }
 
 
@@ -467,4 +466,19 @@ div#jsconsole-container {
 
 p.inner-padding-right a {
   padding-right: 10px;
+}
+
+.text-white {
+  color: white;
+}
+
+
+.x-canvas-fullscreen {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  z-index: 5000;
+  background-color: rgb(224, 224, 224);
 }
