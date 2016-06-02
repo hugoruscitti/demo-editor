@@ -1,15 +1,22 @@
 {{#x-header}}
-  <div class="btn-group">
-    {{#link-to "index" tagName="button" class="btn btn-default"}} {{x-icon icon="home"}} {{/link-to}}
-    {{#link-to "project" tagName="button" class="btn btn-default"}} {{x-icon icon="bag"}} {{/link-to}}
+  <div class="pull-left">
+    <div class="uk-button-group">
+      {{#link-to "index" tagName="button" class="uk-button uk-button-mini"}} {{fa-icon "home"}} {{/link-to}}
+      {{#link-to "project" tagName="button" class="uk-button uk-button-mini"}} {{fa-icon "briefcase"}} {{/link-to}}
+    </div>
   </div>
+
 
   {{x-title title=model.title}}
 
-  <div class="btn-group pull-right">
-    {{#x-pushbutton state=leftPanelVisible}} {{x-icon icon="info"}} {{/x-pushbutton}}
-    {{#x-pushbutton state=centerPanelVisible}} {{x-icon icon="window"}} {{/x-pushbutton}}
-    {{#x-pushbutton state=editorPanelVisible}} {{x-icon icon="doc-text"}} {{/x-pushbutton}}
+  <div class="pull-right">
+    <div class="uk-button-group">
+
+      {{#x-pushbutton state=leftPanelVisible}} {{fa-icon "info"}} {{/x-pushbutton}}
+      {{#x-pushbutton state=centerPanelVisible}} {{fa-icon "gamepad"}} {{/x-pushbutton}}
+      {{#x-pushbutton state=editorPanelVisible}} {{fa-icon "align-left"}} {{/x-pushbutton}}
+
+    </div>
   </div>
 {{/x-header}}
 
@@ -23,8 +30,8 @@
 
         {{#if leftPanelVisible}}
           <div class="edit-panel-left">
-            <div class="toolbar-actions">
-              <div class="btn-group">
+            <div class="toolbar-actions text-center">
+              <div class="uk-button-group">
                 {{#x-pushbutton state=showInspector}} Inspector {{/x-pushbutton}}
                 {{#x-pushbutton state=showManual}} Manual {{/x-pushbutton}}
               </div>
@@ -47,7 +54,7 @@
 
             <div class="toolbar-actions">
               <div class="btn-group pull-right">
-                <button {{action "reload" model}} class="btn btn-default pull-right"> {{x-icon icon="arrows-ccw"}} </button>
+                <button {{action "reload" model}} class="uk-button uk-button-small"> {{fa-icon "refresh"}} </button>
               </div>
             </div>
 
@@ -77,12 +84,10 @@
 
             <div class="toolbar-actions">
 
-                <button {{action "saveAndReload" model}} class="btn-default btn">{{x-icon icon="play"}} Ejecutar</button>
-
                 {{#if loadingPilas}}
-                  <span>Cargando ...</span>
+                  <button disabled class="uk-button uk-button-small">{{fa-icon "refresh" spin=true}} Ejecutar</button>
                 {{else}}
-                  <span class="text-white">Cargando ...</span>
+                  <button {{action "saveAndReload" model}} class="uk-button uk-button-small">{{fa-icon "play"}} Ejecutar</button>
                 {{/if}}
 
               {{#if itsSaved}}
@@ -90,7 +95,7 @@
               {{/if}}
 
               <div class="pull-right">
-                {{#link-to "edit.settingsModal" model tagName="button" class="btn btn-default"}} {{x-icon icon="cog"}} {{/link-to}}
+                {{#link-to "edit.settingsModal" model tagName="button" class="uk-button uk-button-small"}} {{fa-icon "cog"}} {{/link-to}}
               </div>
 
             </div>

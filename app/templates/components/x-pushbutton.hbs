@@ -1,9 +1,9 @@
 {{#if state}}
-  <button class="btn btn-default active {{extraClass}} " {{action "toggle"}}>
+  <button class="uk-button uk-button-small active {{extraClass}} " {{action "toggle"}}>
     {{yield}}
   </button>
 {{else}}
-  <button class="btn btn-default {{extraClass}}" {{action "toggle"}}>
+  <button class="uk-button uk-button-small {{extraClass}}" {{action "toggle"}}>
     {{yield}}
   </button>
 {{/if}}
