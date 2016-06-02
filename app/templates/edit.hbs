@@ -54,7 +54,12 @@
 
             <div class="toolbar-actions">
               <div class="btn-group pull-right">
-                <button {{action "reload" model}} class="uk-button uk-button-small"> {{fa-icon "refresh"}} </button>
+                {{#if loadingPilas}}
+                  <button {{action "reload" model}} disabled class="uk-button uk-button-small"> {{fa-icon "refresh"}} </button>
+                {{else}}
+                  <button {{action "reload" model}} class="uk-button uk-button-small"> {{fa-icon "refresh"}} </button>
+                {{/if}}
+
               </div>
             </div>
 
@@ -62,8 +67,7 @@
 
             <div class="toolbar-actions">
               <div class="btn-group">
-                {{#x-pushbutton state=showConsole position="right"}} {{x-icon icon="window"}} {{/x-pushbutton}}
-                <button class="btn btn-default"> {{x-icon icon="ccw"}} </button>
+                {{#x-pushbutton state=showConsole position="right"}} {{fa-icon "terminal"}} Intérprete {{/x-pushbutton}}
               </div>
 
               <div class="btn-group btn-group pull-right">
