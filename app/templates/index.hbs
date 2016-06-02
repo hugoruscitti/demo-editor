@@ -1,13 +1,15 @@
 {{#x-header}}
 
-    <div class="btn-group">
-      {{#link-to "index" tagName="button" class="btn btn-default"}} {{p-icon icon="home"}} {{/link-to}}
-      {{#link-to "project" tagName="button" class="btn btn-default"}} {{p-icon icon="bag"}} {{/link-to}}
+  <div class="pull-left">
+    <div class="uk-button-group">
+      {{#link-to "index" tagName="button" class="uk-button uk-button-mini"}} {{fa-icon "home"}} {{/link-to}}
+      {{#link-to "project" tagName="button" class="uk-button uk-button-mini"}} {{fa-icon "briefcase"}} {{/link-to}}
     </div>
+  </div>
 
-    <div class="btn-group pull-right">
-      {{#link-to "index.about" tagName="button" class="btn btn-default"}}Acerca de ...{{/link-to}}
-    </div>
+  <div class="pull-right">
+    {{#link-to "index.about" tagName="button" class="uk-button uk-button-mini"}}Acerca de ...{{/link-to}}
+  </div>
 
 {{/x-header}}
 
