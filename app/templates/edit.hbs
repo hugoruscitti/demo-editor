@@ -29,24 +29,12 @@
       <div class="edit-principal">
 
         {{#if leftPanelVisible}}
+
           <div class="edit-panel-left">
-            <div class="toolbar-actions text-center">
-              <div class="uk-button-group">
-                {{#x-pushbutton state=showInspector}} Inspector {{/x-pushbutton}}
-                {{#x-pushbutton state=showManual}} Manual {{/x-pushbutton}}
-              </div>
-            </div>
-
-
-            {{#if showManual}}
-              {{x-manual}}
-            {{else}}
-              <h4>Inspector</h4>
-
-              <p>Cantidad de actores: {{pilasService.actorCounter}}</p>
-            {{/if}}
-
+            {{x-select selected=currentOption options=options}}
+            {{component (concat "x-section" currentOption)}}
           </div>
+
         {{/if}}
 
         {{#if centerPanelVisible}}

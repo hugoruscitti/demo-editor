@@ -5,30 +5,16 @@ export default Ember.Controller.extend({
   centerPanelVisible: true,
   editorPanelVisible: true,
   showConsole: false,
-  showManual: false,
-  showInspector: true,
-  queryParams: ['leftPanelVisible', 'centerPanelVisible', 'editorPanelVisible', 'showConsole', 'showManual', 'showInspector'],
+  queryParams: ['leftPanelVisible', 'centerPanelVisible', 'editorPanelVisible', 'showConsole'],
   editorFactory: Ember.inject.service(),
   pilasService: Ember.inject.service('pilas'),
 
   loadingPilas: false,
+  currentOption: "Inspector",
+  options: ["Inspector", "Manual"],
 
   itsSaved: Ember.computed("model.hasDirtyAttributes", function() {
     return (!this.get("model.hasDirtyAttributes"));
-  }),
-
-  sync: Ember.observer("showInspector", function() {
-    if (this.get("showInspector")) {
-      this.set("showManual", false);
-    }
-    return true;
-  }),
-
-  sync2:Ember.observer("showManual", function() {
-    if (this.get("showManual")) {
-      this.set("showInspector", false);
-    }
-    return true;
   }),
 
   allPanelsInvisible: Ember.computed("leftPanelVisible", "centerPanelVisible", "editorPanelVisible", function() {
