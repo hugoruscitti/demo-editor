@@ -6,19 +6,12 @@ moduleForComponent('x-state-button', 'Integration | Component | x state button',
 });
 
 test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
+  this.set('option', 'A simple option');
   // Handle any actions with this.on('myAction', function(val) { ... });"
 
   this.render(hbs`{{x-state-button}}`);
+  assert.equal(this.$().text().trim(), '', 'Sin propiedades no imprime texto.');
 
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:"
-  this.render(hbs`
-    {{#x-state-button}}
-      template block text
-    {{/x-state-button}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  this.render(hbs`{{x-state-button option=option}}`);
+  assert.equal(this.$().text().trim(), 'A simple option', 'Con un texto lo incluye en el botón.');
 });

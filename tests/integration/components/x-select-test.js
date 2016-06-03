@@ -6,19 +6,8 @@ moduleForComponent('x-select', 'Integration | Component | x select', {
 });
 
 test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });"
+  this.set('options', ['uno']);
+  this.render(hbs`{{x-select options=options}}`);
 
-  this.render(hbs`{{x-select}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:"
-  this.render(hbs`
-    {{#x-select}}
-      template block text
-    {{/x-select}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$().text().trim(), 'uno');
 });
