@@ -14,5 +14,9 @@ export default Ember.Service.extend({
       this.set('inElectron', false);
     }
 
+  },
+
+  openDeveloperTools() {
+    requireNode('remote').getCurrentWindow().toggleDevTools();
   }
 });
