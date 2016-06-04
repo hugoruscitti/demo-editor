@@ -200,7 +200,7 @@ binarios:
 	@ember build
 	@rm -rf binarios
 	$(call log, "Generando binarios ...")
-	@node_modules/.bin/electron-packager dist ${NOMBREBIN} --platform=all --arch=all --version=0.37.6 --ignore=node_modules --out=binarios
+	@node_modules/.bin/electron-packager dist ${NOMBREBIN} --platform=all --arch=all --version=0.37.6 --ignore=node_modules --ignore=bower_components --out=binarios
 	$(call log, "Comprimiendo ...")
 	@zip -qr binarios/${NOMBREBIN}-darwin-x64.zip binarios/${NOMBREBIN}-darwin-x64/
 	@zip -qr binarios/${NOMBREBIN}-linux-ia32.zip binarios/${NOMBREBIN}-linux-ia32/
