@@ -1,4 +1,3 @@
-
 class Actor {
   _x: number = 0;
   _y: number = 0;
@@ -11,12 +10,15 @@ class Actor {
   _escala_x: number = 1;
   _escala_y: number = 1;
   id: number = 0;
+  etiquetas: Etiquetas;
 
   constructor(pilas: Pilas) {
     this.id = this.generar_id();
     this.pilas = pilas;
     this.imagen = "data:sin_imagen.png";
     this.pre_actualizar();
+    this.etiquetas = new Etiquetas()
+    this.etiquetas.agregar(this.obtener_nombre_de_la_clase());
   }
 
   /**
@@ -160,9 +162,24 @@ class Actor {
     this._interpretar_propiedad_numerica("_rotacion", valor);
   }
 
-  imprimir() {
+  obtener_nombre_de_la_clase() {
     let nombre_de_la_clase = this.constructor['name'];
+    return nombre_de_la_clase;
+  }
+
+  imprimir() {
+    let nombre_de_la_clase = this.obtener_nombre_de_la_clase();
     return `<Actor de la clase ${nombre_de_la_clase} en (${this.x}, ${this.y})>`;
+  }
+
+  /* Accesos rápidos a etiquetas */
+
+  tiene_etiqueta(etiqueta: String) {
+    return this.etiquetas.tiene_etiqueta(etiqueta);
+  }
+
+  obtener_cantidad_de_etiquetas() {
+    return this.
   }
 
 }

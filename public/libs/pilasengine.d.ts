@@ -31,6 +31,7 @@ declare class Actor {
     _escala_x: number;
     _escala_y: number;
     id: number;
+    etiquetas: Etiquetas;
     constructor(pilas: Pilas);
     /**
      * Retorna un identificador aleatorio para el Actor.
@@ -53,7 +54,9 @@ declare class Actor {
     x: number;
     y: number;
     rotacion: number;
+    obtener_nombre_de_la_clase(): any;
     imprimir(): string;
+    tiene_etiqueta(etiqueta: String): boolean;
 }
 declare class Nave extends Actor {
     iniciar(): void;
@@ -135,6 +138,14 @@ declare class Escena {
 declare class EscenaNormal extends Escena {
     pilas: Pilas;
     iniciar(): void;
+}
+declare class Etiquetas {
+    listado_de_etiquetas: String[];
+    constructor();
+    agregar(etiqueta: String): void;
+    tiene_etiqueta(etiqueta: String): boolean;
+    obtener_como_lista(): String[];
+    obtener_cantidad(): number;
 }
 declare class Eventos {
     pilas: Pilas;

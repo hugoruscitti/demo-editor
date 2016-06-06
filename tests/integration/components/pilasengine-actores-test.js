@@ -1,7 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import createPilasTest from "../../helpers/createPilasTest";
 
-moduleForComponent('demo', 'Integration | Component | demo', {
+moduleForComponent('demo', 'Integration | Component | x-canvas', {
   integration: true
 });
 
