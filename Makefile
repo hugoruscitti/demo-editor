@@ -2,6 +2,9 @@ VERSION=0.0.32
 NOMBRE="pilas-editor"
 NOMBREBIN="pilasEditor"
 
+# Le indica a la compilación de binarios si puede borrar todos los .map
+ELIMINAR_MAPS=1
+
 N=[0m
 G=[01;32m
 Y=[01;33m
@@ -49,7 +52,6 @@ comandos:
 	@echo "    ${G}version_minor${N}        Genera una nueva versión."
 	@echo "    ${G}subir_version${N}        Sube version generada al servidor."
 	@echo "    ${G}binarios${N}             Genera los binarios de la aplicación"
-	@echo "    ${G}binario_osx_test${N}     Genera un binario para osx de prueba."
 	@echo ""
 
 iniciar:
@@ -200,7 +202,11 @@ binarios:
 	@ember build
 	@rm -rf binarios
 	$(call log, "Generando binarios ...")
-	@node_modules/.bin/electron-packager dist ${NOMBREBIN} --platform=all --arch=all --version=0.37.6 --ignore=node_modules --out=binarios
+ifeq ($(ELIMINAR_MAPS), 1)
+	$(call log, "Eliminando archivos .map porque la variable ELIMINAR_MAPS vale 1")
+	@rm dist/assets/*.map
+endif
+	@node_modules/.bin/electron-packager dist ${NOMBREBIN} --platform=all --arch=all --version=0.37.6 --ignore=node_modules --ignore=bower_components --out=binarios
 	$(call log, "Comprimiendo ...")
 	@zip -qr binarios/${NOMBREBIN}-darwin-x64.zip binarios/${NOMBREBIN}-darwin-x64/
 	@zip -qr binarios/${NOMBREBIN}-linux-ia32.zip binarios/${NOMBREBIN}-linux-ia32/
@@ -208,14 +214,6 @@ binarios:
 	@zip -qr binarios/${NOMBREBIN}-win32-ia32.zip binarios/${NOMBREBIN}-win32-ia32/
 	@zip -qr binarios/${NOMBREBIN}-win32-x64.zip binarios/${NOMBREBIN}-win32-x64/
 
-binario_osx_test:
-	$(call log, "Compilando...")
-	ember build
-	$(call log, "Empaquetando...")
-	@node_modules/.bin/electron-packager dist ${NOMBREBIN} --platform=darwin --arch=x64 --version=0.37.6 --ignore=node_modules --out=binarios --overwrite
-	$(call log, "Ejecutando...")
-	@open binarios/pilasEditor-darwin-x64/pilasEditor.app
-	
 sprites:
 	$(call log, "Generando Spritesheets ...")
 	@spritesheet-js images/sprites/* -p public/images -f css --padding=2

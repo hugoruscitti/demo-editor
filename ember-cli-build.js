@@ -40,6 +40,10 @@ module.exports = function(defaults) {
   app.import('vendor/fonts/ratchicons.ttf', {destDir: 'fonts'});
   app.import('vendor/fonts/ratchicons.woff', {destDir: 'fonts'});
 
+  app.import("vendor/uikit.css");
+  app.import("vendor/uikit.gradient.css");
+  app.import("vendor/uikit.js");
+
   app.import('vendor/ace.js');
 
   app.import('vendor/ext-language_tools.js');

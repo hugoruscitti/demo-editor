@@ -10,11 +10,11 @@
   </label>
 
   <p>
-    <button {{action "changeTheme"}} class="btn btn-default">Tema: {{preferences.theme}}</button>
+    Tema: <button {{action "changeTheme"}} class="uk-button">{{preferences.theme}}</button>
   </p>
 
   <div class="dialog-buttons">
-    {{#link-to "index" id="close" tagName="button" class="btn btn-default"}}Cerrar{{/link-to}}
+    {{#link-to "index" id="close" tagName="button" class="uk-button"}}Cerrar{{/link-to}}
   </div>
 
 </div>

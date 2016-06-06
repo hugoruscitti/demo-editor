@@ -1,13 +1,15 @@
 {{#x-header}}
 
-    <div class="btn-group">
-      {{#link-to "index" tagName="button" class="btn btn-default"}} {{p-icon icon="home"}} {{/link-to}}
-      {{#link-to "project" tagName="button" class="btn btn-default"}} {{p-icon icon="bag"}} {{/link-to}}
+  <div class="pull-left">
+    <div class="uk-button-group">
+      {{#link-to "index" tagName="button" class="uk-button uk-button-mini"}} {{fa-icon "home"}} {{/link-to}}
+      {{#link-to "project" tagName="button" class="uk-button uk-button-mini"}} {{fa-icon "briefcase"}} {{/link-to}}
     </div>
+  </div>
 
-    <div class="btn-group pull-right">
-      {{#link-to "index.about" tagName="button" class="btn btn-default"}}Acerca de ...{{/link-to}}
-    </div>
+  <div class="pull-right">
+    {{#link-to "index.about" tagName="button" class="uk-button uk-button-mini"}}Acerca de ...{{/link-to}}
+  </div>
 
 {{/x-header}}
 
@@ -18,25 +20,25 @@
 
     <div class="padding text-center">
 
-    <div class="img pilas_logo_128"></div>
+      <div class="img pilas_logo_128"></div>
 
-    <p>¡Hola, te damos a bienvenida a pilas-editor!</p>
+      <p>¡Hola, te damos a bienvenida a pilas-editor!</p>
 
-    <div>
-      {{x-mainButton icon="add_folder" text="Proyectos" route="project"}}
-      {{x-mainButton icon="user_manual" text="Ver el manual" route="manual"}}
-    </div>
+      <div>
+        {{x-mainButton icon="add_folder" text="Proyectos" route="project"}}
+        {{x-mainButton icon="user_manual" text="Ver el manual" route="manual"}}
+      </div>
 
-    <div>
-      {{x-mainButton icon="settings" text="Configuración" route="index.setup"}}
-      {{x-mainButton icon="filled_box" text="Ejemplos" route="examples"}}
-    </div>
+      <div>
+        {{x-mainButton icon="settings" text="Configuración" route="index.setup"}}
+        {{x-mainButton icon="filled_box" text="Ejemplos" route="examples"}}
+      </div>
 
-    {{outlet}}
+      {{outlet}}
 
-    {{#if electron.electronVersion}}
-      <p>Version de electron: {{electron.electronVersion}}</p>
-    {{/if}}
+      <div class='text-center padding'>
+        Versión: {{app-version}}
+      </div>
 
     </div>
 
