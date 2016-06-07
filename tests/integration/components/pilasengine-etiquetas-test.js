@@ -20,7 +20,6 @@ test('el actor tiene etiquetas iniciales', function(assert) {
     assert.equal(actor.tiene_etiqueta('actor'), true, "El método de consulta también funciona directamente en el actor.");
     assert.equal(actor.obtener_cantidad_de_etiquetas(), 1, "Solo tiene una etiqueta.");
 
-
     /* Si agrega otra etiqueta ... */
     actor.agregar_etiqueta('protagonista');
     assert.equal(actor.etiquetas.obtener_cantidad(), 2, "Luego de agregar la etiqueta protagonista ya son dos las etiquetas.");

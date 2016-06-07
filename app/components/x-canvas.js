@@ -36,11 +36,11 @@ export default Ember.Component.extend({
             if (this.get('onReady')) {
               this.sendAction("onReady", pilas);
             } else {
-              console.warn("Se a iniciado el componente x-canvas sin referencia a la acción onLoad.");
+              //console.warn("Se a iniciado el componente x-canvas sin referencia a la acción onLoad.");
             }
           });
       } else {
-        console.warn("Se a iniciado el componente x-canvas sin referencia a pilas.");
+        //console.warn("Se a iniciado el componente x-canvas sin referencia a pilas.");
       }
 
       // onLoad solo se utiliza dentro de la batería de tests. Este

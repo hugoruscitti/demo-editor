@@ -98604,6 +98604,12 @@ var Actor = (function () {
     Actor.prototype.tiene_etiqueta = function (etiqueta) {
         return this.etiquetas.tiene_etiqueta(etiqueta);
     };
+    Actor.prototype.obtener_cantidad_de_etiquetas = function () {
+        return this.etiquetas.obtener_cantidad();
+    };
+    Actor.prototype.agregar_etiqueta = function (etiqueta) {
+        this.etiquetas.agregar(etiqueta);
+    };
     return Actor;
 })();
 var __extends = this.__extends || function (d, b) {

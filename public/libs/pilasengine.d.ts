@@ -57,6 +57,8 @@ declare class Actor {
     obtener_nombre_de_la_clase(): any;
     imprimir(): string;
     tiene_etiqueta(etiqueta: String): boolean;
+    obtener_cantidad_de_etiquetas(): number;
+    agregar_etiqueta(etiqueta: String): void;
 }
 declare class Nave extends Actor {
     iniciar(): void;

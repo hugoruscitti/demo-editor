@@ -13,9 +13,6 @@
         "libs/*.d.ts"
     ],
     "files": [
-        "libs/pixi.d.ts",
-        "libs/p2.d.ts",
-        "libs/phaser.d.ts",
         "src/actores.ts",
         "src/actores/actor.ts",
         "src/actores/nave.ts",
@@ -26,6 +23,7 @@
         "src/escenas.ts",
         "src/escenas/escena.ts",
         "src/escenas/normal.ts",
+        "src/etiquetas.ts",
         "src/eventos.ts",
         "src/fondos.ts",
         "src/fondos/azul.ts",
@@ -39,7 +37,10 @@
         "src/tipos.ts",
         "src/utils.ts",
         "src/version.ts",
-        "libs/greensock.d.ts"
+        "libs/greensock.d.ts",
+        "libs/p2.d.ts",
+        "libs/phaser.d.ts",
+        "libs/pixi.d.ts"
     ],
     "atom": {
         "rewriteTsconfig": true

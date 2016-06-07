@@ -179,7 +179,10 @@ class Actor {
   }
 
   obtener_cantidad_de_etiquetas() {
-    return this.
+    return this.etiquetas.obtener_cantidad();
   }
 
+  agregar_etiqueta(etiqueta: String) {
+    this.etiquetas.agregar(etiqueta);
+  }
 }
