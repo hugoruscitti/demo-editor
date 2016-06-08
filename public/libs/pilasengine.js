@@ -98847,6 +98847,9 @@ var Etiquetas = (function () {
             this.listado_de_etiquetas.splice(index, 1);
         }
     };
+    Etiquetas.prototype.imprimir = function () {
+        return this.listado_de_etiquetas.toString();
+    };
     return Etiquetas;
 })();
 var Eventos = (function () {

@@ -44,4 +44,5 @@ class Etiquetas {
       this.listado_de_etiquetas.splice(index, 1);
     }
   }
+  
 }

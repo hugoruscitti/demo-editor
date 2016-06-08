@@ -10,7 +10,7 @@ pages:
 #- "Actores personalizados": "actores_personalizados.md"
 #- "Grupos": "grupos.md"
 #- "Colisiones": "colisiones.md"
-#- "Etiquetas": "etiquetas.md"
+- "Etiquetas": "etiquetas.md"
 #- "Fisica": "fisica.md"
 #- "Controles": "controles.md"
 #- "Joystick": "joystick.md"
