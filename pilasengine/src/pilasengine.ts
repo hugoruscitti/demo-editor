@@ -44,7 +44,7 @@ class Pilas {
 
     this.utils = new Utils(this);
 
-    if (!__ha_mostrado_version) {
+    if (!__ha_mostrado_version && !opciones.omitir_impresion_de_version) {
       console.log(`%cpilasengine.js v${VERSION} | http://www.pilas-engine.com.ar`, "color: blue");
       __ha_mostrado_version = true;
     }
@@ -197,14 +197,14 @@ class Pilas {
     this.mostrar_cuadros_por_segundo(true);
     this.game.input.enabled = false;
 
+    function gameResized(manager: Phaser.ScaleManager, bounds: Phaser.Rectangle) {
+      let scale = Math.min(window.innerWidth / this.game.width, window.innerHeight / this.game.height);
+      manager.setUserScale(scale, scale, 0, 0);
+    }
+
     if (this.opciones.escalar) {
       this.game.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
       this.game.scale.refresh();
-
-      function gameResized(manager: Phaser.ScaleManager, bounds: Phaser.Rectangle) {
-          let scale = Math.min(window.innerWidth / this.game.width, window.innerHeight / this.game.height);
-          manager.setUserScale(scale, scale, 0, 0);
-      }
 
       this.game.scale.setResizeCallback(gameResized, this);
     }
@@ -324,7 +324,7 @@ let pilasengine = {
    * @return {Game} el objeto instanciado que representa el contexto del juego.
    * @api public
    */
-  iniciar: function(element_id: string, opciones: OpcionesIniciar = {data_path: "data", ancho: null, alto: null, escalar: true, en_test: false}) {
+  iniciar: function(element_id: string, opciones: OpcionesIniciar = {data_path: "data", ancho: null, alto: null, escalar: true, omitir_impresion_de_version: false, en_test: false}) {
     opciones.data_path = opciones["data_path"] || "data";
     opciones.en_test = opciones["en_test"] || false;
 

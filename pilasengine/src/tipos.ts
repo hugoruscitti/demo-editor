@@ -4,6 +4,7 @@ interface OpcionesIniciar {
   ancho: number;
   alto: number;
   escalar: boolean;
+  omitir_impresion_de_version: boolean;
 }
 
 interface CallBackEvento {

@@ -98610,6 +98610,9 @@ var Actor = (function () {
     Actor.prototype.agregar_etiqueta = function (etiqueta) {
         this.etiquetas.agregar(etiqueta);
     };
+    Actor.prototype.eliminar_etiqueta = function (etiqueta) {
+        this.etiquetas.eliminar(etiqueta);
+    };
     return Actor;
 })();
 var __extends = this.__extends || function (d, b) {
@@ -98809,17 +98812,40 @@ var Etiquetas = (function () {
     function Etiquetas() {
         this.listado_de_etiquetas = [];
     }
+    /**
+     * Agrega una etiqueta a un actor o similar.
+     */
     Etiquetas.prototype.agregar = function (etiqueta) {
-        this.listado_de_etiquetas.push(etiqueta.toLowerCase());
+        if (!this.tiene_etiqueta(etiqueta)) {
+            this.listado_de_etiquetas.push(etiqueta.toLowerCase());
+        }
     };
+    /**
+     * Consulta si la etiqueta existe en el actor o similar.
+     */
     Etiquetas.prototype.tiene_etiqueta = function (etiqueta) {
         return (this.listado_de_etiquetas.indexOf(etiqueta.toLowerCase()) > -1);
     };
+    /**
+     * Retorna todas las etiquetas como una lista de cadenas de texto.
+     */
     Etiquetas.prototype.obtener_como_lista = function () {
         return this.listado_de_etiquetas;
     };
+    /**
+     * Retorna la cantidad de etiquetas.
+     */
     Etiquetas.prototype.obtener_cantidad = function () {
         return this.listado_de_etiquetas.length;
+    };
+    /**
+     * Elimina una etiqueta de la lista.
+     */
+    Etiquetas.prototype.eliminar = function (etiqueta) {
+        if (this.tiene_etiqueta(etiqueta)) {
+            var index = this.listado_de_etiquetas.indexOf(etiqueta.toLowerCase());
+            this.listado_de_etiquetas.splice(index, 1);
+        }
     };
     return Etiquetas;
 })();
@@ -99027,7 +99053,7 @@ var Pilas = (function () {
         this.id_elemento_html = id_elemento_html;
         this.ocultar_canvas();
         this.utils = new Utils(this);
-        if (!__ha_mostrado_version) {
+        if (!__ha_mostrado_version && !opciones.omitir_impresion_de_version) {
             console.log("%cpilasengine.js v" + VERSION + " | http://www.pilas-engine.com.ar", "color: blue");
             __ha_mostrado_version = true;
         }
@@ -99166,13 +99192,13 @@ var Pilas = (function () {
         this.imagenes.precargar_imagenes_estandar();
         this.mostrar_cuadros_por_segundo(true);
         this.game.input.enabled = false;
+        function gameResized(manager, bounds) {
+            var scale = Math.min(window.innerWidth / this.game.width, window.innerHeight / this.game.height);
+            manager.setUserScale(scale, scale, 0, 0);
+        }
         if (this.opciones.escalar) {
             this.game.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
             this.game.scale.refresh();
-            function gameResized(manager, bounds) {
-                var scale = Math.min(window.innerWidth / this.game.width, window.innerHeight / this.game.height);
-                manager.setUserScale(scale, scale, 0, 0);
-            }
             this.game.scale.setResizeCallback(gameResized, this);
         }
     };
@@ -99272,7 +99298,7 @@ var pilasengine = {
      * @api public
      */
     iniciar: function (element_id, opciones) {
-        if (opciones === void 0) { opciones = { data_path: "data", ancho: null, alto: null, escalar: true, en_test: false }; }
+        if (opciones === void 0) { opciones = { data_path: "data", ancho: null, alto: null, escalar: true, omitir_impresion_de_version: false, en_test: false }; }
         opciones.data_path = opciones["data_path"] || "data";
         opciones.en_test = opciones["en_test"] || false;
         if (opciones["escalar"] === undefined) {

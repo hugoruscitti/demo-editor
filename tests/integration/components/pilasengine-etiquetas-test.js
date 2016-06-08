@@ -24,6 +24,19 @@ test('el actor tiene etiquetas iniciales', function(assert) {
     actor.agregar_etiqueta('protagonista');
     assert.equal(actor.etiquetas.obtener_cantidad(), 2, "Luego de agregar la etiqueta protagonista ya son dos las etiquetas.");
 
+    /* Agregando varias veces la misma etiqueta no influye. */
+    actor.agregar_etiqueta('protagonista');
+    actor.agregar_etiqueta('ProtaGonista');
+    actor.agregar_etiqueta('protagonista');
+
+    assert.equal(actor.etiquetas.obtener_cantidad(), 2, "Agregar varias veces la misma etiqueta no influye.");
+
+    /* Las etiquetas se pueden eliminar */
+
+    actor.eliminar_etiqueta("ProtagOnista");
+    actor.eliminar_etiqueta("pepepe"); // Esta etiqueta no existe, así que no influye.
+    assert.equal(actor.etiquetas.obtener_cantidad(), 1, "Las etiquetas se pueden eliminar");
+
     resolve({});
   });
 

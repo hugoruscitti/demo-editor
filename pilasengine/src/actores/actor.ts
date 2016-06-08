@@ -185,4 +185,8 @@ class Actor {
   agregar_etiqueta(etiqueta: String) {
     this.etiquetas.agregar(etiqueta);
   }
+
+  eliminar_etiqueta(etiqueta: String) {
+    this.etiquetas.eliminar(etiqueta);
+  }
 }

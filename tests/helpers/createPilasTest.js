@@ -8,7 +8,7 @@ export default function createPilasTest(context, callback) {
 
     context.on('onLoad', function(val) {
       let iframe = val.iframeElement;
-      let pilas = iframe.contentWindow.eval("pilasengine.iniciar('canvas', {ancho: 640, alto: 384})");
+      let pilas = iframe.contentWindow.eval("pilasengine.iniciar('canvas', {ancho: 640, alto: 384, omitir_impresion_de_version: true})");
 
       pilas.cuando("inicia", () => {
         callback(pilas, resolve);

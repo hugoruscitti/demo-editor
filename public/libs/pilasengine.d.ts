@@ -59,6 +59,7 @@ declare class Actor {
     tiene_etiqueta(etiqueta: String): boolean;
     obtener_cantidad_de_etiquetas(): number;
     agregar_etiqueta(etiqueta: String): void;
+    eliminar_etiqueta(etiqueta: String): void;
 }
 declare class Nave extends Actor {
     iniciar(): void;
@@ -144,10 +145,26 @@ declare class EscenaNormal extends Escena {
 declare class Etiquetas {
     listado_de_etiquetas: String[];
     constructor();
+    /**
+     * Agrega una etiqueta a un actor o similar.
+     */
     agregar(etiqueta: String): void;
+    /**
+     * Consulta si la etiqueta existe en el actor o similar.
+     */
     tiene_etiqueta(etiqueta: String): boolean;
+    /**
+     * Retorna todas las etiquetas como una lista de cadenas de texto.
+     */
     obtener_como_lista(): String[];
+    /**
+     * Retorna la cantidad de etiquetas.
+     */
     obtener_cantidad(): number;
+    /**
+     * Elimina una etiqueta de la lista.
+     */
+    eliminar(etiqueta: String): void;
 }
 declare class Eventos {
     pilas: Pilas;
@@ -201,6 +218,7 @@ interface OpcionesIniciar {
     ancho: number;
     alto: number;
     escalar: boolean;
+    omitir_impresion_de_version: boolean;
 }
 interface CallBackEvento {
     (): void;
