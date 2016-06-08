@@ -178,7 +178,7 @@ docs:
 
 cordova: _cordova_build _cordova_open
 	@echo "${G}Listo, ahora se abrirá xcode"
-	
+
 cordova_icons:
 	$(call log, "Generando iconos")
 	@mobile-icon-resizer -i ember-cordova/cordova/res/pilas_logo_1024-fondo-color.png  --iosprefix="icon" --iosof=ember-cordova/cordova/res/ios/ --androidof=ember-cordova/cordova/res/android/
@@ -190,7 +190,7 @@ _cordova_build:
 _cordova_open:
 	$(call log, "Abriendo con cordova:open")
 	@ember cordova:open
-	
+
 
 test:
 	$(call log, "Ejecutando test...")
@@ -206,7 +206,7 @@ ifeq ($(ELIMINAR_MAPS), 1)
 	$(call log, "Eliminando archivos .map porque la variable ELIMINAR_MAPS vale 1")
 	@rm dist/assets/*.map
 endif
-	@node_modules/.bin/electron-packager dist ${NOMBREBIN} --platform=all --arch=all --version=0.37.6 --ignore=node_modules --ignore=bower_components --out=binarios
+	@node_modules/.bin/electron-packager dist ${NOMBREBIN} --app-version=${VERSION} --platform=all --arch=all --version=0.37.6 --ignore=node_modules --ignore=bower_components --out=binarios
 	$(call log, "Comprimiendo ...")
 	@zip -qr binarios/${NOMBREBIN}-darwin-x64.zip binarios/${NOMBREBIN}-darwin-x64/
 	@zip -qr binarios/${NOMBREBIN}-linux-ia32.zip binarios/${NOMBREBIN}-linux-ia32/
@@ -219,5 +219,3 @@ sprites:
 	@spritesheet-js images/sprites/* -p public/images -f css --padding=2
 
 .PHONY: tmp docs binarios
-
-
