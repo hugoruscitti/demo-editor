@@ -165,7 +165,6 @@ declare class Etiquetas {
      * Elimina una etiqueta de la lista.
      */
     eliminar(etiqueta: String): void;
-    imprimir(): string;
 }
 declare class Eventos {
     pilas: Pilas;

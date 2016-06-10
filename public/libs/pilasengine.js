@@ -98847,9 +98847,6 @@ var Etiquetas = (function () {
             this.listado_de_etiquetas.splice(index, 1);
         }
     };
-    Etiquetas.prototype.imprimir = function () {
-        return this.listado_de_etiquetas.toString();
-    };
     return Etiquetas;
 })();
 var Eventos = (function () {
@@ -98934,7 +98931,8 @@ var Imagenes = (function () {
         this.pilas = pilas;
     }
     Imagenes.prototype.precargar_imagenes_estandar = function () {
-        //this.cargar("yamcha", "yamcha.png");
+        this.cargar("aceituna", "aceituna.png");
+        this.cargar("estrella", "estrella.png");
         this.cargar_atlas("data", "spritesheet.png", "spritesheet.json");
     };
     Imagenes.prototype.cargar = function (identificador, archivo) {

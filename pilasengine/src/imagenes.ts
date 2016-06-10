@@ -6,7 +6,8 @@ class Imagenes {
   }
 
   precargar_imagenes_estandar() {
-    //this.cargar("yamcha", "yamcha.png");
+    this.cargar("aceituna", "aceituna.png");
+    this.cargar("estrella", "estrella.png");
     this.cargar_atlas("data", "spritesheet.png", "spritesheet.json");
   }
 

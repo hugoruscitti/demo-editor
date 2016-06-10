@@ -66,8 +66,7 @@ crear_ejemplo("disparo", "Nave dispara",
   `
     pilas.escenas.normal();
     let actor = pilas.actores.actor();
-    actor.aprender("SeguirClicks");
-    actor.rotacion = [360];
+    console.log(pilas.imagenes.listar());
   `);
 
 crear_ejemplo("nave", "Actor Nave",
