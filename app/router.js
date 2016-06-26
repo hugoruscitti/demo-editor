@@ -20,7 +20,6 @@ Router.map(function() {
   });
 
   this.route('test');
-  this.route('game');
 
   this.route('examples', function() {
     this.route('runModal', {path: ":example_id"}); // route like: /examples/5
