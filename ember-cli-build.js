@@ -1,6 +1,8 @@
 /*jshint node:true*/
 /* global require, module */
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
+var Funnel = require('broccoli-funnel');
+var MergeTrees = require('broccoli-merge-trees');
 
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
@@ -63,7 +65,7 @@ module.exports = function(defaults) {
 
 
   /* Necesarios para ember-cli-jsconsole */
-/*
+  /*
   app.import("./bower_components/codemirror/lib/codemirror.css");
   app.import("./bower_components/codemirror/theme/eclipse.css");
   app.import("./bower_components/codemirror/lib/codemirror.js");
@@ -77,8 +79,23 @@ module.exports = function(defaults) {
   app.import("./bower_components/jsconsole/dist/console.js");
   app.import("./bower_components/jsconsole/styles/gutter-icons.png", {destDir: 'assets/'});
   app.import("./bower_components/jsconsole/styles/meslo/MesloLGSDZ-Regular.woff", {destDir: 'assets/meslo'});
-*/
+  */
+
   /* FIN: Necesarios para ember-cli-jsconsole */
 
-  return app.toTree();
+  var phaserAssets = new Funnel('bower_components/phaser/', {
+    srcDir: '/build',
+    include: ['phaser.js'],
+    destDir: '/libs/'
+  });
+
+  var gsapAssets = new Funnel('bower_components/gsap/', {
+    srcDir: '/src/uncompressed',
+    include: ['TweenMax.js'],
+    destDir: '/libs/'
+  });
+
+  process.setMaxListeners(1000);
+
+  return app.toTree(MergeTrees([phaserAssets, gsapAssets]));
 };

@@ -9,7 +9,6 @@ N=[0m
 G=[01;32m
 Y=[01;33m
 B=[01;34m
-PHASER_VERSION="v2.4.7"
 
 define log
 	@echo "${G}▷$(1) ${N}"
@@ -61,8 +60,6 @@ iniciar:
 	@bower install
 	$(call log, "Instalando dependencias de pilas-engine")
 	@cd pilasengine; npm install
-	@make _instalar_phaser
-	@make _instalar_greensock
 
 
 compilar:
@@ -76,26 +73,6 @@ s: serve
 serve:
 	$(call log, "Iniciando ember s")
 	@ember s
-
-_instalar_phaser:
-	$(call log, "Descargando phaser.js ...")
-	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/${PHASER_VERSION}/build/phaser.js
-	@mv phaser.js pilasengine/libs/
-	$(call log, "Descargando definiciones typescript para phaser ...")
-	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/${PHASER_VERSION}/typescript/phaser.d.ts
-	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/${PHASER_VERSION}/typescript/pixi.d.ts
-	@wget -q https://raw.githubusercontent.com/photonstorm/phaser/${PHASER_VERSION}/typescript/p2.d.ts
-	@mv phaser.d.ts pilasengine/libs/
-	@mv pixi.d.ts pilasengine/libs/
-	@mv p2.d.ts pilasengine/libs/
-
-_instalar_greensock:
-	$(call log, "Descargando GreenSock .js ...")
-	@wget -q https://raw.githubusercontent.com/greensock/GreenSock-JS/master/src/uncompressed/TweenMax.js
-	@mv TweenMax.js pilasengine/libs/
-	$(call log, "Descargando definiciones typescript para GreenSock ...")
-	@wget -q https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/master/greensock/greensock.d.ts
-	@mv greensock.d.ts pilasengine/libs/
 
 version_patch:
 	@bumpversion patch --current-version ${VERSION} Makefile pilasengine/src/version.ts ember-cordova/cordova/config.xml --list

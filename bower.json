@@ -16,9 +16,10 @@
     "codemirror": "5.1.0",
     "jsconsole": "*",
     "photon": "~0.1.2-alpha",
-    "tooled": "~0.1.4",
     "fastclick": "^1.0.6",
-    "sweetalert": "~1.1.0"
+    "sweetalert": "~1.1.0",
+    "phaser": "2.4.7",
+    "gsap": "1.19.0"
   },
   "devDependencies": {
     "blanket": "5e94fc30f2e694bb5c3718ddcbf60d467f4b4d26"
