@@ -76,7 +76,6 @@ serve:
 
 version_patch:
 	ember release
-	make _help_version
 
 version_minor:
 	@ember release --minor
