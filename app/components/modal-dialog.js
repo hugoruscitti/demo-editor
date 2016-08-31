@@ -2,17 +2,17 @@ import Ember from 'ember';
 import ModalDialog from 'ember-modal-dialog/components/modal-dialog';
 
 export default ModalDialog.extend({
-  setup: function() {
+
+  didInsertElement() {
+    this._super();
+    this.focusOnOpen();
+
     Ember.$('body').on('keyup', (e) => {
       if (e.keyCode === 27) {
         this.sendAction('close');
       }
     });
-  }.on('didInsertElement'),
 
-  didInsertElement() {
-    this._super();
-    this.focusOnOpen();
   },
 
   focusOnOpen() {
@@ -23,7 +23,7 @@ export default ModalDialog.extend({
     }
   },
 
-  teardown: function() {
+  willDestroyElement: function() {
     Ember.$('body').off('keyup');
-  }.on('willDestroyElement')
+  }
 });
