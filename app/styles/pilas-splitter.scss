@@ -1,0 +1,20 @@
+.spliter {
+  width: 10px;
+  cursor: col-resize;
+}
+
+.spliter:hover {
+  background-color: #ccc;
+}
+
+.over {
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: black;
+  z-index: 20000;
+  opacity: 0.25;
+}

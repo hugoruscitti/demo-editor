@@ -20,6 +20,7 @@
   </div>
 {{/x-header}}
 
+<div class="over"></div>
 
 <div class="window-content">
   <div class="pane">
@@ -37,7 +38,10 @@
 
         {{/if}}
 
+        {{pilas-spliter left=".edit-panel-left" right=".edit-panel-center"}}
+
         {{#if centerPanelVisible}}
+
           <div class="edit-panel-center">
 
             <div class="toolbar-actions">
@@ -69,6 +73,8 @@
 
           </div>
         {{/if}}
+
+        {{pilas-spliter left=".edit-panel-center" right=".edit-panel-editor"}}
 
         {{#if editorPanelVisible}}
 
