@@ -99,6 +99,7 @@
     }
   },
   "dependencies": {
-    "quick-temp": "^0.1.5"
+    "quick-temp": "^0.1.5",
+    "spritesheet-js": "^1.1.9"
   }
 }

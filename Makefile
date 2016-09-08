@@ -121,7 +121,7 @@ deploy_DEPRECATED:
 
 actualizar_imagenes:
 	$(call log, "Actualizando imagenes ...")
-	@spritesheet-js pilasengine/data/src/* -p public/data/ -f pixi.js --padding=10
+	@./node_modules/.bin/spritesheet-js pilasengine/data/src/* -p public/data/ -f pixi.js --padding=10
 	@echo ""
 	@echo "${G}Listo, las archivos que se generaron son:"
 	@echo ""
