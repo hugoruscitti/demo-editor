@@ -21,15 +21,14 @@ export default Ember.Component.extend({
       //let initialX = event.pageX;
 
       $('.over').on("mousemove", function(event) {
-        let dx = -event.pageX;
-        let totalWidth = left.width() + 10 + right.width();
-        let p = (dx / totalWidth / 2);
-        console.log({totalWidth, dx});
+        let totalWidth = left.width() + right.width();
+        let dx = (event.pageX - 20) - ((totalWidth) / 2);
+        let p = dx / totalWidth;
 
-        console.log(p, 1 - p);
+        console.log({p, dx, totalWidth});
 
-        left.css("flex", `${1-p} 1 0%`);
-        right.css("flex", `${p} 1 0%`);
+        left.css("flex", `${p + 0.5} 1 0%`);
+        right.css("flex", `${0.5 - p} 1 0%`);
       });
 
       $('.over').on("mouseup", function(/*event*/) {
