@@ -180,6 +180,8 @@ endif
 
 deploy-gh-pages:
 	@ember github-pages:commit --message "Deploy a gitpages ${DATE}"
+	@git push origin gh-pages:gh-pages
+	@echo "Se publicó el sitio en: http://editor.pilas-engine.com.ar "
 
 sprites:
 	$(call log, "Generando Spritesheets ...")
