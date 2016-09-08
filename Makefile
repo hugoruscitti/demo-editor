@@ -1,6 +1,7 @@
 VERSION=0.0.32
 NOMBRE="pilas-editor"
 NOMBREBIN="pilasEditor"
+DATE=`date +'%y.%m.%d %H:%M:%S'`
 
 # Le indica a la compilación de binarios si puede borrar todos los .map
 ELIMINAR_MAPS=1
@@ -38,7 +39,7 @@ comandos:
 	@echo "    ${G}pilas_live${N}           Genera pilasengine.js, ejemplos y tests."
 	@echo "    ${G}api${N}                  Genera la documentación de API para pilas."
 	@echo "    ${G}docs${N}                 Genera el manual de pilas."
-	@echo "    ${G}actualizar_imagenes${N}  Genera los spritesheets"
+	@echo "    ${G}actualizar_imagenes${N}  Genera los spritesheets."
 	@echo ""
 	@echo "  ${Y}Para distribuir${N}"
 	@echo ""
@@ -50,7 +51,9 @@ comandos:
 	@echo "    ${G}version_patch${N}        Genera una versión PATCH."
 	@echo "    ${G}version_minor${N}        Genera una versión MINOR."
 	@echo "    ${G}version_major${N}        Genera una versión MAJOR."
-	@echo "    ${G}binarios${N}             Genera los binarios de la aplicación"
+	@echo "    ${G}binarios${N}             Genera los binarios de la aplicación."
+	@echo "    ${G}deploy-gh-pages${N}      Actualiza la versión en gh-pages."
+	@echo ""
 	@echo ""
 
 iniciar:
@@ -153,7 +156,6 @@ _cordova_open:
 	$(call log, "Abriendo con cordova:open")
 	@ember cordova:open
 
-
 test:
 	$(call log, "Ejecutando test...")
 	@ember test
@@ -176,8 +178,12 @@ endif
 	@zip -qr binarios/${NOMBREBIN}-win32-ia32.zip binarios/${NOMBREBIN}-win32-ia32/
 	@zip -qr binarios/${NOMBREBIN}-win32-x64.zip binarios/${NOMBREBIN}-win32-x64/
 
+deploy-gh-pages:
+	@ember github-pages:commit --message "Deploy a gitpages ${DATE}"
+
 sprites:
 	$(call log, "Generando Spritesheets ...")
-	@spritesheet-js images/sprites/* -p public/images -f css --padding=2
+	@./node_modules/.bin/spritesheet-js images/sprites/* -p public/images -f css --padding=2
+	
 
 .PHONY: tmp docs binarios
