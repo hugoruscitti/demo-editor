@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>pilas-editor</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=2, user-scalable=no">
+
+    
+<meta name="pilas-editor/config/environment" content="%7B%22modulePrefix%22%3A%22pilas-editor%22%2C%22environment%22%3A%22development%22%2C%22baseURL%22%3A%22/%22%2C%22locationType%22%3A%22hash%22%2C%22EmberENV%22%3A%7B%22FEATURES%22%3A%7B%7D%2C%22EXTEND_PROTOTYPES%22%3A%7B%22Date%22%3Afalse%7D%7D%2C%22APP%22%3A%7B%22name%22%3A%22pilas-editor%22%2C%22version%22%3A%220.0.46+d6c16fe6%22%7D%2C%22keen%22%3A%7B%22logRequests%22%3Afalse%7D%2C%22KEEN_PROJECT_ID%22%3A%2257225fe1bcb79c255133ab76%22%2C%22KEEN_WRITE_KEY%22%3A%228548e64c285350eb4e35395529b70264fa8121f57618146948964a08aa1776295542abcffaebd98ff86009f706682371eb19bfd3ee1c265e8dca1628e73e2a83ec0870539201639e6db28f8acc7ebf379b365eaf674e8ebf7bc648ab3e078c8f%22%2C%22something%22%3A%22test%22%2C%22ember-cli-mirage%22%3A%7B%22usingProxy%22%3Afalse%2C%22useDefaultPassthroughs%22%3Atrue%7D%2C%22exportApplicationGlobal%22%3Atrue%7D" />
+<script>
+/* jshint browser: true */
+(function (window) {
+    if (window && window.process && window.process.type) {
+        window.ELECTRON = true;
+    }
+
+    window.requireNode = window.require;
+    window.moduleNode = window.module;
+    window.processNode = window.process;
+
+    delete window.process;
+    delete window.require;
+    delete window.module;
+})(this);
+
+</script>
+
+    <link rel="stylesheet" href="assets/vendor.css">
+    <link rel="stylesheet" href="assets/pilas-editor.css">
+
+    
+  </head>
+  <body>
+    
+
+    <script src="assets/vendor.js"></script>
+    <script src="assets/pilas-editor.js"></script>
+
+    <script>
+/* jshint browser: true */
+(function (window) {
+    if (!window.ELECTRON) {
+        return;
+    }
+
+    // Restore Electron variables.
+    window.process = window.processNode;
+
+    // Redefine a global `require` function that can satisfy both
+    // Node and AMD module systems.
+    var requireAMD = window.require;
+    var requireNode = window.requireNode;
+
+    if (requireAMD) {
+        window.require = function () {
+            try {
+                return requireAMD.apply(null, arguments);
+            } catch (e) {
+                return requireNode.apply(null, arguments);
+            }
+        };
+    } else {
+        window.require = requireNode;
+    }
+})(this);
+
+</script>
+  </body>
+
+</html>

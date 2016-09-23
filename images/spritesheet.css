@@ -1,0 +1,78 @@
+.phaser {
+    width: 70px;
+    height: 70px;
+    background: url("spritesheet.png") -134px -2px;
+}
+
+.pilas_logo_128 {
+    width: 128px;
+    height: 128px;
+    background: url("spritesheet.png") -2px -2px;
+}
+
+.ember {
+    width: 63px;
+    height: 60px;
+    background: url("spritesheet.png") -2px -134px;
+}
+
+.greenSock {
+    width: 60px;
+    height: 60px;
+    background: url("spritesheet.png") -69px -134px;
+}
+
+.electron {
+    width: 60px;
+    height: 60px;
+    background: url("spritesheet.png") -133px -134px;
+}
+
+.pilas_logo_60 {
+    width: 60px;
+    height: 60px;
+    background: url("spritesheet.png") -208px -2px;
+}
+
+.user_manual {
+    width: 25px;
+    height: 25px;
+    background: url("spritesheet.png") -2px -198px;
+}
+
+.github {
+    width: 60px;
+    height: 50px;
+    background: url("spritesheet.png") -208px -130px;
+}
+
+.info_squared {
+    width: 25px;
+    height: 25px;
+    background: url("spritesheet.png") -134px -76px;
+}
+
+.filled_box {
+    width: 25px;
+    height: 25px;
+    background: url("spritesheet.png") -163px -76px;
+}
+
+.settings {
+    width: 25px;
+    height: 25px;
+    background: url("spritesheet.png") -134px -105px;
+}
+
+.add_folder {
+    width: 25px;
+    height: 25px;
+    background: url("spritesheet.png") -163px -105px;
+}
+
+.typescript {
+    width: 60px;
+    height: 60px;
+    background: url("spritesheet.png") -208px -66px;
+}
+
